@@ -1,4 +1,4 @@
-# Project Euler __ Kotlin
+# Project Euler __ Python
 ___
 A Python solution set for problems corresponding to the
 [Project Euler](https://projecteuler.net/archives) challenges.
