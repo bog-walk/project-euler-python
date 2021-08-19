@@ -29,7 +29,6 @@ class MultiplesOf3Or5(unittest.TestCase):
         self.assertEqual(3749995000000, sum_of_multiples(10_000_000, 20, 32))
         self.assertEqual(3749995000000, sum_of_multiples_brute(10_000_000, 20, 32))
         self.assertEqual(233333333166666668, sum_of_multiples(1_000_000_000, 3, 5))
-        self.assertEqual(233333333166666668, sum_of_multiples_brute(1_000_000_000, 3, 5))
 
 
 if __name__ == '__main__':
