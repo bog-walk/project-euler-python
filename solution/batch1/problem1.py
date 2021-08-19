@@ -7,7 +7,9 @@ the provided factors K1 or K2.
 
 Constraints: 1 <= N <= 1e9, 1 <= K <= N.
 
-e.g.: Sum of all multiples of 3 or 5 below 10 (i.e. 3, 5, 6, 9) = 23.
+e.g.: N = 10, K1 = 3, K2 = 5;
+      multiples of K1 || K2 < N = {3, 5, 6, 9};
+      sum = 23.
 """
 from math import gcd
 

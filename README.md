@@ -11,7 +11,11 @@ Problem content on the Project Euler site is licensed under [CC BY-NC-SA 4.0](ht
 ### Structure Guideline
 
 ---
+Problem solutions are separated into packages (*batch#*) with 10 solution modules per package. Each problem has a
+corresponding test class that can be found in the matching test package.
 
+If a function gets reused in a later solution, it is elevated out of its original module and
+placed in the **util package**. Any custom/helper classes can also be found there.
 
 ### Sibling Repositories
 

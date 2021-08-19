@@ -1,5 +1,5 @@
 import unittest
-from solutions.batch1.problem1 import sum_of_multiples_brute, sum_of_multiples
+from solution.batch1.problem1 import sum_of_multiples_brute, sum_of_multiples
 
 
 class MultiplesOf3Or5(unittest.TestCase):
