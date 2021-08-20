@@ -5,11 +5,11 @@ https://projecteuler.net/problem=1
 Goal: Find the sum of all natural numbers less than N that are multiples of either of
 the provided factors K1 or K2.
 
-Constraints: 1 <= N <= 1e9, 1 <= K <= N.
+Constraints: 1 <= N <= 1e9, 1 <= K <= N
 
-e.g.: N = 10, K1 = 3, K2 = 5;
-      multiples of K1 || K2 < N = {3, 5, 6, 9};
-      sum = 23.
+e.g.: N = 10, K1 = 3, K2 = 5
+      multiples of K1 || K2 < N = {3, 5, 6, 9}
+      sum = 23
 """
 from math import gcd
 
@@ -39,7 +39,7 @@ def sum_of_multiples(n, k1, k2):
     n -= 1  # N not inclusive
     if k1 == k2:
         return sum_arith_progress(n, k1)
-    lcm = int((k1 * k2) / gcd(k1, k2))
+    lcm = (k1 * k2) // gcd(k1, k2)
     return (sum_arith_progress(n, k1) +
             sum_arith_progress(n, k2) -
             sum_arith_progress(n, lcm))
