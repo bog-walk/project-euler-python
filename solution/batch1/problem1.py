@@ -1,4 +1,3 @@
-from util.reusable import least_common_multiple
 """ Problem 1: Multiples of 3 or 5
 
 https://projecteuler.net/problem=1
@@ -12,6 +11,7 @@ e.g.: N = 10, K1 = 3, K2 = 5
       multiples of K1 || K2 < N = {3, 5, 6, 9}
       sum = 23
 """
+from util.reusable import least_common_multiple
 
 
 # Memory error for upper limit test case
