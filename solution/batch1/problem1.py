@@ -1,3 +1,4 @@
+from util.reusable import least_common_multiple
 """ Problem 1: Multiples of 3 or 5
 
 https://projecteuler.net/problem=1
@@ -11,7 +12,6 @@ e.g.: N = 10, K1 = 3, K2 = 5
       multiples of K1 || K2 < N = {3, 5, 6, 9}
       sum = 23
 """
-from math import gcd
 
 
 # Memory error for upper limit test case
@@ -39,7 +39,7 @@ def sum_of_multiples(n, k1, k2):
     n -= 1  # N not inclusive
     if k1 == k2:
         return sum_arith_progress(n, k1)
-    lcm = (k1 * k2) // gcd(k1, k2)
+    lcm = least_common_multiple(k1, k2)
     return (sum_arith_progress(n, k1) +
             sum_arith_progress(n, k2) -
             sum_arith_progress(n, lcm))
