@@ -21,7 +21,7 @@ def lcm_of_range(range_max):
     lcm parameters being the previously calculated lcm.
     """
     lcm = range_max
-    for i in range(range_max, 0, -1):
+    for i in range(range_max - 1, range_max // 2, -1):
         lcm = least_common_multiple(lcm, i)
     return lcm
 
