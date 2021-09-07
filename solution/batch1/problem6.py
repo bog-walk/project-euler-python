@@ -27,5 +27,5 @@ def sum_square_diff(n):
     f(n) = n/6(2n + 1)(n + 1)
     """
     sum_of_squares = n * (2 * n + 1) * (n + 1) // 6
-    square_of_sum = pow(gaussian_sum(n), 2)
+    square_of_sum = gaussian_sum(n) ** 2
     return square_of_sum - sum_of_squares

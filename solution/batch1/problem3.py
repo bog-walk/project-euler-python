@@ -13,7 +13,7 @@ e.g.: N = 10
       prime factors = {2, 5}
       largest = 5
 """
-import math
+from math import sqrt
 
 
 def largest_prime_factor(n):
@@ -27,7 +27,7 @@ def largest_prime_factor(n):
     """
     largest = 2
     factors = [2]
-    factors.extend(range(3, int(math.sqrt(n)) + 1, 2))
+    factors.extend(range(3, int(sqrt(n)) + 1, 2))
     for factor in factors:
         while n % factor == 0:
             largest = factor
@@ -39,7 +39,7 @@ def largest_prime_factor(n):
 
 def largest_prime_factor_recursive(n, f=2):
     factors = [2]
-    factors.extend(range(3, int(math.sqrt(n)) + 1, 2))
+    factors.extend(range(3, int(sqrt(n)) + 1, 2))
     for factor in factors:
         if n % factor == 0:
             f = factor

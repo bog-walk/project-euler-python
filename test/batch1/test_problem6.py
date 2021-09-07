@@ -15,13 +15,13 @@ class SumSquareDifference(unittest.TestCase):
         for index, n in enumerate(test_n):
             self.assertEqual(expected[index], sum_square_diff(n))
 
-    def test_sum_square_diff_of_range_large_values(self):
+    def test_sum_square_diff_large_values(self):
         test_n = [2256, 7000]
         expected = [6477756566600, 600307154415500]
         for index, n in enumerate(test_n):
             self.assertEqual(expected[index], sum_square_diff(n))
 
-    def test_sum_square_diff_of_range_upper_constraint(self):
+    def test_sum_square_diff_upper_constraint(self):
         self.assertEqual(2500166641665000, sum_square_diff(10000))
 
 
