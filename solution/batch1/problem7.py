@@ -34,6 +34,11 @@ def is_prime(n):
 
 
 def nth_prime(n):
+    """
+    This function can be modified to return the first N prime numbers,
+    by declaring & initiating an array with the value 2, removing the 1st 'if'
+    block, & appending new prime values in the 2nd 'if' block.
+    """
     if n == 1:
         return 2
     count, number = n - 1, 1
