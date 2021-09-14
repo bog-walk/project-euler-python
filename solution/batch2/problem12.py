@@ -20,3 +20,37 @@ e.g.: N = 5
       7th = 28 from [1+2+3+4+5+6+7] -> {1,2,4,7,14,28}
       result = 28
 """
+from util.reusable import prime_numbers
+
+
+def first_triangle_over_N(n):
+    if n == 1:
+        return 3
+    all_primes = prime_numbers(n * 2)
+    prime = 3
+    divisors_of_n = 2  # min num of divisors of any prime
+    count = 0
+    while count <= n:
+        prime += 1
+        n1 = prime
+        if n1 % 2 == 0:
+            n1 //= 2
+        divisors_of_n1 = 1
+        for i in range(len(all_primes)):
+            # When the prime divisor would be greater than the residual n1,
+            # that residual n1 is the last prime factor with an exponent==1,
+            # so no need to identify it.
+            if all_primes[i] * all_primes[i] > n1:
+                divisors_of_n1 *= 2
+                break
+            exponent = 1
+            while n1 % all_primes[i] == 0:
+                exponent += 1
+                n1 //= all_primes[i]
+            if exponent > 1:
+                divisors_of_n1 *= exponent
+            if n1 == 1:
+                break
+        count = divisors_of_n * divisors_of_n1
+        divisors_of_n = divisors_of_n1
+    return prime * (prime - 1) // 2

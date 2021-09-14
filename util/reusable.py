@@ -1,6 +1,30 @@
 from math import gcd, floor, sqrt
 
 
+def prime_factors(n):
+    """
+    Prime decomposition using Sieve of Eratosthenes algorithm.
+
+    Returns:
+        dict of prime factors (keys) and their exponents (values).
+    """
+    if n < 2:
+        return
+    primes = dict()
+    factors = [2]
+    factors.extend(range(3, int(sqrt(n)) + 1, 2))
+    for factor in factors:
+        while n % factor == 0:
+            if factor in primes:
+                primes[factor] += 1
+            else:
+                primes[factor] = 1
+            n //= factor
+    if n > 2:
+        primes[n] = 1
+    return primes
+
+
 def least_common_multiple(x, y):
     if x == 0 or y == 0:
         raise ValueError("The LCM of 0 is undefined")
