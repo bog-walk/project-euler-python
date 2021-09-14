@@ -20,7 +20,38 @@ e.g.: N = 5
       7th = 28 from [1+2+3+4+5+6+7] -> {1,2,4,7,14,28}
       result = 28
 """
-from util.reusable import prime_numbers
+from math import prod
+from util.reusable import prime_factors, prime_numbers, gaussian_sum
+
+
+def count_divisors(n):
+    """
+    Uses prime factor decomposition to count unique divisors.
+    e.g. 28 = 2^2 * 7^1,
+    so divisors = (2 + 1) * (1 + 1) = 6; {1,2,4,7,14,28}
+    """
+    return prod([v + 1 for _, v in prime_factors(n).items()])
+
+
+def first_triangle_over_N_Alt(n):
+    """
+    Since the components of a gaussian sum are co-prime (i.e. they cannot
+    have a common prime factor and no common divisor, the amount of divisors
+    can be assessed based on:
+    - [even n] D(t) = D(n/2) * D(n+1)
+    - [n is odd] D(t) = D(n) * D((n+1)/2)
+    """
+    if n == 1:
+        return 3
+    t = 2  # D(2) = D(1) * D(3)
+    dn1 = 2  # D(3) = 2
+    count = 2
+    while count <= n:
+        t += 1
+        dn2 = count_divisors(t + 1) if t % 2 == 0 else count_divisors((t + 1) // 2)
+        count = dn1 * dn2
+        dn1 = dn2
+    return gaussian_sum(t)
 
 
 def first_triangle_over_N(n):
