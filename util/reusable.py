@@ -24,3 +24,7 @@ def prime_numbers(n):
         if isPrime:
             primes.append(i + 2)
     return primes
+
+
+def gaussian_sum(n):
+    return n * (n + 1) // 2

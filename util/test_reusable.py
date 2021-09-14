@@ -26,6 +26,12 @@ class Reusable(unittest.TestCase):
         self.assertEqual(expected_size, len(actual))
         self.assertEqual(expected_tail, actual[-10:])
 
+    def test_gaussian_sum(self):
+        nums = [1, 2, 3, 50, 100, 2234]
+        expected = [1, 3, 6, 1275, 5050, 2496495]
+        for index, n in enumerate(nums):
+            self.assertEqual(expected[index], gaussian_sum(n))
+
 
 if __name__ == '__main__':
     unittest.main()
