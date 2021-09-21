@@ -38,10 +38,13 @@ def collatz_length(start):
     return count
 
 
-def generate_collatz_lengths(n_max):
+def generate_longest_collatz(n_max):
+    # Cache for all previously counted collatz sequences
     collatz_lengths = [0] * n_max
     collatz_lengths[0] = 1
-    collatz_lengths[1] = 2
+    # Cache for the starter for the longest sequence so far
+    longest_collatz = [0] * n_max
+    longest_collatz[0] = 1
 
     def collatz_memo(n):
         if n <= n_max and collatz_lengths[n-1] != 0:
@@ -51,15 +54,19 @@ def generate_collatz_lengths(n_max):
             if n & 1:
                 count = 2 + collatz_memo((n * 3 + 1) // 2)
             else:
+                # n // 2 (if casting expensive) is equivalent to n >> 1
                 count = 1 + collatz_memo(n // 2)
+            # Speeds up memoisation as more than just original n cached
+            if n <= n_max:
+                collatz_lengths[n - 1] = count
             return count
 
-    for start in range(3, n_max + 1):
-        collatz_lengths[start-1] = collatz_memo(start)
-    return collatz_lengths
-
-
-def longest_collatz_under_N(n: int, all_lengths: list[int]):
-    collatz_to_assess = all_lengths[n//2:n]
-    longest = max(collatz_to_assess)
-    return n - collatz_to_assess[::-1].index(longest)
+    longest_starter = 1
+    longest_count = 1
+    for start in range(2, n_max + 1):
+        current_collatz = collatz_memo(start)
+        if current_collatz >= longest_count:
+            longest_count = current_collatz
+            longest_starter = start
+        longest_collatz[start-1] = longest_starter
+    return longest_collatz

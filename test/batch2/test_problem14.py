@@ -10,11 +10,11 @@ class LongestCollatzSequence(unittest.TestCase):
             self.assertEqual(expected[index], collatz_length(start))
 
     def test_longest_collatz_under_N(self):
-        all_lengths = generate_collatz_lengths(1000000)
+        all_lengths = generate_longest_collatz(1000000)
         nums = [1, 2, 3, 5, 10, 15, 19, 20, 26, 100, 1000, 10000, 100000, 1000000]
         expected = [1, 2, 3, 3, 9, 9, 19, 19, 25, 97, 871, 6171, 77031, 837799]
         for index, n in enumerate(nums):
-            self.assertEqual(expected[index], longest_collatz_under_N(n, all_lengths))
+            self.assertEqual(expected[index], all_lengths[n - 1])
 
 
 if __name__ == '__main__':
