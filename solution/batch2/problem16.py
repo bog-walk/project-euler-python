@@ -12,5 +12,14 @@ e.g.: N = 9
 """
 
 
-def exp_digit_sum(n):
+def exp_digit_sum_A(n):
     return sum(int(digit) for digit in str(pow(2, n)))
+
+
+def exp_digit_sum_B(n):
+    num = pow(2, n)
+    total = 0
+    # equivalent to while num != 0
+    while num:
+        total, num = total + num % 10, num // 10
+    return total
