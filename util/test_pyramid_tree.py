@@ -12,14 +12,11 @@ class PyramidTreeTest(unittest.TestCase):
 
     def test_pyramid_two_rows(self):
         pyramid = PyramidTree(2, [1, 2, 3])
-        self.assertEqual(1, pyramid.root.value)
-        self.assertIsInstance(pyramid.root.left_adjacent, PyramidNode)
-        self.assertIsInstance(pyramid.root.right_adjacent, PyramidNode)
-        left: PyramidNode = pyramid.root.left_adjacent
-        right: PyramidNode = pyramid.root.right_adjacent
-        self.assertEqual(2, left.value)
-        self.assertEqual(3, right.value)
-        self.assertEqual(4, pyramid.max_sum_post_order_traversal(pyramid.root))
+        root = pyramid.root
+        self.assertEqual(1, root.value)
+        self.assertEqual(2, root.left_adjacent.value)
+        self.assertEqual(3, root.right_adjacent.value)
+        self.assertEqual(4, pyramid.max_sum_post_order_traversal(root))
 
     def test_pyramid_max_rows_one_route(self):
         elements = [0]*120

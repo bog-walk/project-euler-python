@@ -1,23 +1,27 @@
 class PyramidNode:
 
     def __init__(self, value):
+        self.value = value
         self.left_adjacent = None
         self.right_adjacent = None
-        self.value = value
 
-    def draw_node(self, prefix, is_tail, string) -> str:
+    def draw_node(self, prefix: list[str], is_tail: bool, string: list[str]) -> list[str]:
+        """
+        Allows graph to be printed showing children of all nodes.
+        Note that shared adjacent nodes will be duplicated because of this.
+        """
         vertical = "|   "
         space = "    "
         down = "└── "
         up = "┌── "
         if self.right_adjacent is not None:
             self.right_adjacent.draw_node(
-                f"{prefix}{vertical if is_tail else space}", False, string
+                ["".join(prefix), vertical if is_tail else space], False, string
             )
-        string += prefix + f"{down if is_tail else up}" + str(self.value) + "\n"
-        if isinstance(self.left_adjacent, PyramidNode):
+        string += prefix + [down if is_tail else up, str(self.value), "\n"]
+        if self.left_adjacent is not None:
             self.left_adjacent.draw_node(
-                f"{prefix}{space if is_tail else vertical}", True, string
+                ["".join(prefix), space if is_tail else vertical], True, string
             )
         return string
 
@@ -35,21 +39,21 @@ class PyramidTree:
 
     def __init__(self, rows, elements):
         self.rows = rows
-        self.root: PyramidNode = self.__generate_tree(elements)
-        print(type(self.root.right_adjacent))
+        self.nodes = self.__generate_tree(elements)
+        self.root = self.nodes[0]
 
-    def __generate_tree(self, elements: list[int]) -> PyramidNode:
-        nodes = [PyramidNode(n) for n in elements]
+    def __generate_tree(self, elements: list[int]) -> list[PyramidNode]:
+        nodes = [PyramidNode(e) for e in elements]
         index = 0
         for row in range(1, self.rows):
             for _ in range(row):
                 nodes[index].left_adjacent = nodes[index + row]
                 nodes[index].right_adjacent = nodes[index + row + 1]
                 index += 1
-        return nodes[0]
+        return nodes
 
     def __str__(self):
-        return self.root.draw_node("", True, "")
+        return "".join(self.root.draw_node([], True, []))
 
     def max_sum_post_order_traversal(self, node) -> int:
         if isinstance(node.left_adjacent, PyramidNode):
@@ -61,8 +65,3 @@ class PyramidTree:
         else:
             right = 0
         return max(left, right) + node.value
-
-
-if __name__ == '__main__':
-    pyramid = PyramidTree(2, [1, 2, 3])
-    print(pyramid)
