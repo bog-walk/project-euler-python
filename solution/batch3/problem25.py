@@ -16,10 +16,10 @@ def n_digit_fib_terms(max_digits):
     """
     Returns list of the first Fibonacci terms to have (index + 2) digits.
     """
-    terms = [0] * (max_digits - 1)
-    terms[0] = 7
     term = 7
     f_n = 13
+    terms = [0] * (max_digits - 1)
+    terms[0] = term
     f_n_minus1 = 8
     digits = 3
     while digits <= max_digits:

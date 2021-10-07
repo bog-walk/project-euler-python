@@ -22,6 +22,33 @@ from util.reusable import prime_numbers
 
 
 def longest_repetend_denominator_primes(n):
+    """
+    Repetend/Reptend: the infinitely repeated digit sequence of the
+    decimal representation of a number.
+
+    Solution based on the following (took 108.1822s for N = 10000):
+
+    - If a fraction contains a repetend, the latter's length (K) will never
+    be greater than the fraction's denominator minus 1.
+
+    - A denominator of 3 produces the first repetend, with K = 1.
+
+    - All fractions that are a power of 1/2 or the product of 1/5 times a
+    power of 1/2 will have exact decimal equivalents, not repetends.
+
+    - Multiples of a denominator will have the same K value (multiples of
+    7 are special in that both K and repetend will be equal).
+
+    - For each 1/p, where p is a prime number but not 2 or 5, for
+    k = 1,2,3,...n, [(10^k) - 1] / p = repetend, when there is no remainder.
+
+    e.g. for p = 11, [(10^1) - 1] % 11 != 0, but [(10^2) - 1] / 11
+    has 99 evenly divided by 11 giving 9. Since k = 2, there must be
+    2 repeating digits, so repetend = 09.
+
+    """
+    # Only prime numbers considered as only the smallest N is required &
+    # anything larger would be a multiple of a smaller prime with equivalent K.
     primes = [x for x in prime_numbers(n - 1) if x not in [2, 3, 5]]
     d = 3
     longest_k = 1
@@ -37,7 +64,9 @@ def longest_repetend_denominator_primes(n):
 
 def longest_repetend_denominator(n):
     """
-    Significantly faster than above solution.
+    Repeatedly divides & stores decimal parts until a decimal part is
+    repeated & compares length of stored parts.
+    Took 0.0092s for N = 10000
     """
     longest_k = 0
     d = n
@@ -51,13 +80,9 @@ def longest_repetend_denominator(n):
         position = 0
         while remainders[remainder] == 0 and remainder != 0:
             remainders[remainder] = position
-            remainder = (remainder * 10) % i
+            remainder = remainder * 10 % i
             position += 1
         if position - remainders[remainder] >= longest_k:
             longest_k = position - remainders[remainder]
             d = i
     return d
-
-
-if __name__ == '__main__':
-    print(longest_repetend_denominator(15))
