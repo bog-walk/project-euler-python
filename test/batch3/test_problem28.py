@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from time import perf_counter_ns
 from solution.batch3.problem28 import *
 
 
@@ -13,21 +13,21 @@ class NumberSpiralDiagonals(unittest.TestCase):
             self.assertEqual(expected[index], spiral_diag_sum_formula_derived(n))
 
     def test_speed_comparison(self):
-        n = 1_000_000_001
-        expected = 301524556
+        n = 1_000_001
+        expected = 4315867
         solutions = [
             spiral_diag_sum_brute, spiral_diag_sum_formula_brute, spiral_diag_sum_formula_derived
         ]
         starts = []
         stops = []
         for i, solution in enumerate(solutions):
-            starts.append(perf_counter())
+            starts.append(perf_counter_ns())
             result = solution(n)
-            stops.append(perf_counter())
+            stops.append(perf_counter_ns())
             self.assertEqual(expected, result)
-        print(f"Brute took: {stops[0] - starts[0]:0.4f}s\n"
-              f"Formula iterative took: {stops[1] - starts[1]:0.4f}s\n"
-              f"Formula derivative took: {stops[2] - starts[2]:0.4f}s)")
+        print(f"Brute took: {stops[0] - starts[0]}ns\n"
+              f"Formula iterative took: {stops[1] - starts[1]}ns\n"
+              f"Formula derivative took: {stops[2] - starts[2]}ns")
 
 
 if __name__ == '__main__':
