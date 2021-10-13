@@ -9,6 +9,7 @@ Constraints: 1 <= N <= 1e18, with N always odd
 
 Spiral Pattern: start with 1 & move to the right in a
 clockwise direction, incrementing the numbers.
+
 e.g.: N = 5
       grid = 21  22  23  24  25
              20  7   8   9   10
@@ -18,7 +19,7 @@ e.g.: N = 5
       diagonals = {1,3,5,7,9,13,17,21,25}
       sum = 101
 """
-from math import ceil, floor
+from math import ceil
 
 
 def spiral_diag_sum_brute(n):
