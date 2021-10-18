@@ -11,27 +11,41 @@ e.g.: N = 4
       terms = {4, 8, 16}, {9, 27, 81}, {16, 64, 256}
       count = 8
 """
-from math import log, ceil
 
 
 def distinct_powers_brute(n):
     return len(set([pow(a, b) for b in range(2, n+1) for a in range(2, n+1)]))
 
 
-def is_power(n):
-    for base in range(2, n):
-        exp = log(n) / log(base)
-        if int(exp) == exp:
-            return True
-    return False
-
-
 def distinct_power(n):
-    terms = n - 1
-    terms_reduced = ceil(n / 2)
-    count = 0
-    for base in range(2, n + 1):
-        count += terms_reduced if is_power(base) else terms
-    return count
+    max_base_power = 0
+    for p in range(n):
+        if pow(2, p) <= n:
+            max_base_power = p
+    exponents = [0]*((n + 1)*max_base_power)
+    for i in range(1, max_base_power + 1):
+        for j in range(1, n+1):
+            if exponents[i * j] == 0:
+                exponents[i * j] = i
+    bases = [0]*(n+1)
+    duplicates = 0
+    for num in range(2, n+1):
+        parent = bases[num]
+        if parent == 0:
+            power = num * num
+            while power <= n:
+                bases[power] = num
+                power *= num
+            continue
+        exponent = 0
+        reduce = num
+        while reduce > 1:
+            reduce /= parent
+            exponent += 1
+        for y in range(2, n+1):
+            if exponents[y*exponent] < exponent:
+                duplicates += 1
+    return pow(n - 1, 2) - duplicates
+
 
 
