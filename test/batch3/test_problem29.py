@@ -9,6 +9,7 @@ class DistinctPowers(unittest.TestCase):
         for index, n in enumerate(nums):
             self.assertEqual(expected[index], distinct_powers_brute(n))
             self.assertEqual(expected[index], distinct_power(n))
+            self.assertEqual(expected[index], distinct_power_new(n))
 
 
 if __name__ == '__main__':

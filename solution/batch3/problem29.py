@@ -11,6 +11,7 @@ e.g.: N = 4
       terms = {4, 8, 16}, {9, 27, 81}, {16, 64, 256}
       count = 8
 """
+from math import log
 
 
 def distinct_powers_brute(n):
@@ -18,12 +19,12 @@ def distinct_powers_brute(n):
 
 
 def distinct_power(n):
-    max_base_power = 0
-    for p in range(n):
-        if pow(2, p) <= n:
-            max_base_power = p
-    exponents = [0]*((n + 1)*max_base_power)
-    for i in range(1, max_base_power + 1):
+    """
+    2^17 > 1e5 (upper constraint), so maximum exponent for base 2 is 16.
+    """
+    max_exponent = 16
+    exponents = [0]*((n + 1)*max_exponent)
+    for i in range(1, max_exponent + 1):
         for j in range(1, n+1):
             if exponents[i * j] == 0:
                 exponents[i * j] = i
@@ -48,4 +49,37 @@ def distinct_power(n):
     return pow(n - 1, 2) - duplicates
 
 
-
+def distinct_power_new(n):
+    max_exponent = min(16, n - 1)
+    min_exponents = [0]*(n * max_exponent - 1)
+    for i in range(1, max_exponent + 1):
+        for j in range(2, n + 1):
+            if min_exponents[(i * j) - 2] == 0:
+                min_exponents[(i * j) - 2] = i
+    bases = [0]*(n - 1)
+    duplicates = 0
+    exponent_duplicates = [0]*(max_exponent - 1)
+    for num in range(2, n + 1):
+        parent = bases[num - 2]
+        if parent == 0:
+            power = num * num
+            while power <= n:
+                bases[power - 2] = num
+                power *= num
+        else:
+            exponent = 0
+            reduce = num
+            while reduce > 1:
+                reduce /= parent
+                exponent += 1
+            if exponent_duplicates[exponent - 2] != 0:
+                duplicates += exponent_duplicates[exponent - 2]
+            else:
+                dupes = 0
+                for y in range(2, n + 1):
+                    # Possible to calculate this instead of storing before?
+                    if min_exponents[(y * exponent) - 2] < exponent:
+                        dupes += 1
+                exponent_duplicates[exponent - 2] = dupes
+                duplicates += dupes
+    return pow(n - 1, 2) - duplicates
