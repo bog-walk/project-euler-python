@@ -11,7 +11,6 @@ e.g.: N = 4
       terms = {4, 8, 16}, {9, 27, 81}, {16, 64, 256}
       count = 8
 """
-from math import log
 
 
 def distinct_powers_brute(n):
