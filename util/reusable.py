@@ -52,3 +52,25 @@ def prime_numbers(n):
 
 def gaussian_sum(n):
     return n * (n + 1) // 2
+
+
+def sum_proper_divisors(n):
+    """
+    Optimised solution based on the following:
+    - N == 1 has no proper divisor but 1 is a proper divisor of all other naturals;
+    - A perfect square would duplicate divisors if included in the loop range;
+    - Loop range differs for odd numbers as they cannot have even divisors.
+    """
+    if n < 2:
+        return 0
+    total = 1
+    max_divisor = int(sqrt(n))
+    if max_divisor * max_divisor == n:
+        total += max_divisor
+        max_divisor -= 1
+    divisor_range = range(3, max_divisor + 1, 2) if n % 2 != 0 else range(2, max_divisor + 1)
+    for d in divisor_range:
+        if n % d == 0:
+            total += d + n // d
+    return total
+

@@ -40,6 +40,12 @@ class Reusable(unittest.TestCase):
         for index, n in enumerate(nums):
             self.assertEqual(expected[index], gaussian_sum(n))
 
+    def test_sum_proper_divisors(self):
+        nums = [1, 2, 3, 12, 20, 36, 49, 220, 284, 999, 5500, 100000]
+        expected = [0, 1, 1, 16, 22, 55, 8, 284, 220, 521, 7604, 146078]
+        for index, n in enumerate(nums):
+            self.assertEqual(expected[index], sum_proper_divisors(n))
+
 
 if __name__ == '__main__':
     unittest.main()
