@@ -27,7 +27,7 @@ class NumberSpiralDiagonals(unittest.TestCase):
             self.assertEqual(expected, result)
         print(f"Brute took: {stops[0] - starts[0]}ns\n"
               f"Formula iterative took: {stops[1] - starts[1]}ns\n"
-              f"Formula derivative took: {stops[2] - starts[2]}ns")
+              f"Formula derivative took: {stops[2] - starts[2]}ns\n")
 
 
 if __name__ == '__main__':

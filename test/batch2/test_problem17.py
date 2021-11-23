@@ -1,5 +1,5 @@
 import unittest
-from solution.batch2.problem17 import number_written, count_letters, count_first_N_positives
+from solution.batch2.problem17 import *
 
 
 class NumberToWords(unittest.TestCase):

@@ -11,7 +11,7 @@ class DigitFifthPowers(unittest.TestCase):
             [548834]
         ]
         for n in range(3, 7):
-            self.assertListEqual(expected[n - 3], digit_nth_powers(n))
+            self.assertListEqual(expected[n - 3], digit_nth_powers_brute(n))
 
 
 if __name__ == '__main__':

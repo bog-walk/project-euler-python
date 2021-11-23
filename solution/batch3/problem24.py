@@ -27,6 +27,8 @@ def lexicographic_perms(n, string: str, permutation=""):
     :param [n] the nth permutation requested; should be zero-indexed.
     :param [string] the object to generate permutations of; should be
     already sorted in ascending lexicographic order.
+
+    SPEED (BEST): 31200ns for 10-digit string
     """
     if not n:
         return permutation + string
@@ -42,8 +44,8 @@ def lexicographic_perms(n, string: str, permutation=""):
 
 def lexicographic_perms_builtin(n, string):
     """
-    Solution using built-in function took 1.1258s compared to above
-    solution taking 0.0000s.
+    SPEED: 1.5e9ns for 10-digit string
+
     Most likely due to itertool.permutations() generating all possible
     full-length permutations sorted lexicographically rather than
     stopping once the required permutation is found.

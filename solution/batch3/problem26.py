@@ -26,7 +26,7 @@ from util.reusable import prime_numbers
 
 def longest_repetend_denominator_primes(n):
     """
-    Solution based on the following (Took 108.1822s for N = 10000):
+    Solution based on the following:
 
     - If a fraction contains a repetend, the latter's length (K) will never
     be greater than the fraction's denominator minus 1.
@@ -45,6 +45,8 @@ def longest_repetend_denominator_primes(n):
     e.g. for p = 11, [(10^1) - 1] % 11 != 0, but [(10^2) - 1] / 11
     has 99 evenly divided by 11 giving 9. Since k = 2, there must be
     2 repeating digits, so repetend = 09.
+
+    SPEED: 108.1822s for N = 10000
     """
     # Only prime numbers considered as only the smallest N is required &
     # anything larger would be a multiple of a smaller prime with equivalent K.
@@ -65,7 +67,8 @@ def longest_repetend_denominator(n):
     """
     Repeatedly divides & stores decimal parts until a decimal part is
     repeated & compares length of stored parts.
-    Took 0.0092s for N = 10000
+
+    SPEED (BEST): 0.0092s for N = 10000
     """
     longest_k = 0
     d = n

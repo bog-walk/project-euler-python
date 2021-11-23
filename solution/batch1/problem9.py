@@ -31,13 +31,9 @@ def max_triplet_brute(n):
     the sum of evens is an even number and the sum of 2 odds is an even
     number as well.
 
-    Speed:
-        2.24582s for 10 iterations of  N = 3000
+    Speed: 2.24582s for 10 iterations of N = 3000
 
-    Returns:
-        tuple: representing (a, b, c), if exists,
-        OR
-        None
+    :return [tuple] -> (a, b, c), if exists, OR None
     """
     if n % 2 != 0:
         return
@@ -83,8 +79,7 @@ def max_triplet_optimised(num):
     the gcd(a,b,c) = d, such that:
     a + b + c = 2 * m * (m + n) * d, with n > m > 0.
 
-    Speed:
-        0.00020s for 10 iterations of  N = 3000
+    Speed (BEST): 0.00020s for 10 iterations of N = 3000
     """
     if num % 2 != 0:
         return

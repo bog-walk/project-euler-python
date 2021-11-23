@@ -24,7 +24,7 @@ from math import ceil
 
 def spiral_diag_sum_brute(n):
     """
-    Took 459281000ns at N = 1e6 + 1
+    SPEED: ~4.1e8ns at N = 1e6 + 1
     """
     total = 1
     num = 1
@@ -43,7 +43,8 @@ def spiral_diag_sum_formula_brute(num):
     as the first ring creates a 3x3 grid. So the side of a ring is
     2N + 1 wide with the upper right corner being (2n + 1)^2 or the area.
     So provided n would need to be divided by 2.
-    Took 337531900ns at N = 1e6 + 1
+
+    SPEED: ~3.7e8ns at N = 1e6 + 1
     """
     f_n = 1
     prev = f_n
@@ -61,7 +62,8 @@ def spiral_diag_sum_formula_derived(n):
     f(n) gives a constant -> a*x^3 + b*x^2 + c*x + d.
     Solving for f(0) to f(3) derives the formula:
     f(n) = (16 * x^3 + 30 * x^2 + 26 * x + 3) // 3
-    Took 5000s at N = 1e6 + 1
+
+    SPEED (BEST): 4800ns at N = 1e6 + 1
     """
     n = (n - 1) // 2
     f_n = (16 * pow(n, 3) + 30 * pow(n, 2) + 26 * n + 3) // 3

@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from time import perf_counter_ns
 from solution.batch3.problem24 import *
 
 
@@ -23,14 +23,14 @@ class LexicographicPermutations(unittest.TestCase):
     def test_speed_comparison(self):
         string = "0123456789"
         perm = 999999  # the millionth permutation
-        builtin_sol_start = perf_counter()
+        builtin_sol_start = perf_counter_ns()
         builtin_ans = lexicographic_perms_builtin(perm, string)
-        builtin_sol_end = perf_counter()
-        alt_sol_start = perf_counter()
+        builtin_sol_end = perf_counter_ns()
+        alt_sol_start = perf_counter_ns()
         alt_ans = lexicographic_perms(perm, string)
-        alt_sol_end = perf_counter()
-        print(f"Builtin solution took: {builtin_sol_end - builtin_sol_start:0.4f}s\n" +
-              f"Alt solution took: {alt_sol_end - alt_sol_start:0.4f}s")
+        alt_sol_end = perf_counter_ns()
+        print(f"Builtin solution took: {builtin_sol_end - builtin_sol_start:}ns\n" +
+              f"Alt solution took: {alt_sol_end - alt_sol_start:}ns\n")
         self.assertEqual(builtin_ans, alt_ans)
 
 

@@ -1,6 +1,5 @@
 import unittest
 from time import perf_counter
-
 from solution.batch1.problem9 import max_triplet_brute, max_triplet_optimised, max_triplet_product
 
 
