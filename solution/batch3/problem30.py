@@ -13,10 +13,13 @@ e.g.: N = 4
       9474 = 9^4 + 4^4 + 7^4 + 4^4
       sum = 1634 + 8208 + 9474 = 19316
 """
-from itertools import combinations_with_replacement
+from itertools import product
 
 
 def digit_nth_powers_brute(n):
+    """
+    SPEED (BEST): 2.8226s for N = 6 
+    """
     nums = []
     start = max(100, pow(10, n - 2))
     end = min(999999, pow(9, n) * n)
@@ -33,17 +36,19 @@ def digit_nth_powers_brute(n):
     return nums
 
 
-def digit_nth_powers_combo(n):
+def digit_nth_powers_builtin(n):
     """
     Considers all combinations of digits (0-9 with replacement) for numbers
-    of different lengths.
+    of different lengths, using built-in functions.
+
+    SPEED: 4.7851s for N = 6
     """
-    answer = 0
+    nums = []
     min_digits = max(3, n - 2)
     max_digits = min(6, n + 1)
     for length in range(min_digits, max_digits + 1):
-        for digits in combinations_with_replacement(range(10), length):
-            mapped_value = sum((digit ** n for digit in digits))
-            if tuple(sorted(digits_of(mapped_value))) == digits and num_digits(mapped_value) == n:
-                answer += mapped_value
-    return answer
+        for digits in product(range(10), repeat=length):
+            combo_sum = sum((digit ** n for digit in digits))
+            if str(combo_sum) == "".join(map(str, digits)):
+                nums.append(combo_sum)
+    return nums

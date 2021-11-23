@@ -20,7 +20,7 @@ class NumberSpiralDiagonals(unittest.TestCase):
         ]
         starts = []
         stops = []
-        for i, solution in enumerate(solutions):
+        for solution in solutions:
             starts.append(perf_counter_ns())
             result = solution(n)
             stops.append(perf_counter_ns())

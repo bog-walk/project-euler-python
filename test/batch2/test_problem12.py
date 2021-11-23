@@ -1,5 +1,4 @@
 import unittest
-
 from solution.batch2.problem12 import *
 
 
