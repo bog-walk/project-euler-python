@@ -18,9 +18,13 @@ e.g.: Input = [ALEX, LUIS, JAMES, BRIAN, PAMELA]
 
 def name_score(index, name):
     # Unicode decimal value of 'A' is 65, but should be adjusted to 1
-    return (index + 1) * sum(ord(c) - 64 for c in name)
+    return (index + 1) * sum(map(lambda c: ord(c) - 64, name))
 
 
 def sum_of_name_scores(names: list[str]):
+    """
+    Method specific to Project Euler implementation that requires
+    all the name scores for a 5000+ list to be summed.
+    """
     sorted_names = sorted(names)
     return sum(name_score(i, name) for i, name in enumerate(sorted_names))
