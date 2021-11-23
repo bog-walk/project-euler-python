@@ -7,6 +7,9 @@ Goal: Find the value of the smallest d less than N for which
 
 Constraints: 4 <= N <= 1e4
 
+Repetend/Reptend: the infinitely repeated digit sequence of the
+decimal representation of a number.
+
 e.g.: N = 10
       1/2 = 0.5
       1/3 = 0.(3) -> 1-digit recurring cycle
@@ -23,10 +26,7 @@ from util.reusable import prime_numbers
 
 def longest_repetend_denominator_primes(n):
     """
-    Repetend/Reptend: the infinitely repeated digit sequence of the
-    decimal representation of a number.
-
-    Solution based on the following (took 108.1822s for N = 10000):
+    Solution based on the following (Took 108.1822s for N = 10000):
 
     - If a fraction contains a repetend, the latter's length (K) will never
     be greater than the fraction's denominator minus 1.
@@ -45,7 +45,6 @@ def longest_repetend_denominator_primes(n):
     e.g. for p = 11, [(10^1) - 1] % 11 != 0, but [(10^2) - 1] / 11
     has 99 evenly divided by 11 giving 9. Since k = 2, there must be
     2 repeating digits, so repetend = 09.
-
     """
     # Only prime numbers considered as only the smallest N is required &
     # anything larger would be a multiple of a smaller prime with equivalent K.

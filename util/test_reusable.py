@@ -46,6 +46,16 @@ class Reusable(unittest.TestCase):
         for index, n in enumerate(nums):
             self.assertEqual(expected[index], sum_proper_divisors(n))
 
+    def test_is_prime_all_true(self):
+        primes = [2, 5, 11, 17, 29]
+        for p in primes:
+            self.assertTrue(is_prime(p))
+
+    def test_is_prime_all_false(self):
+        not_primes = [1, 4, 9, 14]
+        for p in not_primes:
+            self.assertFalse(is_prime(p))
+
 
 if __name__ == '__main__':
     unittest.main()

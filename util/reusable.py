@@ -74,3 +74,27 @@ def sum_proper_divisors(n):
             total += d + n // d
     return total
 
+
+def is_prime(n):
+    if n < 2:
+        return False
+    elif n < 4:  # 2 and 3 are primes
+        return True
+    elif not n % 2:  # 2 is the only even prime
+        return False
+    elif n < 9:  # 4, 6, and 8 already excluded
+        return True
+    elif not n % 3:
+        # primes > (k=3) are of the form 6k(+/-1)
+        # i.e. they are never multiples of 3
+        return False
+    else:
+        # N can only have 1 prime factor > sqrt(N): N itself!
+        max_p = floor(sqrt(n))
+        step = 5  # multiples of prime 5 not yet assessed
+        # 11, 13, 17, 19, and 23 will all bypass N loop
+        while step <= max_p:
+            if not n % step or not n % (step + 2):
+                return False
+            step += 6
+        return True

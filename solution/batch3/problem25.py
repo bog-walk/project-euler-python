@@ -14,7 +14,7 @@ e.g.: N = 3
 
 def n_digit_fib_terms(max_digits):
     """
-    Returns list of the first Fibonacci terms to have (index + 2) digits.
+    :return [list] of the first Fibonacci terms to have (index + 2) digits.
     """
     term = 7
     f_n = 13
