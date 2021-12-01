@@ -77,6 +77,19 @@ class DigitCancellingFractions(unittest.TestCase):
         self.assertTupleEqual(expected, sum_of_non_trivials_brute(n, 2))
         self.assertTupleEqual(expected, sum_of_non_trivials_gcd(n, 2))
 
+    def test_find_sum_of_non_trivials_speed_comparison(self):
+        n, k = 4, 1
+        expected = (17255, 61085)
+        solutions = [sum_of_non_trivials_brute, sum_of_non_trivials_gcd]
+        starts = []
+        stops = []
+        for solution in solutions:
+            starts.append(perf_counter())
+            self.assertTupleEqual(expected, solution(n, k))
+            stops.append(perf_counter())
+        print(f"Brute solution took: {stops[0] - starts[0]:0.4f}s\n"
+              f"GCD solution took: {stops[1] - starts[1]:0.4f}s\n")
+
 
 if __name__ == '__main__':
     unittest.main()
