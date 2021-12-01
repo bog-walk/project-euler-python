@@ -68,12 +68,14 @@ class DigitCancellingFractions(unittest.TestCase):
     def test_find_sum_of_non_trivials_k1(self):
         expected = [(110, 322), (77262, 163829)]
         for n in range(2, 4):
-            self.assertTupleEqual(expected[n - 2], sum_of_non_trivials(n, 1))
+            self.assertTupleEqual(expected[n - 2], sum_of_non_trivials_brute(n, 1))
+            self.assertTupleEqual(expected[n - 2], sum_of_non_trivials_gcd(n, 1))
 
     def test_find_sum_of_non_trivials_k2(self):
         n = 3
         expected = (7429, 17305)
-        self.assertTupleEqual(expected, sum_of_non_trivials(n, 2))
+        self.assertTupleEqual(expected, sum_of_non_trivials_brute(n, 2))
+        self.assertTupleEqual(expected, sum_of_non_trivials_gcd(n, 2))
 
 
 if __name__ == '__main__':
