@@ -96,7 +96,30 @@ def product_of_non_trivials():
     return d_prod // gcd(n_prod, d_prod)
 
 
-def sum_of_non_trivials_brute(n, k):
+def getPerms(k: int, n: int, num: str, combo: tuple[str]):
+    indices = [[i for i, d in enumerate(num) if d == ch] for ch in combo]
+    perms = set()
+    for a in indices[0]:
+        if k > 1:
+            for b in indices[1]:
+                if a == b:
+                    continue
+                if k > 2:
+                    for c in indices[2]:
+                        if b == c or a == c:
+                            continue
+                        i_c = set(range(n)) - {a, b, c}
+                        perms.add(int("".join([num[i] for i in i_c])))
+                else:
+                    i_c = set(range(n)) - {a, b}
+                    perms.add(int("".join([num[i] for i in i_c])))
+        else:
+            i_c = set(range(n)) - {a}
+            perms.add(int("".join([num[i] for i in i_c])))
+    return perms
+
+
+def sum_of_non_trivials_brute(n, k) -> tuple[int, int]:
     """
     HackerRank specific implementation that includes extra restrictions that
     are not clearly specified on the problem page:
@@ -109,102 +132,81 @@ def sum_of_non_trivials_brute(n, k):
     digits can be removed in different ways with the same output.
     e.g. 1616/6464 == 161/644 == 116/464.
 
-    SPEED: s for N = 4, K = 1
+    SPEED: 877.5013s for N = 4, K = 1
 
     :return Tuple of (sum of numerators, sum of denominators).
     """
-    # non_trivials = []
     n_sum, d_sum = 0, 0
     min_numerator = 10 ** (n - 1) + 2
     max_denominator = 10 ** n
-    # max_denominator = 10 ** n // 3
     for numerator in range(min_numerator, max_denominator - 1):
-        n_2 = str(numerator)
-        cancel_combos = list(combinations([ch for ch in n_2 if ch != '0'], k))
+        if numerator % 1000 == 0:
+            print(f"N = {numerator}")
+        n_s = str(numerator)
+        cancel_combos = set(combinations([ch for ch in n_s if ch != '0'], k))
         for denominator in range(numerator + 1, max_denominator):
             og_fraction = numerator / denominator
             for combo in cancel_combos:
-                n_r = list(n_2)
-                d_r = list(str(denominator))
-                compatible = True
+                n_post = getPerms(k, n, n_s, combo)
+                d_post = getPerms(k, n, str(denominator), combo)
+                if len(d_post) == 0:
+                    continue
                 found_non_trivial = False
-                for digit in combo:
-                    if digit in d_r:
-                        n_r.remove(digit)
-                        d_r.remove(digit)
-                    else:
-                        compatible = False
-                        break
-                if compatible:
-                    num = int("".join(n_r))
-                    denom = int("".join(d_r))
-                    if denom == 0:
+                for n_2 in n_post:
+                    if n_2 == 0:
                         continue
-                    if og_fraction == num / denom:
-                        n_sum += numerator
-                        d_sum += denominator
-                        # non_trivials.append((numerator, denominator))
-                        found_non_trivial = True
+                    for d_2 in d_post:
+                        if d_2 == 0:
+                            continue
+                        if og_fraction == n_2 / d_2:
+                            n_sum += numerator
+                            d_sum += denominator
+                            found_non_trivial = True
+                            break
+                    if found_non_trivial:
+                        break
                 if found_non_trivial:
                     break
     return n_sum, d_sum
-    # return non_trivials
 
 
-def sum_of_non_trivials_gcd(n, k):
+def sum_of_non_trivials_gcd(n, k) -> tuple[int, int]:
     """
-    HackerRank specific implementation, as above, but optimised through
-    the use of gcd.
-
-    SPEED: s for N = 4, K = 1
-
-    :return Tuple of (sum of numerators, sum of denominators).
+    SPEED: 1.0301s for N = 4, K = 1
     """
-    # non_trivials = []
     n_sum, d_sum = 0, 0
     min_numerator = 10 ** (n - 1)
     max_denominator = 10 ** n
-    # max_denominator = 10 ** n // 3
     max_reduced = 10 ** (n - k)
     for numerator in range(min_numerator, max_denominator - 1):
         n_s = str(numerator)
-        cancel_combos = list(combinations([ch for ch in n_s if ch != '0'], k))
+        cancel_combos = set(combinations([ch for ch in n_s if ch != '0'], k))
         denominators_used = []
         for combo in cancel_combos:
-            n_r = list(n_s)
-            for c in combo:
-                n_r.remove(c)
-            n_2 = int("".join(n_r))
-            if n_2 == 0:
-                continue
-            d = numerator
-            i = 1
-            while True:
-                i += 1
-                g = gcd(d, n_2)
-                d, n_2 = (d // g) * i, (n_2 // g) * i
-                if d <= numerator:
+            n_post = getPerms(k, n, n_s, combo)
+            for n_2 in n_post:
+                if n_2 == 0:
                     continue
-                if n_2 >= max_reduced or d >= max_denominator:
-                    break
-                d_r = list(str(d))
-                for c in combo:
-                    try:
-                        d_r.remove(c)
-                    except ValueError:
-                        d_r = []
+                d = numerator
+                i = 1
+                while True:
+                    i += 1
+                    g = gcd(d, n_2)
+                    d, n_2 = (d // g) * i, (n_2 // g) * i
+                    if d <= numerator:
+                        continue
+                    if n_2 >= max_reduced or d >= max_denominator:
                         break
-                if d_r == list(str(n_2)) and d not in denominators_used:
-                    n_sum += numerator
-                    d_sum += d
-                    # non_trivials.append((numerator, d))
-                    denominators_used.append(d)
+                    d_post = getPerms(k, n, str(d), combo)
+                    if len(d_post) == 0:
+                        continue
+                    for d_2 in d_post:
+                        if n_2 == d_2 and d not in denominators_used:
+                            n_sum += numerator
+                            d_sum += d
+                            denominators_used.append(d)
     return n_sum, d_sum
-    # return non_trivials
 
 
 if __name__ == '__main__':
-    brute = sum_of_non_trivials_brute(4, 1)
-    gcd = sum_of_non_trivials_gcd(4, 1)
-    print(len(brute))
-    print(len(gcd))
+    print(sum_of_non_trivials_brute(4, 3))

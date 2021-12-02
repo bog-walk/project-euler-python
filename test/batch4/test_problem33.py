@@ -72,14 +72,19 @@ class DigitCancellingFractions(unittest.TestCase):
             self.assertTupleEqual(expected[n - 2], sum_of_non_trivials_gcd(n, 1))
 
     def test_find_sum_of_non_trivials_k2(self):
-        n = 3
-        expected = (7429, 17305)
-        self.assertTupleEqual(expected, sum_of_non_trivials_brute(n, 2))
-        self.assertTupleEqual(expected, sum_of_non_trivials_gcd(n, 2))
+        expected = [(7429, 17305), (3571225, 7153900)]
+        for n in range(3, 5):
+            self.assertTupleEqual(expected[n - 3], sum_of_non_trivials_brute(n, 2))
+            self.assertTupleEqual(expected[n - 3], sum_of_non_trivials_gcd(n, 2))
+
+    def test_find_sum_of_non_trivials_k3(self):
+        expected = (255983, 467405)
+        self.assertTupleEqual(expected, sum_of_non_trivials_brute(4, 3))
+        self.assertTupleEqual(expected, sum_of_non_trivials_gcd(4, 3))
 
     def test_find_sum_of_non_trivials_speed_comparison(self):
         n, k = 4, 1
-        expected = (17255, 61085)
+        expected = (12999936, 28131911)
         solutions = [sum_of_non_trivials_brute, sum_of_non_trivials_gcd]
         starts = []
         stops = []
