@@ -17,10 +17,13 @@ numerator and denominator that allow cancellation, e.g. 30/50 = 3/5.
        reduced-equivalents = {1 / 4, 1 / 5, 2 / 5, 4 / 8}
 """
 from math import prod, gcd
-from itertools import combinations
+from itertools import combinations, product
 
 
 def is_reduced_equivalent(digits, numerator, denominator, to_cancel):
+    """
+    Naive method to check if a reduced fraction is equivalent to its original.
+    """
     n_mod = 10 ** to_cancel
     d_mod = 10 ** (digits - to_cancel)
     if numerator % n_mod == denominator // d_mod:
@@ -32,19 +35,18 @@ def is_reduced_equivalent(digits, numerator, denominator, to_cancel):
 
 def find_non_trivials_brute(n, k) -> list[list[int]]:
     """
+    Brute iteration through all numerators and denominators with the expected
+    amount of digits, & following constraints specified in problem above.
+
     SPEED: 22.1190s for N = 4, K = 1
 
     :return List of [numerator, denominator]s.
     """
     non_trivials = []
-    # e.g. 2 digits has 11 as lowest numerator
     min_numerator = 10 ** (n - 1) + 1
-    # e.g. 2 digits has 99 as lowest denominator (+1 for exclusive PY range)
     max_denominator = 10 ** n
     for numerator in range(min_numerator, max_denominator // 2):
-        # Denominator must be greater than numerator
         for denominator in range(numerator + 1, max_denominator):
-            # Avoid division by zero error
             if denominator % 10 == 0:
                 continue
             if is_reduced_equivalent(n, numerator, denominator, k):
@@ -73,18 +75,18 @@ def find_non_trivials(n, k) -> list[list[int]]:
     reduced_min = 10 ** (n - k - 1)
     reduced_max = 10 ** (n - k)
     for cancelled in range(cancelled_min, cancelled_max):
-        for denominator in range(reduced_min + 1, reduced_max):
-            for numerator in range(reduced_min, denominator):
-                num_adjusted = numerator * cancelled_max + cancelled
-                denom_adjusted = cancelled * reduced_max + denominator
-                if num_adjusted * denominator == numerator * denom_adjusted:
-                    non_trivials.append([num_adjusted, denom_adjusted])
+        for d_2 in range(reduced_min + 1, reduced_max):
+            for n_2 in range(reduced_min, d_2):
+                numerator = n_2 * cancelled_max + cancelled
+                denominator = cancelled * reduced_max + d_2
+                if n_2 * denominator == numerator * d_2:
+                    non_trivials.append([numerator, denominator])
     return non_trivials
 
 
 def product_of_non_trivials():
     """
-    Project Euler specific implementation that required all non-trivial
+    Project Euler specific implementation that requires all non-trivial
     fractions that have 2 digits (pre-cancellation of 1 digit) to be found.
 
     :return: The denominator of the product of the fractions
@@ -96,26 +98,29 @@ def product_of_non_trivials():
     return d_prod // gcd(n_prod, d_prod)
 
 
-def getPerms(k: int, n: int, num: str, combo: tuple[str]):
+def get_cancelled_combos(num, combo) -> set[int]:
+    """
+    Helper function for HackerRank specific implementation.
+    Finds all combinations for digits cancelled from a number based
+    on the indices of the digits to be cancelled. Ensures no combinations
+    have duplicate digits or duplicate integer outputs.
+
+    :return Set of {post-cancellation integers}
+    """
+    # e.g. num = "9919" with cancel_combo = ('9','9')
+    # indices = [[0,1,3], [0,1,3]]
     indices = [[i for i, d in enumerate(num) if d == ch] for ch in combo]
     perms = set()
-    for a in indices[0]:
-        if k > 1:
-            for b in indices[1]:
-                if a == b:
-                    continue
-                if k > 2:
-                    for c in indices[2]:
-                        if b == c or a == c:
-                            continue
-                        i_c = set(range(n)) - {a, b, c}
-                        perms.add(int("".join([num[i] for i in i_c])))
-                else:
-                    i_c = set(range(n)) - {a, b}
-                    perms.add(int("".join([num[i] for i in i_c])))
-        else:
-            i_c = set(range(n)) - {a}
-            perms.add(int("".join([num[i] for i in i_c])))
+    # all_combos = {0,1}, {0,3}, {1,0}, {1, 3}...; {0,0}...etc reduced to {0}
+    all_combos = map(set, product(*indices))
+    # remove combos that have been reduced due to duplicate indices
+    combos_filtered = list(filter(lambda s: len(s) == len(combo), all_combos))
+    for c in combos_filtered:
+        # e.g. {0,1,2,3} - {0,1} = {2,3}
+        post_cancel = set(range(len(num))) - c
+        # above identical to "9919" becoming 19 post-cancellation
+        perms.add(int("".join([num[i] for i in post_cancel])))
+    # perms = {19, 91}, as set removes any duplicates
     return perms
 
 
@@ -140,22 +145,22 @@ def sum_of_non_trivials_brute(n, k) -> tuple[int, int]:
     min_numerator = 10 ** (n - 1) + 2
     max_denominator = 10 ** n
     for numerator in range(min_numerator, max_denominator - 1):
-        if numerator % 1000 == 0:
-            print(f"N = {numerator}")
         n_s = str(numerator)
         cancel_combos = set(combinations([ch for ch in n_s if ch != '0'], k))
         for denominator in range(numerator + 1, max_denominator):
             og_fraction = numerator / denominator
             for combo in cancel_combos:
-                n_post = getPerms(k, n, n_s, combo)
-                d_post = getPerms(k, n, str(denominator), combo)
+                n_post = get_cancelled_combos(n_s, combo)
+                d_post = get_cancelled_combos(str(denominator), combo)
                 if len(d_post) == 0:
+                    # denominator did not contain all digits to cancel
                     continue
                 found_non_trivial = False
                 for n_2 in n_post:
                     if n_2 == 0:
                         continue
                     for d_2 in d_post:
+                        # avoid division by zero error
                         if d_2 == 0:
                             continue
                         if og_fraction == n_2 / d_2:
@@ -163,6 +168,7 @@ def sum_of_non_trivials_brute(n, k) -> tuple[int, int]:
                             d_sum += denominator
                             found_non_trivial = True
                             break
+                    # avoid duplicating numerator with this denominator
                     if found_non_trivial:
                         break
                 if found_non_trivial:
@@ -172,7 +178,15 @@ def sum_of_non_trivials_brute(n, k) -> tuple[int, int]:
 
 def sum_of_non_trivials_gcd(n, k) -> tuple[int, int]:
     """
-    SPEED: 1.0301s for N = 4, K = 1
+    HackerRank specific implementation with extra restrictions, as detailed
+    in above brute force solution. This solution has been optimised by only
+    looping through possible numerators & the cancellation combos they allow.
+    Rather than loop through denominators, gcd() is used to assess reductive
+    equivalence based on the following:
+    n_og / d_og = n_r / d_r, and
+    n_r = n_og / gcd(n_og, d_og), d_r = d_og / gcd(n_og, d_og)
+
+    SPEED (BEST for HR problem): 1.0301s for N = 4, K = 1
     """
     n_sum, d_sum = 0, 0
     min_numerator = 10 ** (n - 1)
@@ -181,9 +195,11 @@ def sum_of_non_trivials_gcd(n, k) -> tuple[int, int]:
     for numerator in range(min_numerator, max_denominator - 1):
         n_s = str(numerator)
         cancel_combos = set(combinations([ch for ch in n_s if ch != '0'], k))
+        # avoid denominator duplicates with same numerator
         denominators_used = []
         for combo in cancel_combos:
-            n_post = getPerms(k, n, n_s, combo)
+            # get all integers possible post-cancellation of k digits
+            n_post = get_cancelled_combos(n_s, combo)
             for n_2 in n_post:
                 if n_2 == 0:
                     continue
@@ -197,7 +213,8 @@ def sum_of_non_trivials_gcd(n, k) -> tuple[int, int]:
                         continue
                     if n_2 >= max_reduced or d >= max_denominator:
                         break
-                    d_post = getPerms(k, n, str(d), combo)
+                    d_post = get_cancelled_combos(str(d), combo)
+                    # denominator did not contain all digits to cancel
                     if len(d_post) == 0:
                         continue
                     for d_2 in d_post:
@@ -206,7 +223,3 @@ def sum_of_non_trivials_gcd(n, k) -> tuple[int, int]:
                             d_sum += d
                             denominators_used.append(d)
     return n_sum, d_sum
-
-
-if __name__ == '__main__':
-    print(sum_of_non_trivials_brute(4, 3))

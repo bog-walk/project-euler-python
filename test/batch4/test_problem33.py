@@ -65,6 +65,15 @@ class DigitCancellingFractions(unittest.TestCase):
         print(f"Brute solution took: {stops[0] - starts[0]:0.4f}s\n"
               f"Improved solution took: {stops[1] - starts[1]:0.4f}s\n")
 
+    def test_get_cancelled_combos(self):
+        to_cancel = [
+            ("9919", ('9', '9')), ("1233", ('1', '2', '3')),
+            ("1051", ('1', '5')), ("5959", ('9'))
+        ]
+        expected = [{19, 91}, {3}, {1, 10}, {559, 595}]
+        for i, (num, combo) in enumerate(to_cancel):
+            self.assertSetEqual(expected[i], get_cancelled_combos(num, combo))
+
     def test_find_sum_of_non_trivials_k1(self):
         expected = [(110, 322), (77262, 163829)]
         for n in range(2, 4):
