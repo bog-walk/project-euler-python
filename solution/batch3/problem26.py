@@ -57,8 +57,7 @@ def longest_repetend_denominator_primes(n):
         for k in range(1, p):
             if (pow(10, k) - 1) % p == 0:
                 if k > longest_k:
-                    longest_k = k
-                    d = p
+                    longest_k, d = k, p
                 break
     return d
 

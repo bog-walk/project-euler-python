@@ -32,7 +32,7 @@ def spiral_diag_sum_brute(n):
         for _ in range(4):
             num += step
             total += num
-    return total % 1000000007
+    return total % 1_000_000_007
 
 
 def spiral_diag_sum_formula_brute(num):
@@ -47,11 +47,9 @@ def spiral_diag_sum_formula_brute(num):
     SPEED: ~3.7e8ns at N = 1e6 + 1
     """
     f_n = 1
-    prev = f_n
     for n in range(1, int(ceil(num / 2))):
-        f_n = 4 * pow(2 * n + 1, 2) - 12 * n + prev
-        prev = f_n
-    return f_n % 1000000007
+        f_n += 4 * pow(2 * n + 1, 2) - 12 * n
+    return f_n % 1_000_000_007
 
 
 def spiral_diag_sum_formula_derived(n):
@@ -67,4 +65,10 @@ def spiral_diag_sum_formula_derived(n):
     """
     n = (n - 1) // 2
     f_n = (16 * pow(n, 3) + 30 * pow(n, 2) + 26 * n + 3) // 3
-    return f_n % 1000000007
+    return f_n % 1_000_000_007
+
+
+if __name__ == '__main__':
+    x = 1_000_000_000
+    print(spiral_diag_sum_brute(x))
+    # print(spiral_diag_sum_formula_brute(x))

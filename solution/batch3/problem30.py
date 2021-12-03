@@ -26,7 +26,7 @@ def digit_nth_powers_brute(n):
     for num in range(start, end):
         digits = num
         sum_of_powers = 0
-        while digits > 0:
+        while digits:
             sum_of_powers += pow(digits % 10, n)
             if sum_of_powers > num:
                 break  # only breaks while loop
