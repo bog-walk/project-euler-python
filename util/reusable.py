@@ -54,12 +54,14 @@ def gaussian_sum(n):
     return n * (n + 1) // 2
 
 
-def sum_proper_divisors(n):
+def sum_proper_divisors_og(n):
     """
     Optimised solution based on the following:
     - N == 1 has no proper divisor but 1 is a proper divisor of all other naturals;
     - A perfect square would duplicate divisors if included in the loop range;
     - Loop range differs for odd numbers as they cannot have even divisors.
+
+    SPEED: 4.2e4ns for N = 999_999
     """
     if n < 2:
         return 0
@@ -73,6 +75,37 @@ def sum_proper_divisors(n):
         if n % d == 0:
             total += d + n // d
     return total
+
+
+def sum_proper_divisors_pf(num):
+    """
+    Further optimised function that uses prime factorisation to out-perform
+    the original method above.
+    Will be used in future solution sets.
+
+    SPEED: 7.8e3ns for N = 999_999
+    """
+    if num < 2:
+        return 0
+    n = num
+    total = 1
+    p = 2
+    while p * p <= num and n > 1:
+        if n % p == 0:
+            j = p * p
+            n //= p
+            while n % p == 0:
+                j *= p
+                n //= p
+            total *= (j - 1)
+            total //= (p - 1)
+        if p == 2:
+            p += 1
+        else:
+            p += 2
+    if n > 1:
+        total *= (n + 1)
+    return total - num
 
 
 def is_prime(n):

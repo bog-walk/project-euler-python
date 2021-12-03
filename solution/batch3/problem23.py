@@ -26,11 +26,11 @@ e.g.: N = 24
       result = True
 """
 from itertools import chain
-from util.reusable import sum_proper_divisors
+from util.reusable import sum_proper_divisors_pf
 
 
 def is_abundant(n):
-    return sum_proper_divisors(n) > n
+    return sum_proper_divisors_pf(n) > n
 
 
 def is_sum_of_abundants(n):

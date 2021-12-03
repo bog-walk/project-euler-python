@@ -17,15 +17,15 @@ e.g.: N = 300
       d(284) = sum{1,2,4,71,142} = 220
       sum = 220 + 284 = 504
 """
-from util.reusable import sum_proper_divisors
+from util.reusable import sum_proper_divisors_og
 
 
 def sum_amicable_pairs(n):
     amicable_nums = []
     for x in range(2, n):
-        y = sum_proper_divisors(x)
+        y = sum_proper_divisors_og(x)
         # The partner of a newly explored amicable number must be larger
-        if y > x and sum_proper_divisors(y) == x:
+        if y > x and sum_proper_divisors_og(y) == x:
             amicable_nums.append(x)
             # Account for possibility that only 1 of the amicable pair
             # may be under N

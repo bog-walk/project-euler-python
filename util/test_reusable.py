@@ -1,4 +1,5 @@
 import unittest
+from time import perf_counter_ns
 from util.reusable import *
 
 
@@ -44,7 +45,8 @@ class Reusable(unittest.TestCase):
         nums = [1, 2, 3, 12, 20, 36, 49, 220, 284, 999, 5500, 100000]
         expected = [0, 1, 1, 16, 22, 55, 8, 284, 220, 521, 7604, 146078]
         for index, n in enumerate(nums):
-            self.assertEqual(expected[index], sum_proper_divisors(n))
+            self.assertEqual(expected[index], sum_proper_divisors_og(n))
+            self.assertEqual(expected[index], sum_proper_divisors_pf(n))
 
     def test_is_prime_all_true(self):
         primes = [2, 5, 11, 17, 29]
