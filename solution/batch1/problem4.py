@@ -10,40 +10,7 @@ Constraints: 101101 < N < 1000000
 e.g.: N = 800000
       869 * 913 = 793397
 """
-
-
-def is_palindrome(n):
-    """
-    SPEED (BEST): 7.0e-4s for 18-digit N tested 1000 times
-    """
-    num = str(n)
-    return num == num[::-1]
-
-
-def is_palindrome_recursive(n):
-    """
-    SPEED: 6.1e-3s for 18-digit N tested 1000 times
-    """
-    num = str(n)
-    digits = len(num)
-    if digits < 2:
-        return True
-    elif num[0] == num[digits - 1]:
-        return is_palindrome_recursive(num[1:digits - 1])
-    else:
-        return False
-
-
-def is_palindrome_no_cast(n):
-    """
-    SPEED: 4.6e-3s for 18-digit N tested 1000 times
-    """
-    num = n
-    rev = 0
-    while n > 0:
-        rev = rev * 10 + n % 10
-        n //= 10
-    return num == rev
+from util.reusable import is_palindrome
 
 
 def largest_palindrome_product(num):

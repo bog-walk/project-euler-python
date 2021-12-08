@@ -1,16 +1,15 @@
 from math import gcd, floor, sqrt
 
 
-def prime_factors(n):
+def prime_factors(n: int) -> dict:
     """
     Prime decomposition using Sieve of Eratosthenes algorithm.
 
-    Returns:
-        dict of prime factors (keys) and their exponents (values).
+    :return Dict of prime factors (keys) and their exponents (values).
     """
-    if n < 2:
-        return
     primes = dict()
+    if n < 2:
+        return primes
     factors = [2]
     factors.extend(range(3, int(sqrt(n)) + 1, 2))
     for factor in factors:
@@ -25,13 +24,13 @@ def prime_factors(n):
     return primes
 
 
-def least_common_multiple(x, y):
+def least_common_multiple(x: int, y: int) -> int:
     if x == 0 or y == 0:
         raise ValueError("The LCM of 0 is undefined")
     return abs(x * y) // gcd(x, y)
 
 
-def prime_numbers(n):
+def prime_numbers(n: int) -> list:
     """
     Uses Sieve of Eratosthenes method to output all prime numbers
     less than or equal to the upper bound provided.
@@ -50,11 +49,11 @@ def prime_numbers(n):
     return primes
 
 
-def gaussian_sum(n):
+def gaussian_sum(n: int) -> int:
     return n * (n + 1) // 2
 
 
-def sum_proper_divisors_og(n):
+def sum_proper_divisors_og(n: int) -> int:
     """
     Optimised solution based on the following:
     - N == 1 has no proper divisor but 1 is a proper divisor of all other naturals;
@@ -77,7 +76,7 @@ def sum_proper_divisors_og(n):
     return total
 
 
-def sum_proper_divisors_pf(num):
+def sum_proper_divisors_pf(num: int) -> int:
     """
     Further optimised function that uses prime factorisation to out-perform
     the original method above.
@@ -108,7 +107,7 @@ def sum_proper_divisors_pf(num):
     return total - num
 
 
-def is_prime(n):
+def is_prime(n: int) -> bool:
     if n < 2:
         return False
     elif n < 4:  # 2 and 3 are primes
@@ -131,3 +130,38 @@ def is_prime(n):
                 return False
             step += 6
         return True
+
+
+def is_palindrome(n: int) -> bool:
+    """
+    This version, not the 2 alternatives below, will be used in future solutions.
+
+    SPEED (BEST): 7.0e-4s for 18-digit N tested 1000 times
+    """
+    num = str(n)
+    return num == num[::-1]
+
+
+def is_palindrome_recursive(n: str) -> bool:
+    """
+    SPEED: 6.1e-3s for 18-digit N tested 1000 times
+    """
+    digits = len(n)
+    if digits < 2:
+        return True
+    elif n[0] == n[digits - 1]:
+        return is_palindrome_recursive(n[1:digits - 1])
+    else:
+        return False
+
+
+def is_palindrome_no_cast(n: int) -> bool:
+    """
+    SPEED: 4.6e-3s for 18-digit N tested 1000 times
+    """
+    num = n
+    rev = 0
+    while n > 0:
+        rev = rev * 10 + n % 10
+        n //= 10
+    return num == rev
