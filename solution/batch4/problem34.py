@@ -27,10 +27,10 @@ def sum_of_digit_factorials_HR(n):
     previously calculated sum, if it matches the necessary requirements.
     """
     overall_total = 0
-    for n in range(10, n):
-        n_total = sum([factorials[int(ch)] for ch in str(n)])
-        if n_total % n == 0:
-            overall_total += n
+    for num in range(10, n):
+        num_total = sum([factorials[int(ch)] for ch in str(num)])
+        if num_total % num == 0:
+            overall_total += num
     return overall_total
 
 

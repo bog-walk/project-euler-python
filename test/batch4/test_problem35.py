@@ -6,7 +6,7 @@ class CircularPrimes(unittest.TestCase):
     def test_get_circular_primes_low_n(self):
         n = 100
         expected = [2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, 97]
-        self.assertListEqual(sorted(expected), sorted(get_circular_primes(n)))
+        self.assertListEqual(expected, sorted(get_circular_primes(n)))
 
     def test_get_circular_primes_high_n(self):
         n = 1_000_000
