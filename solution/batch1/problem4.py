@@ -13,11 +13,17 @@ e.g.: N = 800000
 
 
 def is_palindrome(n):
+    """
+    SPEED (BEST): 7.0e-4s for 18-digit N tested 1000 times
+    """
     num = str(n)
     return num == num[::-1]
 
 
 def is_palindrome_recursive(n):
+    """
+    SPEED: 6.1e-3s for 18-digit N tested 1000 times
+    """
     num = str(n)
     digits = len(num)
     if digits < 2:
@@ -29,6 +35,9 @@ def is_palindrome_recursive(n):
 
 
 def is_palindrome_no_cast(n):
+    """
+    SPEED: 4.6e-3s for 18-digit N tested 1000 times
+    """
     num = n
     rev = 0
     while n > 0:
