@@ -1,5 +1,4 @@
 import unittest
-from time import perf_counter
 from util.reusable import *
 
 
@@ -25,14 +24,18 @@ class Reusable(unittest.TestCase):
     def test_prime_numbers_small(self):
         n = 30
         expected = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+        self.assertEqual(expected, prime_numbers_og(n))
         self.assertEqual(expected, prime_numbers(n))
 
     def test_prime_numbers_large(self):
         n = 10000
         expected_size = 1229
         expected_tail = [9887, 9901, 9907, 9923, 9929, 9931, 9941, 9949, 9967, 9973]
+        actual_og = prime_numbers_og(n)
         actual = prime_numbers(n)
+        self.assertEqual(expected_size, len(actual_og))
         self.assertEqual(expected_size, len(actual))
+        self.assertEqual(expected_tail, actual_og[-10:])
         self.assertEqual(expected_tail, actual[-10:])
 
     def test_gaussian_sum(self):
@@ -71,26 +74,6 @@ class Reusable(unittest.TestCase):
             self.assertFalse(is_palindrome(n))
             self.assertFalse(is_palindrome_recursive(str(n)))
             self.assertFalse(is_palindrome_no_cast(n))
-
-    def test_is_palindrome_speed_comparison(self):
-        n = 987654321123456789
-        solutions = [
-            is_palindrome, is_palindrome_no_cast, is_palindrome_recursive
-        ]
-        starts = []
-        stops = []
-        for s in range(3):
-            if s == 2:
-                n = str(n)
-            ans = False
-            starts.append(perf_counter())
-            for _ in range(1000):
-                ans = solutions[s](n)
-            stops.append(perf_counter())
-            self.assertTrue(ans)
-        print(f"String in-built solution took: {stops[0] - starts[0]:0.4f}s\n"
-              f"String recursive solution took: {stops[2] - starts[2]:0.4f}s\n"
-              f"Maths only solution took: {stops[1] - starts[1]:0.4f}s\n")
 
 
 if __name__ == '__main__':

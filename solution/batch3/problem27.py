@@ -18,7 +18,7 @@ e.g.: N = 42
       formula -> n^2 - n + 41, produces 42 primes
       result = -1 41
 """
-from util.reusable import prime_numbers, is_prime
+from util.reusable import prime_numbers_og, is_prime
 
 
 def quad_prime_coeff(max_n) -> tuple[int, int, int]:
@@ -32,7 +32,7 @@ def quad_prime_coeff(max_n) -> tuple[int, int, int]:
     :return [tuple] -> (a, b, count_of_primes)
     """
     best_a, best_b, max_count = 0, 0, 0
-    primes = prime_numbers(max_n)
+    primes = prime_numbers_og(max_n)
     lowest_a = -max_n - 2 if max_n % 2 else -max_n - 1
     # a will only be even if b == 2, so loop through odd values only
     for a in range(lowest_a, max_n + 1, 2):

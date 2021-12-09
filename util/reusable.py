@@ -30,10 +30,12 @@ def least_common_multiple(x: int, y: int) -> int:
     return abs(x * y) // gcd(x, y)
 
 
-def prime_numbers(n: int) -> list:
+def prime_numbers_og(n: int) -> list:
     """
     Uses Sieve of Eratosthenes method to output all prime numbers
     less than or equal to the upper bound provided.
+
+    SPEED: 39.80ms for N = 1e5
     """
     boolean_mask = [not(i != 0 and i % 2 == 0) for i in range(n - 1)]
     for p in range(3, floor(sqrt(n)) + 1, 2):
@@ -46,6 +48,37 @@ def prime_numbers(n: int) -> list:
     for i, isPrime in enumerate(boolean_mask):
         if isPrime:
             primes.append(i + 2)
+    return primes
+
+
+def prime_numbers(n: int) -> list:
+    """
+    Still uses Sieve of Eratosthenes method to output all prime numbers
+    less than or equal to the upper bound provided, but cuts processing
+    time in half by only allocating mask memory to odd numbers and by only
+    looping through multiples of odd numbers.
+    Will be used in future solution sets.
+
+    SPEED (BETTER): 16.71ms for N = 1e5
+    """
+    odd_sieve = (n - 1) // 2
+    upper_limit = floor(sqrt(n)) // 2
+    boolean_mask = [True] * (odd_sieve + 1)
+    # boolean_mask[0] corresponds to prime 2 & is skipped
+    for i in range(1, upper_limit + 1):
+        if boolean_mask[i]:
+            # j = next index at which multiple of odd prime exists
+            j = i * 2 * (i + 1)
+            while j <= odd_sieve:
+                boolean_mask[j] = False
+                j += 2 * i + 1
+    primes = []
+    for i, isPrime in enumerate(boolean_mask):
+        if i == 0:
+            primes.append(2)
+            continue
+        if isPrime:
+            primes.append(2 * i + 1)
     return primes
 
 
@@ -82,7 +115,7 @@ def sum_proper_divisors_pf(num: int) -> int:
     the original method above.
     Will be used in future solution sets.
 
-    SPEED: 7.8e3ns for N = 999_999
+    SPEED (BETTER): 7.8e3ns for N = 999_999
     """
     if num < 2:
         return 0

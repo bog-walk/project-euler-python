@@ -21,7 +21,7 @@ e.g.: N = 10
       1/9 = 0.(1) -> 1-digit recurring cycle
       result = 7
 """
-from util.reusable import prime_numbers
+from util.reusable import prime_numbers_og
 
 
 def longest_repetend_denominator_primes(n):
@@ -50,7 +50,7 @@ def longest_repetend_denominator_primes(n):
     """
     # Only prime numbers considered as only the smallest N is required &
     # anything larger would be a multiple of a smaller prime with equivalent K.
-    primes = [x for x in prime_numbers(n - 1) if x not in [2, 3, 5]]
+    primes = [x for x in prime_numbers_og(n - 1) if x not in [2, 3, 5]]
     d = 3
     longest_k = 1
     for p in primes:

@@ -22,13 +22,19 @@ from util.reusable import prime_numbers
 def sum_of_trunc_primes(n):
     """
     Solution speed optimised based on the following:
+
     - There are only 11 such qualifying numbers.
+
     - A number must start and end with a single-digit prime.
+
     - No point in considering double digit primes less than 23.
+
     - Above 100, pattern shows that qualifying numbers must
     start and end in a 3 or 7.
+
     - Above 1000, pattern shows that qualifying numbers must
     have their first & last 3 digits be a prime number.
+    
     - No need to check first & last digits again in final loop.
     """
     primes = prime_numbers(n - 1)
