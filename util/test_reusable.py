@@ -75,6 +75,14 @@ class Reusable(unittest.TestCase):
             self.assertFalse(is_palindrome_recursive(str(n)))
             self.assertFalse(is_palindrome_no_cast(n))
 
+    def test_pythagorean_triple(self):
+        expected = [(3, 4, 5), (6, 8, 10), (5, 12, 13), (8, 15, 17), (12, 16, 20), (7, 24, 25)]
+        actual = []
+        for m in range(2, 5):
+            for n in range(1, m):
+                actual.append(pythagorean_triplet(m, n, d=1))
+        self.assertListEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()

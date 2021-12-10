@@ -16,6 +16,8 @@ e.g.: N = 12
 """
 from math import prod, sqrt, ceil, gcd
 
+from util.reusable import pythagorean_triplet
+
 
 def is_pythagoras(a, b, c):
     return sqrt(a ** 2 + b ** 2) == c
@@ -58,17 +60,6 @@ def max_triplet_brute(n):
     return max_triplet
 
 
-def pythagorean_triplet(m, n, d):
-    """
-    All Pythagorean triplets can be found from 2 numbers m and n, with m > n > 0.
-    All triplets originate from a primitive one by multiplying them by d = gcd(a,b,c).
-    """
-    a = (m * m - n * n) * d
-    b = 2 * m * n * d
-    c = (m * m + n * n) * d
-    return min(a, b), max(a, b), c
-
-
 def max_triplet_optimised(num):
     """
     Optimised solution based on:
@@ -98,11 +89,10 @@ def max_triplet_optimised(num):
             while k < 2 * m and k <= k_max:
                 if k_max % k == 0 and gcd(k, m) == 1:
                     triplet = pythagorean_triplet(m, k - m, limit // (k * m))
-                    if sum(triplet) == num:
-                        product = prod(triplet)
-                        if product >= max_product:
-                            max_triplet = triplet
-                            max_product = product
+                    product = prod(triplet)
+                    if product >= max_product:
+                        max_triplet = triplet
+                        max_product = product
                 k += 2
     return max_triplet
 

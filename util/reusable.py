@@ -198,3 +198,18 @@ def is_palindrome_no_cast(n: int) -> bool:
         rev = rev * 10 + n % 10
         n //= 10
     return num == rev
+
+
+def pythagorean_triplet(m, n, d):
+    """
+    Euclid's formula to generate all Pythagorean triplets from 2 numbers m and n.
+    All triplets originate from a primitive one by multiplying them by d = gcd(a,b,c).
+    Note the following assumptions:
+    - m > n > 0.
+    - m and n cannot both be odd.
+    - m and n must be co-prime, i.e. gcd(m, n) == 1
+    """
+    a = (m * m - n * n) * d
+    b = 2 * m * n * d
+    c = (m * m + n * n) * d
+    return min(a, b), max(a, b), c
