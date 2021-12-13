@@ -15,7 +15,7 @@ from itertools import permutations
 from util.reusable import is_prime
 
 
-def largest_pandigital_prime_to_exist():
+def largest_pandigital_prime_brute():
     """
     Project Euler specific implementation that returns the largest
     n-digit pandigital prime that exists. This solution checks primality of all
@@ -31,11 +31,9 @@ def largest_pandigital_prime_to_exist():
             if is_prime(int(perm)):
                 return int(perm)
         digits = digits[:-1]
-        if len(digits) == 4:
-            return 4231
 
 
-def largest_pandigital_prime(n):
+def all_pandigital_primes():
     """
     Solution optimised based on the following:
 
@@ -50,22 +48,26 @@ def largest_pandigital_prime(n):
     of 3, then that number will be a multiple of 3 & thereby not a prime. Only
     4- & 7-digit pandigitals have sums that are not divisible by 3 (10 & 28 respectively).
     """
-    if n < 1423:
-        return -1
+    pandigital_primes = []
     digits = [str(d) for d in range(1, 8)]
-    while True:
+    for _ in range(2):
         perms = sorted(list(map("".join, permutations(digits))), reverse=True)
         for perm in perms:
             n_perm = int(perm)
-            if n_perm > n:
-                continue
             if is_prime(n_perm):
-                return n_perm
+                pandigital_primes.append(n_perm)
         digits = digits[:-3]
+    return pandigital_primes
 
 
-if __name__ == '__main__':
-    for p in list(map("".join, permutations(['1', '2', '3', '4']))):
-        if is_prime(int(p)):
-            print(p)
-
+def largest_pandigital_prime_improved(n):
+    """
+    Consider increasing efficiency by pulling generation of all pandigital
+    primes out into a global variable (if multiple test cases needed).
+    """
+    if n < 1423:
+        return -1
+    else:
+        for prime in all_pandigital_primes():
+            if prime <= n:
+                return prime
