@@ -8,9 +8,6 @@ with 1 onwards.
 
 Constraints: 100 <= N <= 1e5 and K in {8, 9} and 1 < M
 
-Pandigital Number: An N-digit number that uses all digits
-from 1 to N exactly once, e.g. N = 5 -> 15234.
-
 e.g.: N = 100, K = 8
       multipliers = {18, 78}, since:
       18 * (1, 2, 3, 4) -> 18|36|54|72
