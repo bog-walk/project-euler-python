@@ -22,7 +22,7 @@ def find_pandigital_multipliers(n, k):
     another 5-digit number).
     """
     multipliers = []
-    limit = min(n, 10000)
+    limit = min(n, 9876)
     for num in range(2, limit):
         concat = ""
         i = 1

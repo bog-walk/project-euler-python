@@ -17,8 +17,9 @@ e.g.: i1..i7 = 1 2 3 4 5 6 7
 """
 from math import prod
 
-# increase efficiency by pre-computing amount of digits in all series
-k_digits = [k * 9 * pow(10, k - 1) for k in range(20)]
+# increase efficiency by pre-computing magnitudes & amount of digits in all series
+magnitudes = [pow(10, e) for e in range(17)]
+k_digits = [(k + 1) * 9 * magnitudes[k] for k in range(17)]
 
 
 def get_constant(i):
@@ -40,14 +41,14 @@ def get_constant(i):
     - The 2000th digit in C is 0.
     """
     k = 1
-    while i > k_digits[k]:
+    while i > k_digits[k - 1]:
         # final reduced i represents the ith digit in the kth series
-        i -= k_digits[k]
+        i -= k_digits[k - 1]
         k += 1
     # k_term represents the ordinal position in the series
     # term_i represents the index of the digit within the term found below
     k_term, term_i = divmod(i - 1, k)
-    term = pow(10, k - 1) + k_term
+    term = magnitudes[k - 1] + k_term
     return int(str(term)[term_i])
 
 

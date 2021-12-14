@@ -20,7 +20,7 @@ def most_triplet_solutions_brute(n):
     """
     Brute solution based on the following:
     - Pythagorean Triplets must either be all evens OR 2 odds with 1 even.
-    So, the sum of triplets will only ever be even numbers as the sum of evens
+    So, the sum of triplets will only ever be an even number as the sum of evens
     is an even number, as is the sum of 2 odds.
 
     - Since a < b < c and a + b + c = P, a will not be higher than P / 3.

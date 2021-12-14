@@ -30,9 +30,14 @@ class ChampernownesConstant(unittest.TestCase):
             self.assertEqual(expected[i], champernownes_product(digits))
 
     def test_champernownes_product_high(self):
-        digits = [1, 10, 100, 1000, 10000, 100000, 1000000]
-        expected = 210
-        self.assertEqual(expected, champernownes_product(digits))
+        inputs = [
+            [1, 10, 100, 1000, 10000, 100000, 1000000],
+            [1000000000000, 10000000000000, 100000000000000, 1000000000000000,
+             10000000000000000, 100000000000000000, 1000000000000000000]
+        ]
+        expected = [210, 5040]
+        for i, digits in enumerate(inputs):
+            self.assertEqual(expected[i], champernownes_product(digits))
 
 
 if __name__ == '__main__':
