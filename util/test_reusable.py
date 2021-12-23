@@ -83,6 +83,28 @@ class Reusable(unittest.TestCase):
                 actual.append(pythagorean_triplet(m, n, d=1))
         self.assertListEqual(expected, actual)
 
+    def test_is_triangular_all_true(self):
+        t_n_s = [1, 3, 6, 10, 190, 325, 496, 595]
+        expected = [1, 2, 3, 4, 19, 25, 31, 34]
+        for i, t_n in enumerate(t_n_s):
+            self.assertEqual(expected[i], is_triangular_number(t_n))
+
+    def test_is_triangular_all_false(self):
+        t_n_s = [2, 8, 46, 121, 173, 299, 403]
+        for t_n in t_n_s:
+            self.assertIsNone(is_triangular_number(t_n))
+
+    def test_is_pentagonal_all_true(self):
+        p_n_s = [1, 5, 12, 22, 35, 247, 532, 1001]
+        expected = [1, 2, 3, 4, 5, 13, 19, 26]
+        for i, p_n in enumerate(p_n_s):
+            self.assertEqual(expected[i], is_pentagonal_number(p_n))
+
+    def test_is_pentagonal_all_false(self):
+        p_n_s = [2, 23, 100, 313, 691, 1111]
+        for p_n in p_n_s:
+            self.assertIsNone(is_pentagonal_number(p_n))
+
 
 if __name__ == '__main__':
     unittest.main()

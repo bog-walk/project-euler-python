@@ -37,7 +37,7 @@ def prime_numbers_og(n: int) -> list:
 
     SPEED: 39.80ms for N = 1e5
     """
-    boolean_mask = [not(i != 0 and i % 2 == 0) for i in range(n - 1)]
+    boolean_mask = [not (i != 0 and i % 2 == 0) for i in range(n - 1)]
     for p in range(3, floor(sqrt(n)) + 1, 2):
         if boolean_mask[p - 2]:
             if p * p > n:
@@ -213,3 +213,35 @@ def pythagorean_triplet(m, n, d):
     b = 2 * m * n * d
     c = (m * m + n * n) * d
     return min(a, b), max(a, b), c
+
+
+def is_triangular_number(t_n) -> int | None:
+    """
+    Derivation solution is based on the following:
+    0.5 * n * (n + 1) = t_n ->
+    inverse function, positive solution ->
+    n = 0.5 * (sqrt((8 * t_n) + 1) - 1)
+
+    :return: If tN is the nth triangular, or None if not triangular.
+    """
+    n = 0.5 * (sqrt(8 * t_n + 1) - 1)
+    if n == floor(n):
+        return int(n)
+    else:
+        return None
+
+
+def is_pentagonal_number(p_n) -> int | None:
+    """
+    Derivation solution is based on the following:
+    0.5 * n * (3 * n - 1) = p_n ->
+    inverse function, positive solution ->
+    n = (sqrt((24 * p_n) + 1) + 1) / 6
+
+    :return: If tN is the nth triangular, or None if not triangular.
+    """
+    n = (sqrt(24 * p_n + 1) + 1) / 6
+    if n == floor(n):
+        return int(n)
+    else:
+        return None
