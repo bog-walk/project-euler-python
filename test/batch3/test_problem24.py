@@ -9,6 +9,7 @@ class LexicographicPermutations(unittest.TestCase):
         expected = ["abc", "acb", "bac", "bca", "cab", "cba"]
         for n in range(6):
             self.assertEqual(expected[n], lexicographic_perms(n, string))
+            self.assertEqual(expected[n], lexicographic_perms_improved(n, string))
             self.assertEqual(expected[n], lexicographic_perms_builtin(n, string))
 
     def test_lexico_perms_long_string(self):
@@ -18,20 +19,27 @@ class LexicographicPermutations(unittest.TestCase):
         expected = ["0123456789", "1023456789", "2783915460", "3012456789", "9876543210"]
         for index, p in enumerate(perms):
             self.assertEqual(expected[index], lexicographic_perms(p, string))
+            self.assertEqual(expected[index], lexicographic_perms_improved(p, string))
             self.assertEqual(expected[index], lexicographic_perms_builtin(p, string))
 
     def test_speed_comparison(self):
         string = "0123456789"
         perm = 999999  # the millionth permutation
-        builtin_sol_start = perf_counter_ns()
-        builtin_ans = lexicographic_perms_builtin(perm, string)
-        builtin_sol_end = perf_counter_ns()
-        alt_sol_start = perf_counter_ns()
-        alt_ans = lexicographic_perms(perm, string)
-        alt_sol_end = perf_counter_ns()
-        print(f"Builtin solution took: {builtin_sol_end - builtin_sol_start:}ns\n" +
-              f"Alt solution took: {alt_sol_end - alt_sol_start:}ns\n")
-        self.assertEqual(builtin_ans, alt_ans)
+        expected = "2783915460"
+        solutions = [
+            lexicographic_perms_builtin,
+            lexicographic_perms,
+            lexicographic_perms_improved
+        ]
+        starts = []
+        stops = []
+        for i, solution in enumerate(solutions):
+            starts.insert(i, perf_counter_ns())
+            self.assertEqual(expected, solution(perm, string))
+            stops.insert(i, perf_counter_ns())
+        print(f"Builtin solution took: {stops[0] - starts[0]}ns\n" +
+              f"Alt solution took: {stops[1] - starts[1]}ns\n" +
+              f"Improved solution took: {stops[2] - starts[2]}ns\n")
 
 
 if __name__ == '__main__':

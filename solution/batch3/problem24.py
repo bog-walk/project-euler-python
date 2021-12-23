@@ -17,6 +17,18 @@ from math import factorial
 from itertools import permutations
 
 
+def lexicographic_perms_builtin(n, string):
+    """
+    SPEED: 588.7ms for 10-digit string
+
+    Most likely due to itertool.permutations() generating all possible
+    full-length permutations sorted lexicographically rather than
+    stopping once the required permutation is found.
+    """
+    all_perms = list(map("".join, permutations(string)))
+    return all_perms[n]
+
+
 def lexicographic_perms(n, string: str, permutation=""):
     """
     Recursive solution uses factorial (permutations without repetition)
@@ -28,7 +40,7 @@ def lexicographic_perms(n, string: str, permutation=""):
     :param [string] the object to generate permutations of; should be
     already sorted in ascending lexicographic order.
 
-    SPEED (BEST): 31200ns for 10-digit string
+    SPEED: 40400ns for 10-digit string
     """
     if not n:
         return permutation + string
@@ -42,13 +54,23 @@ def lexicographic_perms(n, string: str, permutation=""):
         )
 
 
-def lexicographic_perms_builtin(n, string):
+def lexicographic_perms_improved(n, string: str):
     """
-    SPEED: 1.5e9ns for 10-digit string
+    Recursive solution improved by refactoring unnecessary code creation.
 
-    Most likely due to itertool.permutations() generating all possible
-    full-length permutations sorted lexicographically rather than
-    stopping once the required permutation is found.
+    :param [n] the nth permutation requested; should be zero-indexed.
+    :param [string] the object to generate permutations of; should be
+    already sorted in ascending lexicographic order.
+
+    SPEED (BEST): 7000ns for 10-digit string
     """
-    all_perms = list(map("".join, permutations(string)))
-    return all_perms[n]
+    if len(string) == 1:
+        return string
+    else:
+        # batch_size = factorial(len(string)) // len(string)
+        batch_size = factorial(len(string) - 1)
+        i = n // batch_size
+        return string[i] + lexicographic_perms_improved(
+            n % batch_size,
+            string[:i] + string[i+1:]
+        )
