@@ -238,7 +238,7 @@ def is_pentagonal_number(p_n) -> int | None:
     inverse function, positive solution ->
     n = (sqrt((24 * p_n) + 1) + 1) / 6
 
-    :return: If tN is the nth triangular, or None if not triangular.
+    :return: If pN is the nth pentagonal, or None if not pentagonal.
     """
     n = (sqrt(24 * p_n + 1) + 1) / 6
     if n == floor(n):
