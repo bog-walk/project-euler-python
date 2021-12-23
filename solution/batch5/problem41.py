@@ -26,10 +26,13 @@ def largest_pandigital_prime_brute():
     """
     digits = [str(d) for d in range(1, 10)]
     while True:
-        perms = sorted(list(map("".join, permutations(digits))), reverse=True)
-        for perm in perms:
-            if is_prime(int(perm)):
-                return int(perm)
+        # Could sort in reverse, but permutations already returns sorted list
+        perms = list(map("".join, permutations(digits)))
+        # Traverse backwards through already sorted list to get largest first
+        for i in range(len(perms) - 1, -1, -1):
+            perm = int(perms[i])
+            if is_prime(perm):
+                return perm
         digits = digits[:-1]
 
 
@@ -51,9 +54,9 @@ def all_pandigital_primes():
     pandigital_primes = []
     digits = [str(d) for d in range(1, 8)]
     for _ in range(2):
-        perms = sorted(list(map("".join, permutations(digits))), reverse=True)
-        for perm in perms:
-            n_perm = int(perm)
+        perms = list(map("".join, permutations(digits)))
+        for i in range(len(perms) - 1, -1, -1):
+            n_perm = int(perms[i])
             if is_prime(n_perm):
                 pandigital_primes.append(n_perm)
         digits = digits[:-3]
