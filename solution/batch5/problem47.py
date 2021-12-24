@@ -17,22 +17,37 @@ e.g.: N = 20, K = 2
       N = 644, K = 3
       result = {644}
 """
-from util.reusable import prime_factors, is_prime
+from util.reusable import prime_factors
+
+
+def count_prime_factors(n):
+    """
+    Modified prime_factor utility method that instead counts number
+    of distinct prime factors for each n <= N.
+
+    :return: Each ith element represents the number of prime factors
+    for the number i.
+    """
+    factors = [0]*(n + 1)
+    for i in range(2, n + 1):
+        if factors[i] == 0:
+            for j in range(i, n + 1, i):
+                factors[j] += 1
+    return factors
 
 
 def consecutive_distinct_primes(n, k):
     first_consecutive = []
-    for composite in range(14, n + 1):
-        if is_prime(composite) or len(prime_factors(composite)) != k:
+    # Extend k-above limit to account for k-consecutive runs
+    factors = count_prime_factors(n + k)
+    count = 0
+    for composite in range(14, n + k):
+        if factors[composite] != k:
+            count = 0
             continue
-        valid = True
-        for i in range(1, k):
-            adjacent = composite + i
-            if is_prime(adjacent) or len(prime_factors(adjacent)) != k:
-                valid = False
-                break
-        if valid:
-            first_consecutive.append(composite)
+        count += 1
+        if count >= k:
+            first_consecutive.append(composite - k + 1)
     return first_consecutive
 
 
@@ -46,12 +61,12 @@ def first_4_distinct_primes():
     composite = 210
     while True:
         composite += 1
-        if is_prime(composite) or len(prime_factors(composite)) != 4:
+        if len(prime_factors(composite)) != 4:
             continue
         valid = True
         for i in range(1, 4):
             adjacent = composite + i
-            if is_prime(adjacent) or len(prime_factors(adjacent)) != 4:
+            if len(prime_factors(adjacent)) != 4:
                 valid = False
                 break
         if valid:
