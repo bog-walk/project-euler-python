@@ -13,17 +13,17 @@ e.g.: N = 10
 """
 
 
-def self_powers_sum_brute(n):
+def self_powers_sum(n):
     """
-    Solution not optimised for N > .
+    Solution uses built-in pow(base, exp, mod).
 
-    SPEED: s for N = 1e4
+    SPEED: 0.03s for N = 1e4
     """
+    mod = 10_000_000_000
     total = 0
     for d in range(1, n + 1):
-        total += d ** d
-    end = str(total)[-10:]
-    return int(end)
+        total += pow(d, d, mod)
+    return total % mod
 
 
 def self_powers_sum_modulo(n):
@@ -34,7 +34,7 @@ def self_powers_sum_modulo(n):
     The carried over number for each new self-power is thereby
     significantly reduced by performing modulo at every step.
 
-    SPEED (BETTER): s for N = 1e4
+    SPEED: 9.26s for N = 1e4
     """
     mod = 10_000_000_000
     total = 0
@@ -43,29 +43,6 @@ def self_powers_sum_modulo(n):
         for _ in range(1, d):
             power *= d
             power %= mod
-        total += power
-        total %= mod
-    return total
-
-
-def self_powers_sum_modulo_2(n):
-    """
-    Solution optimised based on the rule that:
-    (x + y) % z == ((x % z) + (y % z)) % z.
-    This same rule applies to multiplication with modulo.
-    The carried over number for each new self-power is thereby
-    significantly reduced by performing modulo at every step.
-
-    SPEED (BETTER): s for N = 1e4
-    """
-    mod = 10_000_000_000
-    total = 0
-    for d in range(1, n + 1):
-        power = d
-        for _ in range(1, d):
-            power *= d
-            if power >= mod:
-                power %= mod
         total += power
         total %= mod
     return total
