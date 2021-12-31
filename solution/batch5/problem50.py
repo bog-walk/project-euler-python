@@ -15,18 +15,60 @@ from util.reusable import prime_numbers, is_prime
 
 
 def consecutive_prime_sum(n) -> tuple[int, int]:
-    limit = min(n, 1_000_000)
+    """
+    Sieve generation of prime numbers limited by memory. Brute force shows
+    that all valid sequences start at low primes, with only a few starting
+    as high as the 4th, 8th or 12th prime. If the sum of a sequence exceeds
+    the given limit, the next sequence starting from a larger prime will be
+    1 prime longer from where it broke.
+
+    SPEED: 27.69s for N = 1e10
+    """
+    limit = min(n, 10_000_000)
     primes = prime_numbers(limit)
-    prime, longest = 2, 1
-    for i in range(min(len(primes), 4)):
-        total = primes[i]
-        length = 1
-        for j in range(i + 1, len(primes)):
-            total += primes[j]
-            length += 1
-            if total > n:
+    len_primes = len(primes)
+    prime_sum, longest = 2, 1
+    max_j = len_primes
+    for i in range(min(len_primes, 12)):
+        for j in range(i + longest, max_j):
+            seq_sum = sum(primes[i:j])
+            if seq_sum > n:
+                max_j = j + 1
                 break
-            if total < limit and total in primes or is_prime(total):
+            if seq_sum <= limit and seq_sum in primes or is_prime(seq_sum):
+                length = j - i
                 if length > longest:
-                    prime, longest = total, length
-    return prime, longest
+                    prime_sum, longest = seq_sum, length
+    return prime_sum, longest
+
+
+def consecutive_prime_sum_improved(n) -> tuple[int, int]:
+    """
+    Solution optimised by generating a smaller list of cumulative sums
+    of primes to loop through, of which only the last value can exceed
+    the given limit. Nested loop starts backwards to get the longest
+    sequence sum for each starting prime by subtracting cumulative sums,
+    then breaking internal loop if a valid sequence is found.
+
+    SPEED (BETTER): 1.50s for N = 1e10
+    """
+    limit = min(n, 10_000_000)
+    primes = prime_numbers(limit)
+    cumulative_sum = [0]
+    for prime in primes:
+        cumulative_sum.append(cumulative_sum[-1] + prime)
+        if cumulative_sum[-1] > n:
+            break
+    size = len(cumulative_sum)
+    prime_sum, longest = 2, 1
+    for i in range(size):
+        for j in range(size - 1, i + longest - 1, -1):
+            seq_sum = cumulative_sum[j] - cumulative_sum[i]
+            if seq_sum > n:
+                continue
+            length = j - i
+            if length > longest and \
+                    (seq_sum <= limit and seq_sum in primes or is_prime(seq_sum)):
+                prime_sum, longest = seq_sum, length
+                break
+    return prime_sum, longest
