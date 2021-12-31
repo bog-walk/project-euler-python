@@ -22,6 +22,10 @@ class LargeSum(unittest.TestCase):
         self.assertEqual(50, len(self.five_N[0]))
         self.assertEqual(100, len(self.hundred_N))
 
+    def test_one_sum(self):
+        digits = ["123456789123456789"]
+        self.assertEqual("1234567891", add_in_reverse(1, digits))
+
     def test_small_sum(self):
         expected = sum([int(n) for n in self.three_digits])
         self.assertEqual(str(expected), add_in_reverse(5, self.three_digits))

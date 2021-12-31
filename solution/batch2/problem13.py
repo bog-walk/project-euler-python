@@ -21,7 +21,7 @@ def add_in_reverse(n, digits):
     without overflow issues). See test cases for simple addition comparison.
     """
     if n == 1:
-        return digits[0]
+        return digits[0][:10]
     output = []
     carry_over = 0
     for i in range(len(digits[0]) - 1, -1, -1):
