@@ -14,7 +14,7 @@ e.g.: N = 2000, K = 3
       output = 148748178147
 """
 from itertools import permutations
-from util.reusable import is_prime, prime_numbers
+from util.maths.reusable import is_prime, prime_numbers
 
 
 def prime_perm_sequence(n, k) -> list[list[int]]:

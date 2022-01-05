@@ -22,7 +22,7 @@ e.g.: N = 9
       result = 2
 """
 from math import sqrt, floor
-from util.reusable import is_prime, prime_numbers
+from util.maths.reusable import is_prime, prime_numbers
 
 
 def is_goldbach_2(composite, prime):

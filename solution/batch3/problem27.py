@@ -18,7 +18,7 @@ e.g.: N = 42
       formula -> n^2 - n + 41, produces 42 primes
       result = -1 41
 """
-from util.reusable import prime_numbers_og, is_prime
+from util.maths.reusable import prime_numbers_og, is_prime
 
 
 def quad_prime_coeff(max_n) -> tuple[int, int, int]:

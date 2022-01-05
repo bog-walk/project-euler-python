@@ -22,7 +22,7 @@ e.g.: N = 10000, a = 3, b = 5
       result = {1, 40755}
 """
 from math import sqrt, floor
-from util.reusable import is_triangular_number, is_pentagonal_number
+from util.maths.reusable import is_triangular_number, is_pentagonal_number
 
 
 def is_hexagonal_number(h_n):

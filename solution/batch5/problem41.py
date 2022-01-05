@@ -12,7 +12,7 @@ e.g.: N = 100
       return 4231, as the smallest pandigital prime.
 """
 from itertools import permutations
-from util.reusable import is_prime
+from util.maths.reusable import is_prime
 
 
 def largest_pandigital_prime_brute():

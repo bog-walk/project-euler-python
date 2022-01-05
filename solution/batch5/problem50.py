@@ -11,7 +11,7 @@ e.g.: N = 100
       sum = 41 -> 2 + 3 + 5 + 7 + 11 + 13
       length = 6
 """
-from util.reusable import prime_numbers, is_prime
+from util.maths.reusable import prime_numbers, is_prime
 
 
 def consecutive_prime_sum(n) -> tuple[int, int]:

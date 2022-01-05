@@ -10,7 +10,7 @@ Constraints: 101101 < N < 1000000
 e.g.: N = 800000
       869 * 913 = 793397
 """
-from util.reusable import is_palindrome
+from util.strings.reusable import is_palindrome
 
 
 def largest_palindrome_product(num):

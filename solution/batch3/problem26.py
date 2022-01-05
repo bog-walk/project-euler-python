@@ -21,7 +21,7 @@ e.g.: N = 10
       1/9 = 0.(1) -> 1-digit recurring cycle
       result = 7
 """
-from util.reusable import prime_numbers_og
+from util.maths.reusable import prime_numbers_og
 
 
 def longest_repetend_denominator_primes(n):

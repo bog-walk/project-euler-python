@@ -1,5 +1,5 @@
 import unittest
-from util.reusable import prime_numbers_og
+from util.maths.reusable import prime_numbers_og
 from solution.batch1.problem10 import sum_of_primes_quick_draw
 
 

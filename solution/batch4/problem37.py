@@ -16,7 +16,7 @@ e.g.: N = 50
       truncatable primes = {23, 37}
       sum = 60
 """
-from util.reusable import prime_numbers
+from util.maths.reusable import prime_numbers
 
 
 def sum_of_trunc_primes(n):

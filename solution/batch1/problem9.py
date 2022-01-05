@@ -15,7 +15,7 @@ e.g.: N = 12
       product = 3*4*5 = 60
 """
 from math import prod, sqrt, ceil, gcd
-from util.reusable import pythagorean_triplet
+from util.maths.reusable import pythagorean_triplet
 
 
 def is_pythagoras(a, b, c):

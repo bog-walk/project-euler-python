@@ -13,7 +13,7 @@ e.g.: N = 12
       P = 12 as 12 is the only sum of a Pythagorean triplet (3, 4, 5)
 """
 from math import ceil, sqrt, gcd
-from util.reusable import pythagorean_triplet
+from util.maths.reusable import pythagorean_triplet
 
 
 def most_triplet_solutions_brute(n):

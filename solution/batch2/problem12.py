@@ -21,7 +21,7 @@ e.g.: N = 5
       result = 28
 """
 from math import prod
-from util.reusable import prime_factors, prime_numbers_og, gaussian_sum
+from util.maths.reusable import prime_factors, prime_numbers_og, gaussian_sum
 
 
 def count_divisors(n):

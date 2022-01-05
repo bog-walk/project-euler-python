@@ -14,7 +14,7 @@ e.g.: N = 100
       circular primes = {2,3,5,7,11,13,17,31,37,71,73,79,97}
       sum = 446
 """
-from util.reusable import prime_numbers, is_prime
+from util.maths.reusable import prime_numbers, is_prime
 
 
 def get_rotations(num):

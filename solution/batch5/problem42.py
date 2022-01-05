@@ -17,7 +17,7 @@ e.g.: N = 2
       return 2, as 3 is the 2nd triangle number to exist.
 """
 from math import sqrt
-from util.reusable import least_common_multiple, is_triangular_number
+from util.maths.reusable import least_common_multiple, is_triangular_number
 
 
 def triangle_term(t_n) -> int | None:

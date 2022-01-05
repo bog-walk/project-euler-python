@@ -11,7 +11,7 @@ e.g.: N = 10, K = 2
       result = {(1, 1), (3, 11), (5, 101), (7, 111), (9, 1001)}
       sum = 25
 """
-from util.reusable import is_palindrome
+from util.strings.reusable import is_palindrome
 
 
 def switch_base(n, base):

@@ -1,5 +1,5 @@
 import unittest
-from pyramid_tree import *
+from util.custom.pyramid_tree import *
 
 
 class PyramidTreeTest(unittest.TestCase):

@@ -12,7 +12,7 @@ e.g.: N = 3 -> {1,2,3}
       square of sum = 6^2 = 36
       diff = |14 - 36| = 22
 """
-from util.reusable import gaussian_sum
+from util.maths.reusable import gaussian_sum
 
 
 def sum_square_diff(n):

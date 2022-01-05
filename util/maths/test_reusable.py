@@ -1,8 +1,8 @@
 import unittest
-from util.reusable import *
+from util.maths.reusable import *
 
 
-class Reusable(unittest.TestCase):
+class MathsReusable(unittest.TestCase):
     def test_prime_factors(self):
         nums = [2, 12, 100, 999]
         expected = [[2], [2, 2, 3], [2, 2, 5, 5], [3, 3, 3, 37]]
@@ -60,20 +60,6 @@ class Reusable(unittest.TestCase):
         not_primes = [1, 4, 9, 14]
         for p in not_primes:
             self.assertFalse(is_prime(p))
-
-    def test_is_palindrome_all_true(self):
-        test_n = [5, 22, 303, 9119]
-        for n in test_n:
-            self.assertTrue(is_palindrome(n))
-            self.assertTrue(is_palindrome_recursive(str(n)))
-            self.assertTrue(is_palindrome_no_cast(n))
-
-    def test_is_palindrome_all_false(self):
-        test_n = [10, 523, 8018, 124521]
-        for n in test_n:
-            self.assertFalse(is_palindrome(n))
-            self.assertFalse(is_palindrome_recursive(str(n)))
-            self.assertFalse(is_palindrome_no_cast(n))
 
     def test_pythagorean_triple(self):
         expected = [(3, 4, 5), (6, 8, 10), (5, 12, 13), (8, 15, 17), (12, 16, 20), (7, 24, 25)]

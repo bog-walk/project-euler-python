@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch1.problem9 import max_triplet_brute, max_triplet_optimised, max_triplet_product
 
 
@@ -21,21 +21,16 @@ class SpecialPythagoreanTriplet(unittest.TestCase):
             self.assertTupleEqual(expected[index], max_triplet_brute(n))
             self.assertTupleEqual(expected[index], max_triplet_optimised(n))
 
-    def test_compare_speed(self):
+    def test_compare_speed_2(self):
         n = 3000
-        start_brute = perf_counter()
-        result_brute = None
-        for _ in range(10):
-            result_brute = max_triplet_brute(n)
-        stop_brute = perf_counter()
-        start_optimised = perf_counter()
-        result_optimised = None
-        for _ in range(10):
-            result_optimised = max_triplet_optimised(n)
-        stop_optimised = perf_counter()
-        print(f"Brute took: {stop_brute - start_brute:.5f}s\n"
-              f"Optimised took: {stop_optimised - start_optimised:.5f}s")
-        self.assertEqual(result_brute, result_optimised)
+        solutions = {
+            max_triplet_brute: ["Brute", n],
+            max_triplet_optimised: ["Optimised", n]
+        }
+        expected = (750, 1000, 1250)
+        results = compare_speed_seconds(solutions, repeat=10)
+        for actual in results.values():
+            self.assertTupleEqual(expected, actual)
 
     def test_max_triplet_product(self):
         nums = [1, 10, 1231, 12, 90, 1000, 3000]

@@ -16,7 +16,7 @@ P_7 + P_4 = 92 = P_8.
 e.g.: N = 10, K = 2
       output = {70}
 """
-from util.reusable import is_pentagonal_number
+from util.maths.reusable import is_pentagonal_number
 
 
 def pentagon_numbers_HR(n, k):

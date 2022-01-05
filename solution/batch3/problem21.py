@@ -17,7 +17,7 @@ e.g.: N = 300
       d(284) = sum{1,2,4,71,142} = 220
       sum = 220 + 284 = 504
 """
-from util.reusable import sum_proper_divisors_og
+from util.maths.reusable import sum_proper_divisors_og
 
 
 def sum_amicable_pairs(n):

@@ -16,7 +16,7 @@ e.g.: N = 4
       max path -> 3+7+4+9
       output = 23
 """
-from util.pyramid_tree import PyramidTree
+from util.custom.pyramid_tree import PyramidTree
 
 
 def max_path_sum(rows, elements):

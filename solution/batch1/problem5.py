@@ -10,7 +10,7 @@ Constraints: 1 <= N <= 40
 e.g.: N = 3
       {1, 2, 3} evenly divides 6 to give quotient {6, 3, 2}
 """
-from util.reusable import least_common_multiple
+from util.maths.reusable import least_common_multiple
 from functools import reduce
 
 

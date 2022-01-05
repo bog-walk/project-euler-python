@@ -11,7 +11,7 @@ e.g.: N = 10, K1 = 3, K2 = 5
       multiples of K1 || K2 < N = {3, 5, 6, 9}
       sum = 23
 """
-from util.reusable import least_common_multiple
+from util.maths.reusable import least_common_multiple
 
 
 # Memory error for upper limit test case

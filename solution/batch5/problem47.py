@@ -17,7 +17,7 @@ e.g.: N = 20, K = 2
       N = 644, K = 3
       result = {644}
 """
-from util.reusable import prime_factors
+from util.maths.reusable import prime_factors
 
 
 def count_prime_factors(n):

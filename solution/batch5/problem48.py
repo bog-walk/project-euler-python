@@ -40,7 +40,7 @@ def self_powers_sum_modulo(n):
     total = 0
     for d in range(1, n + 1):
         power = d
-        for _ in range(1, d):
+        for _ in range(d - 1):
             power *= d
             power %= mod
         total += power
