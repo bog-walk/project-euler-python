@@ -29,13 +29,21 @@ class TestsReusable(unittest.TestCase):
             pow_a: ["Pow A", n], pow_b: ["Pow B", n]
         }
         expected = 27
-        results = compare_speed_seconds(
+        results_s = compare_speed_seconds(
             solutions, precision=2, repeat=10
         )
-        self.assertListEqual(
-            [pow_a, pow_b], list(results.keys())
+        results_ns = compare_speed_nano(
+            solutions, repeat=10
         )
-        for actual in results.values():
+        self.assertListEqual(
+            [pow_a, pow_b], list(results_s.keys())
+        )
+        self.assertListEqual(
+            [pow_a, pow_b], list(results_ns.keys())
+        )
+        for actual in results_s.values():
+            self.assertEqual(expected, actual)
+        for actual in results_ns.values():
             self.assertEqual(expected, actual)
 
     def test_compare_speed_arg_cast(self):
@@ -45,8 +53,11 @@ class TestsReusable(unittest.TestCase):
             pow_c: ["Pow C", str(n)]
         }
         expected = 27
-        results = compare_speed_seconds(solutions)
-        for actual in results.values():
+        results_s = compare_speed_seconds(solutions)
+        results_ns = compare_speed_nano(solutions)
+        for actual in results_s.values():
+            self.assertEqual(expected, actual)
+        for actual in results_ns.values():
             self.assertEqual(expected, actual)
 
     def test_compare_speed_varargs(self):
@@ -56,13 +67,21 @@ class TestsReusable(unittest.TestCase):
             pow_c: ["Pow C", str(n)], pow_d: ["Pow D", n, n]
         }
         expected = 27
-        results = compare_speed_seconds(
+        results_s = compare_speed_seconds(
             solutions, precision=3, repeat=10
         )
-        self.assertListEqual(
-            [pow_a, pow_b, pow_c, pow_d], list(results.keys())
+        results_ns = compare_speed_nano(
+            solutions, repeat=10
         )
-        for actual in results.values():
+        self.assertListEqual(
+            [pow_a, pow_b, pow_c, pow_d], list(results_s.keys())
+        )
+        self.assertListEqual(
+            [pow_a, pow_b, pow_c, pow_d], list(results_ns.keys())
+        )
+        for actual in results_s.values():
+            self.assertEqual(expected, actual)
+        for actual in results_ns.values():
             self.assertEqual(expected, actual)
 
 

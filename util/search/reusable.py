@@ -1,16 +1,44 @@
-def binary_search(target, collection):
+def binary_search(target, collection) -> bool:
     """
-    Collection provided assumed to be pre-sorted in
-    ascending order. An empty collection will automatically
-    return False.
+    :param target: Element to search for (no type-check
+    in Python as collection can store multiple types).
+    :param collection: Assumed to be already sorted
+    in ascending order.
+    :return: False if collection is empty or element not
+    present; True otherwise.
     """
-    left, right = 0, len(collection) - 1
-    while left <= right:
-        middle = (left + right) // 2
+    low, high = 0, len(collection) - 1
+    while low <= high:
+        middle = (low + high) // 2
         if collection[middle] == target:
             return True
         elif collection[middle] < target:
-            left = middle + 1
+            low = middle + 1
         else:
-            right = middle - 1
+            high = middle - 1
     return False
+
+
+def binary_search_recursive(
+        target,
+        collection,
+        low: int,
+        high: int
+) -> bool:
+    """
+    :param target: Element to search for (no type-check
+    in Python as collection can store multiple types).
+    :param collection: Assumed to be already sorted
+    in ascending order.
+    :return: False if collection is empty or element not
+    present; True otherwise.
+    """
+    if low > high:
+        return False
+    middle = (low + high) // 2
+    if collection[middle] == target:
+        return True
+    elif collection[middle] < target:
+        return binary_search_recursive(target, collection, middle + 1, high)
+    else:
+        return binary_search_recursive(target, collection, low, middle - 1)
