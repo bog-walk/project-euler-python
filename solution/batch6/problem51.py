@@ -20,6 +20,7 @@ e.g.: N = 2, K = 1, L = 3
       smallest 3-prime value family = {11, 13, 17}
 """
 from util.maths.reusable import prime_numbers, is_prime
+from util.search.reusable import binary_search
 
 
 def smallest_prime_digit_repl(n, k, length):
@@ -42,7 +43,7 @@ def smallest_prime_digit_repl(n, k, length):
                 if digit <= max_d:
                     generated = list(
                         filter(
-                            lambda num: num in primes,
+                            lambda num: binary_search(num, primes),
                             [int(p[:i] + str(d) + p[i+1:]) for d in range(int(digit) + 1, 10)]
                         )
                     )
@@ -56,7 +57,7 @@ def smallest_prime_digit_repl(n, k, length):
                     multiples.append(digit)
                     generated = list(
                         filter(
-                            lambda num: num in primes,
+                            lambda num: binary_search(num, primes),
                             [int(p.replace(digit, str(d))) for d in range(int(digit) + 1, 10)]
                         )
                     )
@@ -111,4 +112,4 @@ def smallest_8_prime_family():
 
 
 if __name__ == '__main__':
-    print(smallest_prime_digit_repl(6, 3, 8))
+    print(smallest_prime_digit_repl(2, 1, 6))

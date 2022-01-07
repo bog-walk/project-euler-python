@@ -1,6 +1,6 @@
 import unittest
 from time import sleep
-from util.tests.reusable import *
+from reusable import *
 
 
 def pow_a(n: int) -> int:

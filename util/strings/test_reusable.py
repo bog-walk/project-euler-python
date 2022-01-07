@@ -1,5 +1,5 @@
 import unittest
-from util.strings.reusable import *
+from reusable import *
 
 
 class StringsReusable(unittest.TestCase):

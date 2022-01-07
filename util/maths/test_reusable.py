@@ -1,5 +1,5 @@
 import unittest
-from util.maths.reusable import *
+from reusable import *
 
 
 class MathsReusable(unittest.TestCase):
