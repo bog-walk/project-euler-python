@@ -38,6 +38,32 @@ class PrimeDigitReplacements(unittest.TestCase):
             smallest_prime_digit_repl(n, k, length)
         )
 
+    def test_smallest_prime_digit_repl_e(self):
+        n, k, length = 5, 1, 2
+        expected = [10007, 10009]
+        self.assertListEqual(
+            expected,
+            smallest_prime_digit_repl(n, k, length)
+        )
+
+    def test_smallest_prime_digit_repl_f(self):
+        n, k, length = 3, 2, 1
+        expected = [101]
+        self.assertListEqual(
+            expected,
+            smallest_prime_digit_repl(n, k, length)
+        )
+
+    def test_smallest_prime_digit_repl_g(self):
+        n, k, length = 7, 4, 6
+        expected = [
+            2422027, 3433037, 5455057, 6466067, 8488087, 9499097
+        ]
+        self.assertListEqual(
+            expected,
+            smallest_prime_digit_repl(n, k, length)
+        )
+
     def test_smallest_8_prime_family(self):
         expected = 121313
         self.assertEqual(expected, smallest_8_prime_family())

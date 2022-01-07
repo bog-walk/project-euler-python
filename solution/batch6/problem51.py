@@ -19,11 +19,54 @@ e.g.: N = 2, K = 1, L = 3
       replace 1 digit in 1* -> {11, 13, 17, 19}
       smallest 3-prime value family = {11, 13, 17}
 """
+from itertools import combinations
 from util.maths.reusable import prime_numbers, is_prime
 from util.search.reusable import binary_search
 
 
+def get_replacements(prime: str, n: int, max_d: str, k: int) -> list[list[int]]:
+    """
+    Returned list will not include original prime.
+    """
+    replaced = []
+    replacements = []
+    for i in range(n):
+        digit = prime[i]
+        if digit <= max_d and prime.count(digit) >= k and digit not in replaced:
+            replaced.append(digit)
+            for perm in combinations([i for i, d in enumerate(prime) if d == digit], k):
+                matches = []
+                for d in range(int(digit) + 1, 10):
+                    match = list(prime)
+                    for index in perm:
+                        match[index] = str(d)
+                    matches.append(int("".join(match)))
+                replacements.append(matches)
+    return replacements
+
+
 def smallest_prime_digit_repl(n, k, length):
+    primes = prime_numbers(pow(10, n) - 1)
+    max_d = str(9 - length + 1)
+    smallest = []
+    for prime in primes:
+        if prime < pow(10, n - 1):
+            continue
+        p = str(prime)
+        generated = list(filter(
+            lambda family: len(family) >= length - 1,
+            [
+                list(filter(lambda num: binary_search(num, primes), replacements))
+                for replacements in get_replacements(p, n, max_d, k)
+            ]
+        ))
+        if len(generated):
+            smallest = [prime] + min(generated)[:length - 1]
+            break
+    return smallest
+
+
+def smallest_prime_digit_repl_old(n, k, length):
     """
     Solution optimised by generating all N-digit primes first. The only digits
     that are replaced are those of a value less than the maximum required
@@ -109,7 +152,3 @@ def smallest_8_prime_family():
                     if len(generated) == 7:
                         return n
         n += 2
-
-
-if __name__ == '__main__':
-    print(smallest_prime_digit_repl(2, 1, 6))

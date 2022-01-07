@@ -28,9 +28,11 @@ def compare_speed_seconds(
         stop = perf_counter()
         results[solution] = result
         times.append(stop - start)
-    for solution, time in zip(
-            [value[0] for value in solutions.values()], times
-    ):
+    outputs = sorted(
+        zip([value[0] for value in solutions.values()], times),
+        key=lambda elem: elem[1]
+    )
+    for solution, time in outputs:
         print(f"{solution} solution took: {time:.{precision}f}s")
     return results
 
@@ -59,9 +61,10 @@ def compare_speed_nano(
         stop = perf_counter_ns()
         results[solution] = result
         times.append(stop - start)
-    for solution, time in zip(
-            [value[0] for value in solutions.values()], times
-    ):
-        print(f"{solution} solution took: " +
-              f"{time if time <= 10_000 else '{:.2e}'.format(time)}ns")
+    outputs = sorted(
+        zip([value[0] for value in solutions.values()], times),
+        key=lambda elem: elem[1]
+    )
+    for solution, time in outputs:
+        print(f"{solution} solution took: {'{:.2e}'.format(time)}ns")
     return results

@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed_nano
 from reusable import *
 
 
@@ -34,13 +34,13 @@ class SearchReusable(unittest.TestCase):
             self.assertFalse(binary_search_recursive(target, nums, 0, len(nums) - 1))
 
     def test_binary_search_speed(self):
-        nums = [n for n in range(100_000)]
-        target = 2
+        nums = [n for n in range(1_000_000)]
+        target = 1
         solutions = {
             binary_search: ["Iterative", target, nums],
             binary_search_recursive: ["Recursive", target, nums, 0, len(nums) - 1]
         }
-        outputs = compare_speed_seconds(solutions)
+        outputs = compare_speed_nano(solutions)
         for output in outputs.values():
             self.assertTrue(output)
 
