@@ -24,9 +24,21 @@ from util.maths.reusable import prime_numbers, is_prime
 from util.search.reusable import binary_search
 
 
-def get_replacements(prime: str, n: int, max_d: str, k: int) -> list[list[int]]:
+def get_replacements(
+        prime: str, n: int, max_d: str, k: int
+) -> list[list[int]]:
     """
-    Returned list will not include original prime.
+    :param n: Number of digits in [prime].
+    :param max_d: Max value a digit can be to allow L-primes to be generated.
+    :param k: Number of equal digits to be replaced.
+    :return: List of all integers generated as a result of replacing
+    k-digits of equal value. The original prime will not be included, to
+    avoid it being checked for primality in calling function.
+
+    e.g. "769" with k = 1, max_d = "6" -> "7*9" -> [[779, 789, 799]]
+         "797" with k = 2, max_d = "7" -> "*9*" -> [[898, 999]]
+         "7677" with k = 2, max_d = "7" -> "*6*7", "*67*", "76**" ->
+         [[8687, 9697], [8678, 9679], [7688, 7699]]
     """
     replaced = []
     replacements = []
@@ -46,6 +58,15 @@ def get_replacements(prime: str, n: int, max_d: str, k: int) -> list[list[int]]:
 
 
 def smallest_prime_digit_repl(n, k, length):
+    """
+    Solution optimised by doing the following:
+    - Generate all N-digit primes first.
+    - Only replace digits that are of a value less than the maximum required
+    to generate L primes.
+    - Check for primality using a binary search through generated primes.
+    - Break loop once a family of primes of desired length is found,
+    ensuring the family is the smallest lexicographically if multiple exist.
+    """
     primes = prime_numbers(pow(10, n) - 1)
     max_d = str(9 - length + 1)
     smallest = []
@@ -62,52 +83,6 @@ def smallest_prime_digit_repl(n, k, length):
         ))
         if len(generated):
             smallest = [prime] + min(generated)[:length - 1]
-            break
-    return smallest
-
-
-def smallest_prime_digit_repl_old(n, k, length):
-    """
-    Solution optimised by generating all N-digit primes first. The only digits
-    that are replaced are those of a value less than the maximum required
-    to generate L primes.
-    """
-    primes = prime_numbers(pow(10, n) - 1)
-    max_d = str(9 - length + 1)
-    smallest = []
-    for prime in primes:
-        if prime < pow(10, n - 1):
-            continue
-        p = str(prime)
-        if k == 1:
-            # loop backwards to create smallest primes first
-            for i in range(len(p) - 1, -1, -1):
-                digit = p[i]
-                if digit <= max_d:
-                    generated = list(
-                        filter(
-                            lambda num: binary_search(num, primes),
-                            [int(p[:i] + str(d) + p[i+1:]) for d in range(int(digit) + 1, 10)]
-                        )
-                    )
-                    if len(generated) >= length - 1:
-                        smallest = [prime] + generated[:length - 1]
-                        break
-        else:
-            multiples = []  # avoid duplicate generations
-            for digit in p:
-                if digit <= max_d and p.count(digit) == k and digit not in multiples:
-                    multiples.append(digit)
-                    generated = list(
-                        filter(
-                            lambda num: binary_search(num, primes),
-                            [int(p.replace(digit, str(d))) for d in range(int(digit) + 1, 10)]
-                        )
-                    )
-                    if len(generated) >= length - 1:
-                        smallest = [prime] + generated[:length - 1]
-                        break
-        if len(smallest):
             break
     return smallest
 
@@ -152,3 +127,8 @@ def smallest_8_prime_family():
                     if len(generated) == 7:
                         return n
         n += 2
+
+
+if __name__ == '__main__':
+    print(get_replacements("7677", 3, "7", 2))
+
