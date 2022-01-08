@@ -17,28 +17,3 @@ def binary_search(target, collection) -> bool:
         else:
             high = middle - 1
     return False
-
-
-def binary_search_recursive(
-        target,
-        collection,
-        low: int,
-        high: int
-) -> bool:
-    """
-    :param target: Element to search for (no type-check
-    in Python as collection can store multiple types).
-    :param collection: Assumed to be already sorted
-    in ascending order.
-    :return: False if collection is empty or element not
-    present; True otherwise.
-    """
-    if low > high:
-        return False
-    middle = (low + high) // 2
-    if collection[middle] == target:
-        return True
-    elif collection[middle] < target:
-        return binary_search_recursive(target, collection, middle + 1, high)
-    else:
-        return binary_search_recursive(target, collection, low, middle - 1)

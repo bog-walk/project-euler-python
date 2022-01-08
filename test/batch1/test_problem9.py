@@ -21,16 +21,15 @@ class SpecialPythagoreanTriplet(unittest.TestCase):
             self.assertTupleEqual(expected[index], max_triplet_brute(n))
             self.assertTupleEqual(expected[index], max_triplet_optimised(n))
 
-    def test_compare_speed_2(self):
+    def test_compare_speed(self):
         n = 3000
         solutions = {
-            max_triplet_brute: ["Brute", n],
-            max_triplet_optimised: ["Optimised", n]
+            "Brute": [max_triplet_brute, n],
+            "Optimised": [max_triplet_optimised, n]
         }
         expected = (750, 1000, 1250)
-        results = compare_speed_seconds(solutions, repeat=10)
-        for actual in results.values():
-            self.assertTupleEqual(expected, actual)
+        results = compare_speed_seconds(solutions, precision=5, repeat=10)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
     def test_max_triplet_product(self):
         nums = [1, 10, 1231, 12, 90, 1000, 3000]

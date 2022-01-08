@@ -1,5 +1,6 @@
 import unittest
 from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch1.problem8 import *
 
 
@@ -13,6 +14,7 @@ class LargestProductInSeries(unittest.TestCase):
 
     def test_compare_product_speed(self):
         series = "1234567898765433123456774675683342647"
+        expected = 377629308589273251840000
         sp_start = perf_counter()
         result_sp = 0
         for _ in range(1000):

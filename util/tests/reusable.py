@@ -14,26 +14,26 @@ def compare_speed_seconds(
     speed output.
     :param repeat: Number of times the solution function
     should be called.
-    :return: Dict containing all solution names as keys
-    and their function output as values.
+    :return: Prints the speed in seconds of each function
+    ordered from fastest to slowest, before returning a
+    dictionary containing all solution names as keys and
+    their function output as values.
     """
     results = dict()
-    times = []
-    for solution, values in solutions.items():
-        arguments = values[1:]
+    times = dict()
+    for name, solution in solutions.items():
+        function = solution[0]
+        arguments = solution[1:]
         result = None
         start = perf_counter()
         for _ in range(repeat):
-            result = solution(*arguments)
+            result = function(*arguments)
         stop = perf_counter()
-        results[solution] = result
-        times.append(stop - start)
-    outputs = sorted(
-        zip([value[0] for value in solutions.values()], times),
-        key=lambda elem: elem[1]
-    )
-    for solution, time in outputs:
-        print(f"{solution} solution took: {time:.{precision}f}s")
+        results[name] = result
+        times[name] = stop - start
+    outputs = sorted(times.items(), key=lambda kv: kv[1])
+    for name, time in outputs:
+        print(f"{name} solution took: {time:.{precision}f}s")
     return results
 
 
@@ -47,24 +47,32 @@ def compare_speed_nano(
     *arguments].
     :param repeat: Number of times the solution function
     should be called.
-    :return: Dict containing all solution names as keys
-    and their function output as values.
+    :return: Prints the speed in nanoseconds (formatted in
+    scientific notation) of each function ordered from
+    fastest to slowest, before returning a dictionary containing
+    all solution names as keys and their function
+    output as values.
     """
     results = dict()
-    times = []
-    for solution, values in solutions.items():
-        arguments = values[1:]
+    times = dict()
+    for name, solution in solutions.items():
+        function = solution[0]
+        arguments = solution[1:]
         result = None
         start = perf_counter_ns()
         for _ in range(repeat):
-            result = solution(*arguments)
+            result = function(*arguments)
         stop = perf_counter_ns()
-        results[solution] = result
-        times.append(stop - start)
-    outputs = sorted(
-        zip([value[0] for value in solutions.values()], times),
-        key=lambda elem: elem[1]
-    )
-    for solution, time in outputs:
-        print(f"{solution} solution took: {'{:.2e}'.format(time)}ns")
+        results[name] = result
+        times[name] = stop - start
+    outputs = sorted(times.items(), key=lambda kv: kv[1])
+    for name, time in outputs:
+        symbol = "ns"
+        time_f = time
+        if time > 1_000_000:
+            symbol = "ms"
+            time_f = "{:.2f}".format(time / 1_000_000)
+        elif time > 100_000:
+            time_f = "{:.1e}".format(time)
+        print(f"{name} solution took: {time_f}{symbol}")
     return results

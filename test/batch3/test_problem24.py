@@ -1,5 +1,6 @@
 import unittest
 from time import perf_counter_ns
+from util.tests.reusable import compare_speed_nano
 from solution.batch3.problem24 import *
 
 
@@ -40,6 +41,18 @@ class LexicographicPermutations(unittest.TestCase):
         print(f"Builtin solution took: {stops[0] - starts[0]}ns\n" +
               f"Alt solution took: {stops[1] - starts[1]}ns\n" +
               f"Improved solution took: {stops[2] - starts[2]}ns\n")
+
+    def test_speed_2(self):
+        string = "0123456789"
+        perm = 999999  # the millionth permutation
+        expected = "2783915460"
+        solutions = {
+            "Builtin": [lexicographic_perms_builtin, perm, string],
+            "Alt": [lexicographic_perms, perm, string],
+            "Improved": [lexicographic_perms_improved, perm, string]
+        }
+        results = compare_speed_nano(solutions)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':
