@@ -14,25 +14,35 @@ e.g.: N = 125875, K = 2
 
 
 def is_permutation(original: str, other: str):
-    return len(original) == len(other) and \
-           sorted(list(original)) == sorted(list(other))
+    return sorted(list(original)) == sorted(list(other))
 
 
 def permuted_multiples(n, k):
+    """
+    Solution optimised by limiting loops to between 10^m and
+    10^(m+1) // K, as any higher starting integer will gain more
+    digits when multiplied & not be a permutation.
+    """
     results = []
-    for x in range(125874, n + 1):
-        x_str = str(x)
-        perms = [x]
-        valid = True
-        for m in range(2, k + 1):
-            multiple = x * m
-            if is_permutation(x_str, str(multiple)):
-                perms.append(multiple)
-            else:
-                valid = False
-                break
-        if valid:
-            results.append(perms)
+    start = 125874
+    digits = 6
+    while start <= n:
+        end = min(n + 1, pow(10, digits) // k)
+        for x in range(start, end):
+            x_str = str(x)
+            perms = [x]
+            valid = True
+            for m in range(2, k + 1):
+                multiple = x * m
+                if is_permutation(x_str, str(multiple)):
+                    perms.append(multiple)
+                else:
+                    valid = False
+                    break
+            if valid:
+                results.append(perms)
+        digits += 1
+        start = pow(10, digits - 1)
     return results
 
 
@@ -58,7 +68,3 @@ def smallest_permuted_multiple():
                 break
     print(multiples)
     return x
-
-
-if __name__ == '__main__':
-    print(2_000_000 // 6)

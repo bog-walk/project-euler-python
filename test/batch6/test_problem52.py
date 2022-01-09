@@ -1,7 +1,6 @@
 import unittest
 from util.tests.reusable import compare_speed_seconds
-from solution.batch6.problem52 import permuted_multiples, \
-    smallest_permuted_multiple
+from solution.batch6.problem52 import *
 
 
 class PermutedMultiples(unittest.TestCase):
