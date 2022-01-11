@@ -31,7 +31,7 @@ def largest_palindrome_product(num):
             if product <= largest:
                 # Combo will be too small to pursue
                 break
-            if product < num and is_palindrome(product):
+            if product < num and is_palindrome(str(product)):
                 largest = product
             y -= delta_y
         x -= 1

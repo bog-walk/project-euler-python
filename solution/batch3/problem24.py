@@ -19,7 +19,7 @@ from itertools import permutations
 
 def lexicographic_perms_builtin(n, string):
     """
-    SPEED: 588.7ms for 10-digit string
+    SPEED: 1163.88ms for 10-digit string
 
     Most likely due to itertool.permutations() generating all possible
     full-length permutations sorted lexicographically rather than
@@ -40,7 +40,7 @@ def lexicographic_perms(n, string: str, permutation=""):
     :param [string] the object to generate permutations of; should be
     already sorted in ascending lexicographic order.
 
-    SPEED: 40400ns for 10-digit string
+    SPEED: 43300ns for 10-digit string
     """
     if not n:
         return permutation + string
@@ -62,7 +62,7 @@ def lexicographic_perms_improved(n, string: str):
     :param [string] the object to generate permutations of; should be
     already sorted in ascending lexicographic order.
 
-    SPEED (BEST): 7000ns for 10-digit string
+    SPEED (BEST): 15000ns for 10-digit string
     """
     if len(string) == 1:
         return string

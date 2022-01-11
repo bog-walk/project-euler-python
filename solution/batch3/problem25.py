@@ -15,10 +15,10 @@ from math import ceil, log10
 
 def n_digit_fib_terms(max_digits):
     """
-    SPEED (BEST for N<= 10): 0.0287ms for N = 10
-    4590ms (compared to <1ms with inverted formula) for N = 5000
-
     :return [list] of the first Fibonacci terms to have (index + 2) digits.
+
+    SPEED (BEST for N <= 10): 24700ns for N = 10
+    4695.74ms (compared to <1ms with inverted formula) for N = 5000
     """
     term = 7
     f_n = 13
@@ -59,11 +59,11 @@ def n_digit_fib_term_using_golden(n):
     Iterative solution uses Golden Ratio to calculate the Fibonacci
     sequence numbers.
 
-    SPEED: 0.0406ms for N = 10
+    :return first Fibonacci term to have N digits.
+
+    SPEED (WORST for N <= 10): 47800ns for N = 10
     Significantly slower execution from N > 10, due to exponential
     need to calculate Phi^N.
-
-    :return first Fibonacci term to have N digits.
     """
     term = 7
     f_n = 13
@@ -85,10 +85,10 @@ def n_digit_fib_term_by_digits_golden(n):
     thereby returning the term that has the required amount of digits,
     without the need to iterate.
 
-    SPEED: 39.7731ms for N = 10
-    (BEST for N > 10) 0.0837ms for N = 5000
-
     :return first Fibonacci term to have N digits.
+
+    SPEED: 26300ns for N = 10
+    (BEST for N > 10) 41800ns for N = 5000
     """
     phi = (1 + 5 ** 0.5) / 2
     return int(ceil((n - 1 + log10(5) / 2) / log10(phi)))

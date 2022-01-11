@@ -17,7 +17,7 @@ from math import prod
 
 def string_product(string):
     """
-    SPEED (EQUAL): 0.00864s for 1000 loops
+    SPEED (EQUAL): 0.01429s for 1000 loops
     """
     digits = [int(char) for char in string]
     return prod(digits)
@@ -25,7 +25,7 @@ def string_product(string):
 
 def digits_product(num):
     """
-    SPEED (EQUAL): 0.00885s for 1000 loops
+    SPEED (EQUAL): 0.01716s for 1000 loops
     """
     product = 1
     while num > 0:

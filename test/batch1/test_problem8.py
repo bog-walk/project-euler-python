@@ -1,5 +1,4 @@
 import unittest
-from time import perf_counter
 from util.tests.reusable import compare_speed_seconds
 from solution.batch1.problem8 import *
 
@@ -12,22 +11,16 @@ class LargestProductInSeries(unittest.TestCase):
             self.assertEqual(expected[index], string_product(s))
             self.assertEqual(expected[index], digits_product(int(s)))
 
-    def test_compare_product_speed(self):
+    def test_product_speed(self):
         series = "1234567898765433123456774675683342647"
+        series_int = int(series)
         expected = 377629308589273251840000
-        sp_start = perf_counter()
-        result_sp = 0
-        for _ in range(1000):
-            result_sp = string_product(series)
-        sp_stop = perf_counter()
-        dp_start = perf_counter()
-        result_dp = 0
-        for _ in range(1000):
-            result_dp = digits_product(int(series))
-        dp_stop = perf_counter()
-        print(f"String_Product took {sp_stop - sp_start:0.5f}s\n"
-              f"Digits_Product took {dp_stop - dp_start:0.5f}s")
-        self.assertEqual(result_sp, result_dp)
+        solutions = {
+            "String Product": [string_product, series],
+            "Digits Product": [digits_product, series_int]
+        }
+        results = compare_speed_seconds(solutions, precision=5, repeat=1000)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
     def test_largest_series_product_N_is_1(self):
         series = "8"

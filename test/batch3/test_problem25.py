@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter_ns
+from util.tests.reusable import compare_speed_nano
 from solution.batch3.problem25 import *
 
 
@@ -28,44 +28,31 @@ class NDigitFibonacciNumber(unittest.TestCase):
     def test_n_digit_fib_term_speed_low_n(self):
         n = 10
         expected = 45
-        solutions = [
-            n_digit_fib_terms,
-            n_digit_fib_term_using_golden,
-            n_digit_fib_term_by_digits_golden
-        ]
-        starts = []
-        stops = []
-        for i in range(3):
-            starts.append(perf_counter_ns())
-            ans = solutions[i](n)
-            if i == 0:
-                self.assertEqual(expected, ans[n - 2])
+        solutions = {
+            "Brute": [n_digit_fib_terms, n],
+            "Golden iterative": [n_digit_fib_term_using_golden, n],
+            "Golden by digits": [n_digit_fib_term_by_digits_golden, n]
+        }
+        results = compare_speed_nano(solutions)
+        for name, actual in results.items():
+            if name == "Brute":
+                self.assertEqual(expected, actual[n - 2])
             else:
-                self.assertEqual(expected, ans)
-            stops.append(perf_counter_ns())
-        print(f"Brute solution took: {stops[0] - starts[0]}ns\n"
-              f"Golden iteration took: {stops[1] - starts[1]}ns\n"
-              f"Golden by digits took: {stops[2] - starts[2]}ns\n")
+                self.assertEqual(expected, actual)
 
     def test_n_digit_fib_term_speed_high_n(self):
         n = 5000
         expected = 23922
-        solutions = [
-            n_digit_fib_terms,
-            n_digit_fib_term_by_digits_golden
-        ]
-        starts = []
-        stops = []
-        for i in range(2):
-            starts.append(perf_counter_ns())
-            ans = solutions[i](n)
-            if i == 0:
-                self.assertEqual(expected, ans[n - 2])
+        solutions = {
+            "Brute": [n_digit_fib_terms, n],
+            "Golden by digits": [n_digit_fib_term_by_digits_golden, n]
+        }
+        results = compare_speed_nano(solutions)
+        for name, actual in results.items():
+            if name == "Brute":
+                self.assertEqual(expected, actual[n - 2])
             else:
-                self.assertEqual(expected, ans)
-            stops.append(perf_counter_ns())
-        print(f"Brute solution took: {(stops[0] - starts[0]) // 1_000_000}ms\n"
-              f"Golden by digits took: {stops[1] - starts[1]}ns\n")
+                self.assertEqual(expected, actual)
 
 
 if __name__ == '__main__':

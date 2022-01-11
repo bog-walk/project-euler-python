@@ -2,7 +2,7 @@
 
 https://projecteuler.net/problem=23
 
-Goal: Return whether or not N can be expressed as the sum of 2 abundant numbers.
+Goal: Return whether N can be expressed as the sum of 2 abundant numbers.
 
 Constraints: 0 <= N <= 1e5
 

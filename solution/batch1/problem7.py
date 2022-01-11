@@ -10,27 +10,7 @@ e.g.: N = 6
       primes = {2,3,5,7,11,13,...}
       6th prime = 13
 """
-from math import sqrt, floor
-
-
-def is_prime(n):
-    if n < 2:
-        return False
-    elif n < 4:
-        return True
-    elif n % 2 == 0:
-        return False
-    elif n < 9:
-        return True
-    elif n % 3 == 0:
-        return False
-    else:
-        step = 5
-        while step <= floor(sqrt(n)):
-            if n % step == 0 or n % (step + 2) == 0:
-                return False
-            step += 6
-        return True
+from util.maths.reusable import is_prime
 
 
 def nth_prime(n):

@@ -18,8 +18,7 @@ def sum_of_primes_quick_draw(n):
     against even numbers entirely, using only half of memory & fewer
     iterations, for multiple draws.
 
-    Returns:
-        array of sums of prime numbers <= index.
+    :return array of sums of prime numbers <= index.
     """
     if n % 2 != 0:
         n += 1

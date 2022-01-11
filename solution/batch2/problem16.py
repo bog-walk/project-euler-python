@@ -13,10 +13,16 @@ e.g.: N = 9
 
 
 def exp_digit_sum_A(n):
+    """
+    SPEED (BETTER): 1.210s for N = 1e4 repeated 1000 times.
+    """
     return sum(int(digit) for digit in str(pow(2, n)))
 
 
 def exp_digit_sum_B(n):
+    """
+    SPEED (BETTER): 5.550s for N = 1e4 repeated 1000 times.
+    """
     num = pow(2, n)
     total = 0
     # equivalent to while num != 0

@@ -22,9 +22,12 @@ e.g.: N = 5
 from math import ceil
 
 
+modulus = 1_000_000_007
+
+
 def spiral_diag_sum_brute(n):
     """
-    SPEED: ~4.1e8ns at N = 1e6 + 1
+    SPEED (WORST): 555.78ms at N = 1e6 + 1
     """
     total = 1
     num = 1
@@ -32,7 +35,7 @@ def spiral_diag_sum_brute(n):
         for _ in range(4):
             num += step
             total += num
-    return total % 1_000_000_007
+    return total % modulus
 
 
 def spiral_diag_sum_formula_brute(num):
@@ -44,12 +47,12 @@ def spiral_diag_sum_formula_brute(num):
     2N + 1 wide with the upper right corner being (2n + 1)^2 or the area.
     So provided n would need to be divided by 2.
 
-    SPEED: ~3.7e8ns at N = 1e6 + 1
+    SPEED: 460.31ms at N = 1e6 + 1
     """
     f_n = 1
     for n in range(1, int(ceil(num / 2))):
         f_n += 4 * pow(2 * n + 1, 2) - 12 * n
-    return f_n % 1_000_000_007
+    return f_n % modulus
 
 
 def spiral_diag_sum_formula_derived(n):
@@ -61,14 +64,8 @@ def spiral_diag_sum_formula_derived(n):
     Solving for f(0) to f(3) derives the formula:
     f(n) = (16 * x^3 + 30 * x^2 + 26 * x + 3) // 3
 
-    SPEED (BEST): 4800ns at N = 1e6 + 1
+    SPEED (BEST): 9300ns at N = 1e6 + 1
     """
     n = (n - 1) // 2
     f_n = (16 * pow(n, 3) + 30 * pow(n, 2) + 26 * n + 3) // 3
-    return f_n % 1_000_000_007
-
-
-if __name__ == '__main__':
-    x = 1_000_000_000
-    print(spiral_diag_sum_brute(x))
-    # print(spiral_diag_sum_formula_brute(x))
+    return f_n % modulus

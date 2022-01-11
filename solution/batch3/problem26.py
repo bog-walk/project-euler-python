@@ -46,7 +46,7 @@ def longest_repetend_denominator_primes(n):
     has 99 evenly divided by 11 giving 9. Since k = 2, there must be
     2 repeating digits, so repetend = 09.
 
-    SPEED: 108.1822s for N = 10000
+    SPEED: 133.8723s for N = 1e4
     """
     # Only prime numbers considered as only the smallest N is required &
     # anything larger would be a multiple of a smaller prime with equivalent K.
@@ -67,7 +67,7 @@ def longest_repetend_denominator(n):
     Repeatedly divides & stores decimal parts until a decimal part is
     repeated & compares length of stored parts.
 
-    SPEED (BEST): 0.0092s for N = 10000
+    SPEED (BETTER): 0.0126s for N = 1e4
     """
     longest_k = 0
     d = n

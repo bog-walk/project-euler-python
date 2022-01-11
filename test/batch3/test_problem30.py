@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch3.problem30 import *
 
 
@@ -15,18 +15,15 @@ class DigitFifthPowers(unittest.TestCase):
             self.assertListEqual(expected[n - 3], digit_nth_powers_brute(n))
             self.assertListEqual(expected[n - 3], digit_nth_powers_builtin(n))
 
-    def test_sum_speed_comparison(self):
+    def test_digit_nth_powers_speed(self):
         n = 6
-        expected = 548834
-        solutions = [digit_nth_powers_brute, digit_nth_powers_builtin]
-        starts = []
-        stops = []
-        for solution in solutions:
-            starts.append(perf_counter())
-            self.assertEqual(expected, sum(solution(n)))
-            stops.append(perf_counter())
-        print(f"Brute solution took: {stops[0] - starts[0]:0.4f}s\n"
-              f"Builtin solution took: {stops[1] - starts[1]:0.4f}s\n")
+        expected = [548834]
+        solutions = {
+            "Brute": [digit_nth_powers_brute, n],
+            "Built-in": [digit_nth_powers_builtin, n]
+        }
+        results = compare_speed_seconds(solutions)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

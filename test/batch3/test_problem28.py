@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter_ns
+from util.tests.reusable import compare_speed_nano
 from solution.batch3.problem28 import *
 
 
@@ -12,22 +12,16 @@ class NumberSpiralDiagonals(unittest.TestCase):
             self.assertEqual(expected[index], spiral_diag_sum_formula_brute(n))
             self.assertEqual(expected[index], spiral_diag_sum_formula_derived(n))
 
-    def test_speed_comparison(self):
+    def test_spiral_diag_sum_speed(self):
         n = 1_000_001
         expected = 4315867
-        solutions = [
-            spiral_diag_sum_brute, spiral_diag_sum_formula_brute, spiral_diag_sum_formula_derived
-        ]
-        starts = []
-        stops = []
-        for solution in solutions:
-            starts.append(perf_counter_ns())
-            result = solution(n)
-            stops.append(perf_counter_ns())
-            self.assertEqual(expected, result)
-        print(f"Brute took: {stops[0] - starts[0]}ns\n"
-              f"Formula iterative took: {stops[1] - starts[1]}ns\n"
-              f"Formula derivative took: {stops[2] - starts[2]}ns\n")
+        solutions = {
+            "Brute": [spiral_diag_sum_brute, n],
+            "Iterative": [spiral_diag_sum_formula_brute, n],
+            "Derivative": [spiral_diag_sum_formula_derived, n]
+        }
+        results = compare_speed_nano(solutions)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

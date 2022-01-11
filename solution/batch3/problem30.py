@@ -18,7 +18,7 @@ from itertools import product
 
 def digit_nth_powers_brute(n):
     """
-    SPEED (BEST): 2.8226s for N = 6 
+    SPEED (BETTER): 2.9356s for N = 6
     """
     nums = []
     start = max(100, pow(10, n - 2))
@@ -41,7 +41,7 @@ def digit_nth_powers_builtin(n):
     Considers all combinations of digits (0-9 with replacement) for numbers
     of different lengths, using built-in functions.
 
-    SPEED: 4.7851s for N = 6
+    SPEED: 6.2965s for N = 6
     """
     nums = []
     min_digits = max(3, n - 2)

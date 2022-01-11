@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter_ns
+from util.tests.reusable import compare_speed_nano
 from solution.batch3.problem29 import *
 
 
@@ -12,22 +12,16 @@ class DistinctPowers(unittest.TestCase):
             self.assertEqual(expected[index], distinct_power(n))
             self.assertEqual(expected[index], distinct_power_improved(n))
 
-    def test_speed_comparison(self):
+    def test_distinct_powers_speed(self):
         n = 1000
         expected = 977358
-        solutions = [
-            distinct_powers_brute, distinct_power, distinct_power_improved
-        ]
-        starts = []
-        stops = []
-        for solution in solutions:
-            starts.append(perf_counter_ns())
-            result = solution(n)
-            stops.append(perf_counter_ns())
-            self.assertEqual(expected, result)
-        print(f"Brute took: {(stops[0] - starts[0]) / 1_000_000}ms\n"
-              f"Draft solution took: {(stops[1] - starts[1]) / 1_000_000}ms\n"
-              f"New solution took: {(stops[2] - starts[2]) / 1_000_000}ms\n")
+        solutions = {
+            "Brute": [distinct_powers_brute, n],
+            "Original": [distinct_power, n],
+            "Improved": [distinct_power_improved, n]
+        }
+        results = compare_speed_nano(solutions)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

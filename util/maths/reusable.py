@@ -1,4 +1,5 @@
 from math import gcd, floor, sqrt
+from typing import Optional
 
 
 def prime_factors(n: int) -> dict:
@@ -180,7 +181,7 @@ def pythagorean_triplet(m, n, d):
     return min(a, b), max(a, b), c
 
 
-def is_triangular_number(t_n) -> int | None:
+def is_triangular_number(t_n) -> Optional[int]:
     """
     Derivation solution is based on the following:
     0.5 * n * (n + 1) = t_n ->
@@ -196,7 +197,7 @@ def is_triangular_number(t_n) -> int | None:
         return None
 
 
-def is_pentagonal_number(p_n) -> int | None:
+def is_pentagonal_number(p_n)-> Optional[int]:
     """
     Derivation solution is based on the following:
     0.5 * n * (3 * n - 1) = p_n ->

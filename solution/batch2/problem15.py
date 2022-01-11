@@ -22,7 +22,7 @@ def lattice_path_routes(n, m):
     (n + m)! / n! * m!; since grid dimensions determine the number of steps
     taken & a deterministic proportion of R vs D steps.
 
-    @:return number of routes scaled down to modulo (1e9 + 7)
+    :return number of routes scaled down to modulo (1e9 + 7)
     """
     routes = factorial(n + m) // (factorial(n) * factorial(m))
     return routes % 1_000_000_007
