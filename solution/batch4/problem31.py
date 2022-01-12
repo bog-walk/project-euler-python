@@ -22,7 +22,7 @@ def count_coin_combos_recursive(n, coin=7):
     Nested function used to retain internal state of cache between tests,
     particularly for speed test.
 
-    SPEED: 266.6644s for N = 1e5
+    SPEED: 320.7909s for N = 1e5
     """
     # Cannot use [[0]*8]*(n+1) because this would create a shallow list,
     # which creates only 1 integer object to which all array indices point,
@@ -64,7 +64,7 @@ def count_coin_combos(n):
     - the previous combo calculated for the coin with a smaller target, &
     - the previous combo calculated for a coin of lesser value.
 
-    SPEED (BEST): 0.1358s for N = 1e5
+    SPEED (BETTER): 0.1281s for N = 1e5
     Better performance due less expensive loops (vs recursive function calls)
     & use of less memory with better cache-access.
     """

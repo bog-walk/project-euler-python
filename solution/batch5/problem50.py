@@ -22,7 +22,7 @@ def consecutive_prime_sum(n) -> tuple[int, int]:
     the given limit, the next sequence starting from a larger prime will be
     1 prime longer from where it broke.
 
-    SPEED: 27.69s for N = 1e10
+    SPEED (WORSE): 49.33s for N = 1e10
     """
     limit = min(n, 10_000_000)
     primes = prime_numbers(limit)
@@ -50,7 +50,7 @@ def consecutive_prime_sum_improved(n) -> tuple[int, int]:
     sequence sum for each starting prime by subtracting cumulative sums,
     then breaking internal loop if a valid sequence is found.
 
-    SPEED (BETTER): 1.50s for N = 1e10
+    SPEED (BETTER): 2.35s for N = 1e10
     """
     limit = min(n, 10_000_000)
     primes = prime_numbers(limit)

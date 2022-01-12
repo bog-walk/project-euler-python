@@ -45,7 +45,7 @@ def count_large_combinatorics(n, k):
     is greater than k, then no row (of lesser n) will have valid values & the
     outer loop can be broken.
 
-    SPEED: 0.0485s for N = 1000, K = 1000 repeated 10 times
+    SPEED (WORSE): 0.0485s for N = 1e3, K = 1e3 over 10 iterations
     """
     count = 0
     not_found = False
@@ -79,7 +79,7 @@ def count_large_combinatorics_improved(n, k):
     allowed to exceed its midline value, then it means no value > k was found and
     the outer loop can be broken.
 
-    SPEED (BETTER): 0.0049s for N = 1000, K = 1000 repeated 10 times
+    SPEED (BETTER): 0.0049s for N = 1e3, K = 1e3 over 10 iterations
     """
     count = 0
     r, n_c_r = 0, 1  # start at left-most border

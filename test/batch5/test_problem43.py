@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch5.problem43 import sum_of_pandigital_substrings, \
     sum_of_9_pandigital_substrings
 
@@ -14,14 +14,12 @@ class SubstringDivisibility(unittest.TestCase):
 
     def test_sum_of_9_pandigital_subs_speed(self):
         expected = 16695334890
-        brute_start = perf_counter()
-        self.assertEqual(expected, sum_of_pandigital_substrings(9))
-        brute_stop = perf_counter()
-        filtered_start = perf_counter()
-        self.assertEqual(expected, sum_of_9_pandigital_substrings())
-        filtered_stop = perf_counter()
-        print(f"Brute solution took: {brute_stop - brute_start:0.4f}s\n"
-              f"Filtered solution took: {filtered_stop - filtered_start:0.4f}s\n")
+        solutions = {
+            "Brute": [sum_of_pandigital_substrings, 9],
+            "Filtered": [sum_of_9_pandigital_substrings]
+        }
+        results = compare_speed_seconds(solutions)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

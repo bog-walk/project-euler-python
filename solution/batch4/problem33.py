@@ -38,9 +38,9 @@ def find_non_trivials_brute(n, k) -> list[list[int]]:
     Brute iteration through all numerators and denominators with the expected
     amount of digits, & following constraints specified in problem above.
 
-    SPEED: 22.1190s for N = 4, K = 1
-
     :return List of [numerator, denominator]s.
+
+    SPEED: 23.6961s for N = 4, K = 1
     """
     non_trivials = []
     min_numerator = 10 ** (n - 1) + 1
@@ -65,9 +65,9 @@ def find_non_trivials(n, k) -> list[list[int]]:
     ((10^k)*n + c) / ((10^k)*c + d) = n / d; which reduces to,
     ((10^k)-1)*n(c - d) = c*(d - n)
 
-    SPEED (BEST for normal problem): 0.9368s for N = 4, K = 1
-
     :return List of [numerator, denominator]s.
+
+    SPEED (BETTER for PE problem): 0.9840s for N = 4, K = 1
     """
     non_trivials = []
     cancelled_min = 10 ** (k - 1)
@@ -137,9 +137,9 @@ def sum_of_non_trivials_brute(n, k) -> tuple[int, int]:
     digits can be removed in different ways with the same output.
     e.g. 1616/6464 == 161/644 == 116/464.
 
-    SPEED: 877.5013s for N = 4, K = 1
-
     :return Tuple of (sum of numerators, sum of denominators).
+
+    SPEED: 1447.50s for N = 4, K = 1
     """
     n_sum, d_sum = 0, 0
     min_numerator = 10 ** (n - 1) + 2
@@ -186,7 +186,7 @@ def sum_of_non_trivials_gcd(n, k) -> tuple[int, int]:
     n_og / d_og = n_r / d_r, and
     n_r = n_og / gcd(n_og, d_og), d_r = d_og / gcd(n_og, d_og)
 
-    SPEED (BEST for HR problem): 1.0301s for N = 4, K = 1
+    SPEED (BETTER for HR problem): 1.62s for N = 4, K = 1
     """
     n_sum, d_sum = 0, 0
     min_numerator = 10 ** (n - 1)

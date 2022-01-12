@@ -127,8 +127,3 @@ def smallest_8_prime_family():
                     if len(generated) == 7:
                         return n
         n += 2
-
-
-if __name__ == '__main__':
-    print(get_replacements("7677", 3, "7", 2))
-

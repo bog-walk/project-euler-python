@@ -1,34 +1,32 @@
 import unittest
-from time import perf_counter
-from solution.batch5.problem48 import self_powers_sum, self_powers_sum_modulo
+from util.tests.reusable import compare_speed_seconds
+from solution.batch5.problem48 import *
 
 
 class SelfPowers(unittest.TestCase):
     def test_self_powers_sum_low(self):
         nums = [1, 2, 3, 4, 6, 10]
-        expected = [1, 5, 32, 288, 50069, 405071317]
+        expected = [1, 5, 32, 288, 50069, 405_071_317]
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], self_powers_sum(n))
             self.assertEqual(expected[i], self_powers_sum_modulo(n))
 
     def test_self_powers_sum_mid(self):
         nums = [99, 1000, 8431]
-        expected = [9027641920, 9110846700, 2756754292]
+        expected = [9_027_641_920, 9_110_846_700, 2_756_754_292]
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], self_powers_sum(n))
             self.assertEqual(expected[i], self_powers_sum_modulo(n))
 
     def test_self_powers_sum_speed(self):
         n = 10_000
-        expected = 6237204500
-        brute_start = perf_counter()
-        self.assertEqual(expected, self_powers_sum(n))
-        brute_stop = perf_counter()
-        mod_start = perf_counter()
-        self.assertEqual(expected, self_powers_sum_modulo(n))
-        mod_stop = perf_counter()
-        print(f"Brute solution took: {brute_stop - brute_start:0.2f}s\n" +
-              f"Mod solution took: {mod_stop - mod_start:0.2f}s\n")
+        expected = 6_237_204_500
+        solutions = {
+            "Brute": [self_powers_sum, n],
+            "Mod": [self_powers_sum_modulo, n]
+        }
+        results = compare_speed_seconds(solutions, precision=3)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

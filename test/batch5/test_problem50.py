@@ -1,13 +1,12 @@
 import unittest
-from time import perf_counter
-from solution.batch5.problem50 import consecutive_prime_sum, \
-    consecutive_prime_sum_improved
+from util.tests.reusable import compare_speed_seconds
+from solution.batch5.problem50 import *
 
 
 class ConsecutivePrimeSum(unittest.TestCase):
     def test_consecutive_prime_sum_low(self):
         nums = [
-            2, 5, 10, 20, 50, 100, 150, 200, 300, 500, 1000, 2000, 10000, 22340
+            2, 5, 10, 20, 50, 100, 150, 200, 300, 500, 1000, 2000, 10_000, 22340
         ]
         expected = [
             (2, 1), (5, 2), (5, 2), (17, 4), (41, 6), (41, 6), (127, 9),
@@ -20,8 +19,8 @@ class ConsecutivePrimeSum(unittest.TestCase):
 
     def test_consecutive_prime_sum_mid(self):
         expected = [
-            (92951, 183), (997651, 543),
-            (9951191, 1587), (99819619, 4685), (999715711, 13935)
+            (92_951, 183), (997_651, 543),
+            (9_951_191, 1587), (99_819_619, 4685), (999_715_711, 13935)
         ]
         for i in range(5, 10):
             n = pow(10, i)
@@ -29,25 +28,20 @@ class ConsecutivePrimeSum(unittest.TestCase):
             self.assertTupleEqual(expected[i - 5], consecutive_prime_sum_improved(n))
 
     def test_consecutive_prime_sum_high(self):
-        expected = [(99987684473, 125479), (999973156643, 379317)]
+        expected = [(99_987_684_473, 125_479), (999_973_156_643, 379_317)]
         for i in range(11, 13):
             n = pow(10, i)
             self.assertTupleEqual(expected[i - 11], consecutive_prime_sum_improved(n))
 
     def test_consecutive_prime_sum_speed(self):
-        solutions = [
-            consecutive_prime_sum, consecutive_prime_sum_improved
-        ]
         n = pow(10, 10)
-        expected = (9999419621, 41708)
-        starts = []
-        stops = []
-        for solution in solutions:
-            starts.append(perf_counter())
-            self.assertTupleEqual(expected, solution(n))
-            stops.append(perf_counter())
-        print(f"Brute solution took: {stops[0] - starts[0]:0.2f}s\n" +
-              f"Improved solution took: {stops[1] - starts[1]:0.2f}s\n")
+        expected = (9_999_419_621, 41708)
+        solutions = {
+            "Brute": [consecutive_prime_sum, n],
+            "Improved": [consecutive_prime_sum_improved, n]
+        }
+        results = compare_speed_seconds(solutions, precision=2)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

@@ -35,11 +35,11 @@ def sum_of_palindromes_brute(n, k):
     """
     Naive/Exhaustive iterative approach.
 
-    SPEED: 539.9541s for N = 1e9, K = 2
+    SPEED (WORSE): 494.48s for N = 1e9, K = 2
     """
     total = 0
     for num in range(1, n):
-        if is_palindrome(num) and is_palindrome(int(switch_base(num, k))):
+        if is_palindrome(str(num)) and is_palindrome(switch_base(num, k)):
             total += num
     return total
 
@@ -68,7 +68,7 @@ def sum_of_palindromes(n, k):
     generated base-k palindromes less than N. This also means that only 1
     number needs to be checked as a palindrome (the base-10 result).
 
-    SPEED (BEST): 0.2240s for N = 1e9, K = 2
+    SPEED (BETTER): 0.18s for N = 1e9, K = 2
     """
     total = 0
     odd_turn = True
@@ -79,7 +79,7 @@ def sum_of_palindromes(n, k):
             # generate decimal repr of base-k palindrome
             dec_repr = get_palindrome(i, k, odd_turn)
             # check if decimal is also a palindrome
-            if is_palindrome(dec_repr):
+            if is_palindrome(str(dec_repr)):
                 total += dec_repr
             if dec_repr >= n:
                 break

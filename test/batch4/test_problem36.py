@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch4.problem36 import sum_of_palindromes_brute, sum_of_palindromes
 
 
@@ -31,19 +31,14 @@ class DoubleBasePalindromes(unittest.TestCase):
             self.assertEqual(expected[e], sum_of_palindromes(n, k))
             e += 1
 
-    def test_sum_of_palindromes_speed_comparison(self):
+    def test_sum_of_palindromes_speed(self):
         n, k = 1_000_000_000, 2
-        solutions = [sum_of_palindromes_brute, sum_of_palindromes]
-        answers = []
-        starts = []
-        stops = []
-        for solution in solutions:
-            starts.append(perf_counter())
-            answers.append(solution(n, k))
-            stops.append(perf_counter())
-        print(f"Brute solution took: {stops[0] - starts[0]:0.4f}s\n"
-              f"Improved solution took: {stops[1] - starts[1]:0.4f}s\n")
-        self.assertEqual(answers[0], answers[1])
+        solutions = {
+            "Brute": [sum_of_palindromes_brute, n, k],
+            "Improved": [sum_of_palindromes, n, k]
+        }
+        results = list(compare_speed_seconds(solutions, precision=2).values())
+        self.assertEqual(results[0], results[1])
 
 
 if __name__ == '__main__':

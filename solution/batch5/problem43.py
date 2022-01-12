@@ -24,7 +24,7 @@ from itertools import permutations
 
 def sum_of_pandigital_substrings(n):
     """
-    SPEED: 3.3857s for N = 9
+    SPEED (WORSE): 4.7150s for N = 9
     """
     primes = [0, 2, 3, 5, 7, 11, 13, 17]
     total = 0
@@ -64,7 +64,7 @@ def sum_of_9_pandigital_substrings():
     - If eligible numbers are narrowed down manually, it is proven that
     the d_1 and d_2 are either '1' or '4' and d_10 is either '7' or '9'.
 
-    SPEED (BETTER): 0.7212s for N = 9
+    SPEED (BETTER): 1.1169s for N = 9
     """
     primes = [0, 2, 3, 5, 7, 11, 13, 17]
     digits = "0123456789"

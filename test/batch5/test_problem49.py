@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch5.problem49 import concat_prime_perms
 
 
@@ -34,16 +34,13 @@ class PrimePermutations(unittest.TestCase):
         self.assertListEqual(expected, concat_prime_perms(n, k=4, improved=True))
 
     def test_concat_prime_perms_speed(self):
-        n = 1_000_000
-        expected = 883
-        builtin_start = perf_counter()
-        self.assertEqual(expected, len(concat_prime_perms(n, k=3, improved=False)))
-        builtin_stop = perf_counter()
-        improved_start = perf_counter()
-        self.assertEqual(expected, len(concat_prime_perms(n, k=3, improved=True)))
-        improved_stop = perf_counter()
-        print(f"Builtin solution took: {builtin_stop - builtin_start:0.2f}s\n" +
-              f"Improved solution took: {improved_stop - improved_start:0.2f}s\n")
+        n, k = 1_000_000, 3
+        solutions = {
+            "Built-in": [concat_prime_perms, n, k, False],
+            "Improved": [concat_prime_perms, n, k, True]
+        }
+        results = list(compare_speed_seconds(solutions, precision=2).values())
+        self.assertListEqual(results[0], results[1])
 
 
 if __name__ == '__main__':

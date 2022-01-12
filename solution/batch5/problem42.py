@@ -17,10 +17,11 @@ e.g.: N = 2
       return 2, as 3 is the 2nd triangle number to exist.
 """
 from math import sqrt
+from typing import Optional
 from util.maths.reusable import least_common_multiple, is_triangular_number
 
 
-def triangle_term(t_n) -> int | None:
+def triangle_term(t_n) -> Optional[int]:
     """
     Triangle Number Sequence has interesting properties, e.g. the
     sequence follows the pattern (odd, odd, even, even,...) & each

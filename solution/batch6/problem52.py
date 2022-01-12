@@ -24,7 +24,7 @@ def permuted_multiples(n, k):
     digits when multiplied & not be a permutation.
     """
     results = []
-    start = 125874
+    start = 125_874
     digits = 6
     while start <= n:
         end = min(n + 1, pow(10, digits) // k)
@@ -51,7 +51,7 @@ def smallest_permuted_multiple():
     Project Euler specific implementation that finds the smallest positive
     integer, x, such that 2x, ..., 6x are all permutations of x.
     """
-    x = 125875
+    x = 125_875
     perms = 1
     multiples = []
     while perms != 6:

@@ -30,7 +30,7 @@ def most_triplet_solutions_brute(n):
     b = (P * (P - 2 * a)) / (2 * (P - a)), which means ->
     values of P and a that result in an integer value b represent a valid Triplet.
 
-    SPEED: 261.9510s for N = 1e5
+    SPEED (WORSE): 295.369s for N = 1e5
     """
     best_p, most_sols = 12, 1
     for p in range(14, n + 1, 2):
@@ -49,7 +49,7 @@ def most_triplet_solutions(n):
     Optimised solution based on the previously determined solution for
     finding primitive Pythagorean Triplets (Problem 9).
 
-    SPEED: 1.1066s for N = 1e5
+    SPEED (BETTER): 1.113s for N = 1e5
     """
     best_p, most_sols = 12, 1
     for p in range(14, n + 1, 2):
@@ -81,7 +81,7 @@ def most_triplet_solutions_improved(limit):
     p = 2 * d * m * (m + n), which means ->
     when d = 1 & n = 1, at most 2 * m * m must be below the given limit.
 
-    SPEED (BEST): 0.0820s for N = 1e5
+    SPEED (BEST): 0.129s for N = 1e5
     """
     p_sols = [0]*(limit + 1)
     m = 2

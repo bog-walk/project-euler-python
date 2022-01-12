@@ -17,7 +17,7 @@ def self_powers_sum(n):
     """
     Solution uses built-in pow(base, exp, mod).
 
-    SPEED: 0.03s for N = 1e4
+    SPEED (BETTER): 0.069s for N = 1e4
     """
     mod = 10_000_000_000
     total = 0
@@ -28,13 +28,13 @@ def self_powers_sum(n):
 
 def self_powers_sum_modulo(n):
     """
-    Solution optimised based on the rule that:
+    Solution based on the rule that:
     (x + y) % z == ((x % z) + (y % z)) % z.
     This same rule applies to multiplication with modulo.
     The carried over number for each new self-power is thereby
     significantly reduced by performing modulo at every step.
 
-    SPEED: 9.26s for N = 1e4
+    SPEED (WORSE): 18.586s for N = 1e4
     """
     mod = 10_000_000_000
     total = 0

@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch4.problem39 import *
 
 
@@ -12,21 +12,16 @@ class IntegerRightTriangles(unittest.TestCase):
             self.assertEqual(expected[i], most_triplet_solutions(n))
             self.assertEqual(expected[i], most_triplet_solutions_improved(n))
 
-    def test_most_triplet_solutions_speed_comparison(self):
+    def test_most_triplet_solutions_speed(self):
         n = 100_000
-        solutions = [
-            most_triplet_solutions_brute, most_triplet_solutions, most_triplet_solutions_improved
-        ]
         expected = 55440
-        starts = []
-        stops = []
-        for solution in solutions:
-            starts.append(perf_counter())
-            self.assertEqual(expected, solution(n))
-            stops.append(perf_counter())
-        print(f"Brute solution took: {stops[0] - starts[0]:0.4f}s\n"
-              f"Better solution took: {stops[1] - starts[1]:0.4f}s\n"
-              f"Improved solution took: {stops[2] - starts[2]:0.4f}s\n")
+        solutions = {
+            "Brute": [most_triplet_solutions_brute, n],
+            "Original": [most_triplet_solutions, n],
+            "Improved": [most_triplet_solutions_improved, n]
+        }
+        results = compare_speed_seconds(solutions, precision=3)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

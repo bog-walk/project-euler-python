@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch4.problem31 import *
 
 
@@ -24,18 +24,13 @@ class CoinSums(unittest.TestCase):
         self.assertEqual(expected, count_coin_combos_recursive(n))
 
     def test_count_coin_combos_speed(self):
-        n = 100000
-        solutions = [count_coin_combos_recursive, count_coin_combos]
-        starts = []
-        stops = []
-        answers = []
-        for solution in solutions:
-            starts.append(perf_counter())
-            answers.append(solution(n))
-            stops.append(perf_counter())
-        print(f"Recursive solution took: {stops[0] - starts[0]:0.4f}s\n"
-              f"Improved solution took: {stops[1] - starts[1]:0.4f}s\n")
-        self.assertEqual(answers[0], answers[1])
+        n = 100_000
+        solutions = {
+            "Recursive": [count_coin_combos_recursive, n],
+            "Improved": [count_coin_combos, n]
+        }
+        results = list(compare_speed_seconds(solutions).values())
+        self.assertEqual(results[0], results[1])
 
 
 if __name__ == '__main__':

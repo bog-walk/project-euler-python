@@ -23,7 +23,7 @@ def prime_perm_sequence(n, k) -> list[list[int]]:
     of a prime & filter potential candidates for a sequence. Will be
     slower due to permutations being (re-)generated unnecessarily.
 
-    SPEED: 49.73s for N = 1e6, K = 3
+    SPEED (WORSE): 97.98s for N = 1e6, K = 3
     """
     primes = prime_numbers(n - 1)
     sequences = []
@@ -83,7 +83,7 @@ def prime_perm_sequence_improved(n, k) -> list[list[int]]:
     sequence. Also eliminates need to check for primality by pre-
     generating all primes with same number of digits.
 
-    SPEED (BETTER): 5.64s for N = 1e6, K = 3
+    SPEED (BETTER): 8.97s for N = 1e6, K = 3
     """
     primes = prime_numbers(pow(10, len(str(n))) - 1)
     prime_perms: dict[int, list[int]] = dict()

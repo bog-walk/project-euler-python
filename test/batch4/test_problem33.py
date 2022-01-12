@@ -1,5 +1,5 @@
 import unittest
-from time import perf_counter
+from util.tests.reusable import compare_speed_seconds
 from solution.batch4.problem33 import *
 
 
@@ -50,20 +50,18 @@ class DigitCancellingFractions(unittest.TestCase):
     def test_product_of_non_trivials(self):
         self.assertEqual(100, product_of_non_trivials())
 
-    def test_find_non_trivials_speed_comparison(self):
+    def test_find_non_trivials_speed(self):
         n, k = 4, 1
         expected = [17255, 61085]  # sums of numerators & denominators
-        solutions = [find_non_trivials_brute, find_non_trivials]
-        starts = []
-        stops = []
-        for solution in solutions:
-            starts.append(perf_counter())
-            actual_n, actual_d = map(list, zip(*solution(n, k)))
+        solutions = {
+            "Brute": [find_non_trivials_brute, n, k],
+            "Improved": [find_non_trivials, n, k]
+        }
+        results = compare_speed_seconds(solutions)
+        for actual in results.values():
+            actual_n, actual_d = map(list, zip(*actual))
             self.assertEqual(expected[0], sum(actual_n))
             self.assertEqual(expected[1], sum(actual_d))
-            stops.append(perf_counter())
-        print(f"Brute solution took: {stops[0] - starts[0]:0.4f}s\n"
-              f"Improved solution took: {stops[1] - starts[1]:0.4f}s\n")
 
     def test_get_cancelled_combos(self):
         to_cancel = [
@@ -91,18 +89,16 @@ class DigitCancellingFractions(unittest.TestCase):
         self.assertTupleEqual(expected, sum_of_non_trivials_brute(4, 3))
         self.assertTupleEqual(expected, sum_of_non_trivials_gcd(4, 3))
 
-    def test_find_sum_of_non_trivials_speed_comparison(self):
+    def test_find_sum_of_non_trivials_speed(self):
         n, k = 4, 1
         expected = (12999936, 28131911)
-        solutions = [sum_of_non_trivials_brute, sum_of_non_trivials_gcd]
-        starts = []
-        stops = []
-        for solution in solutions:
-            starts.append(perf_counter())
-            self.assertTupleEqual(expected, solution(n, k))
-            stops.append(perf_counter())
-        print(f"Brute solution took: {stops[0] - starts[0]:0.4f}s\n"
-              f"GCD solution took: {stops[1] - starts[1]:0.4f}s\n")
+        solutions = {
+            "Brute": [sum_of_non_trivials_brute, n, k],
+            "GCD": [sum_of_non_trivials_gcd, n, k]
+        }
+        results = compare_speed_seconds(solutions, precision=2)
+        for actual in results.values():
+            self.assertTupleEqual(expected, actual)
 
 
 if __name__ == '__main__':
