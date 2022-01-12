@@ -5,61 +5,75 @@ from solution.batch1.problem8 import *
 
 class LargestProductInSeries(unittest.TestCase):
     def test_product(self):
-        series = ["8", "1234", "63972201", "1111111111111", "3675356291"]
+        strings = ["8", "1234", "63972201", "1111111111111", "3675356291"]
         expected = [8, 24, 0, 1, 1020600]
-        for index, s in enumerate(series):
-            self.assertEqual(expected[index], string_product(s))
-            self.assertEqual(expected[index], digits_product(int(s)))
+        for i, s in enumerate(strings):
+            self.assertEqual(expected[i], string_product(s))
+            self.assertEqual(expected[i], digits_product(int(s)))
 
     def test_product_speed(self):
-        series = "1234567898765433123456774675683342647"
+        series = "12345678987654331234567746756833426477362957402167"
         series_int = int(series)
-        expected = 377629308589273251840000
         solutions = {
             "String Product": [string_product, series],
             "Digits Product": [digits_product, series_int]
         }
-        results = compare_speed_seconds(solutions, precision=5, repeat=1000)
-        self.assertTrue(all(expected == actual for actual in results.values()))
+        results = list(
+            compare_speed_seconds(solutions, precision=5, repeat=1000).values()
+        )
+        self.assertEqual(results[0], results[1])
 
     def test_largest_series_product_N_is_1(self):
-        series = "8"
-        self.assertEqual(8, largest_series_product_recursive(series, len(series), 1))
-        self.assertEqual(8, largest_series_product(series, len(series), 1))
+        string = "8"
+        n, k = 1, 1
+        expected = 8
+        self.assertEqual(expected, largest_series_product_recursive(string, n, k))
+        self.assertEqual(expected, largest_series_product(string, n, k))
 
     def test_largest_series_product_K_is_1(self):
-        series = "63972201"
-        self.assertEqual(9, largest_series_product_recursive(series, len(series), 1))
-        self.assertEqual(9, largest_series_product(series, len(series), 1))
+        string = "63972201"
+        n, k = len(string), 1
+        expected = 9
+        self.assertEqual(expected, largest_series_product_recursive(string, n, k))
+        self.assertEqual(expected, largest_series_product(string, n, k))
 
     def test_largest_series_product_N_equals_K(self):
-        series = "1111111111111"
-        self.assertEqual(1, largest_series_product_recursive(series, len(series), len(series)))
-        self.assertEqual(1, largest_series_product(series, len(series), len(series)))
+        string = "1111111111111"
+        n, k = len(string), 1
+        expected = 1
+        self.assertEqual(expected, largest_series_product_recursive(string, n, k))
+        self.assertEqual(expected, largest_series_product(string, n, k))
 
-    def test_largest_series_product_N_has_0_in_all_series(self):
-        series = "2709360626"
-        self.assertEqual(0, largest_series_product_recursive(series, len(series), 5))
-        self.assertEqual(0, largest_series_product(series, len(series), 5))
+    def test_largest_series_product_N_has_0_in_all_k(self):
+        string = "2709360626"
+        n, k = len(string), 5
+        expected = 0
+        self.assertEqual(expected, largest_series_product_recursive(string, n, k))
+        self.assertEqual(expected, largest_series_product(string, n, k))
 
     def test_largest_series_product_N_has_0_in_some_series(self):
-        series = "12034"
-        self.assertEqual(12, largest_series_product_recursive(series, len(series), 2))
-        self.assertEqual(12, largest_series_product(series, len(series), 2))
+        string = "12034"
+        n, k = len(string), 2
+        expected = 12
+        self.assertEqual(expected, largest_series_product_recursive(string, n, k))
+        self.assertEqual(expected, largest_series_product(string, n, k))
 
     def test_largest_series_product_N_is_normal(self):
-        series = "3675356291"
-        self.assertEqual(3150, largest_series_product_recursive(series, len(series), 5))
-        self.assertEqual(3150, largest_series_product(series, len(series), 5))
+        string = "3675356291"
+        n, k = len(string), 5
+        expected = 3150
+        self.assertEqual(expected, largest_series_product_recursive(string, n, k))
+        self.assertEqual(expected, largest_series_product(string, n, k))
 
     def test_largest_series_product_100_digits(self):
-        series = "".join('6' if 60 <= i <= 65 else '1' for i in range(100))
+        string = "".join('6' if 60 <= i <= 65 else '1' for i in range(100))
+        n, k = 100, 6
         expected = 46656  # 6 ** 6
-        self.assertEqual(expected, largest_series_product_recursive(series, len(series), 6))
-        self.assertEqual(expected, largest_series_product(series, len(series), 6))
+        self.assertEqual(expected, largest_series_product_recursive(string, n, k))
+        self.assertEqual(expected, largest_series_product(string, n, k))
 
     def test_largest_series_product_1000_digits(self):
-        series = "73167176531330624919225119674426574742355349194934" \
+        string = "73167176531330624919225119674426574742355349194934" \
                  "96983520312774506326239578318016984801869478851843" \
                  "85861560789112949495459501737958331952853208805511" \
                  "12540698747158523863050715693290963295227443043557" \
@@ -79,8 +93,11 @@ class LargestProductInSeries(unittest.TestCase):
                  "84580156166097919133875499200524063689912560717606" \
                  "05886116467109405077541002256983155200055935729725" \
                  "71636269561882670428252483600823257530420752963450"
-        self.assertEqual(5832, largest_series_product(series, len(series), 4))
-        self.assertEqual(23514624000, largest_series_product(series, len(series), 13))
+        n = 1000
+        k = [4, 13]
+        expected = [5832, 23_514_624_000]
+        for i, e in enumerate(expected):
+            self.assertEqual(e, largest_series_product(string, n, k[i]))
 
 
 if __name__ == '__main__':

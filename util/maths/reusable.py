@@ -2,11 +2,13 @@ from math import gcd, floor, sqrt
 from typing import Optional
 
 
-def prime_factors(n: int) -> dict:
-    """
-    Prime decomposition using Sieve of Eratosthenes algorithm.
+def prime_factors(n: int) -> dict[int, int]:
+    """ Prime decomposition using Sieve of Eratosthenes algorithm.
 
-    :return Dict of prime factors (keys) and their exponents (values).
+    Every prime number after 2 will be odd and there can be at most 1 prime factor
+    greater than sqrt(n), which would be n itself if n is a prime.
+
+    :return: Dict of prime factors (keys) and their exponents (values).
     """
     primes = dict()
     if n < 2:
@@ -25,7 +27,7 @@ def prime_factors(n: int) -> dict:
     return primes
 
 
-def least_common_multiple(x: int, y: int) -> int:
+def lcm(x: int, y: int) -> int:
     if x == 0 or y == 0:
         raise ValueError("The LCM of 0 is undefined")
     return abs(x * y) // gcd(x, y)

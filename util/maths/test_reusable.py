@@ -15,11 +15,11 @@ class MathsReusable(unittest.TestCase):
         test_pairs = [(-2, -6), (-15, 30), (12, 18)]
         expected = [6, 30, 36]
         for index, (x, y) in enumerate(test_pairs):
-            self.assertEqual(expected[index], least_common_multiple(x, y))
+            self.assertEqual(expected[index], lcm(x, y))
 
     def test_lcm_invalid(self):
         with self.assertRaises(ValueError):
-            least_common_multiple(0, 2)
+            lcm(0, 2)
 
     def test_prime_numbers_small(self):
         n = 30

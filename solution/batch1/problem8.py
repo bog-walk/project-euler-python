@@ -2,20 +2,18 @@
 
 https://projecteuler.net/problem=8
 
-Goal: Find the largest product of K adjacent digits in
-an N-digit number.
+Goal: Find the largest product of K adjacent digits in an N-digit number.
 
 Constraints: 1 <= K <= 13, K <= N <= 1000
 
-e.g.: input = 3675356291; N = 10
-      K = 5
-      products LTR = {1890,3150,3150,900,1620,540}
-      largest = 3150 -> {6*7*5*3*5} or {7*5*3*5*6}
+e.g.: N = 10 with input = "367535629", K = 5
+      products LTR = {1890, 3150, 3150, 900, 1620, 540}
+      largest = 3150 -> (6*7*5*3*5) or (7*5*3*5*6)
 """
 from math import prod
 
 
-def string_product(string):
+def string_product(string: str) -> int:
     """
     SPEED (EQUAL): 0.01429s for 1000 loops
     """
@@ -23,7 +21,7 @@ def string_product(string):
     return prod(digits)
 
 
-def digits_product(num):
+def digits_product(num: int) -> int:
     """
     SPEED (EQUAL): 0.01716s for 1000 loops
     """
@@ -34,31 +32,29 @@ def digits_product(num):
     return product
 
 
-def largest_series_product_recursive(string: str, digits: int, series_size: int) -> int:
-    """
-    RecursionError: max recursion depth exceeded for string lengths > 100.
-    """
+def largest_series_product_recursive(string: str, digits: int, k: int) -> int:
+    """ Throws RecursionError for string lengths > 100 digits. """
     if digits == 1:
         return int(string)
-    elif series_size == 1:
+    elif k == 1:
         return max(int(char) for char in string)
-    elif digits == series_size:
+    elif digits == k:
         return string_product(string)
     else:
         return max(
-            largest_series_product_recursive(string[:series_size], series_size, series_size),
-            largest_series_product_recursive(string[1:], digits - 1, series_size)
+            largest_series_product_recursive(string[:k], k, k),
+            largest_series_product_recursive(string[1:], digits - 1, k)
         )
 
 
-def largest_series_product(string, digits, series_size):
+def largest_series_product(string: str, digits: int, k: int) -> int:
     largest = 0
     if digits == 1:
         largest = int(string)
-    elif digits == series_size:
+    elif digits == k:
         largest = string_product(string)
     else:
-        for i in range(digits - series_size + 1):
-            product = string_product(string[i:i+series_size])
+        for i in range(digits - k + 1):
+            product = string_product(string[i:i+k])
             largest = max(largest, product)
     return largest

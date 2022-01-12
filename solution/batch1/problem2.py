@@ -2,8 +2,7 @@
 
 https://projecteuler.net/problem=2
 
-Goal: Find the sum of all even numbers in the Fibonacci sequence
-less than N.
+Goal: Find the sum of all even numbers in the Fibonacci sequence less than N.
 
 Constraints: 10 <= N <= 4e16
 
@@ -13,11 +12,30 @@ e.g.: N = 44
 """
 
 
-def even_fibonacci_step(n):
+def sum_even_fibs_formula(n: int) -> int:
     """
-    Return sum of evens by stepping forward 3 times in the sequence.
+    Sums every 3rd term in the sequence starting with 2, using the formula:
+    Fib(n) = 4 * Fib(n - 3) + Fib(n - 6).
 
-    After 2, every 3rd Fibonacci number will be even.
+    SPEED (EQUAL): 0.0083s for N = 4e16 over 1000 iterations.
+    """
+    prev_even_2, prev_even_1 = 2, 8  # Fib(3), Fib(6)
+    sum_of_evens = 10
+    while True:
+        current_even = 4 * prev_even_1 + prev_even_2
+        if current_even >= n:
+            break
+        sum_of_evens += current_even
+        prev_even_2, prev_even_1 = prev_even_1, current_even
+    return sum_of_evens
+
+
+def sum_even_fibs_brute(n: int) -> int:
+    """
+    Sums every 3rd term in the sequence starting with 2, based on the observed
+    pattern that every 3rd Fibonacci number after 2 is even.
+
+    SPEED (EQUAL): 0.0076s for N = 4e16 over 1000 iterations.
     """
     sum_of_evens, odd2, odd1, even = 0, 1, 1, 2
     while even < n:
@@ -25,22 +43,4 @@ def even_fibonacci_step(n):
         odd2 = odd1 + even
         odd1 = odd2 + even
         even = odd2 + odd1
-    return sum_of_evens
-
-
-def even_fibonacci_formula(n):
-    """
-    Uses the formula: Fib(n) = 4 * Fib(n-3) + Fib(n-6), to
-    accumulate every 3rd fibonacci number starting with 2.
-
-    Could be refactored to output all evens under N.
-    """
-    sum_of_evens = 10  # 10 <= N <= 4e16
-    prev_even_2, prev_even_1 = 2, 8  # Fib(3), Fib(6)
-    while True:
-        current_even = 4 * prev_even_1 + prev_even_2
-        if current_even >= n:
-            break
-        sum_of_evens += current_even
-        prev_even_2, prev_even_1 = prev_even_1, current_even
     return sum_of_evens

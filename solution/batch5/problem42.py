@@ -18,7 +18,7 @@ e.g.: N = 2
 """
 from math import sqrt
 from typing import Optional
-from util.maths.reusable import least_common_multiple, is_triangular_number
+from util.maths.reusable import lcm, is_triangular_number
 
 
 def triangle_term(t_n) -> Optional[int]:
@@ -37,7 +37,7 @@ def triangle_term(t_n) -> Optional[int]:
     """
     t_n_2 = 2 * t_n
     n = int(sqrt(t_n_2))
-    if t_n_2 == least_common_multiple(n, n + 1):
+    if t_n_2 == lcm(n, n + 1):
         return n
     return -1
 

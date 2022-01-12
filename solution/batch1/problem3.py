@@ -6,44 +6,39 @@ Goal: Find the largest prime factor of N.
 
 Constraints: 10 <= N <= 1e12
 
-Fundamental Theorem of Arithmetic: There will only ever be a
-unique set of prime factors for any number.
+Fundamental Theorem of Arithmetic: There will only ever be a unique set of prime
+factors for any number.
 
 e.g.: N = 10
       prime factors = {2, 5}
       largest = 5
 """
 from math import sqrt
+from util.maths.reusable import prime_factors
 
 
-def largest_prime_factor(n):
+def largest_prime_factor(n: int) -> int:
     """
-    Returns largest prime factor of n.
+    Uses prime decomposition via the Sieve of Eratosthenes algorithm to return
+    the largest prime factor.
 
-    Only tests factor 2, then every odd factor up to sqrt(n)
-    as 2 is the only even prime number. sqrt(n) is the last checked as
-    there can be at most 1 prime factor greater than sqrt(n) if n is
-    not a prime.
+    SPEED (EQUAL for n with small factors): 5.90s for N = 1e12 over 100 iterations.
+    (WORSE for n with large factors): 4.50s for N = 600_851_475_143 over 100 iterations.
     """
-    largest = 2
-    factors = [2]
-    factors.extend(range(3, int(sqrt(n)) + 1, 2))
-    for factor in factors:
-        while n % factor == 0:
-            largest = factor
-            n /= factor
-    if n > 2:
-        largest = max(int(n), largest)
-    return largest
+    factors = prime_factors(n)
+    return max(factors.keys())
 
 
-def largest_prime_factor_recursive(n, f=2):
+def largest_prime_factor_recursive(n: int, f: int = 2) -> int:
+    """
+    SPEED (EQUAL for n with small factors): 5.07s for N = 1e12 over 100 iterations.
+    (BETTER for n with large factors): 1.32s for N = 600_851_475_143 over 100 iterations.
+    """
     factors = [2]
     factors.extend(range(3, int(sqrt(n)) + 1, 2))
     for factor in factors:
         if n % factor == 0:
-            f = factor
-            return largest_prime_factor_recursive(n / factor, f)
+            return largest_prime_factor_recursive(n // factor, factor)
     if n > 2:
         f = max(f, int(n))
     return f

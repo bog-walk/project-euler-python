@@ -2,29 +2,35 @@
 
 https://projecteuler.net/problem=5
 
-Goal: Find the smallest positive number that can be evenly divided by
-each number in the range(1, N+1).
+Goal: Find the smallest positive number that can be evenly divided by each
+number in [1, N].
 
 Constraints: 1 <= N <= 40
 
 e.g.: N = 3
-      {1, 2, 3} evenly divides 6 to give quotient {6, 3, 2}
+      [1, 2, 3] evenly divides 6 to give quotient {6, 3, 2}
 """
-from util.maths.reusable import least_common_multiple
 from functools import reduce
+from util.maths.reusable import lcm
 
 
-def lcm_of_range(range_max):
+def lcm_of_range(n: int) -> int:
     """
-    Find the least common multiple of the largest numbers in range, then
-    continue to do so iterating backwards through range with 1 of the
-    lcm parameters being the previously calculated lcm.
+    Repeatedly calculates the least common multiple of the range elements,
+    starting from the largest and stepping backwards until the middle of the range.
+
+    SPEED (WORSE): 55.84ms for N = 40 over 1000 iterations.
     """
-    lcm = range_max
-    for i in range(range_max - 1, range_max // 2, -1):
-        lcm = least_common_multiple(lcm, i)
-    return lcm
+    common_multiple = n
+    for i in range(n - 1, n // 2, -1):
+        common_multiple = lcm(common_multiple, i)
+    return common_multiple
 
 
-def lcm_of_range_reduce(range_max):
-    return reduce(least_common_multiple, range(range_max, 0, -1))
+def lcm_of_range_builtin(n: int) -> int:
+    """
+    Same process as above function, but uses built-in reduce() function.
+
+    SPEED (BETTER): 25.56ms for N = 40 over 1000 iterations.
+    """
+    return reduce(lcm, range(n, 0, -1))
