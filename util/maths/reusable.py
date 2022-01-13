@@ -35,7 +35,7 @@ def lcm(x: int, y: int) -> int:
 
 def prime_numbers_og(n: int) -> list:
     """
-    Uses Sieve of Eratosthenes method to output all prime numbers
+    Uses Sieve of Eratosthenes algorithm to output all prime numbers
     less than or equal to the upper bound provided.
 
     SPEED: 39.80ms for N = 1e5
@@ -168,7 +168,7 @@ def is_prime(n: int) -> bool:
         return True
 
 
-def pythagorean_triplet(m, n, d):
+def pythagorean_triplet(m: int, n: int, d: int) -> tuple[int, int, int]:
     """
     Euclid's formula to generate all Pythagorean triplets from 2 numbers m and n.
     All triplets originate from a primitive one by multiplying them by d = gcd(a,b,c).
@@ -183,7 +183,7 @@ def pythagorean_triplet(m, n, d):
     return min(a, b), max(a, b), c
 
 
-def is_triangular_number(t_n) -> Optional[int]:
+def is_triangular_number(t_n) -> int | None:
     """
     Derivation solution is based on the following:
     0.5 * n * (n + 1) = t_n ->
@@ -199,7 +199,7 @@ def is_triangular_number(t_n) -> Optional[int]:
         return None
 
 
-def is_pentagonal_number(p_n)-> Optional[int]:
+def is_pentagonal_number(p_n) -> int | None:
     """
     Derivation solution is based on the following:
     0.5 * n * (3 * n - 1) = p_n ->

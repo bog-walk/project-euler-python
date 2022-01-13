@@ -12,18 +12,21 @@ e.g. N = 5
 """
 
 
-def sum_of_primes_quick_draw(n):
+def sum_of_primes_quick_draw(n: int) -> list[int]:
     """
-    This optimisation use the Sieve of Eratosthenes algorithm to discriminate
-    against even numbers entirely, using only half of memory & fewer
-    iterations, for multiple draws.
+    Stores the cumulative sum of prime numbers to allow quick access to the
+    answers for multiple N <= n.
 
-    :return array of sums of prime numbers <= index.
+    Solution mimics original Sieve of Eratosthenes algorithm that iterates over
+    only odd numbers & their multiples, but uses boolean mask to alter a list of
+    cumulative sums instead of returning a list of prime numbers.
+
+    :returns: List of the cumulative sums of prime numbers <= index.
     """
-    if n % 2 != 0:
+    if n % 2:
         n += 1
     boolean_mask = [i > 2 and i % 2 != 0 or i == 2 for i in range(n + 1)]
-    sums = [0] * (n + 1)
+    sums = [0]*(n + 1)
     sums[2] = 2
     for i in range(3, n + 1, 2):
         if boolean_mask[i]:
@@ -33,5 +36,6 @@ def sum_of_primes_quick_draw(n):
                     boolean_mask[j] = False
         else:
             sums[i] = sums[i - 1]
+        # even number cumulative sum will not have changed
         sums[i + 1] = sums[i]
     return sums

@@ -2,8 +2,8 @@
 
 https://projecteuler.net/problem=11
 
-Goal: Find the largest product of 4 adjacent integers in the
-same direction (up, down, left, right, diagonal) in an NxN grid.
+Goal: Find the largest product of 4 adjacent integers in the same direction
+(up, down, left, right, diagonal) in an NxN grid.
 
 Constraints: 0 <= integer <= 100, 4 <= N <= 20
 
@@ -16,60 +16,58 @@ e.g.: 1 1 1 1
 from math import prod
 
 
-def transpose_grid(grid):
+def transpose_grid(grid: list[list[int]]) -> list[list[int]]:
     t_rows = len(grid[0])
     t_cols = len(grid)
     return [[grid[c][r] for c in range(t_cols)] for r in range(t_rows)]
 
 
-def rotate_grid(grid):
-    t_rows = len(grid[0])
-    t_cols = len(grid)
-    return [[grid[c][t_cols - r - 1] for c in range(t_cols)] for r in range(t_rows)]
+def rotate_grid(grid: list[list[int]]) -> list[list[int]]:
+    r_rows = len(grid[0])
+    r_cols = len(grid)
+    return [[grid[c][r_cols - r - 1] for c in range(r_cols)] for r in range(r_rows)]
 
 
-def largest_row_product(grid):
+def largest_row_product(grid: list[list[int]]) -> int:
     largest = 0
     for row in grid:
         for col in range(len(row) - 3):
-            product = prod(row[col:col + 4])
+            product = prod(row[col:col+4])
             if product > largest:
                 largest = product
     return largest
 
 
-def largest_col_product(grid):
+def largest_col_product(grid: list[list[int]]) -> int:
     t_grid = transpose_grid(grid)
     return largest_row_product(t_grid)
 
 
-def largest_diagonal_product(grid):
-    t_grid = transpose_grid(grid)
-    return max(
-        largest_leading_diag(grid),
-        largest_leading_diag(t_grid),
-        largest_counter_diag(grid),
-        largest_counter_diag(t_grid)
-    )
-
-
-def largest_leading_diag(grid):
+def largest_leading_diagonal(grid: list[list[int]]) -> int:
     largest = 0
     for row in range(len(grid) - 3):
         for col in range(len(grid) - 3 - row):
-            diag = [grid[row][col], grid[row + 1][col + 1], grid[row + 2][col + 2], grid[row + 3][col + 3]]
-            product = prod(diag)
+            diagonal = [grid[row+i][col+i] for i in range(4)]
+            product = prod(diagonal)
             if product > largest:
                 largest = product
     return largest
 
 
-def largest_counter_diag(grid):
+def largest_counter_diagonal(grid: list[list[int]]) -> int:
     r_grid = rotate_grid(grid)
-    return largest_leading_diag(r_grid)
+    return largest_leading_diagonal(r_grid)
 
 
-def largest_product_in_grid(grid):
+def largest_diagonal_product(grid: list[list[int]]) -> int:
+    t_grid = transpose_grid(grid)
+    return max(
+        largest_leading_diagonal(grid), largest_leading_diagonal(t_grid),
+        largest_counter_diagonal(grid), largest_counter_diagonal(t_grid)
+    )
+
+
+def largest_product_in_grid(grid: list[list[int]]) -> int:
     return max(
         largest_row_product(grid),
         largest_col_product(grid),

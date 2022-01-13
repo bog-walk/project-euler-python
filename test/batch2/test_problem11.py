@@ -5,12 +5,11 @@ from solution.batch2.problem11 import largest_row_product, largest_col_product, 
 
 def get_test_grid(filename):
     with open(filename) as gridFile:
-        grid = [list(map(lambda n: int(n), row.strip().split(" "))) for row in gridFile]
+        grid = [list(map(int, row.strip().split(" "))) for row in gridFile]
     return grid
 
 
 class LargestProductInGrid(unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         cls.small_grid = get_test_grid("../resources/largest_product_in_grid_4by4")
@@ -39,7 +38,7 @@ class LargestProductInGrid(unittest.TestCase):
     def test_largest_product_in_grid(self):
         self.assertEqual(6, largest_product_in_grid(self.small_grid))
         self.assertEqual(15, largest_product_in_grid(self.mid_grid))
-        self.assertEqual(70600674, largest_product_in_grid(self.large_grid))
+        self.assertEqual(70_600_674, largest_product_in_grid(self.large_grid))
 
 
 if __name__ == '__main__':

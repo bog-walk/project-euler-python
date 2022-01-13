@@ -12,11 +12,11 @@ class LargestProductInSeries(unittest.TestCase):
             self.assertEqual(expected[i], digits_product(int(s)))
 
     def test_product_speed(self):
-        series = "12345678987654331234567746756833426477362957402167"
-        series_int = int(series)
+        string = "12345678987654331234567746756833426477362957402167"
+        string_int = int(string)
         solutions = {
-            "String Product": [string_product, series],
-            "Digits Product": [digits_product, series_int]
+            "String Product": [string_product, string],
+            "Digits Product": [digits_product, string_int]
         }
         results = list(
             compare_speed_seconds(solutions, precision=5, repeat=1000).values()
@@ -65,12 +65,16 @@ class LargestProductInSeries(unittest.TestCase):
         self.assertEqual(expected, largest_series_product_recursive(string, n, k))
         self.assertEqual(expected, largest_series_product(string, n, k))
 
-    def test_largest_series_product_100_digits(self):
+    def test_largest_series_product_speed(self):
         string = "".join('6' if 60 <= i <= 65 else '1' for i in range(100))
         n, k = 100, 6
         expected = 46656  # 6 ** 6
-        self.assertEqual(expected, largest_series_product_recursive(string, n, k))
-        self.assertEqual(expected, largest_series_product(string, n, k))
+        solutions = {
+            "Recursive": [largest_series_product_recursive, string, n, k],
+            "Iterative": [largest_series_product, string, n, k]
+        }
+        results = compare_speed_seconds(solutions)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
     def test_largest_series_product_1000_digits(self):
         string = "73167176531330624919225119674426574742355349194934" \
