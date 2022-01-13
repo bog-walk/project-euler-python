@@ -1,5 +1,4 @@
 from math import gcd, floor, sqrt
-from typing import Optional
 
 
 def prime_factors(n: int) -> dict[int, int]:

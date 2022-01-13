@@ -6,9 +6,10 @@ Goal: Find the largest starting number <= N that produces the longest Collatz se
 
 Constraints: 1 <= N <= 5e6
 
-Collatz Sequence: thought to all finish at 1, a sequence of positive integers, such that:
-- (even n) n -> n / 2
-- (odd n)  n -> 3*n + 1
+Collatz Sequence: Thought to all finish at 1, a sequence of positive integers is
+generated using the hailstone calculator algorithm, such that:
+- [even n] n -> n / 2
+- [odd n]  n -> 3 * n + 1
 
 e.g.: N = 5
       1
@@ -21,16 +22,20 @@ e.g.: N = 5
 from math import log2
 
 
-def collatz_length(start):
+def collatz_length(start: int) -> int:
+    """
+    :returns: Length of Collatz sequence given a starting number.
+    """
+
     count = 1
     while start != 1:
-        # if start is even (alt to modulus)
-        if not(start & 1):
+        # if start is even (alternative to modulus)
+        if not (start & 1):
             start //= 2
         else:
             start = start * 3 + 1
-        # Bitwise AND will equal 0 if is a power of 2
-        if start != 0 and not(start & (start - 1)):
+        # bitwise AND will equal 0 if is a power of 2
+        if start != 0 and not (start & (start - 1)):
             count += log2(start) + 1
             break
         else:
@@ -38,35 +43,48 @@ def collatz_length(start):
     return count
 
 
-def generate_longest_collatz(n_max):
-    # Cache for all previously counted collatz sequences
-    collatz_lengths = [0] * n_max
-    collatz_lengths[0] = 1
-    # Cache for the starter for the longest sequence so far
-    longest_collatz = [0] * n_max
-    longest_collatz[0] = 1
+def generate_longest_starters(n_max: int) -> list[int]:
+    """ Generate a list of starting numbers that produce the longest sequence.
 
-    def collatz_memo(n):
-        if n <= n_max and collatz_lengths[n-1] != 0:
-            return collatz_lengths[n-1]
+    :returns: List of the starting number <= index n that generates the
+    longest sequence at that point.
+    """
+
+    # cache for all previously counted collatz sequences
+    collatz_lengths = [0, 1] + [0]*n_max
+
+    def collatz_memo(n: int) -> int:
+        if n <= n_max and collatz_lengths[n]:
+            return collatz_lengths[n]
         else:
             # if n is odd using Bitwise AND
             if n & 1:
-                count = 2 + collatz_memo((n * 3 + 1) // 2)
+                # add a division by 2 as odd_n * 3 + 1 gives an even
+                # number, so both steps can be combined
+                count = collatz_memo((n * 3 + 1) // 2) + 1
             else:
                 # n // 2 (if casting expensive) is equivalent to n >> 1
-                count = 1 + collatz_memo(n // 2)
-            # Speeds up memoisation as more than just original n cached
+                count = collatz_memo(n // 2) + 1
             if n <= n_max:
-                collatz_lengths[n - 1] = count
+                collatz_lengths[n] = count
             return count
 
-    longest_starter = 1
+    # cache for the starter for the longest sequence so far
+    longest_collatz = [1]
     longest_count = 1
     for start in range(2, n_max + 1):
-        current_collatz = collatz_memo(start)
-        if current_collatz >= longest_count:
-            longest_count = current_collatz
-            longest_starter = start
-        longest_collatz[start-1] = longest_starter
-    return longest_collatz
+        current_length = collatz_memo(start)
+        if current_length >= longest_count:
+            longest_collatz.append(start)
+            longest_count = current_length
+    # sort in descending order to facilitate search in calling function
+    return longest_collatz[::-1]
+
+
+def largest_collatz_starter(starters: list[int], n: int) -> int:
+    """
+    :returns: Largest starter that is <= n, from a list of starters
+    that generate the longest Collatz sequences.
+    """
+
+    return min(starters, key=lambda s: s > n)

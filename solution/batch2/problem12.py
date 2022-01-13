@@ -29,22 +29,27 @@ def count_divisors(n: int) -> int:
     e.g. 28 = 2^2 * 7^1, therefore
     num_of_divisors = (2 + 1) * (1 + 1) = 6  ->  {1,2,4,7,14,28}
     """
+
     return prod([v + 1 for _, v in prime_factors(n).items()])
 
 
-def first_triangle_over_N_Alt(n: int) -> int:
-    """ Returns the found triangle number generated as a Gaussian sum.
+def first_triangle_over_N(n: int) -> int:
+    """
+    Returns the found triangle number generated as a Gaussian sum that has had its
+    divisors counted using prime decomposition.
 
-    Since the components of a Gaussian sum are co-prime (i.e. they can have neither
-    a common prime factor nor a common divisor), the amount of divisors can be
-    assessed based on the cycling formulae:
+    Since the components of a Gaussian sum (n & n+1) are co-prime (i.e. they can
+    have neither a common prime factor nor a common divisor), the amount of
+    divisors can be assessed based on the cycling formulae:
 
+    - t represents Gaussian sum = n * (n + 1) // 2
     - [even n] D(t) = D(n/2) * D(n+1)
-    D(n+1) becomes D(n) for the next number, which is odd ->
+    - D(n+1) becomes D(n) for the next number, which will be odd ->
     - [odd n] D(t) = D(n) * D((n+1)/2)
 
-    SPEED (WORSE): 4.0723s for N = 1000 over 10 iterations.
+    SPEED (WORSE): 583.69ms for N = 1000.
     """
+
     if n == 1:
         return 3
     t = 2  # D(2) = D(1) * D(3)
@@ -58,10 +63,12 @@ def first_triangle_over_N_Alt(n: int) -> int:
     return gaussian_sum(t)
 
 
-def first_triangle_over_N(n: int) -> int:
+def first_triangle_over_N_improved(n: int) -> int:
+    """ Generates primes to count number of divisors based on prime factorisation.
+
+    SPEED (BETTER): 229.81ms for N = 1000.
     """
-    SPEED (BETTER): 2.4868s for N = 1000 over 10 iterations.
-    """
+
     if n == 1:
         return 3
     all_primes = prime_numbers_og(n * 2)
@@ -76,8 +83,8 @@ def first_triangle_over_N(n: int) -> int:
             n_1 //= 2
         divisors_of_n1 = 1
         for i in range(all_primes_size):
-            # when the prime divisor would be greater than the residual n1,
-            # that residual n1 is the last prime factor with an exponent==1,
+            # when the prime divisor would be greater than the residual n_1,
+            # that residual n_1 is the last prime factor with an exponent==1,
             # so no need to identify it.
             if all_primes[i] * all_primes[i] > n_1:
                 divisors_of_n1 *= 2
@@ -93,3 +100,31 @@ def first_triangle_over_N(n: int) -> int:
         count = divisors_of_n * divisors_of_n1
         divisors_of_n = divisors_of_n1
     return prime * (prime - 1) // 2
+
+
+def first_triangle_over_N_optimised(limit: int) -> int:
+    """
+    Similar to first function that exploits co-prime property of Gaussian sum
+    but stores cumulative divisor counts in a list for quick access instead of
+    calculating the count for every new n. Dual cyclic formulae use n - 1 instead
+    n + 1 to match the index used in the cached list.
+
+    Note that n_max was found by exhausting all solutions for n = [1, 1000] &
+    finding the maximum of the ratios of t:n. At n = 1000, the valid triangle number
+    is the 41041st term.
+
+    SPEED (BEST): 71.81ms for N = 1000.
+    """
+
+    n_max = min(limit * 53, 41100)
+    divisor_count = [0]*n_max
+    n, d_t = 0, 0
+    while d_t <= limit:
+        n += 1
+        for i in range(n, n_max, n):
+            divisor_count[i] += 1
+        if n % 2 == 0:
+            d_t = divisor_count[n//2] * divisor_count[n-1]
+        else:
+            d_t = divisor_count[n] * divisor_count[(n-1)//2]
+    return n * (n - 1) // 2

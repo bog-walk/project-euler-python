@@ -16,7 +16,7 @@ class LargestProductInGrid(unittest.TestCase):
         cls.mid_grid = get_test_grid("../resources/largest_product_in_grid_6by6")
         cls.large_grid = get_test_grid("../resources/largest_product_in_grid_20by20")
 
-    def test_grid_setup(self):
+    def test_setup(self):
         self.assertEqual(20, len(self.large_grid))
         self.assertEqual(20, len(self.large_grid[0]))
         self.assertEqual(8, self.large_grid[0][0])

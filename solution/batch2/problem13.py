@@ -8,18 +8,21 @@ Constraints: 1 <= N <= 1e3
 
 e.g.: N.B. This is a scaled-down example (first 2 digits of N 5-digit numbers)
       N = 3
-      34827, 93726, 90165
+      input = [34827, 93726, 90165]
       sum = 218718
       1st 2 digits = 21
 """
 
 
-def add_in_reverse(n, digits):
+def add_in_reverse(n: int, digits: list[str]) -> str:
     """
     Simulates manual addition from RTL, as an alternative for simply
     adding the input (given Python's superior handling of larger numbers
-    without overflow issues). See test cases for simple addition comparison.
+    without overflow issues).
+
+    See test cases for simple addition comparison.
     """
+
     if n == 1:
         return digits[0][:10]
     output = []

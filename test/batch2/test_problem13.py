@@ -9,7 +9,6 @@ def get_test_digits(filename):
 
 
 class LargeSum(unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         cls.three_digits = ["123", "456", "789", "812", "234"]
@@ -17,30 +16,40 @@ class LargeSum(unittest.TestCase):
         cls.five_N = get_test_digits("../resources/large_sum_5N")
         cls.hundred_N = get_test_digits("../resources/large_sum_100N")
 
-    def test_digits_setup(self):
+    def test_setup(self):
         self.assertEqual(5, len(self.five_N))
         self.assertEqual(50, len(self.five_N[0]))
         self.assertEqual(100, len(self.hundred_N))
 
     def test_one_sum(self):
         digits = ["123456789123456789"]
-        self.assertEqual("1234567891", add_in_reverse(1, digits))
+        n = len(digits)
+        expected = "1234567891"
+        self.assertEqual(expected, add_in_reverse(n, digits))
 
     def test_small_sum(self):
-        expected = sum([int(n) for n in self.three_digits])
-        self.assertEqual(str(expected), add_in_reverse(5, self.three_digits))
+        digits = self.three_digits
+        n = len(digits)
+        expected = str(sum(map(int, digits)))
+        self.assertEqual(expected, add_in_reverse(n, digits))
 
     def test_mid_sum(self):
-        expected = str(sum([int(n) for n in self.ten_digits]))[:10]
-        self.assertEqual(expected, add_in_reverse(3, self.ten_digits))
+        digits = self.ten_digits
+        n = len(digits)
+        expected = str(sum(map(int, digits)))[:10]
+        self.assertEqual(expected, add_in_reverse(n, digits))
 
     def test_large_sum(self):
-        expected = str(sum([int(n) for n in self.five_N]))[:10]
-        self.assertEqual(expected, add_in_reverse(5, self.five_N))
+        digits = self.five_N
+        n = len(digits)
+        expected = str(sum(map(int, digits)))[:10]
+        self.assertEqual(expected, add_in_reverse(n, digits))
 
     def test_very_large_sum(self):
-        expected = str(sum([int(n) for n in self.hundred_N]))[:10]
-        self.assertEqual(expected, add_in_reverse(100, self.hundred_N))
+        digits = self.hundred_N
+        n = len(digits)
+        expected = str(sum(map(int, digits)))[:10]
+        self.assertEqual(expected, add_in_reverse(n, digits))
 
 
 if __name__ == '__main__':

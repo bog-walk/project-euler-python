@@ -15,40 +15,41 @@ e.g.: Goal #1 -> N = 243
       output = 19
 """
 
+space = " "
+space_and = " And "
 # tuples chosen for storage as immutable & ordered collections
-__space = " "
-__space_and = " And "
-__under_twenty = (
+under_twenty = (
     "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
     "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
     "Seventeen", "Eighteen", "Nineteen"
 )
-__twenty_up = (
-    "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"
+tens = (
+    "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy",
+    "Eighty", "Ninety"
 )
-__powers_of_ten = ("", "Thousand", "Million", "Billion", "Trillion")
+powers_of_ten = "", "Thousand", "Million", "Billion", "Trillion"
 
 
-def __number_under_hundred(n):
+def number_under_hundred(n: int) -> str:
     if n < 20:
-        return __under_twenty[n]
+        return under_twenty[n]
     else:
-        second_word: str = __under_twenty[n % 10]
-        return f"{__twenty_up[n // 10]}" \
-               f"{second_word if not len(second_word) else __space + second_word}"
+        second_word = under_twenty[n % 10]
+        return f"{tens[n // 10]}" \
+               f"{space + second_word if len(second_word) else second_word}"
 
 
-def __number_under_thousand(n, include_and):
+def number_under_thousand(n: int, include_and: bool) -> str:
     if n < 100:
-        return __number_under_hundred(n)
+        return number_under_hundred(n)
     else:
-        second_part: str = __number_under_hundred(n % 100)
-        extra_part = __space_and if include_and else __space
-        return f"{__under_twenty[n // 100]} Hundred" \
-               f"{second_part if not len(second_part) else extra_part + second_part}"
+        second_part = number_under_hundred(n % 100)
+        extra_part = space_and if include_and else space
+        return f"{under_twenty[n // 100]} Hundred" \
+               f"{extra_part + second_part if len(second_part) else second_part}"
 
 
-def number_written(n, include_and: bool = True) -> str:
+def number_written(n: int, include_and: bool = True) -> str:
     if n == 0:
         return "Zero"
     words = ""
@@ -56,20 +57,24 @@ def number_written(n, include_and: bool = True) -> str:
     while n:
         mod_thousand = n % 1000
         if mod_thousand:
-            power_part = __space + __powers_of_ten[power] if power else ""
-            words = f"{__number_under_thousand(mod_thousand, include_and)}" \
-                    f"{power_part}{words if not len(words) else __space + words}"
+            power_part = space + powers_of_ten[power] if power else ""
+            words = f"{number_under_thousand(mod_thousand, include_and)}" \
+                    f"{power_part}{space + words if len(words) else words}"
         n //= 1000
         power += 1
     return words
 
 
-def count_letters(words: str) -> int:
+def count_first_N_positives(n: int) -> int:
     """
-    Counts number of letters in a string, excluding whitespace & hyphens.
+    Project Euler specific implementation that sums the amount of letters
+    (excludes whitespace & punctuations) in the written forms of the first
+    N positive numbers.
     """
-    return sum(ch.isalpha() for ch in words)
 
-
-def count_first_N_positives(n):
-    return sum(list(map(count_letters, list(map(number_written, range(1, n + 1))))))
+    return sum(
+        map(
+            lambda string: sum(ch.isalpha() for ch in string),
+            map(number_written, range(1, n + 1))
+        )
+    )

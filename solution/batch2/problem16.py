@@ -12,20 +12,22 @@ e.g.: N = 9
 """
 
 
-def exp_digit_sum_A(n):
+def exp_digit_sum_iterative(n: int) -> int:
     """
-    SPEED (BETTER): 1.210s for N = 1e4 repeated 1000 times.
+    SPEED (WORSE): 6.62s for N = 1e4.
     """
-    return sum(int(digit) for digit in str(pow(2, n)))
 
-
-def exp_digit_sum_B(n):
-    """
-    SPEED (BETTER): 5.550s for N = 1e4 repeated 1000 times.
-    """
-    num = pow(2, n)
     total = 0
+    num = pow(2, n)
     # equivalent to while num != 0
     while num:
         total, num = total + num % 10, num // 10
     return total
+
+
+def exp_digit_sum_builtin(n: int) -> int:
+    """
+    SPEED (BETTER): 6.5e5ns for N = 1e4.
+    """
+
+    return sum(map(int, str(pow(2, n))))

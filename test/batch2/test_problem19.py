@@ -1,4 +1,5 @@
 import unittest
+from util.tests.reusable import compare_speed_seconds
 from solution.batch2.problem19 import *
 
 
@@ -16,14 +17,14 @@ class CountingSundays(unittest.TestCase):
     def test_get_january_first(self):
         years = [1900, 1901, 1920, 1986, 2000, 2020]
         expected = [1, 2, 4, 3, 6, 3]
-        for index, year in enumerate(years):
-            self.assertEqual(expected[index], get_january_first(year))
+        for i, year in enumerate(years):
+            self.assertEqual(expected[i], get_january_first(year))
 
     def test_get_weekday(self):
         dates = [[1, 1, 1900], [17, 10, 2021], [24, 8, 2000], [25, 12, 1982]]
         expected = [2, 1, 5, 0]
-        for index, (d, m, y) in enumerate(dates):
-            self.assertEqual(expected[index], get_weekday(d, m, y))
+        for i, (d, m, y) in enumerate(dates):
+            self.assertEqual(expected[i], get_weekday(d, m, y))
 
     def test_count_sunday_firsts_days_none(self):
         d1, m1, y1 = 31, 12, 1999
@@ -79,12 +80,23 @@ class CountingSundays(unittest.TestCase):
         d2, m2, y2 = 1, 1, 4710
         expected = 18
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
+        self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
 
     def test_count_sunday_firsts_upper_constraint(self):
-        d1, m1, y1 = 2, 2, 1000000000000
-        d2, m2, y2 = 2, 3, 1000000001000
+        d1, m1, y1 = 2, 2, 1_000_000_000_000
+        d2, m2, y2 = 2, 3, 1_000_000_001_000
         expected = 1720
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
+
+    def test_count_sunday_firsts_speed(self):
+        d1, m1, y1 = 1, 1, 1_000_000
+        d2, m2, y2 = 31, 12, 2_000_000
+        solutions = {
+            "Original": [count_sundays_firsts, y1, m1, d1, y2, m2, d2],
+            "Zeller's": [count_sundays_zellers, y1, m1, d1, y2, m2]
+        }
+        results = list(compare_speed_seconds(solutions, precision=2).values())
+        self.assertEqual(results[0], results[1])
 
 
 if __name__ == '__main__':

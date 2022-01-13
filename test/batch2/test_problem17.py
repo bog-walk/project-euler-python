@@ -1,5 +1,5 @@
 import unittest
-from solution.batch2.problem17 import *
+from solution.batch2.problem17 import number_written, count_first_N_positives
 
 
 class NumberToWords(unittest.TestCase):
@@ -7,24 +7,26 @@ class NumberToWords(unittest.TestCase):
     def test_number_written_pick_as_is(self):
         nums = [0, 1, 9, 12, 17, 60]
         expected = ["Zero", "One", "Nine", "Twelve", "Seventeen", "Sixty"]
-        for index, n in enumerate(nums):
-            self.assertEqual(expected[index], number_written(n))
-            self.assertEqual(expected[index], number_written(n, include_and=False))
+        for i, n in enumerate(nums):
+            self.assertEqual(expected[i], number_written(n))
+            self.assertEqual(expected[i], number_written(n, include_and=False))
 
     def test_number_written_double_combo(self):
         nums = [21, 84, 200, 5000]
         expected = ["Twenty One", "Eighty Four", "Two Hundred", "Five Thousand"]
-        for index, n in enumerate(nums):
-            self.assertEqual(expected[index], number_written(n))
-            self.assertEqual(expected[index], number_written(n, include_and=False))
+        for i, n in enumerate(nums):
+            self.assertEqual(expected[i], number_written(n))
+            self.assertEqual(expected[i], number_written(n, include_and=False))
 
     def test_number_written_triple_combo(self):
-        nums = [243]
-        expected = ["Two Hundred Forty Three"]
-        expected_and = ["Two Hundred And Forty Three"]
-        for index, n in enumerate(nums):
-            self.assertEqual(expected_and[index], number_written(n))
-            self.assertEqual(expected[index], number_written(n, include_and=False))
+        nums = [243, 696]
+        expected = ["Two Hundred Forty Three", "Six Hundred Ninety Six"]
+        expected_and = [
+            "Two Hundred And Forty Three", "Six Hundred And Ninety Six"
+        ]
+        for i, n in enumerate(nums):
+            self.assertEqual(expected_and[i], number_written(n))
+            self.assertEqual(expected[i], number_written(n, include_and=False))
 
     def test_number_written_powers_of_ten(self):
         expected = [
@@ -37,7 +39,10 @@ class NumberToWords(unittest.TestCase):
             self.assertEqual(expected[e], number_written(n, include_and=False))
 
     def test_number_written_long_combo(self):
-        nums = [8004792, 10000000010, 1010000000, 1000010000, 101100000011, 104382426112]
+        nums = [
+            8_004_792, 10_000_000_010, 1_010_000_000, 1_000_010_000,
+            101_100_000_011, 104_382_426_112
+        ]
         expected = [
             "Eight Million Four Thousand Seven Hundred Ninety Two",
             "Ten Billion Ten", "One Billion Ten Million", "One Billion Ten Thousand",
@@ -52,18 +57,14 @@ class NumberToWords(unittest.TestCase):
             "One Hundred And Four Billion Three Hundred And Eighty Two Million Four Hundred And Twenty "
             "Six Thousand One Hundred And Twelve"
         ]
-        for index, n in enumerate(nums):
-            self.assertEqual(expected_and[index], number_written(n))
-            self.assertEqual(expected[index], number_written(n, include_and=False))
-
-    def test_count_letters(self):
-        numbers = ["Four", "One Hundred And Fifteen", "Three Hundred And Forty-Two"]
-        expected = [4, 20, 23]
-        for index, number in enumerate(numbers):
-            self.assertEqual(expected[index], count_letters(number))
+        for i, n in enumerate(nums):
+            self.assertEqual(expected_and[i], number_written(n))
+            self.assertEqual(expected[i], number_written(n, include_and=False))
 
     def test_count_first_N_positives(self):
-        self.assertEqual(21124, count_first_N_positives(1000))
+        n = 1000
+        expected = 21124
+        self.assertEqual(expected, count_first_N_positives(n))
 
 
 if __name__ == '__main__':
