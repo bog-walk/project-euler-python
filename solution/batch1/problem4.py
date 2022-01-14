@@ -22,6 +22,7 @@ def largest_palindrome_product(n: int) -> int:
     P = 100_001x + 10_010y + 1100z
     P = 11 * (9091x + 910y + 100z).
     """
+
     largest = 0
     x = 999
     while x > 100:

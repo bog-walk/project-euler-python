@@ -17,14 +17,15 @@ def string_product(string: str) -> int:
     """
     SPEED (EQUAL): 0.01429s for N = 50 over 1000 iterations.
     """
-    digits = [int(char) for char in string]
-    return prod(digits)
+
+    return prod(map(int, string))
 
 
 def digits_product(num: int) -> int:
     """
     SPEED (EQUAL): 0.01716s for N = 50 over 1000 iterations.
     """
+
     product = 1
     while num > 0:
         product *= (num % 10)
@@ -37,6 +38,7 @@ def largest_series_product_recursive(string: str, digits: int, k: int) -> int:
 
     SPEED (BETTER): 0.0007s for N = 100, K = 6.
     """
+
     if digits == 1:
         return int(string)
     elif k == 1:
@@ -54,6 +56,7 @@ def largest_series_product(string: str, digits: int, k: int) -> int:
     """
     SPEED (BETTER): 0.0004s for N = 100, K = 6.
     """
+
     largest = 0
     if digits == 1:
         largest = int(string)

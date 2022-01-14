@@ -17,10 +17,12 @@ from util.maths.reusable import lcm
 def lcm_of_range(n: int) -> int:
     """
     Repeatedly calculates the least common multiple of the range elements,
-    starting from the largest and stepping backwards until the middle of the range.
+    starting from the largest and stepping backwards until the middle of the range,
+    as the smaller half of a range will already be factors of the larger half.
 
-    SPEED (WORSE): 55.84ms for N = 40 over 1000 iterations.
+    SPEED (EQUAL): 12.62ms for N = 40 over 1000 iterations.
     """
+
     common_multiple = n
     for i in range(n - 1, n // 2, -1):
         common_multiple = lcm(common_multiple, i)
@@ -31,6 +33,7 @@ def lcm_of_range_builtin(n: int) -> int:
     """
     Same process as above function, but uses built-in reduce() function.
 
-    SPEED (BETTER): 25.56ms for N = 40 over 1000 iterations.
+    SPEED (EQUAL): 10.95ms for N = 40 over 1000 iterations.
     """
-    return reduce(lcm, range(n, 0, -1))
+
+    return reduce(lcm, range(n, n // 2, -1))

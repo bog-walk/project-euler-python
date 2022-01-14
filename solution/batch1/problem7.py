@@ -19,6 +19,7 @@ def nth_prime(n: int) -> int:
     all odd numbers & checks for primality using an optimised helper function,
     until the nth prime is found.
     """
+
     if n == 1:
         return 2
     count, number = n - 1, 1

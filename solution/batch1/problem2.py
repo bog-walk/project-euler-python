@@ -12,6 +12,25 @@ e.g.: N = 44
 """
 
 
+def sum_even_fibs_brute(n: int) -> int:
+    """
+    Sums every 3rd term in the sequence starting with 2, based on the observed
+    pattern that every 3rd Fibonacci number after 2 is even. This occurs because
+    the sequence begins with 2 odd numbers, the sum of which must be even, then
+    the sum of an odd and even number, twice, will produce 2 odd numbers, etc...
+
+    SPEED (EQUAL): 0.0076s for N = 4e16 over 1000 iterations.
+    """
+
+    sum_of_evens, odd2, odd1, even = 0, 1, 1, 2
+    while even < n:
+        sum_of_evens += even
+        odd2 = odd1 + even
+        odd1 = odd2 + even
+        even = odd2 + odd1
+    return sum_of_evens
+
+
 def sum_even_fibs_formula(n: int) -> int:
     """
     Sums every 3rd term in the sequence starting with 2, using the formula:
@@ -19,6 +38,7 @@ def sum_even_fibs_formula(n: int) -> int:
 
     SPEED (EQUAL): 0.0083s for N = 4e16 over 1000 iterations.
     """
+
     prev_even_2, prev_even_1 = 2, 8  # Fib(3), Fib(6)
     sum_of_evens = 10
     while True:
@@ -27,20 +47,4 @@ def sum_even_fibs_formula(n: int) -> int:
             break
         sum_of_evens += current_even
         prev_even_2, prev_even_1 = prev_even_1, current_even
-    return sum_of_evens
-
-
-def sum_even_fibs_brute(n: int) -> int:
-    """
-    Sums every 3rd term in the sequence starting with 2, based on the observed
-    pattern that every 3rd Fibonacci number after 2 is even.
-
-    SPEED (EQUAL): 0.0076s for N = 4e16 over 1000 iterations.
-    """
-    sum_of_evens, odd2, odd1, even = 0, 1, 1, 2
-    while even < n:
-        sum_of_evens += even
-        odd2 = odd1 + even
-        odd1 = odd2 + even
-        even = odd2 + odd1
     return sum_of_evens

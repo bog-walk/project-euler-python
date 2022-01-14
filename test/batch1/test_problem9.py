@@ -1,6 +1,7 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
-from solution.batch1.problem9 import max_triplet_product_brute, max_triplet_product_optimised
+from util.tests.reusable import compare_speed_nano
+from solution.batch1.problem9 import max_triplet_product_loop_c_b, \
+    max_triplet_product_optimised, max_triplet_product_loop_a
 
 
 class SpecialPythagoreanTriplet(unittest.TestCase):
@@ -8,8 +9,9 @@ class SpecialPythagoreanTriplet(unittest.TestCase):
         nums = [1, 4, 6, 10, 31, 99, 100, 1231]
         expected = -1,
         for n in nums:
-            self.assertTupleEqual(expected, max_triplet_product_brute(n))
+            self.assertTupleEqual(expected, max_triplet_product_loop_c_b(n))
             self.assertTupleEqual(expected, max_triplet_product_optimised(n))
+            self.assertTupleEqual(expected, max_triplet_product_loop_a(n))
 
     def test_max_triplet_found(self):
         nums = [12, 24, 30, 90, 650, 1000, 2214]
@@ -19,17 +21,20 @@ class SpecialPythagoreanTriplet(unittest.TestCase):
             (372_726_900, 533, 756, 925)
         )
         for i, n in enumerate(nums):
-            self.assertTupleEqual(expected[i], max_triplet_product_brute(n))
+            self.assertTupleEqual(expected[i], max_triplet_product_loop_c_b(n))
             self.assertTupleEqual(expected[i], max_triplet_product_optimised(n))
+            self.assertTupleEqual(expected[i], max_triplet_product_loop_a(n))
 
     def test_max_triplet_product_speed(self):
         n = 3000
         solutions = {
-            "Brute": [max_triplet_product_brute, n],
-            "Optimised": [max_triplet_product_optimised, n]
+            "Brute": [max_triplet_product_loop_c_b, n],
+            "Optimised": [max_triplet_product_optimised, n],
+            "Formula": [max_triplet_product_loop_a, n]
         }
         expected = (937_500_000, 750, 1000, 1250)
-        results = compare_speed_seconds(solutions, precision=5, repeat=10)
+        # results = compare_speed_seconds(solutions, precision=5, repeat=10)
+        results = compare_speed_nano(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

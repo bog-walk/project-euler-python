@@ -11,7 +11,7 @@ class PowerDigitSum(unittest.TestCase):
             self.assertEqual(expected[i], exp_digit_sum_builtin(n))
             self.assertEqual(expected[i], exp_digit_sum_iterative(n))
 
-    def test_exp_digit_sum_speed_2(self):
+    def test_speed(self):
         n = 10_000
         expected = 13561
         solutions = {

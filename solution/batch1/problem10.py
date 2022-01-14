@@ -22,20 +22,52 @@ def sum_of_primes_quick_draw(n: int) -> list[int]:
     cumulative sums instead of returning a list of prime numbers.
 
     :returns: List of the cumulative sums of prime numbers <= index.
+
+    SPEED (WORSE): 567.88ms for N = 1e6.
     """
+
     if n % 2:
         n += 1
     boolean_mask = [i > 2 and i % 2 != 0 or i == 2 for i in range(n + 1)]
     sums = [0]*(n + 1)
     sums[2] = 2
     for i in range(3, n + 1, 2):
+        prev_sum = sums[i - 1]
         if boolean_mask[i]:
-            sums[i] = sums[i - 1] + i
+            # change next even number as well as current odd
+            sums[i:i+2] = [prev_sum + i, prev_sum + i]
             if i * i < n:
                 for j in range(i * i, n + 1, 2 * i):
                     boolean_mask[j] = False
         else:
-            sums[i] = sums[i - 1]
-        # even number cumulative sum will not have changed
-        sums[i + 1] = sums[i]
+            sums[i:i+2] = [prev_sum, prev_sum]
+    return sums
+
+
+def sum_of_primes_quick_draw_2(n: int) -> list[int]:
+    """
+    Similar to the above solution in that it stores the cumulative sum of prime
+    numbers to allow future quick access; however, it replaces the typical boolean
+    mask from the Sieve of Eratosthenes algorithm with this cumulative cache.
+
+    An unaltered element == 0 indicates a prime, with future multiples of that
+    prime marked with a -1, before the former and its even successor are replaced
+    by the total so far.
+
+    :returns: List of the cumulative sums of prime numbers <= index.
+
+    SPEED (BETTER): 205.88ms for N = 1e6.
+    """
+
+    sums = [0]*(n + 1)
+    total = 2
+    sums[2] = total
+    for i in range(3, n + 1, 2):
+        if sums[i] == 0:
+            total += i
+            # mark all multiples of prime
+            # using slice extended by a proper sized sequence
+            sums[i::i] = [-1]*(n//i)
+        # change next even number as well as current odd
+        sums[i:i+2] = [total, total]
     return sums

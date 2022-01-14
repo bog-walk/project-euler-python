@@ -9,6 +9,7 @@ def prime_factors(n: int) -> dict[int, int]:
 
     :return: Dict of prime factors (keys) and their exponents (values).
     """
+
     primes = dict()
     if n < 2:
         return primes
@@ -27,6 +28,10 @@ def prime_factors(n: int) -> dict[int, int]:
 
 
 def lcm(x: int, y: int) -> int:
+    """
+    Euclid's algorithm used to find the least common multiple of positive integers.
+    """
+
     if x == 0 or y == 0:
         raise ValueError("The LCM of 0 is undefined")
     return abs(x * y) // gcd(x, y)
@@ -39,6 +44,7 @@ def prime_numbers_og(n: int) -> list:
 
     SPEED: 39.80ms for N = 1e5
     """
+
     boolean_mask = [not (i != 0 and i % 2 == 0) for i in range(n - 1)]
     for p in range(3, floor(sqrt(n)) + 1, 2):
         if boolean_mask[p - 2]:
@@ -63,6 +69,7 @@ def prime_numbers(n: int) -> list:
 
     SPEED (BETTER): 16.71ms for N = 1e5
     """
+
     odd_sieve = (n - 1) // 2
     upper_limit = floor(sqrt(n)) // 2
     boolean_mask = [True] * (odd_sieve + 1)
@@ -85,7 +92,14 @@ def prime_numbers(n: int) -> list:
 
 
 def gaussian_sum(n: int) -> int:
-    return n * (n + 1) // 2
+    """ Calculate the sum of the first n natural numbers.
+
+    Conversion of very large floats to integers in this formula can lead to large
+    rounding losses, so division by 2 & int cast is replaced with a single bitwise
+    right shift, as x >> 1 == x // 2^1.
+    """
+
+    return n * (n + 1) >> 1
 
 
 def sum_proper_divisors_og(n: int) -> int:
@@ -97,6 +111,7 @@ def sum_proper_divisors_og(n: int) -> int:
 
     SPEED: 4.2e4ns for N = 999_999
     """
+
     if n < 2:
         return 0
     total = 1
@@ -119,6 +134,7 @@ def sum_proper_divisors_pf(num: int) -> int:
 
     SPEED (BETTER): 7.8e3ns for N = 999_999
     """
+
     if num < 2:
         return 0
     n = num
@@ -176,13 +192,14 @@ def pythagorean_triplet(m: int, n: int, d: int) -> tuple[int, int, int]:
     - m and n cannot both be odd.
     - m and n must be co-prime, i.e. gcd(m, n) == 1
     """
+
     a = (m * m - n * n) * d
     b = 2 * m * n * d
     c = (m * m + n * n) * d
     return min(a, b), max(a, b), c
 
 
-def is_triangular_number(t_n) -> int | None:
+def is_triangular_number(t_n: int) -> int | None:
     """
     Derivation solution is based on the following:
     0.5 * n * (n + 1) = t_n ->
@@ -191,6 +208,7 @@ def is_triangular_number(t_n) -> int | None:
 
     :return: If tN is the nth triangular, or None if not triangular.
     """
+
     n = 0.5 * (sqrt(8 * t_n + 1) - 1)
     if n == floor(n):
         return int(n)
@@ -198,7 +216,7 @@ def is_triangular_number(t_n) -> int | None:
         return None
 
 
-def is_pentagonal_number(p_n) -> int | None:
+def is_pentagonal_number(p_n: int) -> int | None:
     """
     Derivation solution is based on the following:
     0.5 * n * (3 * n - 1) = p_n ->
@@ -207,6 +225,7 @@ def is_pentagonal_number(p_n) -> int | None:
 
     :return: If pN is the nth pentagonal, or None if not pentagonal.
     """
+
     n = (sqrt(24 * p_n + 1) + 1) / 6
     if n == floor(n):
         return int(n)

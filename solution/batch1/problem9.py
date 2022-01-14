@@ -14,7 +14,7 @@ e.g.: N = 12
       triplets = {{3,4,5}}; as 3 + 4 + 5 == 12
       product = 3 * 4 * 5 = 60
 """
-from math import prod, sqrt, ceil, gcd
+from math import sqrt, ceil, gcd
 from util.maths.reusable import pythagorean_triplet
 
 
@@ -22,7 +22,7 @@ def is_pythagoras(a: int, b: int, c: int) -> bool:
     return sqrt(a ** 2 + b ** 2) == c
 
 
-def max_triplet_product_brute(num: int) -> (int, ...):
+def max_triplet_product_loop_c_b(num: int) -> (int, ...):
     """ Solution iterates through values of c and b with some limits:
 
     - Set {3,4,5} is the smallest existing triplet, so c must be >= 5 and can be
@@ -36,8 +36,9 @@ def max_triplet_product_brute(num: int) -> (int, ...):
 
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
 
-    Speed (WORSE): 2.36715s for N = 3000 over 10 iterations.
+    Speed (WORSE): 228.86ms for N = 3000.
     """
+
     max_triplet = -1,
     if num % 2 != 0:
         return max_triplet
@@ -50,11 +51,49 @@ def max_triplet_product_brute(num: int) -> (int, ...):
             if b <= a:
                 break
             if is_pythagoras(a, b, c):
-                product = prod((a, b, c))
-                if product >= max_triplet[0]:
+                product = a * b * c
+                if product > max_triplet[0]:
                     max_triplet = product, a, b, c
             b -= 1
         c -= 1
+    return max_triplet
+
+
+def max_triplet_product_loop_a(num: int) -> (int, ...):
+    """ Solution iterates through values of a only based on:
+
+    - Set {3,4,5} being the smallest existing triplet, so a must be >= 3 and can
+    be at most num / 3 - 1.
+
+    - Inserting c = num - a - b into the formula a^2 + b^2 = c^2 reduces to:
+    2 * a * b + 2 * b * num = num^2 - 2 * a * num
+    b = (num * (n - 2 * a)) / (2 * (n - a))
+
+    - Exhaustive search shows that the first maximum triplet found will be the
+    only solution, so the loop van be broken early.
+
+    - Triplet elements must either be all evens OR 2 odds with 1 even.
+    Therefore, the sum of a triplet (num) must be even as the sum of evens is an
+    even number and the sum of 2 odds is an even number as well.
+
+    :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
+
+    Speed (BETTER): 2.3e5ns for N = 3000.
+    """
+
+    max_triplet = -1,
+    if num % 2 != 0:
+        return max_triplet
+    a = num // 3 - 1
+    while a >= 3:
+        b = num * (num - 2 * a) // (2 * (num - a))
+        c = num - a - b
+        if a < b and is_pythagoras(a, b, c):
+            product = a * b * c
+            if product > max_triplet[0]:
+                max_triplet = product, a, b, c
+                break
+        a -= 1
     return max_triplet
 
 
@@ -67,15 +106,20 @@ def max_triplet_product_optimised(num: int) -> (int, ...):
     - A triplet is primitive if m XOR n is even and gcd(m,n) = 1. The latter occurs
     because gdc(a,b) = gcd(b,c) = gcd(c,a) = 1.
 
+    - Exhaustive search shows that the first maximum triplet found will be the
+    only solution, so the loop van be broken early.
+
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
 
-    Speed (BETTER): 0.00053s for N = 3000 over 10 iterations.
+    Speed (BEST): 31900ns for N = 3000.
     """
+
     max_triplet = -1,
     if num % 2 != 0:
         return max_triplet
     limit = num // 2
     m_max = ceil(sqrt(limit))
+    found = False
     for m in range(2, m_max):
         if limit % m == 0:
             # find even divisor m (> 1) of num // 2
@@ -86,9 +130,13 @@ def max_triplet_product_optimised(num: int) -> (int, ...):
             k = m + 2 if m % 2 == 1 else m + 1
             while k < 2 * m and k <= k_max:
                 if k_max % k == 0 and gcd(k, m) == 1:
-                    triplet = pythagorean_triplet(m, k - m, limit // (k * m))
-                    product = prod(triplet)
-                    if product >= max_triplet[0]:
-                        max_triplet = (product,) + triplet
+                    a, b, c = pythagorean_triplet(m, k - m, limit // (k * m))
+                    product = a * b * c
+                    if product > max_triplet[0]:
+                        max_triplet = product, a, b, c
+                        found = True
+                        break
                 k += 2
+            if found:
+                break
     return max_triplet

@@ -13,9 +13,17 @@ e.g.: N = 10
 from math import factorial
 
 
-def factorial_digit_sum_A(n):
-    return sum(map(int, str(factorial(n))))
+def factorial_digit_sum_iterative(n):
+    """
+    SPEED (WORSE): 93.12ms for N = 1000 over 100 iterations.
+    """
 
-
-def factorial_digit_sum_B(n):
     return sum(int(digit) for digit in str(factorial(n)))
+
+
+def factorial_digit_sum_builtin(n):
+    """
+    SPEED (BETTER): 60.50ms for N = 1000 over 100 iterations.
+    """
+
+    return sum(map(int, str(factorial(n))))
