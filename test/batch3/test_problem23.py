@@ -14,7 +14,7 @@ class NonAbundantSums(unittest.TestCase):
             self.assertFalse(is_abundant(n))
 
     def test_is_sum_of_abundants_all_true(self):
-        nums = [24, 110, 158, 234, 957, 20162, 28122, 28123, 28124, 100000]
+        nums = [24, 110, 158, 234, 957, 20162, 28122, 28123, 28124, 100_000]
         for n in nums:
             self.assertTrue(is_sum_of_abundants(n))
 
@@ -23,12 +23,16 @@ class NonAbundantSums(unittest.TestCase):
         for n in nums:
             self.assertFalse(is_sum_of_abundants(n))
 
+    def test_sum_of_all_non_abundants(self):
+        expected = 4_179_871
+        self.assertEqual(expected, sum_of_all_non_abundants())
+
     def test_all_integers_expressed(self):
         cannot_be_expressed = []
         for n in range(20162, 28124):
             if not is_sum_of_abundants(n):
                 cannot_be_expressed.append(n)
-        # In Python, 0 is False, so this checks that list is empty
+        # in Python, 0 is False, so this checks that list is empty
         self.assertFalse(len(cannot_be_expressed))
 
 

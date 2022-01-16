@@ -15,6 +15,8 @@ e.g.: 1 1 1 1
 """
 from math import prod
 
+SIZE = 4
+
 
 def transpose_grid(grid: list[list[int]]) -> list[list[int]]:
     t_rows = len(grid[0])
@@ -31,10 +33,9 @@ def rotate_grid(grid: list[list[int]]) -> list[list[int]]:
 def largest_row_product(grid: list[list[int]]) -> int:
     largest = 0
     for row in grid:
-        for col in range(len(row) - 3):
-            product = prod(row[col:col+4])
-            if product > largest:
-                largest = product
+        for col in range(len(row) - SIZE + 1):
+            product = prod(row[col:col+SIZE])
+            largest = max(largest, product)
     return largest
 
 
@@ -45,12 +46,11 @@ def largest_col_product(grid: list[list[int]]) -> int:
 
 def largest_leading_diagonal(grid: list[list[int]]) -> int:
     largest = 0
-    for row in range(len(grid) - 3):
-        for col in range(len(grid) - 3 - row):
-            diagonal = [grid[row+i][col+i] for i in range(4)]
+    for row in range(len(grid) - SIZE + 1):
+        for col in range(len(grid) - SIZE + 1 - row):
+            diagonal = [grid[row+i][col+i] for i in range(SIZE)]
             product = prod(diagonal)
-            if product > largest:
-                largest = product
+            largest = max(largest, product)
     return largest
 
 
@@ -67,9 +67,33 @@ def largest_diagonal_product(grid: list[list[int]]) -> int:
     )
 
 
-def largest_product_in_grid(grid: list[list[int]]) -> int:
+def largest_product_in_grid_functional(grid: list[list[int]]) -> int:
+    """ Finds largest product by calling helper functions.
+
+    SPEED (EQUAL): 3.95ms for N = 20.
+    """
+
     return max(
         largest_row_product(grid),
         largest_col_product(grid),
         largest_diagonal_product(grid)
     )
+
+
+def largest_product_in_grid(grid: list[list[int]]) -> int:
+    """ Finds largest product by processing all options at once.
+
+    SPEED (EQUAL): 3.15ms for N = 20.
+    """
+
+    largest = 0
+    right, down, leading_diag, counter_diag = 0, 0, 0, 0
+    for row in range(len(grid)):
+        for col in range(len(grid[0]) - SIZE + 1):
+            right = prod(grid[row][col:col+SIZE])
+            down = prod([grid[col+i][row] for i in range(SIZE)])
+            if row <= len(grid) - SIZE:
+                leading_diag = prod([grid[row+i][col+i] for i in range(SIZE)])
+                counter_diag = prod([grid[row+i][col+SIZE-1-i] for i in range(SIZE)])
+            largest = max(largest, right, down, leading_diag, counter_diag)
+    return largest

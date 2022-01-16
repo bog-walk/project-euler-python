@@ -103,7 +103,8 @@ def get_weekday(day: int, month: int, year: int) -> int:
 def count_sundays_zellers(
         start_y: int, start_m: int, start_d: int, end_y: int, end_m: int
 ) -> int:
-    """
+    """ Solution using Zeller's Congruence algorithm helper function.
+
     SPEED (BEST): 0.0158s for 1000 year delta in the upper constraints.
     """
 

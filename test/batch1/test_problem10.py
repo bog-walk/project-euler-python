@@ -16,8 +16,8 @@ class SummationOfPrimes(unittest.TestCase):
     def test_speed(self):
         n = 1_000_000
         solutions = {
-            "A": [sum_of_primes_quick_draw, n],
-            "B": [sum_of_primes_quick_draw_2, n]
+            "Original": [sum_of_primes_quick_draw, n],
+            "Optimised": [sum_of_primes_quick_draw_optimised, n]
         }
         results = list(compare_speed_nano(solutions).values())
         self.assertListEqual(results[0], results[1])

@@ -44,14 +44,14 @@ def sum_of_primes_quick_draw(n: int) -> list[int]:
     return sums
 
 
-def sum_of_primes_quick_draw_2(n: int) -> list[int]:
+def sum_of_primes_quick_draw_optimised(n: int) -> list[int]:
     """
     Similar to the above solution in that it stores the cumulative sum of prime
     numbers to allow future quick access; however, it replaces the typical boolean
     mask from the Sieve of Eratosthenes algorithm with this cumulative cache.
 
     An unaltered element == 0 indicates a prime, with future multiples of that
-    prime marked with a -1, before the former and its even successor are replaced
+    prime marked with a -1, before the former, and its even successor, are replaced
     by the total so far.
 
     :returns: List of the cumulative sums of prime numbers <= index.
@@ -65,9 +65,9 @@ def sum_of_primes_quick_draw_2(n: int) -> list[int]:
     for i in range(3, n + 1, 2):
         if sums[i] == 0:
             total += i
-            # mark all multiples of prime
-            # using slice extended by a proper sized sequence
+            # mark all multiples of prime using slice assignment with step
+            # which, unlike other assignments, requires an exact size match
             sums[i::i] = [-1]*(n//i)
-        # change next even number as well as current odd
+        # change next even number as well as current odd using slice assignment
         sums[i:i+2] = [total, total]
     return sums

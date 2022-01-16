@@ -12,17 +12,21 @@ e.g.: N = 3
 """
 from math import ceil, log10
 
+phi = (1 + 5 ** 0.5) / 2
 
-def n_digit_fib_terms(max_digits):
-    """
-    :return [list] of the first Fibonacci terms to have (index + 2) digits.
 
-    SPEED (BEST for N <= 10): 24700ns for N = 10
-    4695.74ms (compared to <1ms with inverted formula) for N = 5000
+def n_digit_fib_terms_brute(max_digits: int) -> list[int]:
+    """ Iterative solution that checks all Fibonacci numbers.
+
+    :returns: List of the first Fibonacci terms to have (index + 2) digits.
+
+    SPEED (EQUAL for low N): 24700ns for N = 10.
+          (WORSE for high N): 4443.73ms for N = 5000.
     """
+
     term = 7
     f_n = 13
-    terms = [0] * (max_digits - 1)
+    terms = [0]*(max_digits - 1)
     terms[0] = term
     f_n_minus1 = 8
     digits = 3
@@ -36,38 +40,36 @@ def n_digit_fib_terms(max_digits):
     return terms
 
 
-def nth_fib_golden(n):
-    """
-    The golden ratio provides an alternative to iteration & is based on
+def nth_fib_golden(n: int) -> int:
+    """ Finds the nth Fibonacci number using Binet's formula.
+
+    The Golden Ratio, Phi, provides an alternative to iteration, based on
     the closed-form formula:
-    Fn = (Phi^n - Psi^n) / sqrt(5),
-    with Phi = (1 + sqrt(5)) / 2 ~= 1.61803... & Psi = -Phi^-1
+    Fn = (Phi^n - Psi^n) / sqrt(5)
+    with Phi = (1 + sqrt(5)) / 2 ~= 1.61803... & Psi = -Phi^-1.
 
     Rounding, using the nearest integer function, reduces the formula to:
     Fn = [Phi^n / sqrt(5)], where n >= 0.
     Truncation, using the floor function, would result instead in:
     Fn = [(Phi^n / sqrt(5)) + 0.5], where n >= 0.
-
-    :return the nth Fibonacci sequence number.
     """
-    phi = (1 + 5 ** 0.5) / 2
+
     return round(phi ** n / 5 ** 0.5)
 
 
-def n_digit_fib_term_using_golden(n):
-    """
-    Iterative solution uses Golden Ratio to calculate the Fibonacci
-    sequence numbers.
+def n_digit_fib_term_golden_brute(n: int) -> int:
+    """ Iterative solution uses the Golden Ratio to check all Fibonacci numbers.
 
-    :return first Fibonacci term to have N digits.
+    :returns: First Fibonacci term to have N digits.
 
-    SPEED (WORST for N <= 10): 47800ns for N = 10
-    Significantly slower execution from N > 10, due to exponential
-    need to calculate Phi^N.
+    SPEED (WORST for low N): 47800ns for N = 10.
+    Significantly slower execution from N > 10, due to the exponential need
+    to calculate Phi^N.
     """
+
     term = 7
     f_n = 13
-    # Pattern shows the amount of digits increases every 4th-5th term
+    # pattern shows the amount of digits increases every 4th-5th term
     step = 4
     while len(str(f_n)) < n:
         term += step
@@ -78,17 +80,18 @@ def n_digit_fib_term_using_golden(n):
     return term
 
 
-def n_digit_fib_term_by_digits_golden(n):
-    """
-    O(n) solution based on the closed-form golden ratio formula shown
-    previously being inverted to calculate log10 of each Fibonacci number,
-    thereby returning the term that has the required amount of digits,
-    without the need to iterate.
+def n_digit_fib_term_golden_formula(n: int) -> int:
+    """ O(n) solution based on the inversion of closed-form Binet's formula.
 
-    :return first Fibonacci term to have N digits.
+    Phi^t / sqrt(5) > 10^(n-1) -> Phi^t > 10^(n-1) * sqrt(5)
+    log(Phi) * t > log(10) * (n - 1) + log(5) / 2
+    t > (1 * (n - 1) + log(5) / 2) / log(Phi)
+    t = ceil((n - 1 + log(5) / 2) / log(Phi))
 
-    SPEED: 26300ns for N = 10
-    (BEST for N > 10) 41800ns for N = 5000
+    :returns: First Fibonacci term to have N digits.
+
+    SPEED (EQUAL for low N): 25900ns for N = 10.
+          (BEST for high N): 41800ns for N = 5000.
     """
-    phi = (1 + 5 ** 0.5) / 2
-    return int(ceil((n - 1 + log10(5) / 2) / log10(phi)))
+
+    return ceil((n - 1 + log10(5) / 2) / log10(phi))

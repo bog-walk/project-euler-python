@@ -1,6 +1,8 @@
 import unittest
+from util.tests.reusable import compare_speed_nano
 from solution.batch2.problem11 import largest_row_product, largest_col_product, \
-    largest_diagonal_product, largest_product_in_grid
+    largest_diagonal_product, largest_product_in_grid_functional,\
+    largest_product_in_grid
 
 
 def get_test_grid(filename):
@@ -36,9 +38,21 @@ class LargestProductInGrid(unittest.TestCase):
         self.assertEqual(1, largest_diagonal_product(self.mid_grid))
 
     def test_largest_product_in_grid(self):
-        self.assertEqual(6, largest_product_in_grid(self.small_grid))
-        self.assertEqual(15, largest_product_in_grid(self.mid_grid))
-        self.assertEqual(70_600_674, largest_product_in_grid(self.large_grid))
+        grids = [self.small_grid, self.mid_grid]
+        expected = [6, 15]
+        for i, grid in enumerate(grids):
+            self.assertEqual(expected[i], largest_product_in_grid_functional(grid))
+            self.assertEqual(expected[i], largest_product_in_grid(grid))
+
+    def test_largest_product_in_grid_speed(self):
+        grid = self.large_grid
+        expected = 70_600_674
+        solutions = {
+            "Functional": [largest_product_in_grid_functional, grid],
+            "All-in-one": [largest_product_in_grid, grid]
+        }
+        results = compare_speed_nano(solutions)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

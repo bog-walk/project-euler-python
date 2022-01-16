@@ -6,71 +6,83 @@ Goal: Return the Nth lexicographic permutation of "abcdefghijklm".
 
 Constraints: 1 <= N <= 13!
 
-Lexicographic Permutation: the alphabetically/numerically ordered
-arrangements of an object.
+Lexicographic Permutation: The alphabetically/numerically ordered arrangements
+of an object.
 e.g. "abc" -> {"abc", "acb", "bac", "bca", "cab", "cba"}
 
 e.g.: N = 1 -> "abcdefghijklm"
       N = 2 -> "abcdefghijkml"
 """
-from math import factorial
 from itertools import permutations
+from math import factorial
 
 
-def lexicographic_perms_builtin(n, string):
+def nth_lexicographic_perm_builtin(n: int, string: str) -> str:
     """
-    SPEED: 1163.88ms for 10-digit string
+    :param n: The nth permutation requested should be zero-indexed.
+    :param string: The object to generate permutations of should be already
+    sorted in ascending order.
+
+    SPEED (WORST): 863.21ms for 10-digit string.
 
     Most likely due to itertool.permutations() generating all possible
-    full-length permutations sorted lexicographically rather than
-    stopping once the required permutation is found.
+    full-length permutations sorted lexicographically rather than stopping once
+    the required permutation is found.
     """
+
     all_perms = list(map("".join, permutations(string)))
     return all_perms[n]
 
 
-def lexicographic_perms(n, string: str, permutation=""):
+def nth_lexicographic_perm(n: int, string: str, permutation: str = "") -> str:
     """
-    Recursive solution uses factorial (permutations without repetition)
-    to calculate next character in permutation based on batch position.
-    e.g. "abcd" has 4! = 24 permutations & each letter will have 6
-    permutations in which that letter will be the 1st in the order.
+    Recursive solution uses factorial (permutations without repetition) to
+    calculate the next character in the permutation based on batch position.
 
-    :param [n] the nth permutation requested; should be zero-indexed.
-    :param [string] the object to generate permutations of; should be
-    already sorted in ascending lexicographic order.
+    e.g. "abcd" has 4! = 24 permutations & each letter will have 6 permutations
+    in which that letter will be the 1st in the order. If n = 13, this permutation
+    will be in batch 2 (starts with "c") at position 1 (both 0-indexed). So "c" is
+    removed and n = 1 is used with the new string "abd". This continues until
+    n = 0 and "cabd" is returned by the base case.
 
-    SPEED: 43300ns for 10-digit string
+    :param n: The nth permutation requested should be zero-indexed.
+    :param string: The object to generate permutations of should be already
+    sorted in ascending order.
+
+    SPEED (BETTER): 42500ns for 10-digit string.
     """
+
     if not n:
         return permutation + string
     else:
         batch_size = factorial(len(string)) // len(string)
-        i = n // batch_size
-        return lexicographic_perms(
-            n % batch_size,
-            string[:i] + string[i+1:],
-            permutation + string[i]
+        batch, batch_n = divmod(n, batch_size)
+        return nth_lexicographic_perm(
+            batch_n,
+            string[:batch] + string[batch+1:],
+            permutation + string[batch]
         )
 
 
-def lexicographic_perms_improved(n, string: str):
+def nth_lexicographic_perm_improved(n: int, string: str) -> str:
     """
-    Recursive solution improved by refactoring unnecessary code creation.
+    Recursive solution improved by removing the unnecessary creation of a storage
+    string to pass into every recursive call, as well as reducing the factorial
+    call, since (x! / x) == (x - 1)!.
 
-    :param [n] the nth permutation requested; should be zero-indexed.
-    :param [string] the object to generate permutations of; should be
-    already sorted in ascending lexicographic order.
+    :param n: The nth permutation requested should be zero-indexed.
+    :param string: The object to generate permutations of should be already
+    sorted in ascending order.
 
-    SPEED (BEST): 15000ns for 10-digit string
+    SPEED (BEST): 15000ns for 10-digit string.
     """
+
     if len(string) == 1:
         return string
     else:
-        # batch_size = factorial(len(string)) // len(string)
         batch_size = factorial(len(string) - 1)
-        i = n // batch_size
-        return string[i] + lexicographic_perms_improved(
-            n % batch_size,
-            string[:i] + string[i+1:]
+        batch, batch_n = divmod(n, batch_size)
+        return string[batch] + nth_lexicographic_perm_improved(
+            batch_n,
+            string[:batch] + string[batch+1:]
         )
