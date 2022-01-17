@@ -12,49 +12,58 @@ e.g.: N = 100
       return 4231, as the smallest pandigital prime.
 """
 from itertools import permutations
-from util.maths.reusable import is_prime
+from util.maths.reusable import is_prime, prime_numbers
+from util.strings.reusable import is_pandigital
 
 
-def largest_pandigital_prime_brute():
+def largest_pandigital_prime_brute() -> int:
     """
-    Project Euler specific implementation that returns the largest
-    n-digit pandigital prime that exists. This solution checks primality of all
-    pandigital permutations backwards starting from 9 digits.
+    Project Euler specific implementation that returns the largest n-digit
+    pandigital prime that exists. This solution checks primality of all pandigital
+    permutations backwards starting from 9 digits.
 
     Note that there are only 538 pandigital primes & that they are all either
-    4-/7-digit pandigitals, as explained in next function.
+    4-/7-digit pandigitals, as explained in following function below.
     """
-    digits = [str(d) for d in range(1, 10)]
+
+    magnitudes = [pow(10, d - 1) for d in range(1, 10)]
+    n, digits = 987_654_321, 9
+    limit = magnitudes[digits - 1]
     while True:
-        # Could sort in reverse, but permutations already returns sorted list
-        perms = list(map("".join, permutations(digits)))
-        # Traverse backwards through already sorted list to get largest first
-        for i in range(len(perms) - 1, -1, -1):
-            perm = int(perms[i])
-            if is_prime(perm):
-                return perm
-        digits = digits[:-1]
+        if is_pandigital(str(n), digits) and is_prime(n):
+            return n
+        n -= 2
+        if n < limit:
+            digits -= 1
+            limit = magnitudes[digits - 1]
 
 
-def all_pandigital_primes():
+def all_pandigital_primes_builtin() -> list[int]:
     """
     Solution optimised based on the following:
 
     - The smallest pandigital prime is 4-digits -> 1423.
 
-    - Found using the brute backwards search through permutations in the function
-    above, the largest pandigital prime is 7-digits -> 7652413.
+    - Found using the brute force backwards search in the function above, the
+    largest pandigital prime is 7-digits -> 7_652_413.
 
     - The above 2 proven bounds confirms that only 4- & 7-digit pandigitals can
     be prime numbers as all primes greater than 3 are of the form 6*p(+/- 1) & so
     cannot be multiples of 3. If the sum of a pandigital's digits is a multiple
     of 3, then that number will be a multiple of 3 & thereby not a prime. Only
-    4- & 7-digit pandigitals have sums that are not divisible by 3 (10 & 28 respectively).
+    4- & 7-digit pandigitals have sums that are not divisible by 3.
+
+    :returns: List of all pandigital primes sorted in descending order.
+
+    SPEED (BETTER): 0.3169s.
     """
+
     pandigital_primes = []
     digits = [str(d) for d in range(1, 8)]
     for _ in range(2):
+        # permutations() returns a sorted list of tuples
         perms = list(map("".join, permutations(digits)))
+        # move backwards to find larger permutations first
         for i in range(len(perms) - 1, -1, -1):
             n_perm = int(perms[i])
             if is_prime(n_perm):
@@ -63,14 +72,27 @@ def all_pandigital_primes():
     return pandigital_primes
 
 
-def largest_pandigital_prime_improved(n):
+def all_pandigital_primes() -> list[int]:
     """
-    Consider increasing efficiency by pulling generation of all pandigital
-    primes out into a global variable (if multiple test cases needed).
+    Alternative to the above solution that, instead of using itertools.permutations(),
+    generates and filters prime numbers (using helper Sieve) under the optimised
+    limits if they are also pandigital.
+
+    :returns: List of all pandigital primes sorted in descending order.
+
+    SPEED (BETTER): 3.2751s.
     """
+
+    return [
+        p
+        for p in prime_numbers(7654321)[::-1]
+        if p > pow(10, 6) and is_pandigital(str(p), 7) or
+        4321 >= p > 1000 and is_pandigital(str(p), 4)
+    ]
+
+
+def largest_pandigital_prime(n: int) -> int:
     if n < 1423:
         return -1
     else:
-        for prime in all_pandigital_primes():
-            if prime <= n:
-                return prime
+        return min(all_pandigital_primes_builtin(), key=lambda p: p > n)

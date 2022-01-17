@@ -1,5 +1,5 @@
 import unittest
-from solution.batch4.problem40 import champernownes_product, get_constant
+from solution.batch4.problem40 import *
 
 
 class ChampernownesConstant(unittest.TestCase):
@@ -9,7 +9,7 @@ class ChampernownesConstant(unittest.TestCase):
         for i, pos in enumerate(position):
             self.assertEqual(expected[i], get_constant(pos))
 
-    def test_champernownes_product_low(self):
+    def test_champernownes_product_lower_constraints(self):
         inputs = [
             [1, 2, 3, 4, 5, 6, 7],
             [8, 9, 10, 11, 12, 13, 14],
@@ -19,7 +19,7 @@ class ChampernownesConstant(unittest.TestCase):
         for i, digits in enumerate(inputs):
             self.assertEqual(expected[i], champernownes_product(digits))
 
-    def test_champernownes_product_mid(self):
+    def test_champernownes_product_mid_values(self):
         inputs = [
             [10, 20, 30, 40, 50, 60, 70],
             [11, 21, 31, 41, 51, 61, 71],
@@ -29,11 +29,10 @@ class ChampernownesConstant(unittest.TestCase):
         for i, digits in enumerate(inputs):
             self.assertEqual(expected[i], champernownes_product(digits))
 
-    def test_champernownes_product_high(self):
+    def test_champernownes_product_upper_constraints(self):
         inputs = [
-            [1, 10, 100, 1000, 10000, 100000, 1000000],
-            [1000000000000, 10000000000000, 100000000000000, 1000000000000000,
-             10000000000000000, 100000000000000000, 1000000000000000000]
+            [pow(10, e) for e in range(7)],
+            [pow(10, e) for e in range(12, 19)]
         ]
         expected = [210, 5040]
         for i, digits in enumerate(inputs):

@@ -2,14 +2,13 @@
 
 https://projecteuler.net/problem=37
 
-Goal: Find the sum of all primes less than N that are truncatable
-both from left to right and from right to left (single-digit primes
-are not considered).
+Goal: Find the sum of all primes less than N that are truncatable both from left
+to right and from right to left (single-digit primes are not considered).
 
 Constraints: 100 <= N <= 1e6
 
-Truncatable Prime: A prime that remains prime as digits are continuously
-removed from LTR or RTL.
+Truncatable Prime: A prime that remains prime as digits are continuously removed
+from LTR or RTL.
 e.g. 3797 -> 797 -> 97 -> 7 and 3797 -> 379 -> 37 -> 3
 
 e.g.: N = 50
@@ -19,7 +18,7 @@ e.g.: N = 50
 from util.maths.reusable import prime_numbers
 
 
-def sum_of_trunc_primes(n):
+def sum_of_trunc_primes(n: int) -> int:
     """
     Solution speed optimised based on the following:
 
@@ -27,7 +26,7 @@ def sum_of_trunc_primes(n):
 
     - A number must start and end with a single-digit prime.
 
-    - No point in considering double digit primes less than 23.
+    - No point in considering double-digit primes less than 23.
 
     - Above 100, pattern shows that qualifying numbers must
     start and end in a 3 or 7.
@@ -37,6 +36,7 @@ def sum_of_trunc_primes(n):
     
     - No need to check first & last digits again in final loop.
     """
+
     primes = prime_numbers(n - 1)
     singles_a = "2357"
     singles_b = "37"

@@ -2,8 +2,8 @@
 
 https://projecteuler.net/problem=39
 
-Goal: If P is the perimeter of a right-angle triangle, find the
-smallest value of P <= N that has the maximum number of (a, b, c) solutions.
+Goal: If P is the perimeter of a right-angle triangle, find the smallest value
+of P <= N that has the maximum number of (a, b, c) solutions.
 
 Constraints: 12 <= N <= 5e6
 
@@ -16,9 +16,10 @@ from math import ceil, sqrt, gcd
 from util.maths.reusable import pythagorean_triplet
 
 
-def most_triplet_solutions_brute(n):
+def most_triplet_solutions_brute(n: int) -> int:
     """
-    Brute solution based on the following:
+    Brute force solution based on the following:
+
     - Pythagorean Triplets must either be all evens OR 2 odds with 1 even.
     So, the sum of triplets will only ever be an even number as the sum of evens
     is an even number, as is the sum of 2 odds.
@@ -30,8 +31,9 @@ def most_triplet_solutions_brute(n):
     b = (P * (P - 2 * a)) / (2 * (P - a)), which means ->
     values of P and a that result in an integer value b represent a valid Triplet.
 
-    SPEED (WORSE): 295.369s for N = 1e5
+    SPEED (WORSE): 329.844s for N = 1e5.
     """
+
     best_p, most_sols = 12, 1
     for p in range(14, n + 1, 2):
         num_sols = 0
@@ -44,13 +46,14 @@ def most_triplet_solutions_brute(n):
     return best_p
 
 
-def most_triplet_solutions(n):
+def most_triplet_solutions(n: int) -> int:
     """
-    Optimised solution based on the previously determined solution for
-    finding primitive Pythagorean Triplets (Problem 9).
+    Solution is influenced by the previously determined solution for finding
+    primitive Pythagorean Triplets (Batch 1 - Problem 9).
 
-    SPEED (BETTER): 1.113s for N = 1e5
+    SPEED (BETTER): 1.698s for N = 1e5.
     """
+
     best_p, most_sols = 12, 1
     for p in range(14, n + 1, 2):
         sols = 0
@@ -69,20 +72,23 @@ def most_triplet_solutions(n):
     return best_p
 
 
-def most_triplet_solutions_improved(limit):
+def most_triplet_solutions_improved(limit: int) -> int:
     """
-    Solution above is improved by relying solely on Euclid's formula to
-    generate all primitive Pythagorean triplets. Every perimeter that has
-    a triple will be represented as a count at p_sols[perimeter]. This array
-    is finally converted to another that accumulates the perimeter, below the
-    given limit, with the most counts, best[limit].
-    Note that the upper bound for m is found by substituting Euclid's
-    formulae into the perimeter formula, & reducing to:
+    Solution above is optimised further by relying solely on Euclid's formula to
+    generate all primitive Pythagorean triplets.
+
+    Every perimeter that has a triplet will be represented as a count at
+    p_sols[perimeter]. This array is finally converted to another that accumulates
+    the perimeter (below the given limit) with the most counts, best[limit].
+
+    Note that the upper bound for m is found by substituting Euclid's formulae
+    into the perimeter formula & reducing it to:
     p = 2 * d * m * (m + n), which means ->
     when d = 1 & n = 1, at most 2 * m * m must be below the given limit.
 
-    SPEED (BEST): 0.129s for N = 1e5
+    SPEED (BEST): 0.320s for N = 1e5.
     """
+
     p_sols = [0]*(limit + 1)
     m = 2
     while 2 * m * m < limit:

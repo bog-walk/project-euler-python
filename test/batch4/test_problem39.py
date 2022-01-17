@@ -4,7 +4,7 @@ from solution.batch4.problem39 import *
 
 
 class IntegerRightTriangles(unittest.TestCase):
-    def test_most_triplet_solutions(self):
+    def test_lower_constraints(self):
         nums = [12, 15, 40, 50, 80, 100, 1000]
         expected = [12, 12, 12, 12, 60, 60, 840]
         for i, n in enumerate(nums):
