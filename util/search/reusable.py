@@ -1,12 +1,16 @@
-def binary_search(target, collection) -> bool:
+from typing import Any
+
+
+def binary_search(target: Any, collection: list | set) -> bool:
+    """ Binary search algorithm implementation.
+
+    :param target: Element to search for (no type-check in Python as collection
+        can store multiple types).
+    :param collection: A list or set assumed to be already sorted in
+        ascending order.
+    :returns: False if collection is empty or element not present; otherwise, True.
     """
-    :param target: Element to search for (no type-check
-    in Python as collection can store multiple types).
-    :param collection: Assumed to be already sorted
-    in ascending order.
-    :return: False if collection is empty or element not
-    present; True otherwise.
-    """
+
     low, high = 0, len(collection) - 1
     while low <= high:
         middle = (low + high) // 2

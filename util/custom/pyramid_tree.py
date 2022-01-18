@@ -14,10 +14,10 @@ class PyramidNode:
             self, prefix: list[str], is_tail: bool, string: list[str]
     ) -> list[str]:
         """
-        :returns: String representation of the node & its children.
-
         Note that shared adjacent nodes will be duplicated in this algorithm,
         as the PyramidTree class is not a proper binary tree.
+
+        :returns: String representation of the node & its children.
         """
 
         vertical = "|   "

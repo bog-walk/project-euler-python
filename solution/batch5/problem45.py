@@ -29,6 +29,7 @@ from util.maths.reusable import is_triangular_number, is_pentagonal_number
 def is_hexagonal_number(h_n: int) -> int | None:
     """
     Derivation solution is based on the formula:
+
     n * (2 * n - 1) = h_n, in quadratic form becomes:
     0 = 2 * n^2 - n - h_n, with a, b, c = 2, -1, -h_n
     putting these values in the quadratic formula becomes:

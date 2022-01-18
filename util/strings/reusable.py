@@ -1,14 +1,3 @@
-def is_palindrome(n: str) -> bool:
-    """
-    This version, not the 2 alternatives below, will be used
-    in future solutions.
-
-    SPEED (BEST): 7.0e-4s for 18-digit N over 1000 iterations.
-    """
-
-    return n == n[::-1]
-
-
 def is_palindrome_recursive(n: str) -> bool:
     """
     SPEED (WORST): 6.1e-3s for 18-digit N over 1000 iterations.
@@ -36,11 +25,21 @@ def is_palindrome_number(n: str) -> bool:
     return n == str(rev)
 
 
-def is_pandigital(string: str, n: int) -> bool:
+def is_palindrome(n: str) -> bool:
+    """ This version will be used in future solutions.
+
+    SPEED (BEST): 7.0e-4s for 18-digit N over 1000 iterations.
     """
-    While its default arguement clears all leading/trailing whitespace,
+
+    return n == n[::-1]
+
+
+def is_pandigital(string: str, n: int) -> bool:
+    """ Checks if a string contains all digits between 1 and n inclusive.
+
+    While its default argument clears all leading/trailing whitespace,
     strip([chars]) removes characters from the left & right of the invoking string
-    until none in the arguement match the left-/right-most character.
+    until none in the argument match the left-/right-most character.
 
     This provides a trick to check whether a string contains only characters in
     another string, as, e.g. "1234".strip("4231") == "" == False.
