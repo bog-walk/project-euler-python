@@ -27,8 +27,8 @@ def pentagon_numbers_HR(n: int, k: int) -> {int, ...}:
     for i in range(k, n - 1):
         p_n = p_n_s[i]
         p_n_minus_k = p_n_s[i - k]
-        if is_pentagonal_number(p_n - p_n_minus_k) is not None or \
-                is_pentagonal_number(p_n + p_n_minus_k) is not None:
+        if (is_pentagonal_number(p_n - p_n_minus_k) is not None
+                or is_pentagonal_number(p_n + p_n_minus_k) is not None):
             valid_p_n.add(p_n)
     return valid_p_n
 
@@ -40,7 +40,9 @@ def pentagon_numbers_PE() -> int:
     both pentagonal.
 
     Surprisingly, the first eligible pair found has the smallest difference:
+
     P_x = 7_042_750, where x = 2167, and
+
     P_y = 1_560_090, where y = 1020.
     """
 
@@ -51,8 +53,8 @@ def pentagon_numbers_PE() -> int:
         for y in range(x - 1, 0, -1):
             p_y = p_n_s[y]
             minus = p_x - p_y
-            if is_pentagonal_number(minus) is None or \
-                    is_pentagonal_number(p_x + p_y) is None:
+            if (is_pentagonal_number(minus) is None
+                    or is_pentagonal_number(p_x + p_y) is None):
                 continue
             if delta is None or minus < delta:
                 delta = minus

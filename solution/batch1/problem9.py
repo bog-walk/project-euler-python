@@ -25,18 +25,19 @@ def is_pythagoras(a: int, b: int, c: int) -> bool:
 def max_triplet_product_loop_c_b(num: int) -> (int, ...):
     """ Solution iterates through values of c and b with some limits:
 
-    - Set {3,4,5} is the smallest existing triplet, so c must be >= 5 and can be
-    at most num / 2 - 1.
+    -   Set {3,4,5} is the smallest existing triplet, so c must be >= 5 and can be
+        at most num / 2 - 1.
 
-    - b cannot be <= a.
+    -   b cannot be <= a.
 
-    - Triplet elements must either be all evens OR 2 odds with 1 even.
-    Therefore, the sum of a triplet (num) must be even as the sum of evens is an
-    even number and the sum of 2 odds is an even number as well.
+    -   Triplet elements must either be all evens OR 2 odds with 1 even. Therefore,
+        the sum of a triplet (num) must be even as the sum of evens is an even
+        number and the sum of 2 odds is an even number as well.
 
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
 
-    Speed (WORSE): 228.86ms for N = 3000.
+    Speed (WORSE)
+        228.86ms for N = 3000
     """
 
     max_triplet = -1,
@@ -62,23 +63,24 @@ def max_triplet_product_loop_c_b(num: int) -> (int, ...):
 def max_triplet_product_loop_a(num: int) -> (int, ...):
     """ Solution iterates through values of a only based on:
 
-    - Set {3,4,5} being the smallest existing triplet, so a must be >= 3 and can
-    be at most num / 3 - 1.
+    -   Set {3,4,5} being the smallest existing triplet, so a must be >= 3 and can
+        be at most num / 3 - 1.
 
-    - Inserting c = num - a - b into the formula a^2 + b^2 = c^2 reduces to:
-    2 * a * b + 2 * b * num = num^2 - 2 * a * num
-    b = (num * (n - 2 * a)) / (2 * (n - a))
+    -   Inserting c = num - a - b into the formula a^2 + b^2 = c^2 reduces to:
+        2 * a * b + 2 * b * num = num^2 - 2 * a * num
+        b = (num * (n - 2 * a)) / (2 * (n - a))
 
-    - Exhaustive search shows that the first maximum triplet found will be the
-    only solution, so the loop van be broken early.
+    -   Exhaustive search shows that the first maximum triplet found will be the
+        only solution, so the loop van be broken early.
 
-    - Triplet elements must either be all evens OR 2 odds with 1 even.
-    Therefore, the sum of a triplet (num) must be even as the sum of evens is an
-    even number and the sum of 2 odds is an even number as well.
+    -   Triplet elements must either be all evens OR 2 odds with 1 even.
+        Therefore, the sum of a triplet (num) must be even as the sum of evens is an
+        even number and the sum of 2 odds is an even number as well.
 
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
 
-    Speed (BETTER): 2.3e5ns for N = 3000.
+    Speed (BETTER)
+        2.3e5ns for N = 3000
     """
 
     max_triplet = -1,
@@ -100,18 +102,19 @@ def max_triplet_product_loop_a(num: int) -> (int, ...):
 def max_triplet_product_optimised(num: int) -> (int, ...):
     """ Solution optimised based on:
 
-    - All Pythagorean triplets can be reduced to a primitive one by dividing out
-    gcd(a,b,c) = d, such that: a + b + c = 2 * m * (m + n) * d, with n > m > 0.
+    -   All Pythagorean triplets can be reduced to a primitive one by dividing out
+        gcd(a,b,c) = d, such that: a + b + c = 2 * m * (m + n) * d, with n > m > 0.
 
-    - A triplet is primitive if m XOR n is even and gcd(m,n) = 1. The latter occurs
-    because gdc(a,b) = gcd(b,c) = gcd(c,a) = 1.
+    -   A triplet is primitive if m XOR n is even and gcd(m,n) = 1. The latter occurs
+        because gdc(a,b) = gcd(b,c) = gcd(c,a) = 1.
 
-    - Exhaustive search shows that the first maximum triplet found will be the
-    only solution, so the loop van be broken early.
+    -   Exhaustive search shows that the first maximum triplet found will be the
+        only solution, so the loop van be broken early.
 
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
 
-    Speed (BEST): 31900ns for N = 3000.
+    Speed (BEST)
+        31900ns for N = 3000
     """
 
     max_triplet = -1,

@@ -18,7 +18,8 @@ from itertools import combinations_with_replacement
 
 def digit_nth_powers_brute(n: int) -> list[int]:
     """
-    SPEED (WORSE): 1.4722s for N = 6.
+    SPEED (WORSE)
+        1.4722s for N = 6
     """
 
     nums = []
@@ -41,7 +42,8 @@ def digit_nth_powers_brute(n: int) -> list[int]:
 def digit_nth_powers_builtin(n: int) -> list[int]:
     """
     Considers all combinations of digits (0-9 with replacement) for max number of
-    digits that allow valid candidates, using built-in combinations_with_replacement().
+    digits that allow valid candidates, using built-in
+    combinations_with_replacement().
 
     This function returns all possible subsets, allowing element repetitions, but
     not allowing arrangements that are identical except for order. This will produce
@@ -52,7 +54,8 @@ def digit_nth_powers_builtin(n: int) -> list[int]:
     Instead, if the generated combo_sum itself produces an identical combo_sum,
     then it is a valid number to include in the sum.
 
-    SPEED (BETTER): 0.0360s for N = 6.
+    SPEED (BETTER)
+        0.0360s for N = 6
     """
 
     nums = []

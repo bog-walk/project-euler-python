@@ -37,19 +37,19 @@ def is_sum_of_abundants(n: int) -> bool:
     """
     Solution is optimised based on:
 
-    - 12 being the smallest abundant number to exist, so the smallest integer
-    expressed as a sum of abundants is 24.
+    -   12 being the smallest abundant number to exist, so the smallest integer
+        expressed as a sum of abundants is 24.
 
-    - 945 being the smallest odd abundant number.
+    -   945 being the smallest odd abundant number.
 
-    - An odd number has to be the sum of an even & odd number, so all odd numbers
-    under 957 (945 + 12) cannot be the sum of abundants, since all other abundants
-    below 945 are even.
+    -   An odd number has to be the sum of an even & odd number, so all odd numbers
+        under 957 (945 + 12) cannot be the sum of abundants, since all other
+        abundants below 945 are even.
 
-    - All integers > 20161 can be expressed as sum of 2 abundant numbers, shown in
-    final test case, test_all_integers_expressed(self).
+    -   All integers > 20161 can be expressed as sum of 2 abundant numbers, shown in
+        final test case, test_all_integers_expressed(self).
 
-    - x_max of x + y = N would be N / 2, to avoid duplicate checks.
+    -   x_max of x + y = N would be N / 2, to avoid duplicate checks.
     """
 
     if n < 24 or (n < 957 and n % 2):

@@ -19,7 +19,8 @@ def sum_even_fibs_brute(n: int) -> int:
     the sequence begins with 2 odd numbers, the sum of which must be even, then
     the sum of an odd and even number, twice, will produce 2 odd numbers, etc...
 
-    SPEED (EQUAL): 0.0076s for N = 4e16 over 1000 iterations.
+    SPEED (EQUAL)
+        0.0076s for N = 4e16 over 1000 iterations
     """
 
     sum_of_evens, odd2, odd1, even = 0, 1, 1, 2
@@ -34,9 +35,11 @@ def sum_even_fibs_brute(n: int) -> int:
 def sum_even_fibs_formula(n: int) -> int:
     """
     Sums every 3rd term in the sequence starting with 2, using the formula:
+
     Fib(n) = 4 * Fib(n - 3) + Fib(n - 6).
 
-    SPEED (EQUAL): 0.0083s for N = 4e16 over 1000 iterations.
+    SPEED (EQUAL)
+        0.0083s for N = 4e16 over 1000 iterations
     """
 
     prev_even_2, prev_even_1 = 2, 8  # Fib(3), Fib(6)

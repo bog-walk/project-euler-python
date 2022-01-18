@@ -27,7 +27,8 @@ def count_divisors(n: int) -> int:
     """ Counts unique divisors of n using n's prime decomposition.
 
     e.g. 28 = 2^2 * 7^1, therefore
-    num_of_divisors = (2 + 1) * (1 + 1) = 6  ->  {1,2,4,7,14,28}
+
+    num_of_divisors = (2 + 1) * (1 + 1) = 6 -> {1,2,4,7,14,28}
     """
 
     return prod([v + 1 for _, v in prime_factors(n).items()])
@@ -43,11 +44,14 @@ def first_triangle_over_N(n: int) -> int:
     divisors can be assessed based on the cycling formulae:
 
     - t represents Gaussian sum = n * (n + 1) // 2
+
     - [even n] D(t) = D(n/2) * D(n+1)
-    - D(n+1) becomes D(n) for the next number, which will be odd ->
+    D(n+1) becomes D(n) for the next number, which will be odd.
+
     - [odd n] D(t) = D(n) * D((n+1)/2)
 
-    SPEED (WORSE): 583.69ms for N = 1000.
+    SPEED (WORSE)
+        583.69ms for N = 1000
     """
 
     if n == 1:
@@ -66,7 +70,8 @@ def first_triangle_over_N(n: int) -> int:
 def first_triangle_over_N_improved(n: int) -> int:
     """ Generates primes to count number of divisors based on prime factorisation.
 
-    SPEED (BETTER): 229.81ms for N = 1000.
+    SPEED (BETTER)
+        229.81ms for N = 1000
     """
 
     if n == 1:
@@ -113,7 +118,8 @@ def first_triangle_over_N_optimised(limit: int) -> int:
     finding the maximum of the ratios of t:n. At n = 1000, the valid triangle number
     is the 41041st term.
 
-    SPEED (BEST): 71.81ms for N = 1000.
+    SPEED (BEST)
+        71.81ms for N = 1000
     """
 
     n_max = min(limit * 53, 41100)

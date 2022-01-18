@@ -15,7 +15,8 @@ from math import prod
 
 def string_product(string: str) -> int:
     """
-    SPEED (EQUAL): 0.01429s for N = 50 over 1000 iterations.
+    SPEED (EQUAL)
+        0.01429s for N = 50 over 1000 iterations
     """
 
     return prod(map(int, string))
@@ -23,7 +24,8 @@ def string_product(string: str) -> int:
 
 def digits_product(num: int) -> int:
     """
-    SPEED (EQUAL): 0.01716s for N = 50 over 1000 iterations.
+    SPEED (EQUAL)
+        0.01716s for N = 50 over 1000 iterations
     """
 
     product = 1
@@ -36,7 +38,8 @@ def digits_product(num: int) -> int:
 def largest_series_product_recursive(string: str, digits: int, k: int) -> int:
     """ Throws RecursionError for string lengths > 100 digits.
 
-    SPEED (BETTER): 0.0007s for N = 100, K = 6.
+    SPEED (BETTER)
+        0.0007s for N = 100, K = 6
     """
 
     if digits == 1:
@@ -54,7 +57,8 @@ def largest_series_product_recursive(string: str, digits: int, k: int) -> int:
 
 def largest_series_product(string: str, digits: int, k: int) -> int:
     """
-    SPEED (BETTER): 0.0004s for N = 100, K = 6.
+    SPEED (BETTER)
+        0.0004s for N = 100, K = 6
     """
 
     largest = 0

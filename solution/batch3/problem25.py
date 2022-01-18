@@ -20,8 +20,10 @@ def n_digit_fib_terms_brute(max_digits: int) -> list[int]:
 
     :returns: List of the first Fibonacci terms to have (index + 2) digits.
 
-    SPEED (EQUAL for low N): 24700ns for N = 10.
-          (WORSE for high N): 4443.73ms for N = 5000.
+    SPEED (EQUAL for low N)
+        24700ns for N = 10
+    SPEED (WORSE for high N)
+        4443.73ms for N = 5000
     """
 
     term = 7
@@ -45,13 +47,18 @@ def nth_fib_golden(n: int) -> int:
 
     The Golden Ratio, Phi, provides an alternative to iteration, based on
     the closed-form formula:
-    Fn = (Phi^n - Psi^n) / sqrt(5)
-    with Phi = (1 + sqrt(5)) / 2 ~= 1.61803... & Psi = -Phi^-1.
+
+    Fn = (Phi^n - Psi^n) / sqrt(5),
+
+    with Phi = (1 + sqrt(5)) / 2 ~= 1.61803... & Psi = -Phi^-1
 
     Rounding, using the nearest integer function, reduces the formula to:
-    Fn = [Phi^n / sqrt(5)], where n >= 0.
+
+    Fn = [Phi^n / sqrt(5)], where n >= 0
+
     Truncation, using the floor function, would result instead in:
-    Fn = [(Phi^n / sqrt(5)) + 0.5], where n >= 0.
+
+    Fn = [(Phi^n / sqrt(5)) + 0.5], where n >= 0
     """
 
     return round(phi ** n / 5 ** 0.5)
@@ -62,9 +69,11 @@ def n_digit_fib_term_golden_brute(n: int) -> int:
 
     :returns: First Fibonacci term to have N digits.
 
-    SPEED (WORST for low N): 47800ns for N = 10.
-    Significantly slower execution from N > 10, due to the exponential need
-    to calculate Phi^N.
+    SPEED (WORST for low N)
+        47800ns for N = 10
+    SPEED (IMPOSSIBLE for N > 10)
+        Significantly slower execution due to the exponential need to calculate
+        Phi^N
     """
 
     term = 7
@@ -84,14 +93,19 @@ def n_digit_fib_term_golden_formula(n: int) -> int:
     """ O(n) solution based on the inversion of closed-form Binet's formula.
 
     Phi^t / sqrt(5) > 10^(n-1) -> Phi^t > 10^(n-1) * sqrt(5)
+
     log(Phi) * t > log(10) * (n - 1) + log(5) / 2
+
     t > (1 * (n - 1) + log(5) / 2) / log(Phi)
+
     t = ceil((n - 1 + log(5) / 2) / log(Phi))
 
     :returns: First Fibonacci term to have N digits.
 
-    SPEED (EQUAL for low N): 25900ns for N = 10.
-          (BEST for high N): 41800ns for N = 5000.
+    SPEED (EQUAL for low N)
+        25900ns for N = 10
+    SPEED (BEST for high N)
+        41800ns for N = 5000
     """
 
     return ceil((n - 1 + log10(5) / 2) / log10(phi))

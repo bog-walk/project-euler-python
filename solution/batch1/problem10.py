@@ -23,7 +23,8 @@ def sum_of_primes_quick_draw(n: int) -> list[int]:
 
     :returns: List of the cumulative sums of prime numbers <= index.
 
-    SPEED (WORSE): 567.88ms for N = 1e6.
+    SPEED (WORSE)
+        567.88ms for N = 1e6
     """
 
     if n % 2:
@@ -56,7 +57,8 @@ def sum_of_primes_quick_draw_optimised(n: int) -> list[int]:
 
     :returns: List of the cumulative sums of prime numbers <= index.
 
-    SPEED (BETTER): 205.88ms for N = 1e6.
+    SPEED (BETTER)
+        205.88ms for N = 1e6
     """
 
     sums = [0]*(n + 1)

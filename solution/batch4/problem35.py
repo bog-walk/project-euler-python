@@ -15,6 +15,7 @@ e.g.: N = 100
       sum = 446
 """
 from util.maths.reusable import prime_numbers, is_prime
+from util.search.reusable import binary_search
 
 
 def get_rotations(num: str) -> {int, ...}:
@@ -26,10 +27,13 @@ def get_rotations(num: str) -> {int, ...}:
 def get_circular_primes(n: int) -> list[int]:
     """
     Solution is optimised by filtering out primes with any even digits as an even
-    digit means at least 1 rotation will be even and therefore not prime.
+    digit means at least 1 rotation will be even and therefore not prime. The
+    primes list is also searched using a binary search algorithm.
     """
 
-    primes = [2] + [p for p in prime_numbers(n - 1) if not set(str(p)).intersection("02468")]
+    primes = [2] + [
+        p for p in prime_numbers(n - 1) if not set(str(p)).intersection("02468")
+    ]
     if n == 10:
         return primes
     circular_primes = []
@@ -41,7 +45,7 @@ def get_circular_primes(n: int) -> list[int]:
         # avoid duplicates & non-primes
         if any(
                 r in circular_primes or
-                r < n and r not in primes or
+                r < n and not binary_search(r, primes) or
                 not is_prime(r)
                 for r in p_rotated
         ):

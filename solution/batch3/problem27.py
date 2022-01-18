@@ -25,10 +25,10 @@ def quad_prime_coeff(max_n: int) -> (int, int, int):
     """
     A brute force of all a, b combinations that is optimised based on the following:
 
-    - When n = 0, formula -> 0^2 + 0 + b = b, which means that b must be a prime
-    number itself.
+    -   When n = 0, formula -> 0^2 + 0 + b = b, which means that b must be a prime
+        number itself.
 
-    - When n = 1, formula -> 1^2 + a + b, so, with b being prime:
+    -   When n = 1, formula -> 1^2 + a + b, so, with b being prime:
         - if b = 2, then a must be even for result to be an odd prime.
         - if b > 2, then a must be odd for result to be an odd prime.
 

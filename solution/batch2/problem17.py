@@ -68,8 +68,8 @@ def number_written(n: int, include_and: bool = True) -> str:
 def count_first_N_positives(n: int) -> int:
     """
     Project Euler specific implementation that sums the amount of letters
-    (excludes whitespace & punctuations) in the written forms of the first
-    N positive numbers.
+    (excludes whitespace & punctuations) in the written forms of the first N
+    positive numbers.
     """
 
     return sum(

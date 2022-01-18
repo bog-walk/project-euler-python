@@ -42,20 +42,21 @@ def all_pandigital_primes_builtin() -> list[int]:
     """
     Solution optimised based on the following:
 
-    - The smallest pandigital prime is 4-digits -> 1423.
+    -   The smallest pandigital prime is 4-digits -> 1423.
 
-    - Found using the brute force backwards search in the function above, the
-    largest pandigital prime is 7-digits -> 7_652_413.
+    -   Found using the brute force backwards search in the function above, the
+        largest pandigital prime is 7-digits -> 7_652_413.
 
-    - The above 2 proven bounds confirms that only 4- & 7-digit pandigitals can
-    be prime numbers as all primes greater than 3 are of the form 6*p(+/- 1) & so
-    cannot be multiples of 3. If the sum of a pandigital's digits is a multiple
-    of 3, then that number will be a multiple of 3 & thereby not a prime. Only
-    4- & 7-digit pandigitals have sums that are not divisible by 3.
+    -   The above 2 proven bounds confirms that only 4- & 7-digit pandigitals can
+        be prime numbers as all primes greater than 3 are of the form 6*p(+/- 1) & so
+        cannot be multiples of 3. If the sum of a pandigital's digits is a multiple
+        of 3, then that number will be a multiple of 3 & thereby not a prime. Only
+        4- & 7-digit pandigitals have sums that are not divisible by 3.
 
     :returns: List of all pandigital primes sorted in descending order.
 
-    SPEED (BETTER): 0.3169s.
+    SPEED (BETTER)
+        0.3169s
     """
 
     pandigital_primes = []
@@ -80,7 +81,8 @@ def all_pandigital_primes() -> list[int]:
 
     :returns: List of all pandigital primes sorted in descending order.
 
-    SPEED (WORSE): 3.2751s.
+    SPEED (WORSE)
+        3.2751s
     """
 
     return [

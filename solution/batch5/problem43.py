@@ -26,7 +26,8 @@ primes = [0, 2, 3, 5, 7, 11, 13, 17]
 
 def sum_of_pandigital_substrings(n: int) -> int:
     """
-    SPEED (WORSE): 6.212s for N = 9.
+    SPEED (WORSE)
+        6.212s for N = 9
     """
 
     total = 0
@@ -48,16 +49,16 @@ def is_permutation_invalid(perm: (str, ...)) -> bool:
     """
     Filters pandigital permutations based on the following:
 
-    - [d_2, d_4] must be divisible by 2 so d_4 must be an even number.
+    -   [d_2, d_4] must be divisible by 2 so d_4 must be an even number.
 
-    - [d_4, d_6] must be divisible by 5 so d_6 must be '0' or '5', which is
-    narrowed down to '5' as [d_6, d_8] must be divisible by 11 and '0' would not
-    allow pandigital options.
+    -   [d_4, d_6] must be divisible by 5 so d_6 must be '0' or '5', which is
+        narrowed down to '5' as [d_6, d_8] must be divisible by 11 and '0' would not
+        allow pandigital options.
 
-    - [d_3, d_5] must be divisible by 3, so sum([d_3, d_5]) must be also so.
+    -   [d_3, d_5] must be divisible by 3, so sum([d_3, d_5]) must be also so.
 
-    - If eligible numbers are narrowed down manually, it is proven that d_1 and
-    d_2 are either '1' or '4' and d_10 is either '7' or '9'.
+    -   If eligible numbers are narrowed down manually, it is proven that d_1 and
+        d_2 are either '1' or '4' and d_10 is either '7' or '9'.
     """
 
     return (
@@ -75,7 +76,8 @@ def sum_of_9_pandigital_substrings() -> int:
     Filtering the generated permutations allowed the performance speed to be
     improved compared to the previous solution above.
 
-    SPEED (BETTER): 1.201s for N = 9.
+    SPEED (BETTER)
+        1.201s for N = 9
     """
 
     digits = "0123456789"

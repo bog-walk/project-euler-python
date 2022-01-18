@@ -19,9 +19,10 @@ e.g.: input = [ALEX, LUIS, JAMES, BRIAN, PAMELA]
 def name_score(position: int, name: str) -> int:
     """ Helper function returns a score for a name as detailed above.
 
-    Zero-indexed position is found using -> sorted_list.index("name").
-    Input is assumed to consist of names in ALL_CAPS, but this can be ensured by
-    including name.upper() in the solution.
+    :param position: Zero-indexed position found in calling function using
+        sorted_list.index("name").
+    :param name: String sssumed to consist of names in ALL_CAPS, but this could be
+        ensured by including name.upper() in the solution.
     """
 
     # unicode decimal value of 'A' is 65, but is normalised to represent value 1

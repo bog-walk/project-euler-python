@@ -17,10 +17,15 @@ def is_pentagonal_number(p_n: int) -> int | None:
     Derivation solution is based on the formula:
 
     0.5 * n * (3 * n - 1) = p_n, in quadratic form becomes:
+
     0 = 3 * n^2 - n - 2 * p_n, with a, b, c = 3, -1, (-2 * p_n)
+
     putting these values in the quadratic formula becomes:
+
     n = 1 +/- sqrt(1 + 24 * p_n) / 6
+
     so the inverse function, positive solution becomes:
+
     n = (1 + sqrt(1 + (24 * p_n))) / 6
 
     :returns: p_n's corresponding term if pentagonal, or None.
@@ -62,10 +67,15 @@ def is_triangular_number(t_n: int) -> int | None:
     Derivation solution is based on the formula:
 
     0.5 * n * (n + 1) = t_n, in quadratic form becomes:
+
     0 = n^2 + n - 2 * t_n, with a, b, c = 1, 1, (-2 * t_n)
+
     putting these values in the quadratic formula becomes:
+
     n = -1 +/- sqrt(1 + 8 * t_n) / 2
+
     so the inverse function, positive solution becomes:
+
     n = 0.5 * (sqrt(1 + (8 * t_n)) - 1)
 
     :returns: t_n's corresponding term if triangular, or None.
@@ -118,7 +128,8 @@ def prime_numbers_og(n: int) -> list[int]:
     Sieve of Eratosthenes algorithm outputs all prime numbers less than or equal
     to the upper bound provided.
 
-    SPEED (WORSE): 39.80ms for N = 1e5.
+    SPEED (WORSE)
+        39.80ms for N = 1e5
     """
 
     boolean_mask = [not (i != 0 and i % 2 == 0) for i in range(n - 1)]
@@ -142,7 +153,8 @@ def prime_numbers(n: int) -> list[int]:
     allocating mask memory to odd numbers and by only looping through multiples of
     odd numbers. This version will be used in future solutions.
 
-    SPEED (BETTER): 16.71ms for N = 1e5.
+    SPEED (BETTER)
+        16.71ms for N = 1e5
     """
 
     odd_sieve = (n - 1) // 2
@@ -192,15 +204,16 @@ def pythagorean_triplet(m: int, n: int, d: int) -> (int, int, int):
 def sum_proper_divisors_og(n: int) -> int:
     """ Calculates the sum of all divisors of n.
 
-    Optimised solution based on the following:
+    Solution optimised based on the following:
 
-    - N == 1 has no proper divisor but 1 is a proper divisor of all other naturals.
+    -   N == 1 has no proper divisor but 1 is a proper divisor of all other naturals.
 
-    - A perfect square would duplicate divisors if included in the loop range.
+    -   A perfect square would duplicate divisors if included in the loop range.
 
-    - Loop range differs for odd numbers as they cannot have even divisors.
+    -   Loop range differs for odd numbers as they cannot have even divisors.
 
-    SPEED (WORSE): 4.2e4ns for N = 1e6 - 1.
+    SPEED (WORSE)
+        4.2e4ns for N = 1e6 - 1
     """
 
     if n < 2:
@@ -224,7 +237,8 @@ def sum_proper_divisors(num: int) -> int:
     Solution above is further optimised by using prime factorisation to
     out-perform the original method. This version will be used in future solutions.
 
-    SPEED (BETTER): 7.8e3ns for N = 1e6 - 1.
+    SPEED (BETTER)
+        7.8e3ns for N = 1e6 - 1
     """
 
     if num < 2:

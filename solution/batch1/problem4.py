@@ -19,8 +19,10 @@ def largest_palindrome_product(n: int) -> int:
     one of the integers must be a multiple of 11, based on the following algebra:
 
     P = 100_000x + 10_000y + 1000z + 100z + 10y + x
+
     P = 100_001x + 10_010y + 1100z
-    P = 11 * (9091x + 910y + 100z).
+
+    P = 11 * (9091x + 910y + 100z)
     """
 
     largest = 0

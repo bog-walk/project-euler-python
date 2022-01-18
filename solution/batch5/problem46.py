@@ -34,7 +34,7 @@ def goldbach_repr(n: int) -> int:
     """
     :param n: An odd composite number (no in-built check to ensure it is not prime).
     :returns: Count of primes that return True (== 1) from is_goldbach_2() with
-    the provided n.
+        the provided n.
     """
 
     return sum(is_goldbach_2(n, prime) for prime in prime_numbers(n)[1:])
@@ -45,7 +45,7 @@ def smallest_failing_num() -> int:
     Project Euler specific implementation that returns the smallest odd composite
     that cannot be written, as proposed, as the sum of a prime and twice a square.
 
-    The found value can be confirmed by using it as an arguement in the HackerRank
+    The found value can be confirmed by using it as an argument in the HackerRank
     problem solution above, as seen in the test cases.
     """
 

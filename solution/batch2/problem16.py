@@ -14,7 +14,8 @@ e.g.: N = 9
 
 def exp_digit_sum_iterative(n: int) -> int:
     """
-    SPEED (WORSE): 6.62s for N = 1e4.
+    SPEED (WORSE)
+        6.62s for N = 1e4
     """
 
     total = 0
@@ -27,7 +28,8 @@ def exp_digit_sum_iterative(n: int) -> int:
 
 def exp_digit_sum_builtin(n: int) -> int:
     """
-    SPEED (BETTER): 6.5e5ns for N = 1e4.
+    SPEED (BETTER)
+        6.5e5ns for N = 1e4
     """
 
     return sum(map(int, str(pow(2, n))))

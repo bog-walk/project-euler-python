@@ -61,6 +61,7 @@ def first_4_distinct_primes() -> int:
     4 consecutive numbers that have 4 distinct prime factors.
 
     The minimum representation with 4 distinct prime factors is:
+
     2 * 3 * 5 * 7 = 210.
     """
 

@@ -44,7 +44,8 @@ def find_non_trivials_brute(n: int, k: int) -> list[(int, int)]:
 
     :returns: List of tuples of (numerator, denominator) sorted by numerator.
 
-    SPEED (WORSE for PE problem): 27.44s for N = 4, K = 1.
+    SPEED (WORSE for PE problem)
+        27.44s for N = 4, K = 1
     """
 
     non_trivials = []
@@ -67,13 +68,17 @@ def find_non_trivials(n: int, k: int) -> list[(int, int)]:
 
     Loop nesting is based on numerator < denominator & cancelled < max_cancelled.
     This order of solutions is based on the combination equation:
-    ((10^k) * n + c) / ((10^k) * c + d) = n / d,
+
+    ((10^k) * n + c) / ((10^k) * c + d) = n / d
+
     which reduces to:
+
     ((10^k) - 1) * n * (c - d) = c * (d - n)
 
     :returns: List of tuples of (numerator, denominator) sorted by numerator.
 
-    SPEED (BETTER for PE problem): 1.08s for N = 4, K = 1.
+    SPEED (BETTER for PE problem)
+        1.08s for N = 4, K = 1
     """
 
     non_trivials = []
@@ -97,7 +102,7 @@ def product_of_non_trivials() -> int:
     that have 2 digits (pre-cancellation of 1 digit) to be found.
 
     :returns: The denominator of the product of the fractions given in its
-    lowest common terms.
+        lowest common terms.
     """
 
     non_trivials = find_non_trivials(2, 1)
@@ -137,20 +142,22 @@ def sum_of_non_trivials_brute(n: int, k: int) -> (int, int):
     HackerRank specific implementation that includes extra restrictions that
     are not clearly specified on the problem page:
 
-    - The digits cancelled from the numerator and denominator can be in any order.
-    e.g. 1306/6530 == 10/50 and 6483/8644 == 3/5.
+    -   The digits cancelled from the numerator and denominator can be in any
+        order.
+            e.g. 1306/6530 == 10/50 and 6483/8644 == 3/5.
 
-    - Zeroes should not be cancelled, but leading zeroes are allowed as they will be
-    read as if removed.
-    e.g. 4808/8414 == 08/14 == 8/14 and 490/980 == 40/80.
+    -   Zeroes should not be cancelled, but leading zeroes are allowed as they
+        will be read as if removed.
+            e.g. 4808/8414 == 08/14 == 8/14 and 490/980 == 40/80.
 
-    - Pre-cancelled fractions must only be counted once, even if the cancelled
-    digits can be removed in different ways with the same output.
-    e.g. 1616/6464 == 161/644 == 116/464.
+    -   Pre-cancelled fractions must only be counted once, even if the cancelled
+        digits can be removed in different ways with the same output.
+            e.g. 1616/6464 == 161/644 == 116/464.
 
     :returns: Tuple of (sum of numerators, sum of denominators).
 
-    SPEED (WORSE for HR problem): 1606.35s for N = 4, K = 1.
+    SPEED (WORSE for HR problem)
+        1606.35s for N = 4, K = 1
     """
 
     n_sum, d_sum = 0, 0
@@ -198,10 +205,13 @@ def sum_of_non_trivials_gcd(n: int, k: int) -> (int, int):
     gcd() is used to assess reductive equivalence based on the following:
 
     n_og / d_og = n_r / d_r, and
+
     n_r = n_og / gcd(n_og, d_og)
+
     d_r = d_og / gcd(n_og, d_og)
 
-    SPEED (BETTER for HR problem): 1.86s for N = 4, K = 1.
+    SPEED (BETTER for HR problem)
+        1.86s for N = 4, K = 1
     """
 
     n_sum, d_sum = 0, 0

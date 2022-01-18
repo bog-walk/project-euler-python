@@ -42,7 +42,7 @@ def sum_of_digit_factorials_PE() -> int:
     are factorions.
 
     The numbers cannot have more than 7 digits, as 9! * 8 returns only a 7-digit
-    number. 9! * 7 return 2_540_160, so the 1st digit of the 7-digit number cannot
+    number. 9! * 7 returns 2_540_160, so the 1st digit of the 7-digit number cannot
     be greater than 2.
     """
 

@@ -44,10 +44,10 @@ def collatz_length(start: int) -> int:
 
 
 def generate_longest_starters(n_max: int) -> list[int]:
-    """ Generate a list of starting numbers that produce the longest sequence.
+    """ Generates a list of starting numbers that produce the longest sequence.
 
     :returns: List of the starting number <= index n that generates the
-    longest sequence at that point.
+        longest sequence at that point.
     """
 
     # cache for all previously counted collatz sequences
@@ -84,7 +84,7 @@ def generate_longest_starters(n_max: int) -> list[int]:
 def largest_collatz_starter(starters: list[int], n: int) -> int:
     """
     :returns: Largest starter that is <= n, from a list of starters
-    that generate the longest Collatz sequences.
+        that generate the longest Collatz sequences.
     """
 
     return min(starters, key=lambda s: s > n)

@@ -21,13 +21,13 @@ def nth_lexicographic_perm_builtin(n: int, string: str) -> str:
     """
     :param n: The nth permutation requested should be zero-indexed.
     :param string: The object to generate permutations of should be already
-    sorted in ascending order.
+        sorted in ascending order.
 
-    SPEED (WORST): 863.21ms for 10-digit string.
-
-    Most likely due to itertool.permutations() generating all possible
-    full-length permutations sorted lexicographically rather than stopping once
-    the required permutation is found.
+    SPEED (WORST)
+        863.21ms for 10-digit string
+        Most likely due to permutations() generating all possible full-length
+        permutations sorted lexicographically rather than stopping once the
+        required permutation is found.
     """
 
     all_perms = list(map("".join, permutations(string)))
@@ -47,9 +47,10 @@ def nth_lexicographic_perm(n: int, string: str, permutation: str = "") -> str:
 
     :param n: The nth permutation requested should be zero-indexed.
     :param string: The object to generate permutations of should be already
-    sorted in ascending order.
+        sorted in ascending order.
 
-    SPEED (BETTER): 42500ns for 10-digit string.
+    SPEED (BETTER)
+        42500ns for 10-digit string
     """
 
     if not n:
@@ -72,9 +73,10 @@ def nth_lexicographic_perm_improved(n: int, string: str) -> str:
 
     :param n: The nth permutation requested should be zero-indexed.
     :param string: The object to generate permutations of should be already
-    sorted in ascending order.
+        sorted in ascending order.
 
-    SPEED (BEST): 15000ns for 10-digit string.
+    SPEED (BEST)
+        15000ns for 10-digit string
     """
 
     if len(string) == 1:

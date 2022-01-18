@@ -8,6 +8,7 @@ Values do not have to be distinct.
 Constraints: 2 <= N <= 1000, 1 <= K <= 1e18
 
 Binomial Coefficient: C(n, r) = n! / (r! * (n - r)!), where r <= n.
+
 There are 10 combinations when 3 digits are chosen from 5 digits, with no
 repetition & order not mattering: C(5, 3) = 10.
 It is not until n = 23 that the amount of combinations first exceeds 1e6, namely
@@ -32,20 +33,22 @@ def count_large_combinatorics(n: int, k: int) -> int:
     """
     Solution optimised based on the symmetry of Pascal's Triangle:
 
-    - C(n, 0) = 1 & C(n, 1) = n. k could be less than n, so must start r-loop
-    at 1.
+    -   C(n, 0) = 1 & C(n, 1) = n. k could be less than n, so must start r-loop
+        at 1.
 
-    - C(n, r) = C(n, n-r) & peaks for each row at the mid-point.
+    -   C(n, r) = C(n, n-r) & peaks for each row at the mid-point.
 
-    - So if C(n, r) > k, then all C(n, x) for x in [r+1, n-r] will also be > k.
-    Based on the incrementing row count (n + 1), this can be calculated as
-    n - 2 * r + 1, so the rest of the row values do not need to be also calculated.
+    -   So if C(n, r) > k, then all C(n, x) for x in [r+1, n-r] will also be > k.
+        Based on the incrementing row count (n + 1), this can be calculated as
+        n - 2 * r + 1, so the rest of the row values do not need to be also
+        calculated.
 
-    - Starting from the bottom of the triangle & moving up, if no value in a row
-    is greater than k, then no row (of lesser n) will have valid values & the
-    outer loop can be broken.
+    -   Starting from the bottom of the triangle & moving up, if no value in a row
+        is greater than k, then no row (of lesser n) will have valid values & the
+        outer loop can be broken.
 
-    SPEED (WORSE): 17.10ms for N = 1e3, K = 1e3.
+    SPEED (WORSE)
+        17.10ms for N = 1e3, K = 1e3
     """
 
     count = 0
@@ -71,16 +74,18 @@ def count_large_combinatorics_improved(n: int, k: int) -> int:
     Solution is still based on the symmetry of Pascal's Triangle & its rules as
     detailed in the solution above, with some additions:
 
-    - C(n, r+1) = C(n, r) * ((n-r) / (r+1)) and C(n-1, r) = C(n, r) * ((n-r) / n).
-    Movement through the triangle (bottom-up & only checking border values) mimics
-    that in the above function, but C(n, r) values when moving right in a row or up
-    a row are determined with these formulae, instead of factorials.
+    -   C(n, r+1) = C(n, r) * ((n-r) / (r+1)) and C(n-1, r) = C(n, r) * ((n-r) / n).
+        Movement through the triangle (bottom-up & only checking border values)
+        mimics that in the above function, but C(n, r) values when moving right
+        in a row or up a row are determined with these formulae, instead of
+        factorials.
 
-    - Starting from the bottom of the triangle & moving up, if the value of r is
-    allowed to exceed its midline value, then it means no value > k was found and
-    the outer loop can be broken.
+    -   Starting from the bottom of the triangle & moving up, if the value of r is
+        allowed to exceed its midline value, then it means no value > k was found and
+        the outer loop can be broken.
 
-    SPEED (BETTER): 1.10ms for N = 1e3, K = 1e3.
+    SPEED (BETTER)
+        1.10ms for N = 1e3, K = 1e3
     """
 
     count = 0

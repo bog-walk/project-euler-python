@@ -15,7 +15,8 @@ e.g.: N = 4
 
 def distinct_powers_brute(n: int) -> int:
     """
-    SPEED (WORST): 10162.15ms for N = 1e3.
+    SPEED (WORST)
+        1.0162s for N = 1e3
     """
 
     return len(set([pow(a, b) for b in range(2, n+1) for a in range(2, n+1)]))
@@ -27,7 +28,8 @@ def distinct_power(n: int) -> int:
     that from the maximum integer combinations, (n - 1)^2. No need to calculate
     base 2 exponents larger than 16 since 2^17 > 1e5 (upper constraint).
 
-    SPEED (BETTER): 6.63ms for N = 1e3.
+    SPEED (BETTER)
+        6.63ms for N = 1e3
     """
 
     max_exponent = 16
@@ -62,7 +64,8 @@ def distinct_power_improved(n: int) -> int:
     Identical solution to that above except that loop ranges reduced by pulling
     max_exponent value even further down.
 
-    SPEED (BEST): 4.03ms for N = 1e3.
+    SPEED (BEST)
+        4.03ms for N = 1e3
     """
 
     max_exponent = min(16, n - 1)

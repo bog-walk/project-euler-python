@@ -16,9 +16,9 @@ e.g.: N.B. This is a scaled-down example (first 2 digits of N 5-digit numbers)
 
 def add_in_reverse(n: int, digits: list[str]) -> str:
     """
-    Simulates manual addition from RTL, as an alternative for simply
-    adding the input (given Python's superior handling of larger numbers
-    without overflow issues).
+    Simulates manual addition from RTL, as an alternative for simply adding the
+    input (given Python's superior handling of larger numbers without overflow
+    issues).
 
     See test cases for simple addition comparison.
     """

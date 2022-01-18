@@ -32,13 +32,17 @@ def get_replacements(
     :param max_d: Max value a digit can be to allow L-primes to be generated.
     :param k: Number of equal digits to be replaced.
     :returns: List of all integer lists generated as a result of replacing k-digits
-    of equal value. The original prime is not included, to avoid it being unnecessarily
-    checked for primality in calling function.
+        of equal value. The original prime is not included, to avoid it being
+        unnecessarily checked for primality in calling function.
 
-    e.g. "769" with k = 1, max_d = "6" -> "7*9" -> [[779, 789, 799]]
-         "797" with k = 2, max_d = "7" -> "*9*" -> [[898, 999]]
-         "7677" with k = 2, max_d = "7" -> "*6*7", "*67*", "76**" ->
-         [[8687, 9697], [8678, 9679], [7688, 7699]]
+    e.g.:
+        "769" with k = 1, max_d = "6" -> "7*9" -> [[779, 789, 799]]
+
+        "797" with k = 2, max_d = "7" -> "*9*" -> [[898, 999]]
+
+        "7677" with k = 2, max_d = "7" -> "*6*7", "*67*", "76**" ->
+
+        [[8687, 9697], [8678, 9679], [7688, 7699]]
     """
 
     replaced = []
@@ -62,15 +66,15 @@ def smallest_prime_digit_repl(n: int, k: int, length: int) -> list[int]:
     """
     Solution optimised based on the following:
 
-    - Generate all N-digit primes first.
+    -   Generate all N-digit primes first.
 
-    - Only replace digits that are of a value less than the maximum required to
-    generate L primes.
+    -   Only replace digits that are of a value less than the maximum required to
+        generate L primes.
 
-    - Check for primality using a binary search through generated primes.
+    -   Check for primality using a binary search through generated primes.
 
-    - Break loop once a family of primes of desired length is found, ensuring the
-    family is the smallest lexicographically if multiple exist.
+    -   Break loop once a family of primes of desired length is found, ensuring the
+        family is the smallest lexicographically if multiple exist.
     """
 
     primes = prime_numbers(pow(10, n) - 1)
@@ -116,7 +120,8 @@ def smallest_8_prime_family() -> int:
                     generated = list(
                         filter(
                             is_prime,
-                            [int(num[:i] + str(d) + num[i+1:]) for d in range(int(digit) + 1, 10)]
+                            [int(num[:i] + str(d) + num[i+1:])
+                             for d in range(int(digit) + 1, 10)]
                         )
                     )
                     if len(generated) == 7:
@@ -129,7 +134,8 @@ def smallest_8_prime_family() -> int:
                     generated = list(
                         filter(
                             is_prime,
-                            [int(num.replace(digit, str(d))) for d in range(int(digit) + 1, 10)]
+                            [int(num.replace(digit, str(d)))
+                             for d in range(int(digit) + 1, 10)]
                         )
                     )
                     if len(generated) == 7:

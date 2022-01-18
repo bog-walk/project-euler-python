@@ -18,15 +18,20 @@ def lattice_path_routes(n: int, m: int) -> int:
 
     Solution is based on the formula:
 
-    x! / Pi(i!); where x is the number of items to be combined & i represents
-    the groups of indistinguishable items to undergo product notation.
+    x! / Pi(i!)
+
+    where x is the number of items to be combined & i represents the groups of
+    indistinguishable items to undergo product notation.
 
     Note that, if the lattice was assured to be square, the number of routes would
     be equal to the central binomial coefficient C(2*n, n) found as the midline
     number in the (2*n)th row of Pascal's triangle.
 
     The formula for a rectangular grid with C(n+m, n) becomes:
-    (n + m)! / n! * m!; since grid dimensions determine the number of steps
+
+    (n + m)! / n! * m!
+
+    since grid dimensions determine the number of steps
     taken & there is a deterministic proportion of R vs D steps.
 
     :returns: Number of valid routes scaled down to modulo (1e9 + 7).

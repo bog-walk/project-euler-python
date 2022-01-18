@@ -12,6 +12,7 @@ e.g.: N = 100
       length = 6
 """
 from util.maths.reusable import prime_numbers, is_prime
+from util.search.reusable import binary_search
 
 
 def consecutive_prime_sum(n: int) -> (int, int):
@@ -23,7 +24,8 @@ def consecutive_prime_sum(n: int) -> (int, int):
     of a sequence exceeds the given limit, the next sequence starting from a larger
     prime will be 1 prime longer from where it broke.
 
-    SPEED (WORSE): 53.00s for N = 1e10.
+    SPEED (WORSE)
+        36.34s for N = 1e10
     """
 
     limit = min(n, 10_000_000)
@@ -37,7 +39,10 @@ def consecutive_prime_sum(n: int) -> (int, int):
             if seq_sum > n:
                 max_j = j + 1
                 break
-            if seq_sum <= limit and seq_sum in primes or is_prime(seq_sum):
+            if (
+                    seq_sum <= limit and binary_search(seq_sum, primes)
+                    or is_prime(seq_sum)
+            ):
                 length = j - i
                 if length > longest:
                     prime_sum, longest = seq_sum, length
@@ -52,7 +57,8 @@ def consecutive_prime_sum_improved(n: int) -> (int, int):
     prime by subtracting cumulative sums, then breaking the internal loop if a
     valid sequence is found.
 
-    SPEED (BETTER): 2.97s for N = 1e10.
+    SPEED (BETTER)
+        2.20s for N = 1e10
     """
 
     limit = min(n, 10_000_000)
@@ -70,8 +76,11 @@ def consecutive_prime_sum_improved(n: int) -> (int, int):
             if seq_sum > n:
                 continue
             length = j - i
-            if length > longest and \
-                    (seq_sum <= limit and seq_sum in primes or is_prime(seq_sum)):
+            if (
+                    length > longest and
+                    (seq_sum <= limit and binary_search(seq_sum, primes)
+                     or is_prime(seq_sum))
+            ):
                 prime_sum, longest = seq_sum, length
                 break
     return prime_sum, longest

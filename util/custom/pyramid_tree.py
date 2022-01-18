@@ -1,8 +1,9 @@
 class PyramidNode:
-    """
-    A Node for the following PyramidTree class that stores its integer value, as
-    well as a reference to its 2 children, if it is not a leaf node. Its sole
-    method, draw_node(), allows all Nodes in a PyramidTree to be drawn recursively.
+    """ A Node for the following PyramidTree class.
+
+    A Node stores an integer value, as well as a reference to its 2 children,
+    if it is not a leaf node. Its sole method, draw_node(), allows all Nodes in a
+    PyramidTree to be drawn recursively.
     """
 
     def __init__(self, value: int):
@@ -37,13 +38,14 @@ class PyramidNode:
 
 
 class PyramidTree:
-    """
-    A Tree (more appropriately a graph) with each node having 2 children except
-    for leaf nodes. Every node that is not along the left or right edges will have
-    2 parents, unlike in a standard BinaryTree. i.e. Internal children are shared
-    by 2 nodes, with nodeX.rightAdjacent == nodeY.leftAdjacent. Therefore, each
-    level in the tree will have an amount of nodes equivalent to the level number.
-    Also unlike a BinaryTree, nodes in a PyramidTree are not ordered.
+    """ A Tree with each node having 2 children except for leaf nodes.
+
+    A PyramidTree, more appropriately a graph, has every node that is not along
+    the left or right edges having 2 parents, unlike in a standard BinaryTree.
+    i.e. Internal children are shared by 2 nodes, with nodeX.rightAdjacent ==
+    nodeY.leftAdjacent. Therefore, each level in the tree will have an amount of
+    nodes equivalent to the level number. Also unlike a BinaryTree, nodes in a
+    PyramidTree are not ordered.
     """
 
     def __init__(self, rows: int, elements: list[int]):

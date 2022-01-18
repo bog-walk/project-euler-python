@@ -26,7 +26,8 @@ modulus = 1_000_000_007
 
 def spiral_diag_sum_brute(n: int) -> int:
     """
-    SPEED (WORST): 555.78ms at N = 1e6 + 1.
+    SPEED (WORST)
+        555.78ms at N = 1e6 + 1
     """
 
     total = 1
@@ -43,13 +44,18 @@ def spiral_diag_sum_formula_brute(num: int) -> int:
     Solution based on the formula:
 
     f(n) = 4 * (2 * n + 1)^2 - 12 * n + f(n - 1),
-    with n as the centre ring number.
-    f(0) = 1, as it is the only element.
-    f(1) = 25, as the first ring creates a 3x3 grid. So the side of a ring is
-    odd at 2 * N + 1 wide with the upper right corner being (2n + 1)^2 or the area.
-    So provided n would need to be divided by 2.
 
-    SPEED (BETTER): 460.31ms at N = 1e6 + 1.
+    with n as the centre ring number, and
+
+    f(0) = 1, as it is the only element, and
+
+    f(1) = 25, as the first ring creates a 3x3 grid.
+
+    So the side of a ring is odd at 2 * N + 1 wide with the upper right corner
+    being (2n + 1)^2 or the area. So provided n would need to be divided by 2.
+
+    SPEED (BETTER)
+        460.31ms at N = 1e6 + 1
     """
 
     f_n = 1
@@ -63,13 +69,18 @@ def spiral_diag_sum_formula_derived(n: int) -> int:
     Solution optimised based on the same formula as above, but reduced to:
 
     f(n) = 16 * n^2 + 4 * n + 4 + f(n - 1)
+
     Third order polynomial function required as the 3rd delta between consecutive
-    f(n) gives a constant -> a*x^3 + b*x^2 + c*x + d.
+    f(n) gives a constant, such that ->
+
+    a*x^3 + b*x^2 + c*x + d
 
     Solving for f(0) to f(3) derives the closed-form formula:
+
     f(n) = (16 * n^3 + 30 * n^2 + 26 * n + 3) // 3
 
-    SPEED (BEST): 9300ns at N = 1e6 + 1.
+    SPEED (BEST)
+        9300ns at N = 1e6 + 1
     """
 
     n = (n - 1) // 2

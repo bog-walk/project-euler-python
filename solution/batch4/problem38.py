@@ -16,13 +16,12 @@ from util.strings.reusable import is_pandigital
 
 
 def find_pandigital_multipliers(n: int, k: int) -> list[int]:
-    """ HackerRank specific implementation.
-
+    """
     Since a 9-digit pandigital number is the limit, the multiplier will never be
     larger than 4 digits (as a 5-digit number times 2 would produce another 5-digit
     number).
 
-    Note that the logic behind the inner loop break could all be replaced by the
+    N.B. The logic behind the inner loop break could all be replaced by the
     is_pandigital() helper function used in the PE implementation at the bottom.
     """
 
@@ -53,26 +52,26 @@ def largest_9_pandigital() -> str:
 
     Solution is based on the following:
 
-    - Since the multiplier must at minimum be multiplied by both 1 & 2, it cannot
-    be larger than 4 digits to ensure product is only 9 digits.
+    -   Since the multiplier must at minimum be multiplied by both 1 & 2, it cannot
+        be larger than 4 digits to ensure product is only 9 digits.
 
-    - The default largest would be M = 9 * (1, 2, 3, 4, 5) = 918273645, so M must
-    begin with the digit 9.
+    -   The default largest would be M = 9 * (1, 2, 3, 4, 5) = 918273645, so M must
+        begin with the digit 9.
 
-    - The 2-digit minimum (M = 91) would result in either an 8-/11-digit product
-    once multiplied by 3 and 4. The 3-digit minimum (M = 912) would result in
-    either a 7-/11-digit product once multiplied by 2 and 3.
+    -   The 2-digit minimum (M = 91) would result in either an 8-/11-digit product
+        once multiplied by 3 and 4. The 3-digit minimum (M = 912) would result in
+        either a 7-/11-digit product once multiplied by 2 and 3.
 
-    - So M must be a 4-digit number multiplied by 2 to get a 9-digit product and
-    at minimum will be 9182 (1st 4 digits of default) and at max 9876.
+    -   So M must be a 4-digit number multiplied by 2 to get a 9-digit product and
+        at minimum will be 9182 (1st 4 digits of default) and at max 9876.
 
-    - Multiplying 9xxx by 2 will at minimum result in 18xxx, always generating a
-    new digit 1, so M cannot itself contain the digit 1, setting the new minimum
-    to 9234.
+    -   Multiplying 9xxx by 2 will at minimum result in 18xxx, always generating a
+        new digit 1, so M cannot itself contain the digit 1, setting the new minimum
+        to 9234.
 
-    - Lastly, multiplying (98xx downTo 95xx) by 2 will at minimum result in 19xxx,
-    always generating another digit 9, so M's 2nd digit must be < 5, setting the
-    new maximum to 9487.
+    -   Lastly, multiplying (98xx downTo 95xx) by 2 will at minimum result in 19xxx,
+        always generating another digit 9, so M's 2nd digit must be < 5, setting the
+        new maximum to 9487.
     """
 
     largest = ""

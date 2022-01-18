@@ -40,7 +40,8 @@ def switch_base(n: int, base: int) -> str:
 
 def sum_of_palindromes_brute(n: int, k: int) -> int:
     """
-    SPEED (WORSE): 509.14s for N = 1e9, K = 2.
+    SPEED (WORSE)
+        509.14s for N = 1e9, K = 2
     """
 
     total = 0
@@ -53,7 +54,7 @@ def sum_of_palindromes_brute(n: int, k: int) -> int:
 def get_palindrome(n: int, base: int, odd: bool = True) -> int:
     """
     :returns: The nth odd-/even-length palindrome in the specified base.
-    e.g. The 2nd odd-length base 2 palindrome is 101 == 5.
+        e.g. The 2nd odd-length base 2 palindrome is 101 == 5.
     """
 
     palindrome = n
@@ -71,7 +72,8 @@ def sum_of_palindromes(n: int, k: int) -> int:
     than N. This also means that, unlike in the brute force solution, only 1 number
     (the base-10 result) needs to be checked as a palindrome.
 
-    SPEED (BETTER): 0.22s for N = 1e9, K = 2.
+    SPEED (BETTER)
+        0.22s for N = 1e9, K = 2
     """
 
     total = 0

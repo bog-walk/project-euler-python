@@ -25,10 +25,14 @@ def sum_arith_progress(max_term: int, delta: int) -> int:
     """ Calculates the sum of an arithmetic progression sequence.
 
     Solution based on the formula:
-    n-1_Sigma_k=0 (a + k * d) = (n / 2) * (2 * a + (n - 1) * d), where
-    a is the 1st term, d is the delta, and n is the amount of terms to add.
+
+    n-1_Sigma_k=0 (a + k * d) = (n / 2) * (2 * a + (n - 1) * d),
+
+    where a is the 1st term, d is the delta, and n is the amount of terms to add.
+
     a and d are the same in this case, so the formula becomes:
-    n-1_Sigma_k=0 (a + k * d) = (n / 2) * (n + 1) * d.
+
+    n-1_Sigma_k=0 (a + k * d) = (n / 2) * (n + 1) * d
 
     Note that this is an adapted Gaussian sum formula, where n is replaced with
     the amount of terms that are evenly divisible by d, then the original formula
@@ -45,7 +49,7 @@ def sum_of_multiples(n: int, k_1: int, k_2: int) -> int:
     found via the least common multiple of the given factors.
     """
 
-    n -= 1  # N not inclusive
+    n -= 1  # n not inclusive
     if k_1 == k_2:
         return sum_arith_progress(n, k_1)
     duplicate_sum = sum_arith_progress(n, lcm(k_1, k_2))

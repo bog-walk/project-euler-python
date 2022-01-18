@@ -50,7 +50,8 @@ def sum_pandigital_products(n: int) -> int:
     Solution uses built-in permutations() to assess all arrangements of the
     required digits for a valid identity expression.
 
-    SPEED (WORSE): 1.5490s for N = 9.
+    SPEED (WORSE)
+        1.5490s for N = 9
     """
 
     digits = [str(d) for d in range(1, n + 1)]
@@ -65,7 +66,8 @@ def sum_pandigital_products_brute(n: int) -> int:
     Iterative solution assesses the pandigital quality of all identity expressions
     produced by multiplier, multiplicand combinations within a specified limit.
 
-    SPEED (BETTER): 0.0834s for N = 9.
+    SPEED (BETTER)
+        0.0834s for N = 9
     """
 
     # stored as set to ensure no duplicate permutation results

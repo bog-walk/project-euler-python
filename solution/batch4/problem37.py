@@ -16,25 +16,28 @@ e.g.: N = 50
       sum = 60
 """
 from util.maths.reusable import prime_numbers
+from util.search.reusable import binary_search
 
 
 def sum_of_trunc_primes(n: int) -> int:
     """
     Solution speed optimised based on the following:
 
-    - There are only 11 such qualifying numbers.
+    -   There are only 11 such qualifying numbers.
 
-    - A number must start and end with a single-digit prime.
+    -   A number must start and end with a single-digit prime.
 
-    - No point in considering double-digit primes less than 23.
+    -   No point in considering double-digit primes less than 23.
 
-    - Above 100, pattern shows that qualifying numbers must
-    start and end in a 3 or 7.
+    -   Above 100, pattern shows that qualifying numbers must start and end in a 3
+        or 7.
 
-    - Above 1000, pattern shows that qualifying numbers must
-    have their first & last 3 digits be a prime number.
+    -   Above 1000, pattern shows that qualifying numbers must have their first &
+        last 3 digits be a prime number.
     
-    - No need to check first & last digits again in final loop.
+    -   No need to check first & last digits again in final loop.
+
+    -   A binary search algorithm is used to check the primes list.
     """
 
     primes = prime_numbers(n - 1)
@@ -52,12 +55,14 @@ def sum_of_trunc_primes(n: int) -> int:
             if p[:1] not in singles_b or p[-1:] not in singles_b:
                 continue
             if digits >= 4:
-                if int(p[:3]) not in primes or int(p[-3:]) not in primes:
+                if not binary_search(int(p[:3]), primes) or \
+                        not binary_search(int(p[-3:]), primes):
                     continue
         valid = True
         if digits > 2:
             for i in range(2, digits):
-                if int(p[:i]) not in primes or int(p[-i:]) not in primes:
+                if not binary_search(int(p[:i]), primes) or \
+                        not binary_search(int(p[-i:]), primes):
                     valid = False
                     break
         if valid:

@@ -17,14 +17,18 @@ modulus = 10_000_000_000
 def self_powers_sum_modulo(n: int) -> int:
     """
     Solution based on the modular arithmetic rule that:
+
     (x + y) % z == ((x % z) + (y % z)) % z
+
     This same rule applies to multiplication with modulo:
+
     (x * y) % z == ((x % z) * (y % z)) % z
 
     The carried over number for each new self-power is thereby significantly
     reduced by performing modulo at every step.
 
-    SPEED (WORSE): 18.304s for N = 1e4.
+    SPEED (WORSE)
+        18.304s for N = 1e4
     """
 
     total = 0
@@ -42,7 +46,8 @@ def self_powers_sum(n: int) -> int:
     """
     Solution optimised by using built-in pow(base, exp, mod).
 
-    SPEED (BETTER): 0.036s for N = 1e4.
+    SPEED (BETTER)
+        0.036s for N = 1e4
     """
 
     total = 0

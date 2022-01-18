@@ -20,7 +20,8 @@ def lcm_of_range(n: int) -> int:
     starting from the largest and stepping backwards until the middle of the range,
     as the smaller half of a range will already be factors of the larger half.
 
-    SPEED (EQUAL): 12.62ms for N = 40 over 1000 iterations.
+    SPEED (EQUAL)
+        12.62ms for N = 40 over 1000 iterations
     """
 
     common_multiple = n
@@ -33,7 +34,8 @@ def lcm_of_range_builtin(n: int) -> int:
     """
     Same process as above function, but uses built-in reduce() function.
 
-    SPEED (EQUAL): 10.95ms for N = 40 over 1000 iterations.
+    SPEED (EQUAL)
+        10.95ms for N = 40 over 1000 iterations
     """
 
     return reduce(lcm, range(n, n // 2, -1))

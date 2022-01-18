@@ -30,17 +30,18 @@ def get_constant(i: int) -> int:
     series will have 9 * 10^(k-1) terms and, thereby, a total of k * 9 * 10^(k-1)
     digits.
 
-    The cumulative total digits per series can be used to determine in
-    which series range the requested index sits as well as its position in the series.
+    The cumulative total digits per series can be used to determine in which
+    series range the requested index sits as well as its position in the series.
 
     e.g. Searching for the 2000th digit in Champernowne's Constant(C):
-    - 2000 - 180 - 9 = 1811 < 2700.
-    - Therefore, it is found in the 1811th digit in series 3.
-    - 1811 is first zero-indexed (as C does not start with 0).
-    - As series 3 has 3 digits in every term, 1810 // 3 gives the location of the
-    1810th digit as being in the 603rd term -> 100 + 603 = 703.
-    - 1810 % 3 = 1, so the 1810th digit is at index 1 of 703.
-    - Therefore, the 2000th digit in C is 0.
+
+    -   2000 - 180 - 9 = 1811 < 2700.
+    -   Therefore, it is found in the 1811th digit in series 3.
+    -   1811 is first zero-indexed (as C does not start with 0).
+    -   As series 3 has 3 digits in every term, 1810 // 3 gives the location of the
+        1810th digit as being in the 603rd term -> 100 + 603 = 703.
+    -   1810 % 3 = 1, so the 1810th digit is at index 1 of 703.
+    -   Therefore, the 2000th digit in C is 0.
     """
 
     k = 1

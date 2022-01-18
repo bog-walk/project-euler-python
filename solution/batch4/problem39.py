@@ -20,18 +20,23 @@ def most_triplet_solutions_brute(n: int) -> int:
     """
     Brute force solution based on the following:
 
-    - Pythagorean Triplets must either be all evens OR 2 odds with 1 even.
-    So, the sum of triplets will only ever be an even number as the sum of evens
-    is an even number, as is the sum of 2 odds.
+    -   Pythagorean Triplets must either be all evens OR 2 odds with 1 even.
+        So, the sum of triplets will only ever be an even number as the sum of evens
+        is an even number, as is the sum of 2 odds.
 
-    - Since a < b < c and a + b + c = P, a will not be higher than P / 3.
+    -   Since a < b < c and a + b + c = P, a will not be higher than P / 3.
 
-    - If c = P - a - b is inserted into the equation a^2 + b^2 = c^2, then:
-    a^2 + b^2 = P^2 - 2aP - 2bP + 2ab + a^2 + b^2, which yields ->
-    b = (P * (P - 2 * a)) / (2 * (P - a)), which means ->
-    values of P and a that result in an integer value b represent a valid Triplet.
+    -   If c = P - a - b is inserted into the equation a^2 + b^2 = c^2, then:
 
-    SPEED (WORSE): 329.844s for N = 1e5.
+        a^2 + b^2 = P^2 - 2aP - 2bP + 2ab + a^2 + b^2
+
+        b = (P * (P - 2 * a)) / (2 * (P - a)),
+
+        which means values of P and a that result in an integer value b represent a
+        valid Triplet.
+
+    SPEED (WORSE)
+        329.844s for N = 1e5
     """
 
     best_p, most_sols = 12, 1
@@ -51,7 +56,8 @@ def most_triplet_solutions(n: int) -> int:
     Solution is influenced by the previously determined solution for finding
     primitive Pythagorean Triplets (Batch 1 - Problem 9).
 
-    SPEED (BETTER): 1.698s for N = 1e5.
+    SPEED (BETTER)
+        1.698s for N = 1e5
     """
 
     best_p, most_sols = 12, 1
@@ -81,12 +87,15 @@ def most_triplet_solutions_improved(limit: int) -> int:
     p_sols[perimeter]. This array is finally converted to another that accumulates
     the perimeter (below the given limit) with the most counts, best[limit].
 
-    Note that the upper bound for m is found by substituting Euclid's formulae
-    into the perimeter formula & reducing it to:
-    p = 2 * d * m * (m + n), which means ->
-    when d = 1 & n = 1, at most 2 * m * m must be below the given limit.
+    N.B. The upper bound for m is found by substituting Euclid's formulae into the
+    perimeter formula & reducing it to:
 
-    SPEED (BEST): 0.320s for N = 1e5.
+    p = 2 * d * m * (m + n),
+
+    which means when d = 1 & n = 1, at most 2 * m * m must be below the given limit.
+
+    SPEED (BEST)
+        0.320s for N = 1e5
     """
 
     p_sols = [0]*(limit + 1)
