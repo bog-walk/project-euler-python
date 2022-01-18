@@ -1,11 +1,6 @@
 import unittest
+from util.tests.reusable import get_test_resource
 from solution.batch2.problem13 import add_in_reverse
-
-
-def get_test_digits(filename):
-    with open(filename) as digitsFile:
-        digits = [line.strip() for line in digitsFile]
-    return digits
 
 
 class LargeSum(unittest.TestCase):
@@ -13,8 +8,8 @@ class LargeSum(unittest.TestCase):
     def setUpClass(cls):
         cls.three_digits = ["123", "456", "789", "812", "234"]
         cls.ten_digits = ["6041184107", "5351558590", "1833324270"]
-        cls.five_N = get_test_digits("../resources/large_sum_5N")
-        cls.hundred_N = get_test_digits("../resources/large_sum_100N")
+        cls.five_N = get_test_resource("../resources/large_sum_5N")
+        cls.hundred_N = get_test_resource("../resources/large_sum_100N")
 
     def test_setup(self):
         self.assertEqual(5, len(self.five_N))

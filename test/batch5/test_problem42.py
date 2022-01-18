@@ -1,12 +1,6 @@
 import unittest
+from util.tests.reusable import get_test_resource
 from solution.batch5.problem42 import *
-
-
-def get_long_list(filename):
-    with open(filename) as listFile:
-        # Could use readlines() but extra whitespace would affect output
-        long_list = [row.strip() for row in listFile]
-    return long_list
 
 
 class CodedTriangleNumbers(unittest.TestCase):
@@ -25,7 +19,7 @@ class CodedTriangleNumbers(unittest.TestCase):
 
     def test_count_triangle_words(self):
         input_file = "../resources/coded_triangle_numbers"
-        words = get_long_list(input_file)
+        words = get_test_resource(input_file)
         expected = 162
         self.assertEqual(expected, count_triangle_words(words))
 

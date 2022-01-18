@@ -78,6 +78,25 @@ class TestsReusable(unittest.TestCase):
         self.assertTrue(all(actual == expected for actual in results_s.values()))
         self.assertTrue(all(actual == expected for actual in results_ns.values()))
 
+    def test_get_test_resource_default(self):
+        path = "fake_resource"
+        resource = get_test_resource(path)
+        expected_lines = 5
+        expected_first = "A, B, C, D, E, F"
+        self.assertEqual(expected_lines, len(resource))
+        self.assertIsInstance(resource[0], str)
+        self.assertEqual(expected_first, resource[0])
+
+    def test_get_test_resource_transformed(self):
+        path = "fake_resource"
+        resource = get_test_resource(
+            path, transformation=lambda s: s.lower(), line_split=", ")
+        expected_lines = 5
+        expected_first = ["a", "b", "c", "d", "e", "f"]
+        self.assertEqual(expected_lines, len(resource))
+        self.assertIsInstance(resource[0], list)
+        self.assertEqual(expected_first, resource[0])
+
 
 if __name__ == '__main__':
     unittest.main()

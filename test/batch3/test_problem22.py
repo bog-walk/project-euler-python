@@ -1,12 +1,6 @@
 import unittest
+from util.tests.reusable import get_test_resource
 from solution.batch3.problem22 import *
-
-
-def get_long_list(filename):
-    with open(filename) as listFile:
-        # Could use readlines() but extra whitespace would affect output
-        long_list = [row.strip() for row in listFile]
-    return long_list
 
 
 class NamesScores(unittest.TestCase):
@@ -14,9 +8,10 @@ class NamesScores(unittest.TestCase):
     def setUpClass(cls):
         cls.small_list = ["ALEX", "LUIS", "JAMES", "BRIAN", "PAMELA"]
         cls.medium_list = [
-            "OLIVIA", "ALEX", "MIA", "LUIS", "LEO", "JAMES", "BRIAN", "NOAH", "PAMELA",
-            "AIDEN", "BENJAMIN", "HARPER", "MUHAMMAD", "PENELOPE", "RILEY", "JACOB",
-            "SEBASTIAN", "LILY", "ELI", "IVY", "STELLA", "HANNAH", "VIOLET"
+            "OLIVIA", "ALEX", "MIA", "LUIS", "LEO", "JAMES", "BRIAN", "NOAH",
+            "PAMELA", "AIDEN", "BENJAMIN", "HARPER", "MUHAMMAD", "PENELOPE",
+            "RILEY", "JACOB","SEBASTIAN", "LILY", "ELI", "IVY", "STELLA", "HANNAH",
+            "VIOLET"
         ]
         cls.long_list_location = "../resources/names_scores"
 
@@ -46,7 +41,7 @@ class NamesScores(unittest.TestCase):
 
     def test_sum_of_name_scores_large_list(self):
         expected = 871_198_282
-        long_list = get_long_list(self.long_list_location)
+        long_list = get_test_resource(self.long_list_location)
         self.assertEqual(expected, sum_of_name_scores(long_list))
 
 

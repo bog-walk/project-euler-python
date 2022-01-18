@@ -1,22 +1,22 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed_nano, get_test_resource
 from solution.batch2.problem11 import largest_row_product, largest_col_product, \
     largest_diagonal_product, largest_product_in_grid_functional,\
     largest_product_in_grid
 
 
-def get_test_grid(filename):
-    with open(filename) as gridFile:
-        grid = [list(map(int, row.strip().split(" "))) for row in gridFile]
-    return grid
-
-
 class LargestProductInGrid(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.small_grid = get_test_grid("../resources/largest_product_in_grid_4by4")
-        cls.mid_grid = get_test_grid("../resources/largest_product_in_grid_6by6")
-        cls.large_grid = get_test_grid("../resources/largest_product_in_grid_20by20")
+        cls.small_grid = get_test_resource(
+            "../resources/largest_product_in_grid_4by4", transformation=int
+        )
+        cls.mid_grid = get_test_resource(
+            "../resources/largest_product_in_grid_6by6", transformation=int
+        )
+        cls.large_grid = get_test_resource(
+            "../resources/largest_product_in_grid_20by20", transformation=int
+        )
 
     def test_setup(self):
         self.assertEqual(20, len(self.large_grid))

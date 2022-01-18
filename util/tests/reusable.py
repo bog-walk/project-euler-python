@@ -1,4 +1,5 @@
 from time import perf_counter, perf_counter_ns
+from typing import Any, Callable
 
 
 def compare_speed_seconds(
@@ -6,19 +7,17 @@ def compare_speed_seconds(
         precision: int = 4,
         repeat: int = 1
 ) -> dict:
+    """ Compares the speed of multiple functions with output displayed in seconds.
+
+    :param solutions: Dict containing all solution names as keys and their values
+        representing [output name, *arguments].
+    :param precision: Number of decimal places to format speed output.
+    :param repeat: Number of times the solution function should be called.
+    :returns: Prints the speed in seconds of each function ordered from fastest to
+        slowest, before returning a dictionary containing all solution names as keys
+        and their function output as values.
     """
-    :param solutions: Dict containing all solution names
-    as keys and their values representing [output name,
-    *arguments].
-    :param precision: Number of decimal places to format
-    speed output.
-    :param repeat: Number of times the solution function
-    should be called.
-    :return: Prints the speed in seconds of each function
-    ordered from fastest to slowest, before returning a
-    dictionary containing all solution names as keys and
-    their function output as values.
-    """
+
     results = dict()
     times = dict()
     for name, solution in solutions.items():
@@ -37,22 +36,19 @@ def compare_speed_seconds(
     return results
 
 
-def compare_speed_nano(
-        solutions: dict,
-        repeat: int = 1
-) -> dict:
+def compare_speed_nano(solutions: dict, repeat: int = 1) -> dict:
+    """ Compares the speed of multiple functions with output displayed in either
+    nanoseconds or milliseconds.
+
+    :param solutions: Dict containing all solution names as keys and their values
+        representing [output name, *arguments].
+    :param repeat: Number of times the solution function should be called.
+    :returns: Prints the speed in nanoseconds (formatted in scientific notation)
+        of each function ordered from fastest to slowest, before returning a
+        dictionary containing all solution names as keys and their function output
+        as values.
     """
-    :param solutions: Dict containing all solution names
-    as keys and their values representing [output name,
-    *arguments].
-    :param repeat: Number of times the solution function
-    should be called.
-    :return: Prints the speed in nanoseconds (formatted in
-    scientific notation) of each function ordered from
-    fastest to slowest, before returning a dictionary containing
-    all solution names as keys and their function
-    output as values.
-    """
+
     results = dict()
     times = dict()
     for name, solution in solutions.items():
@@ -76,3 +72,35 @@ def compare_speed_nano(
             time_f = "{:.1e}".format(time)
         print(f"{name} solution took: {time_f}{symbol}")
     return results
+
+
+def get_test_resource(
+        filepath: str,
+        line_strip: str = " \n",
+        transformation: Callable[[str], Any] = None,
+        line_split: str = " "
+) -> list[str] | list[list]:
+    """ Retrieves content of a test resource file, as is (default) or transformed.
+
+    :param filepath: Relative path for test resource file.
+    :param line_strip: Characters to remove from the left & right of each file line.
+    :param transformation: Transformation function that takes either an entire
+        line as an argument or, if split, individual elements in a line. Note that
+        functions that are called on the string class, e.g. str.lower(), rather
+        than taking a string as an argument, must be provided as a lambda function.
+    :param line_split: Characters to use as the delimiter when splitting a line.
+    :returns: List of each file line as a string, if default arguments used;
+        otherwise, a list of each line as a list of transformed elements.
+    """
+
+    with open(filepath) as resourceFile:
+        if transformation is None:
+            resource = [line.strip(line_strip) for line in resourceFile]
+        else:
+            resource = [
+                list(
+                    map(transformation, line.strip(line_strip).split(line_split))
+                )
+                for line in resourceFile
+            ]
+    return resource
