@@ -2,13 +2,13 @@
 
 https://projecteuler.net/problem=46
 
-Goal: Return the number of ways an odd composite number, N, can be
-represented as proposed by Goldbach's Conjecture, detailed below.
+Goal: Return the number of ways an odd composite number, N, can be represented as
+proposed by Goldbach's Conjecture, detailed below.
 
 Constraints: 9 <= N < 5e5
 
-Goldbach's False Conjecture: Every odd composite number can be
-written as the sum of a prime and twice a square. Proven to be FALSE.
+Goldbach's False Conjecture: Every odd composite number can be written as the sum
+of a prime and twice a square. Proven to be FALSE.
 e.g. 9 = 7 + 2 * 1^2
      15 = 7 + 2 * 2^2 or 13 + 2 * 1^2
      21 = 3 + 2 * 3^2 or 13 + 2 * 2^2 or 19 + 2 * 1^2
@@ -25,39 +25,47 @@ from math import sqrt, floor
 from util.maths.reusable import is_prime, prime_numbers
 
 
-def is_goldbach_2(composite, prime):
+def is_goldbach_2(composite: int, prime: int) -> bool:
     rep = sqrt((composite - prime) / 2)
     return rep == floor(rep)
 
 
-def goldbach_repr(n):
+def goldbach_repr(n: int) -> int:
     """
-    :param n: An odd composite number (no in-built check
-    for primality).
+    :param n: An odd composite number (no in-built check to ensure it is not prime).
+    :returns: Count of primes that return True (== 1) from is_goldbach_2() with
+    the provided n.
     """
-    primes = prime_numbers(n)[1:]
-    count = 0
-    for prime in primes:
-        if is_goldbach_2(n, prime):
-            count += 1
-    return count
+
+    return sum(is_goldbach_2(n, prime) for prime in prime_numbers(n)[1:])
 
 
-def smallest_failing_num():
+def smallest_failing_num() -> int:
     """
-    Project Euler specific implementation that returns the smallest odd
-    composite that cannot be written, as proposed, as the sum of a prime
-    and twice a square.
+    Project Euler specific implementation that returns the smallest odd composite
+    that cannot be written, as proposed, as the sum of a prime and twice a square.
+
+    The found value can be confirmed by using it as an arguement in the HackerRank
+    problem solution above, as seen in the test cases.
     """
-    primes = prime_numbers(10000)[1:]
+
+    limit = 5000  # starting limit guessed with contingency block later down
+    primes = prime_numbers(limit)[1:]
     composite = 33  # starting point as provided in example
     while True:
         composite += 2
+        valid = False
         if is_prime(composite):
             continue
         for prime in primes:
             if prime > composite:
                 return composite
             if is_goldbach_2(composite, prime):
+                valid = True
                 break
+        if not valid:
+            # if reached, means not enough primes for current composite
+            limit += 5000
+            primes = prime_numbers(limit)[1:]
+            composite -= 2
     return -1

@@ -80,7 +80,7 @@ def all_pandigital_primes() -> list[int]:
 
     :returns: List of all pandigital primes sorted in descending order.
 
-    SPEED (BETTER): 3.2751s.
+    SPEED (WORSE): 3.2751s.
     """
 
     return [

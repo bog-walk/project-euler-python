@@ -2,29 +2,29 @@
 
 https://projecteuler.net/problem=49
 
-Goal: Return all concatenated integers formed by joining K terms,
-such that the first term is below N and all K terms are permutations
-of each other, as well as being prime, as well as being in constant
-arithmetic progression.
+Goal: Return all concatenated integers formed by joining K terms, such that the
+first term is below N and all K terms are permutations of each other, as well as
+being prime and in constant arithmetic progression.
 
-Constraints: 2000 <= N <= 1e6, K in {3, 4}
+Constraints: 2000 <= N <= 1e6, K in [3, 4]
 
 e.g.: N = 2000, K = 3
       sequence = {1487, 4817, 8147}, with step = 3330
-      output = 148748178147
+      output = "148748178147"
 """
 from itertools import permutations
 from util.maths.reusable import is_prime, prime_numbers
 
 
-def prime_perm_sequence(n, k) -> list[list[int]]:
+def prime_perm_sequence(n: int, k: int) -> list[list[int]]:
     """
-    Solution uses itertools.permutations() to find all permutations
-    of a prime & filter potential candidates for a sequence. Will be
-    slower due to permutations being (re-)generated unnecessarily.
+    Solution uses itertools.permutations() to find all permutations of a prime
+    & filter potential candidates for a sequence.
 
-    SPEED (WORSE): 97.98s for N = 1e6, K = 3
+    SPEED (WORSE): 103.80s for N = 1e6, K = 3.
+    Slower due to permutations being (re-)generated unnecessarily.
     """
+
     primes = prime_numbers(n - 1)
     sequences = []
     for first in primes:
@@ -57,15 +57,15 @@ def prime_perm_sequence(n, k) -> list[list[int]]:
     return sequences
 
 
-def perm_id(n):
+def perm_id(n: int) -> int:
     """
-    Generate a hash key for a prime number based on the
-    amount of repeated digits, represented as a numerical
-    version of an indexed RTL array.
+    Generate a hash key for a prime number based on the amount of repeated digits,
+    represented as a numerical version of an indexed RTL array.
 
     e.g. 1487 -> 110010010 <- 4817
          2214 -> 10210 <- 4212
     """
+
     p_id = 0
     while n:
         digit = n % 10
@@ -74,17 +74,19 @@ def perm_id(n):
     return p_id
 
 
-def prime_perm_sequence_improved(n, k) -> list[list[int]]:
+def prime_perm_sequence_improved(n: int, k: int) -> list[list[int]]:
     """
-    Solution optimised by using a helper function that maps
-    all primes with same type and amount of digits to a permutation id.
-    Then every list of primes that share a permutation id and has >= K
-    elements is iterated over to check for an arithmetic progression
-    sequence. Also eliminates need to check for primality by pre-
-    generating all primes with same number of digits.
+    Solution optimised by using perm_id() helper function that maps all primes
+    with same type and amount of digits to a permutation id. Then every list of
+    primes that share a permutation id and has >= K elements is iterated over to
+    check for an arithmetic progression sequence.
 
-    SPEED (BETTER): 8.97s for N = 1e6, K = 3
+    Pre-generating all primes with same number of digits also eliminates the need
+    to check for primality.
+
+    SPEED (BETTER): 8.81s for N = 1e6, K = 3.
     """
+
     primes = prime_numbers(pow(10, len(str(n))) - 1)
     prime_perms: dict[int, list[int]] = dict()
     sequences = []
@@ -112,7 +114,7 @@ def prime_perm_sequence_improved(n, k) -> list[list[int]]:
     return sequences
 
 
-def concat_prime_perms(n, k, improved: bool) -> list[str]:
+def concat_prime_perms(n: int, k: int, improved: bool) -> list[str]:
     if improved:
         results = sorted(prime_perm_sequence_improved(n, k))
     else:

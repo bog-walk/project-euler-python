@@ -2,8 +2,8 @@
 
 https://projecteuler.net/problem=50
 
-Goal: Return the smallest prime <= N that can be represented
-as the sum of the longest consecutive prime sequence.
+Goal: Return the smallest prime <= N that can be represented as the sum of the
+longest consecutive prime sequence.
 
 Constraints: 2 <= N <= 1e12
 
@@ -14,16 +14,18 @@ e.g.: N = 100
 from util.maths.reusable import prime_numbers, is_prime
 
 
-def consecutive_prime_sum(n) -> tuple[int, int]:
+def consecutive_prime_sum(n: int) -> (int, int):
     """
-    Sieve generation of prime numbers limited by memory. Brute force shows
-    that all valid sequences start at low primes, with only a few starting
-    as high as the 4th, 8th or 12th prime. If the sum of a sequence exceeds
-    the given limit, the next sequence starting from a larger prime will be
-    1 prime longer from where it broke.
+    Brute force solution shows that all valid sequences start at low primes, with
+    only a few starting as high as the 4th, 8th or 12th prime.
 
-    SPEED (WORSE): 49.33s for N = 1e10
+    Note that sieve generation of prime numbers is limited by memory. If the sum
+    of a sequence exceeds the given limit, the next sequence starting from a larger
+    prime will be 1 prime longer from where it broke.
+
+    SPEED (WORSE): 53.00s for N = 1e10.
     """
+
     limit = min(n, 10_000_000)
     primes = prime_numbers(limit)
     len_primes = len(primes)
@@ -42,16 +44,17 @@ def consecutive_prime_sum(n) -> tuple[int, int]:
     return prime_sum, longest
 
 
-def consecutive_prime_sum_improved(n) -> tuple[int, int]:
+def consecutive_prime_sum_improved(n: int) -> (int, int):
     """
-    Solution optimised by generating a smaller list of cumulative sums
-    of primes to loop through, of which only the last value can exceed
-    the given limit. Nested loop starts backwards to get the longest
-    sequence sum for each starting prime by subtracting cumulative sums,
-    then breaking internal loop if a valid sequence is found.
+    Solution optimised by generating a smaller list of cumulative sums of primes
+    to loop through, of which only the last value can exceed the given limit.
+    Nested loop starts backwards to get the longest sequence sum for each starting
+    prime by subtracting cumulative sums, then breaking the internal loop if a
+    valid sequence is found.
 
-    SPEED (BETTER): 2.35s for N = 1e10
+    SPEED (BETTER): 2.97s for N = 1e10.
     """
+
     limit = min(n, 10_000_000)
     primes = prime_numbers(limit)
     cumulative_sum = [0]

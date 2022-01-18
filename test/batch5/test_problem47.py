@@ -4,7 +4,7 @@ from solution.batch5.problem47 import consecutive_distinct_primes, \
 
 
 class DistinctPrimesFactors(unittest.TestCase):
-    def test_consecutive_distinct_primes_k2(self):
+    def test_HR_problem_k2(self):
         k = 2
         nums = [20, 100]
         expected = [
@@ -15,22 +15,22 @@ class DistinctPrimesFactors(unittest.TestCase):
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], consecutive_distinct_primes(n, k))
 
-    def test_consecutive_distinct_primes_k3(self):
+    def test_HR_problem_k3(self):
         k = 3
         nums = [644, 1000]
         expected = [[644], [644, 740, 804, 986]]
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], consecutive_distinct_primes(n, k))
 
-    def test_consecutive_distinct_primes_k4(self):
+    def test_HR_problem_k4(self):
         k = 4
         nums = [10_000, 100_000, 300_000]
-        expected = [[], [], [134043, 238203, 253894, 259368]]
+        expected = [[], [], [134_043, 238_203, 253_894, 259_368]]
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], consecutive_distinct_primes(n, k))
 
     def test_first_4_distinct_primes(self):
-        expected = 134043
+        expected = 134_043
         self.assertEqual(expected, first_4_distinct_primes())
 
 

@@ -4,7 +4,7 @@ from solution.batch5.problem50 import *
 
 
 class ConsecutivePrimeSum(unittest.TestCase):
-    def test_consecutive_prime_sum_low(self):
+    def test_lower_constraints(self):
         nums = [
             2, 5, 10, 20, 50, 100, 150, 200, 300, 500, 1000, 2000, 10_000, 22340
         ]
@@ -17,7 +17,7 @@ class ConsecutivePrimeSum(unittest.TestCase):
             self.assertTupleEqual(expected[i], consecutive_prime_sum(n))
             self.assertTupleEqual(expected[i], consecutive_prime_sum_improved(n))
 
-    def test_consecutive_prime_sum_mid(self):
+    def test_mid_values(self):
         expected = [
             (92_951, 183), (997_651, 543),
             (9_951_191, 1587), (99_819_619, 4685), (999_715_711, 13935)
@@ -27,7 +27,7 @@ class ConsecutivePrimeSum(unittest.TestCase):
             self.assertTupleEqual(expected[i - 5], consecutive_prime_sum(n))
             self.assertTupleEqual(expected[i - 5], consecutive_prime_sum_improved(n))
 
-    def test_consecutive_prime_sum_high(self):
+    def test_upper_constraints(self):
         expected = [(99_987_684_473, 125_479), (999_973_156_643, 379_317)]
         for i in range(11, 13):
             n = pow(10, i)

@@ -201,33 +201,33 @@ def pythagorean_triplet(m: int, n: int, d: int) -> tuple[int, int, int]:
 
 def is_triangular_number(t_n: int) -> int | None:
     """
-    Derivation solution is based on the following:
-    0.5 * n * (n + 1) = t_n ->
-    inverse function, positive solution ->
-    n = 0.5 * (sqrt((8 * t_n) + 1) - 1)
+    Derivation solution is based on the formula:
+    0.5 * n * (n + 1) = t_n, in quadratic form becomes:
+    0 = n^2 + n - 2 * t_n, with a, b, c = 1, 1, (-2 * t_n)
+    putting these values in the quadratic formula becomes:
+    n = -1 +/- sqrt(1 + 8 * t_n) / 2
+    so the inverse function, positive solution becomes:
+    n = 0.5 * (sqrt(1 + (8 * t_n)) - 1)
 
-    :return: If tN is the nth triangular, or None if not triangular.
+    :returns: t_n's corresponding term if triangular, or None.
     """
 
-    n = 0.5 * (sqrt(8 * t_n + 1) - 1)
-    if n == floor(n):
-        return int(n)
-    else:
-        return None
+    n = 0.5 * (sqrt(1 + 8 * t_n) - 1)
+    return int(n) if n == floor(n) else None
 
 
 def is_pentagonal_number(p_n: int) -> int | None:
     """
-    Derivation solution is based on the following:
-    0.5 * n * (3 * n - 1) = p_n ->
-    inverse function, positive solution ->
-    n = (sqrt((24 * p_n) + 1) + 1) / 6
+    Derivation solution is based on the formula:
+    0.5 * n * (3 * n - 1) = p_n, in quadratic form becomes:
+    0 = 3 * n^2 - n - 2 * p_n, with a, b, c = 3, -1, (-2 * p_n)
+    putting these values in the quadratic formula becomes:
+    n = 1 +/- sqrt(1 + 24 * p_n) / 6
+    so the inverse function, positive solution becomes:
+    n = (1 + sqrt(1 + (24 * p_n))) / 6
 
-    :return: If pN is the nth pentagonal, or None if not pentagonal.
+    :returns: p_n's corresponding term if pentagonal, or None.
     """
 
-    n = (sqrt(24 * p_n + 1) + 1) / 6
-    if n == floor(n):
-        return int(n)
-    else:
-        return None
+    n = (1 + sqrt(1 + 24 * p_n)) / 6
+    return int(n) if n == floor(n) else None

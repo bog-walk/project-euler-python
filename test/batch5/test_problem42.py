@@ -11,15 +11,15 @@ def get_long_list(filename):
 
 class CodedTriangleNumbers(unittest.TestCase):
     def test_triangle_term_all_false(self):
-        test_n = [2, 5, 26, 54, 218]
-        for n in test_n:
+        nums = [2, 5, 26, 54, 218]
+        for n in nums:
             self.assertEqual(-1, triangle_term(n))
             self.assertEqual(-1, triangle_term_improved(n))
 
     def test_triangle_term_all_true(self):
-        test_n = [1, 3, 6, 10, 55, 210, 5050, 500500, 4999999950000000]
-        expected = [1, 2, 3, 4, 10, 20, 100, 1000, 99999999]
-        for i, n in enumerate(test_n):
+        nums = [1, 3, 6, 10, 55, 210, 5050, 500_500, 4_999_999_950_000_000]
+        expected = [1, 2, 3, 4, 10, 20, 100, 1000, 99_999_999]
+        for i, n in enumerate(nums):
             self.assertEqual(expected[i], triangle_term(n))
             self.assertEqual(expected[i], triangle_term_improved(n))
 
