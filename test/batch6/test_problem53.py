@@ -1,18 +1,18 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed_nano
 from solution.batch6.problem53 import count_large_combinatorics, \
     count_large_combinatorics_improved
 
 
 class CombinatoricSelections(unittest.TestCase):
-    def test_count_large_combinatorics_lower_constraints(self):
+    def test_lower_constraints(self):
         k = 5
         expected = [0, 0, 1, 3, 8, 14]
         for n in range(2, 8):
             self.assertEqual(expected[n - 2], count_large_combinatorics(n, k))
             self.assertEqual(expected[n - 2], count_large_combinatorics_improved(n, k))
 
-    def test_count_large_combinatorics(self):
+    def test_mid_values(self):
         nums = [2, 23, 100, 1000]
         k = 1_000_000
         expected = [0, 4, 4075, 494_861]
@@ -20,20 +20,20 @@ class CombinatoricSelections(unittest.TestCase):
             self.assertEqual(expected[i], count_large_combinatorics(n, k))
             self.assertEqual(expected[i], count_large_combinatorics_improved(n, k))
 
-    def test_count_large_combinatorics_upper_constraint(self):
+    def test_upper_constraints(self):
         n, k = 1000, 10_000_000_000
         expected = 490_806
         self.assertEqual(expected, count_large_combinatorics(n, k))
         self.assertEqual(expected, count_large_combinatorics_improved(n, k))
 
-    def test_speed_compare(self):
+    def test_count_large_combinatorics_speed(self):
         n, k = 1000, 1000
         expected = 497_376
         solutions = {
             "OG": [count_large_combinatorics, n, k],
             "Improved": [count_large_combinatorics_improved, n, k]
         }
-        results = compare_speed_seconds(solutions, repeat=10)
+        results = compare_speed_nano(solutions)
         self.assertTrue(all([expected == actual for actual in results.values()]))
 
 
