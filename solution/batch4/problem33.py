@@ -69,11 +69,11 @@ def find_non_trivials(n: int, k: int) -> list[(int, int)]:
     Loop nesting is based on numerator < denominator & cancelled < max_cancelled.
     This order of solutions is based on the combination equation:
 
-    ((10^k) * n + c) / ((10^k) * c + d) = n / d
+    :math:`(n10^k + c) / (c10^k + d) = n / d`
 
     which reduces to:
 
-    ((10^k) - 1) * n * (c - d) = c * (d - n)
+    :math:`n(10^k - 1)(c - d) = c(d - n)`
 
     :returns: List of tuples of (numerator, denominator) sorted by numerator.
 
@@ -204,11 +204,11 @@ def sum_of_non_trivials_gcd(n: int, k: int) -> (int, int):
     & the cancellation combos they allow. Rather than loop through denominators,
     gcd() is used to assess reductive equivalence based on the following:
 
-    n_og / d_og = n_r / d_r, and
+    :math:`n_og / d_og = n_r / d_r`, and
 
-    n_r = n_og / gcd(n_og, d_og)
+    :math:`n_r = n_og / gcd(n_og, d_og)`
 
-    d_r = d_og / gcd(n_og, d_og)
+    :math:`d_r = d_og / gcd(n_og, d_og)`
 
     SPEED (BETTER for HR problem)
         1.86s for N = 4, K = 1

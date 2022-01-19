@@ -40,10 +40,10 @@ def longest_repetend_denominator_primes(n: int) -> int:
         special in that both K and repetend will be equal).
 
     -   For each 1/p, where p is a prime number but not 2 or 5, for k in [1, p),
-        10^k % p produces a repetend, when the remainder is 1.
-            e.g. p = 11 -> (10^1 - 1) % 11 != 0, but (10^2 - 1) / 11 has 99 evenly
-            divided by 11 giving 9. Since k = 2, there must be 2 repeating digits,
-            so repetend = 09.
+        :math:`10^k % p` produces a repetend, when the remainder is 1.
+            e.g. :math:`p = 11 -> (10^1 - 1) % 11 != 0`, but :math:`(10^2 - 1) / 11`
+            has 99 evenly divided by 11 giving 9. Since k = 2, there must be
+            2 repeating digits, so repetend = 09.
 
     SPEED (WORST)
         5.1501s for N = 1e4
@@ -67,11 +67,11 @@ def longest_repetend_denominator_primes_improved(n: int) -> int:
     """
     Solution using primes above is optimised based on the following:
 
-    -   Full Repetend Primes are primes that, as 1 / p, will have the longest
+    -   Full Repetend Primes are primes that, as 1/p, will have the longest
         repetend of k = p - 1. A prime qualifies if, for k in [1, p-1], only the
-        last k returns True for 10^k % p == 1.
-            e.g. p = 7 -> for k in [1, 7), 10^k % p = [3, 2, 6, 4, 5, 1], so 7 is
-            a full repetend prime.
+        last k returns True for :math:`10^k % p = 1`.
+            e.g. p = 7 -> for k in [1, 7), :math:`10^k % p` = [3, 2, 6, 4, 5, 1],
+            so 7 is a full repetend prime.
 
     -   Other than N = 3 and N = 6 both having K = 1, repetend length increases as
         primes increase since the longest repetends will be produced by full repetend

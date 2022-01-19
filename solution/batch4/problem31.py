@@ -20,7 +20,7 @@ modulus = 1_000_000_007
 
 def count_coin_combos_recursive(n: int, coin: int = 7) -> int:
     """
-    Recursive solution uses nested function to allow memoisation, thereby
+    Recursive solution uses nested function to allow memoization, thereby
     optimising this top-down approach.
 
     :param n: Total amount that needs to be achieved by all combinations.

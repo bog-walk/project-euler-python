@@ -8,9 +8,11 @@ exactly K distinct prime factors.
 Constraints: 20 <= N <= 2e6, 2 <= K <= 4
 
 Distinct Prime Factors: The 1st 2 consecutive integers to have 2 distinct prime
-factors are: 14 -> 2 * 7, 15 -> 3 * 5.
+factors are: :math:`14 \\gets 2 \\times 7, 15 \\gets 3 \\times 5`.
 The 1st 3 consecutive integers to have 3 distinct prime factors are:
-644 -> 2^2 * 7, 645 -> 3 * 5 * 43, 646 -> 2 * 17 * 19.
+:math:`644 \\gets 2^2 \\times 7,
+645 \\gets 3 \\times 5 \\times 43,
+646 \\gets 2 \\times 17 \\times 19`.
 
 e.g.: N = 20, K = 2
       result = {14, 20}
@@ -62,7 +64,7 @@ def first_4_distinct_primes() -> int:
 
     The minimum representation with 4 distinct prime factors is:
 
-    2 * 3 * 5 * 7 = 210.
+    :math:`2 \\times 3 \\times 5 \\times 7 = 210`.
     """
 
     composite = 210

@@ -6,7 +6,7 @@ def gaussian_sum(n: int) -> int:
 
     Conversion of very large floats to integers in this formula can lead to large
     rounding losses, so division by 2 & int cast is replaced with a single bitwise
-    right shift, as x >> 1 == x // 2^1.
+    right shift, as :math:`n >> 1 = n / 2^1`.
     """
 
     return n * (n + 1) >> 1
@@ -16,17 +16,17 @@ def is_pentagonal_number(p_n: int) -> int | None:
     """
     Derivation solution is based on the formula:
 
-    0.5 * n * (3 * n - 1) = p_n, in quadratic form becomes:
+    :math:`n(3n - 1) / 2 = p_n`, in quadratic form becomes:
 
-    0 = 3 * n^2 - n - 2 * p_n, with a, b, c = 3, -1, (-2 * p_n)
+    :math:`0 = 3n^2 - n - 2p_n`, with :math:`a, b, c = 3, -1, (-2p_n)`
 
     putting these values in the quadratic formula becomes:
 
-    n = 1 +/- sqrt(1 + 24 * p_n) / 6
+    :math:`n = (1 \\pm \\sqrt{1 + 24p_n}) / 6`
 
     so the inverse function, positive solution becomes:
 
-    n = (1 + sqrt(1 + (24 * p_n))) / 6
+    :math:`n = (1 + \\sqrt{1 + 24p_n}) / 6`
 
     :returns: p_n's corresponding term if pentagonal, or None.
     """
@@ -66,17 +66,17 @@ def is_triangular_number(t_n: int) -> int | None:
     """
     Derivation solution is based on the formula:
 
-    0.5 * n * (n + 1) = t_n, in quadratic form becomes:
+    :math:`n(n + 1) / 2 = t_n`, in quadratic form becomes:
 
-    0 = n^2 + n - 2 * t_n, with a, b, c = 1, 1, (-2 * t_n)
+    :math:`0 = n^2 + n - 2t_n`, with `a, b, c = 1, 1, -2t_n`
 
     putting these values in the quadratic formula becomes:
 
-    n = -1 +/- sqrt(1 + 8 * t_n) / 2
+    :math:`n = (-1 \\pm \\sqrt{1 + 8t_n}) / 2`
 
     so the inverse function, positive solution becomes:
 
-    n = 0.5 * (sqrt(1 + (8 * t_n)) - 1)
+    :math:`n = (\\sqrt{1 + 8t_n} - 1) / 2`
 
     :returns: t_n's corresponding term if triangular, or None.
     """

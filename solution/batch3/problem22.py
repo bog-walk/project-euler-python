@@ -21,7 +21,7 @@ def name_score(position: int, name: str) -> int:
 
     :param position: Zero-indexed position found in calling function using
         sorted_list.index("name").
-    :param name: String sssumed to consist of names in ALL_CAPS, but this could be
+    :param name: String assumed to consist of names in ALL_CAPS, but this could be
         ensured by including name.upper() in the solution.
     """
 

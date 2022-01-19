@@ -9,13 +9,15 @@ Constraints: 2 <= N <= 2e14
              a < b
              a,b in {3, 5, 6} -> {triangle, pentagonal, hexagonal}
 
-Triangular Number: T_n = n * (n + 1) / 2
-Pentagonal Number: P_n = n * (3 * n - 1) / 2
-Hexagonal Number: H_n = n * (2 * n - 1)
+Triangular Number: :math:`T_n = n (n + 1) / 2`
+
+Pentagonal Number: :math:`P_n = n(3n - 1) / 2`
+
+Hexagonal Number: :math:`H_n = n(2n - 1)`
 
 Some numbers can be all 3 type ->
-e.g. T_1 = P_1 = H_1 = 1
-     T_285 = P_165 = H_143 = 40755
+e.g. :math:`T_1 = P_1 = H_1 = 1`
+     :math:`T_285 = P_165 = H_143 = 40755`
 
 e.g.: N = 10000, a = 3, b = 5
       result = {1, 210}
@@ -30,17 +32,17 @@ def is_hexagonal_number(h_n: int) -> int | None:
     """
     Derivation solution is based on the formula:
 
-    n * (2 * n - 1) = h_n, in quadratic form becomes:
+    :math:`n(2n - 1) = h_n`, in quadratic form becomes:
 
-    0 = 2 * n^2 - n - h_n, with a, b, c = 2, -1, -h_n
+    :math:`0 = 2n^2 - n - h_n`, with :math:`a, b, c = 2, -1, -h_n`
 
     putting these values in the quadratic formula becomes:
 
-    n = 1 +/- sqrt(1 + 8 * h_n) / 4
+    :math:`n = 1 \\pm \\sqrt{1 + 8h_n} / 4`
 
     so the inverse function, positive solution becomes:
 
-    n = 0.25 * (1 + sqrt(1 + (8 * h_n)))
+    :math:`n = (1 + \\sqrt{1 + 8h_n}) / 4`
 
     :returns: h_n's corresponding term if hexagonal, or None.
     """
@@ -85,29 +87,29 @@ def common_numbers(n: int, a: int, b: int) -> list[int]:
 
 def common_numbers_formula(n: int, a: int, b: int) -> list[int]:
     """
-    For triangular-pentagonal combos, where T_x = P_y:
+    For triangular-pentagonal combos, where :math:`T_x = P_y`:
 
-    x * (x + 1) / 2 = y * (3 * y - 1) / 2, after completing the square becomes:
+    :math:`x(x + 1) / 2 = y(3y - 1) / 2`, after completing the square becomes:
 
-    (6 * x - 1)^2 - 3 * (2 * y + 1)^2 = -2, a diophantine:
+    :math:`(6x - 1)^2 - 3(2y + 1)^2 = -2`, a diophantine:
 
-    36 * x^2 - 12 * x - 12 * y^2 - 12 * y, solved for 2 integer variables:
+    :math:`36x^2 - 12x - 12y^2 - 12y`, solved for 2 integer variables:
 
-    T_x+1 = -2 * T_x - P_y and
+    :math:`T_{x+1} = -2T_x - P_y` and
 
-    P_y+1 = -3 * T_x - 2 * P_y - 1
+    :math:`P_{y+1} = -3T_x - 2P_y - 1`
 
-    For pentagonal-hexagonal combos, where P_x = H_y:
+    For pentagonal-hexagonal combos, where :math:`P_x = H_y`:
 
-    x * (3 * x - 1) / 2 = y * (2 * y - 1), after completing the square becomes:
+    :math:`x(3x - 1) / 2 = y(2y - 1)`, after completing the square becomes:
 
-    (6 * x - 1)^2 - 3 * (4 * y - 1)^2 = -2, a diophantine:
+    :math:`(6x - 1)^2 - 3(4y - 1)^2 = -2`, a diophantine:
 
-    36 * x^2 - 12 * x - 48 * y^2 + 24 * y, solved for 2 integer variables:
+    :math:`36x^2 - 12x - 48y^2 + 24y`, solved for 2 integer variables:
 
-    P_x+1 = 97 * P_x + 112 * H_y - 44 and
+    :math:`P_{x+1} = 97P_x + 112H_y - 44` and
 
-    H_y+1 = 84 * P_x + 97 * H_y - 38
+    :math:`H_{y+1} = 84P_x + 97H_y - 38`
 
 
     SPEED (BETTER)
@@ -143,15 +145,15 @@ def next_triple_type() -> int:
     {1, 40755} that is triangular, pentagonal, and hexagonal.
 
     All hexagonal numbers are a subset of triangular numbers made from an odd n,
-    as T_(2n - 1) == H_n, based on completing the squares below:
+    as :math:`T_{2n - 1} = H_n`, based on completing the squares below:
 
-    (n * (n + 1)) / 2 = m * (2 * m - 1)
+    :math:`n(n + 1) / 2 = m(2m - 1)`
 
-    n^2 + n = 4 * m^2 - 2 * m
+    :math:`n^2 + n = 4m^2 - 2m`
 
-    (n + 0.5)^2 = 4 * (m - 0.25)^2
+    :math:`(n + 0.5)^2 = 4(m - 0.25)^2`
 
-    n = 2 * m - 1
+    :math:`n = 2m - 1`
 
     So, this solution only needs to check for hexagonal numbers that are
     also pentagonal.

@@ -26,9 +26,9 @@ from util.maths.reusable import prime_factors, prime_numbers_og, gaussian_sum
 def count_divisors(n: int) -> int:
     """ Counts unique divisors of n using n's prime decomposition.
 
-    e.g. 28 = 2^2 * 7^1, therefore
+    e.g. :math:`28 = 2^2 \\times 7^1`, therefore
 
-    num_of_divisors = (2 + 1) * (1 + 1) = 6 -> {1,2,4,7,14,28}
+    num_of_divisors = :math:`(2 + 1) \\times (1 + 1) = 6` -> {1,2,4,7,14,28}
     """
 
     return prod([v + 1 for _, v in prime_factors(n).items()])
@@ -43,12 +43,12 @@ def first_triangle_over_N(n: int) -> int:
     have neither a common prime factor nor a common divisor), the amount of
     divisors can be assessed based on the cycling formulae:
 
-    - t represents Gaussian sum = n * (n + 1) // 2
+    - t represents Gaussian :math:`sum = n(n + 1) / 2`
 
-    - [even n] D(t) = D(n/2) * D(n+1)
+    - [even n] :math:`D(t) = D(n/2) \\times D(n+1)`
     D(n+1) becomes D(n) for the next number, which will be odd.
 
-    - [odd n] D(t) = D(n) * D((n+1)/2)
+    - [odd n] :math:`D(t) = D(n) \\times D((n+1)/2)`
 
     SPEED (WORSE)
         583.69ms for N = 1000

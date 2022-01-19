@@ -2,12 +2,13 @@
 
 https://projecteuler.net/problem=53
 
-Goal: Count the values of C(n, r), for 1 <= n <= N, that are greater than K.
+Goal: Count the values of :math:`C_{n}^{r}`, for 1 <= n <= N, that are greater
+than K.
 Values do not have to be distinct.
 
 Constraints: 2 <= N <= 1000, 1 <= K <= 1e18
 
-Binomial Coefficient: C(n, r) = n! / (r! * (n - r)!), where r <= n.
+Binomial Coefficient: :math:`C_{n}^{r}= n! / r!(n - r)!`, where r <= n.
 
 There are 10 combinations when 3 digits are chosen from 5 digits, with no
 repetition & order not mattering: C(5, 3) = 10.
@@ -33,15 +34,15 @@ def count_large_combinatorics(n: int, k: int) -> int:
     """
     Solution optimised based on the symmetry of Pascal's Triangle:
 
-    -   C(n, 0) = 1 & C(n, 1) = n. k could be less than n, so must start r-loop
-        at 1.
+    -   :math:`C_{n}^{0} = 1, C_{n}^{1} = n`. k could be less than n, so must
+        start r-loop at 1.
 
-    -   C(n, r) = C(n, n-r) & peaks for each row at the mid-point.
+    -   :math:`C_{n}^{r} = C_{n}^{n-r}` & peaks for each row at the mid-point.
 
-    -   So if C(n, r) > k, then all C(n, x) for x in [r+1, n-r] will also be > k.
-        Based on the incrementing row count (n + 1), this can be calculated as
-        n - 2 * r + 1, so the rest of the row values do not need to be also
-        calculated.
+    -   So if :math:`C_{n}^{r} > k`, then all C(n, x) for x in [r+1, n-r] will
+        also be > k. Based on the incrementing row count (n + 1), this can be
+        calculated as :math:`n - 2r + 1,` so the rest of the row values do not
+        need to be also calculated.
 
     -   Starting from the bottom of the triangle & moving up, if no value in a row
         is greater than k, then no row (of lesser n) will have valid values & the
@@ -74,7 +75,8 @@ def count_large_combinatorics_improved(n: int, k: int) -> int:
     Solution is still based on the symmetry of Pascal's Triangle & its rules as
     detailed in the solution above, with some additions:
 
-    -   C(n, r+1) = C(n, r) * ((n-r) / (r+1)) and C(n-1, r) = C(n, r) * ((n-r) / n).
+    -   :math:`C_{n}^{r+1} = C_{n}^{r} \\times (n-r) / (r+1)` and
+        :math:`C_{n-1}^{r} = C_{n}^{r} \\times (n-r) / n`.
         Movement through the triangle (bottom-up & only checking border values)
         mimics that in the above function, but C(n, r) values when moving right
         in a row or up a row are determined with these formulae, instead of

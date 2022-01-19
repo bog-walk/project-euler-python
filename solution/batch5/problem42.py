@@ -8,7 +8,7 @@ term n, otherwise, return -1.
 Constraints: 1 <= t_n <= 1e18
 
 Triangle Number: The nth term is given by ->
-t_n = 0.5 * n * (n + 1) ->
+:math:`t_n = n(n + 1) / 2 \\to`
 1, 3, 6, 10, 15, 21, 28, 36, 45, 55,...
 
 e.g.: N = 2
@@ -23,20 +23,20 @@ from util.maths.reusable import lcm, is_triangular_number
 def triangle_term(t_n: int) -> int:
     """
     Triangle Number Sequence follows the pattern (odd, odd, even, even,...) &
-    each t_n is the sum of the previous t_n & the current n.
+    each :math:`t_n` is the sum of the previous :math:`t_n` & the current n.
 
     Rather than brute force pre-computation of all triangle numbers below 1e18,
     this solution is based on the formula:
 
-    t_n = 0.5 * n * (n + 1)
+    :math:`t_n = n(n + 1) / 2`
 
-    2 * t_n = n * (n + 1)
+    :math:`2t_n = n(n + 1)`
 
-    (2 * t_n) / n = n + 1 and (2 * t_n) / (n + 1) = n, therefore:
+    :math:`2t_n / n = n + 1` and :math:`2t_n / (n + 1) = n`, therefore:
 
-    2 * t_n == lcm(n, n+ 1) and
+    :math:`2t_n \\equiv lcm(n, n+ 1)` and
 
-    n must at minimum be sqrt(2 * t_n)
+    n must at minimum be :math:`\\sqrt{2t_n}`
     """
 
     t_n_2 = 2 * t_n

@@ -22,15 +22,15 @@ def sum_square_diff(n: int) -> int:
 
     The sum of the sequence's squares is based on the assumption that:
 
-    f(n) = a * n^3 + b * n^2 + c * n + d, with
+    :math:`f(n) = an^3 + bn^2 + cn + d`, with
 
-    f(0) = 0, f(1) = 1, f(2) = 5, f(3) = 14.
+    f(0) = 0, f(1) = 1, f(2) = 5, f(3) = 14
 
     The formula (square pyramidal numbers) can then be solved as:
 
-    f(n) = 1 / 6 * (2 * n^3 + 3 * n^2 + n)
+    :math:`f(n) = (2n^3 + 3n^2 + n) / 6`
 
-    f(n) = n / 6 * (2 * n + 1) * (n + 1)
+    :math:`f(n) = (n(2 * n + 1)(n + 1)) / 6`
     """
 
     sum_of_squares = n * (2 * n + 1) * (n + 1) // 6

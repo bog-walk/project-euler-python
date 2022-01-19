@@ -86,7 +86,7 @@ def get_weekday(day: int, month: int, year: int) -> int:
 
     Zeller's Congruence algorithm is based on the formula:
 
-    h = (day + (13 * (month + 1) / 5) + K + (K / 4) + (J / 4) + 5 * J) % 7,
+    :math:`h = (day + 13(month + 1 / 5) + K + K / 4 + J / 4 + 5J) \\% 7`,
 
     with month & year being adjusted to have January and February as the 13th &
     14th months of the preceding year, and (K, J) = (year % 100, year / 100).

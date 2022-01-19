@@ -69,7 +69,7 @@ def nth_lexicographic_perm_improved(n: int, string: str) -> str:
     """
     Recursive solution improved by removing the unnecessary creation of a storage
     string to pass into every recursive call, as well as reducing the factorial
-    call, since (x! / x) == (x - 1)!.
+    call, since :math:`(x! / x) = (x - 1)!`.
 
     :param n: The nth permutation requested should be zero-indexed.
     :param string: The object to generate permutations of should be already

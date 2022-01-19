@@ -10,7 +10,7 @@ Constraints: 4 <= N <= 9
 Pandigital Number: An N-digit number that uses all digits from 1 to N exactly once,
 e.g. N = 5 -> 15234.
 
-Identity expression: 39(multiplicand) * 186(multiplier) = 7254(product).
+Identity expression: :math:`39_multiplicand \\times 186_multiplier = 7254_product`.
 Therefore, 7254 is a product of a pandigital identity expression.
 
 e.g.: N = 4

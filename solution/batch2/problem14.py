@@ -8,8 +8,10 @@ Constraints: 1 <= N <= 5e6
 
 Collatz Sequence: Thought to all finish at 1, a sequence of positive integers is
 generated using the hailstone calculator algorithm, such that:
-- [even n] n -> n / 2
-- [odd n]  n -> 3 * n + 1
+
+    [even n] :math:`n \\to n / 2`
+
+    [odd n]  :math:`n \\to 3n + 1`
 
 e.g.: N = 5
       1

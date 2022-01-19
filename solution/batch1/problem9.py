@@ -7,8 +7,8 @@ maximum product among all such triplets, otherwise return -1.
 
 Constraints: 1 <= N <= 3000
 
-Pythagorean Triplet: a set of 3 natural numbers,
-such that a < b < c && a^2 + b^2 = c^2.
+Pythagorean Triplet: a set of 3 natural numbers, such that
+a < b < c && :math:`a^2 + b^2 = c^2`
 
 e.g.: N = 12
       triplets = {{3,4,5}}; as 3 + 4 + 5 == 12
@@ -66,9 +66,10 @@ def max_triplet_product_loop_a(num: int) -> (int, ...):
     -   Set {3,4,5} being the smallest existing triplet, so a must be >= 3 and can
         be at most num / 3 - 1.
 
-    -   Inserting c = num - a - b into the formula a^2 + b^2 = c^2 reduces to:
-        2 * a * b + 2 * b * num = num^2 - 2 * a * num
-        b = (num * (n - 2 * a)) / (2 * (n - a))
+    -   Inserting c = num - a - b into the formula
+        :math:`a^2 + b^2 = c^2` reduces to:
+        :math:`2ab + 2b * num = num^2 - 2a * num`
+        :math:`b = num(n - 2a) / 2(n - a)`
 
     -   Exhaustive search shows that the first maximum triplet found will be the
         only solution, so the loop van be broken early.
@@ -103,7 +104,8 @@ def max_triplet_product_optimised(num: int) -> (int, ...):
     """ Solution optimised based on:
 
     -   All Pythagorean triplets can be reduced to a primitive one by dividing out
-        gcd(a,b,c) = d, such that: a + b + c = 2 * m * (m + n) * d, with n > m > 0.
+        gcd(a,b,c) = d, such that:
+        :math:`a + b + c = 2m(m + n)d`, with n > m > 0.
 
     -   A triplet is primitive if m XOR n is even and gcd(m,n) = 1. The latter occurs
         because gdc(a,b) = gcd(b,c) = gcd(c,a) = 1.

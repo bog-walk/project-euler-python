@@ -36,7 +36,7 @@ def sum_even_fibs_formula(n: int) -> int:
     """
     Sums every 3rd term in the sequence starting with 2, using the formula:
 
-    Fib(n) = 4 * Fib(n - 3) + Fib(n - 6).
+    :math:`Fib(n) = 4Fib(n - 3) + Fib(n - 6)`
 
     SPEED (EQUAL)
         0.0083s for N = 4e16 over 1000 iterations

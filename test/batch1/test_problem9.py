@@ -33,7 +33,6 @@ class SpecialPythagoreanTriplet(unittest.TestCase):
             "Formula": [max_triplet_product_loop_a, n]
         }
         expected = (937_500_000, 750, 1000, 1250)
-        # results = compare_speed_seconds(solutions, precision=5, repeat=10)
         results = compare_speed_nano(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
