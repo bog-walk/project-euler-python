@@ -1,13 +1,16 @@
 from typing import Any
 
 
-def binary_search(target: Any, collection: list | set) -> bool:
+def binary_search(
+        target: Any,
+        collection: list | tuple | str
+) -> bool:
     """ Binary search algorithm implementation.
 
     :param target: Element to search for (no type-check in Python as collection
         can store multiple types).
-    :param collection: A list or set assumed to be already sorted in
-        ascending order.
+    :param collection: An ordered & subscriptable container assumed to be already
+        sorted in ascending order.
     :returns: False if collection is empty or element not present; otherwise, True.
     """
 

@@ -8,7 +8,7 @@ converge if non-Lychrel and return both the palindrome and the max_count.
 Constraints: 100 <= N <= 1e5
 
 Lychrel Number: A number that, theoretically, never produces a palindrome through
-the reverse and add process shown below.
+a reverse and add process, known as the 196 Algorithm (2-digit minimum).
 e.g. 349 + 943 = 1292
      1292 + 2921 = 4213
      4213 + 3124 = 7337, a palindrome in 3 iterations.
@@ -30,11 +30,31 @@ e.g.: N = 130
 from util.strings.reusable import is_palindrome
 
 
-def max_palindrome_convergence(n: int) -> (int, int):
-    palindromes = dict()
+def max_palindrome_convergence_cached(n: int) -> (int, int):
+    """
+    Solution caches all numbers in [1, N], regardless if they are Lychrel numbers
+    or not, to avoid re-iterating over them. Converged-upon palindromes are stored
+    in a dictionary as keys with the amount of converging positive integers as
+    values.
+
+    N.B. HackerRank specific implementation pushes upper constraints to 1e5,
+    so the amount of iterations to surpass to be a Lychrel number becomes 60.
+
+    :returns: Tuple of (palindrome to which maximum positive integers converge,
+        the latter maximum count).
+
+    SPEED (WORSE)
+        127.12s for N = 1e5
+        The cache grows to contain 99_990 elements, so searching through and
+        performing set union under performs simply doing the same arithmetic and
+        palindrome check for every n, regardless of repetitions. A binary search
+        through the cache did nothing to improve performance.
+    """
+
+    palindromes: dict[int, int] = dict()
     visited = set()
     limit = 50 if n < 10677 else 60
-    for i in range(1, n + 1):
+    for i in range(11, n + 1):
         num = i
         if num in visited:
             continue
@@ -44,19 +64,57 @@ def max_palindrome_convergence(n: int) -> (int, int):
             if num <= n:
                 nums.add(num)
             if is_palindrome(str(num)):
-                visited = visited.union(nums)
-                if num in palindromes.keys():
-                    palindromes[num] = palindromes[num].union(nums)
-                else:
-                    palindromes[num] = nums
+                new_nums = nums - visited
+                if iteration:  # ignore 0th iteration palindromes, e.g. 55
+                    if num in palindromes.keys():
+                        palindromes[num] += len(new_nums)
+                    else:
+                        palindromes[num] = len(new_nums)
                 break
             iteration += 1
             reverse_num = str(num)[::-1]
-            if reverse_num[0] > "0" and int(reverse_num) <= n:
-                nums.add(int(reverse_num))
-            num += int(reverse_num)
-    palindrome = max(palindromes.keys(), key=lambda k: len(palindromes[k]))
-    return palindrome, len(palindromes[palindrome])
+            reverse_int = int(reverse_num)
+            if reverse_int <= n and reverse_num[0] > "0":
+                nums.add(reverse_int)
+            num += reverse_int
+        # cache both lychrel & non-lychrel numbers assessed
+        visited = visited.union(nums)
+    palindrome = max(palindromes.keys(), key=palindromes.get)
+    return palindrome, palindromes[palindrome]
+
+
+def max_palindrome_convergence(n: int) -> (int, int):
+    """
+    Solution is identical to the one above, but is optimised by simply not using a
+    cache to reduce iterations (explained in speed section above).
+
+    N.B. HackerRank specific implementation pushes upper constraints to 1e5,
+    so the amount of iterations to surpass to be a Lychrel number becomes 60.
+
+    :returns: Tuple of (palindrome to which maximum positive integers converge,
+        the latter maximum count).
+
+    SPEED (BETTER)
+        1.09s for N = 1e5
+    """
+
+    palindromes: dict[int, int] = dict()
+    limit = 50 if n < 10677 else 60
+    for i in range(11, n + 1):
+        num = i
+        iteration = 0
+        while iteration < limit:
+            if is_palindrome(str(num)):
+                if num in palindromes.keys():
+                    palindromes[num] += 1
+                else:
+                    palindromes[num] = 1
+                break
+            iteration += 1
+            reverse_num = int(str(num)[::-1])
+            num += reverse_num
+    palindrome = max(palindromes.keys(), key=palindromes.get)
+    return palindrome, palindromes[palindrome]
 
 
 def count_lychrel_numbers() -> int:
@@ -90,7 +148,3 @@ def count_lychrel_numbers() -> int:
             iteration += 1
         count += is_lychrel
     return count
-
-
-if __name__ == '__main__':
-    print(max_palindrome_convergence(130))
