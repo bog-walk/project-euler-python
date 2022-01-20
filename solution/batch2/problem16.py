@@ -10,6 +10,7 @@ e.g.: N = 9
       2^9 = 512
       sum = 5+1+2 = 8
 """
+from util.maths.reusable import power_digit_sum
 
 
 def exp_digit_sum_iterative(n: int) -> int:
@@ -32,4 +33,4 @@ def exp_digit_sum_builtin(n: int) -> int:
         6.5e5ns for N = 1e4
     """
 
-    return sum(map(int, str(pow(2, n))))
+    return power_digit_sum(2, n)

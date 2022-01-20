@@ -51,6 +51,15 @@ class MathsReusable(unittest.TestCase):
         with self.assertRaises(ValueError):
             lcm(0, 2)
 
+    def test_power_digit_sum(self):
+        arguments = [
+            (0, 0), (0, 1), (1, 0), (1, 10), (2, 0), (2, 2), (2, 9), (2, 31),
+            (4, 5), (7, 10), (10, 100), (20, 10)
+        ]
+        expected = [1, 0, 1, 1, 1, 4, 8, 47, 7, 43, 1, 7]
+        for i, (base, exp) in enumerate(arguments):
+            self.assertEqual(expected[i], power_digit_sum(base, exp))
+
     def test_prime_factors(self):
         nums = [2, 12, 100, 999]
         expected = [[2], [2, 2, 3], [2, 2, 5, 5], [3, 3, 3, 37]]

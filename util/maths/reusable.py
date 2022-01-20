@@ -97,6 +97,12 @@ def lcm(x: int, y: int) -> int:
     return abs(x * y) // gcd(x, y)
 
 
+def power_digit_sum(base: int, exponent: int) -> int:
+    """ Calculates the sum of the digits of the number :math:`base^exponent`. """
+
+    return sum(map(int, str(pow(base, exponent))))
+
+
 def prime_factors(n: int) -> dict[int, int]:
     """ Prime decomposition using Sieve of Eratosthenes algorithm.
 
