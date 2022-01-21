@@ -19,7 +19,7 @@ e.g.: N = 2, K = 1, L = 3
       smallest 3-prime value family = {11, 13, 17}
 """
 from itertools import combinations
-from util.maths.reusable import prime_numbers, is_prime
+from util.maths.reusable import is_prime, prime_numbers
 from util.search.reusable import binary_search
 
 
@@ -51,7 +51,9 @@ def get_replacements(
         digit = prime[i]
         if digit <= max_d and prime.count(digit) >= k and digit not in replaced:
             replaced.append(digit)
-            for perm in combinations([i for i, d in enumerate(prime) if d == digit], k):
+            for perm in combinations(
+                    [i for i, d in enumerate(prime) if d == digit], k
+            ):
                 matches = []
                 for d in range(int(digit) + 1, 10):
                     match = list(prime)

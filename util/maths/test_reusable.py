@@ -21,14 +21,21 @@ class MathsReusable(unittest.TestCase):
             self.assertIsNone(is_pentagonal_number(p_n))
 
     def test_is_prime_all_true(self):
-        primes = [2, 5, 11, 17, 29]
+        primes = [
+            2, 5, 11, 17, 29, 7919, 514_229, 2_147_483_647, 9_369_319,
+            999_973_156_643, 99_987_684_473
+        ]
         for p in primes:
             self.assertTrue(is_prime(p))
+            self.assertTrue(is_prime_mr(p))
 
     def test_is_prime_all_false(self):
-        not_primes = [1, 4, 9, 14]
+        not_primes = [
+            1, 4, 9, 14, 221, 9523, 22041, 997_653, 999_715_709, 99_987_684_471
+        ]
         for p in not_primes:
             self.assertFalse(is_prime(p))
+            self.assertFalse(is_prime_mr(p))
 
     def test_is_triangular_all_true(self):
         t_n_s = [1, 3, 6, 10, 190, 325, 496, 595]

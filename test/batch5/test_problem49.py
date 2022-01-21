@@ -9,22 +9,31 @@ class PrimePermutations(unittest.TestCase):
         k_s = [3, 4]
         expected = [['148748178147', '296962999629'], []]
         for i, k in enumerate(k_s):
-            self.assertListEqual(expected[i], concat_prime_perms(n, k, improved=False))
-            self.assertListEqual(expected[i], concat_prime_perms(n, k, improved=True))
+            self.assertListEqual(
+                expected[i], concat_prime_perms(n, k, improved=False)
+            )
+            self.assertListEqual(
+                expected[i], concat_prime_perms(n, k, improved=True)
+            )
 
     def test_5_digits_low(self):
         n = 20_000
         k_s = [3, 4]
         expected = [
-            ['148748178147', '296962999629', '114831481318143', '114974171971941',
-             '127131321713721', '127391723921739', '127571725721757', '127991729921799',
-             '148214812181421', '148313148148131', '148974718979481', '185035180385103',
+            ['148748178147', '296962999629', '114831481318143',
+             '114974171971941', '127131321713721', '127391723921739',
+             '127571725721757', '127991729921799', '148214812181421',
+             '148313148148131', '148974718979481', '185035180385103',
              '185935189385193', '195433549151439'],
             []
         ]
         for i, k in enumerate(k_s):
-            self.assertListEqual(expected[i], concat_prime_perms(n, k, improved=False))
-            self.assertListEqual(expected[i], concat_prime_perms(n, k, improved=True))
+            self.assertListEqual(
+                expected[i], concat_prime_perms(n, k, improved=False)
+            )
+            self.assertListEqual(
+                expected[i], concat_prime_perms(n, k, improved=True)
+            )
 
     def test_5_digits_high(self):
         n = 100_000

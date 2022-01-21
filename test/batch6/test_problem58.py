@@ -1,6 +1,6 @@
 import unittest
 from util.tests.reusable import compare_speed_seconds
-from solution.batch6.problem58 import spiral_prime_ratio, spiral_prime_ratio_mr
+from solution.batch6.problem58 import spiral_prime_ratio
 
 
 class SpiralPrimes(unittest.TestCase):
@@ -8,7 +8,7 @@ class SpiralPrimes(unittest.TestCase):
         percents = [8, 10, 15]
         expected = [238_733, 26241, 981]
         for i, n in enumerate(percents):
-            self.assertEqual(expected[i], spiral_prime_ratio(n))
+            self.assertEqual(expected[i], spiral_prime_ratio(n, speed_toggle=True))
 
     def test_mid_values(self):
         percents = [20, 30, 40]
@@ -26,10 +26,10 @@ class SpiralPrimes(unittest.TestCase):
         percent = 10
         expected = 26241
         solutions = {
-            "OG": [spiral_prime_ratio, percent],
-            "MR": [spiral_prime_ratio_mr, percent]
+            "Original prime": [spiral_prime_ratio, percent],
+            "Miller-Rabin": [spiral_prime_ratio, percent, True]
         }
-        results = compare_speed_seconds(solutions)
+        results = compare_speed_seconds(solutions, precision=3)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

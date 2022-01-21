@@ -36,7 +36,18 @@ def is_pentagonal_number(p_n: int) -> int | None:
 
 
 def is_prime(n: int) -> bool:
-    """ Checks if n is prime. """
+    """ Checks if n is prime.
+
+    This version will be used preferentially, unless the argument is expected to
+    frequently exceed 1e6.
+
+    SPEED (WORSE for N > 1e7)
+        1.96s for a 15-digit prime
+    SPEED (EQUAL for N == 1e6 || N == 1e7)
+        20000ns for 7-digit prime
+    SPEED (BETTER for N < 1e6)
+        11200ns for 3-digit prime
+    """
 
     if n < 2:
         return False
@@ -60,6 +71,67 @@ def is_prime(n: int) -> bool:
                 return False
             step += 6
         return True
+
+
+def is_prime_mr(num: int, k_rounds: list[int] = None) -> bool:
+    """ Miller-Rabin probabilistic algorithm determines if a large number is
+    likely to be prime.
+
+    This version will only be used if the argument is expected to frequently
+    exceed 1e6.
+
+    -   The number received, once determined to be odd, is expressed as :math:`n =
+        2^rs + 1`, with s being odd.
+    -   A random integer, a, is chosen k times (higher k means higher accuracy),
+        with 0 < a < num.
+    -   Calculate :math:`a^s \\% n`. If this equals 1 or n - 1 while s has the
+        powers of 2 previously factored out returned, then n passes as a strong
+        probable prime.
+    -   n should pass for all generated a.
+
+    This algorithm uses a list of the first 5 primes instead of randomly generated a,
+    as this has been proven valid for numbers up to 2.1e12. Providing a list of
+    the first 7 primes gives test validity for numbers up to 3.4e14.
+
+    SPEED (BETTER for N > 1e7)
+        1.4e5ns for a 15-digit prime
+    SPEED (EQUAL for N == 1e6 || N == 1e7)
+        23700ns for 7-digit prime
+    SPEED (WORSE for N < 1e6)
+        28100ns for 3-digit prime
+    """
+
+    if k_rounds is None:
+        k_rounds = [2, 3, 5, 7, 11]
+    if 2 <= num <= 3:
+        return True
+    if num < 2 or num % 2 == 0:
+        return False
+
+    def miller_rabin(a: int, s: int, n: int) -> bool:
+        x = pow(a, s, n)
+        if x == 1 or x == n - 1:
+            return True
+        while s != n - 1:
+            x = x * x % n
+            s *= 2
+            if x == 1:
+                return False
+            if x == n - 1:
+                return True
+        return False
+
+    # write num as 2^r * s + 1 by factoring out powers of 2
+    # from num - 1 (even) until s is odd
+    n_s = num - 1
+    while n_s % 2 == 0:
+        n_s //= 2
+    for k in k_rounds:
+        if k > num - 2:
+            break
+        if not miller_rabin(k, n_s, num):
+            return False
+    return True
 
 
 def is_triangular_number(t_n: int) -> int | None:

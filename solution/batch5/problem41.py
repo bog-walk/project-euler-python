@@ -12,7 +12,7 @@ e.g.: N = 100
       return 4231, as the smallest pandigital prime.
 """
 from itertools import permutations
-from util.maths.reusable import is_prime, prime_numbers
+from util.maths.reusable import is_prime_mr, prime_numbers
 from util.strings.reusable import is_pandigital
 
 
@@ -30,7 +30,7 @@ def largest_pandigital_prime_brute() -> int:
     n, digits = 987_654_321, 9
     limit = magnitudes[digits - 1]
     while True:
-        if is_pandigital(str(n), digits) and is_prime(n):
+        if is_pandigital(str(n), digits) and is_prime_mr(n):
             return n
         n -= 2
         if n < limit:
@@ -67,7 +67,7 @@ def all_pandigital_primes_builtin() -> list[int]:
         # move backwards to find larger permutations first
         for i in range(len(perms) - 1, -1, -1):
             n_perm = int(perms[i])
-            if is_prime(n_perm):
+            if is_prime_mr(n_perm):
                 pandigital_primes.append(n_perm)
         digits = digits[:-3]
     return pandigital_primes
