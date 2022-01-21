@@ -7,7 +7,7 @@ generated using a spiral pattern.
 
 Constraints: 1 <= N <= 1e18, with N always odd
 
-Spiral Pattern: start with 1 & move to the right in a clockwise direction,
+Spiral Pattern: Start with 1 & move to the right in a clockwise direction,
 incrementing the numbers.
 
 e.g.: N = 5
