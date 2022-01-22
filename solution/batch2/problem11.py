@@ -71,7 +71,7 @@ def largest_product_in_grid_functional(grid: list[list[int]]) -> int:
     """ Finds the largest product by calling helper functions.
 
     SPEED (EQUAL)
-        3.95ms for N = 20
+        1.61ms for N = 20
     """
 
     return max(
@@ -85,17 +85,20 @@ def largest_product_in_grid(grid: list[list[int]]) -> int:
     """ Finds the largest product by processing all options at once.
 
     SPEED (EQUAL)
-        3.15ms for N = 20
+        1.72ms for N = 20
     """
 
     largest = 0
-    right, down, leading_diag, counter_diag = 0, 0, 0, 0
+    leading_diag = counter_diag = 0
     for row in range(len(grid)):
         for col in range(len(grid[0]) - size + 1):
             right = prod(grid[row][col:col + size])
             down = prod([grid[col+i][row] for i in range(size)])
             if row <= len(grid) - size:
                 leading_diag = prod([grid[row+i][col+i] for i in range(size)])
-                counter_diag = prod([grid[row+i][col + size - 1 - i] for i in range(size)])
+                counter_diag = prod(
+                    [grid[row+i][col + size - 1 - i]
+                     for i in range(size)]
+                )
             largest = max(largest, right, down, leading_diag, counter_diag)
     return largest

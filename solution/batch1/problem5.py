@@ -10,8 +10,7 @@ Constraints: 1 <= N <= 40
 e.g.: N = 3
       [1, 2, 3] evenly divides 6 to give quotient {6, 3, 2}
 """
-from functools import reduce
-from util.maths.reusable import lcm
+from math import lcm
 
 
 def lcm_of_range(n: int) -> int:
@@ -20,8 +19,11 @@ def lcm_of_range(n: int) -> int:
     starting from the largest and stepping backwards until the middle of the range,
     as the smaller half of a range will already be factors of the larger half.
 
+    Original solution used manual implementation of lcm(), but this was replaced
+    with math.lcm(), introduced in PY 3.9.
+
     SPEED (EQUAL)
-        12.62ms for N = 40 over 1000 iterations
+        8.13ms for N = 40 over 1000 iterations
     """
 
     common_multiple = n
@@ -32,10 +34,16 @@ def lcm_of_range(n: int) -> int:
 
 def lcm_of_range_builtin(n: int) -> int:
     """
-    Same process as above function, but uses built-in reduce() function.
+    Same process as above function, but uses math.lcm() to its full capabilities.
+
+    Original solution used manual implementation of lcm(), which only took 2
+    integers, but this was replaced with math.lcm(), introduced in PY 3.9,
+    which takes varargs *integers. So no need to use functools.reduce() to
+    iterate over the multiple arguments::
+        reduce(lcm, range(n, n // 2, -1))
 
     SPEED (EQUAL)
-        10.95ms for N = 40 over 1000 iterations
+        7.69ms for N = 40 over 1000 iterations
     """
 
-    return reduce(lcm, range(n, n // 2, -1))
+    return lcm(*range(n, n // 2, -1))

@@ -18,12 +18,16 @@ phi = (1 + 5 ** 0.5) / 2
 def n_digit_fib_terms_brute(max_digits: int) -> list[int]:
     """ Iterative solution that checks all Fibonacci numbers.
 
+    Original solution compared digit lengths by converting f_n to a string. This
+    has been replaced by calling log10(f_n) and comparing it to the required
+    digits minus 1, with significant performance improvement.
+
     :returns: List of the first Fibonacci terms to have (index + 2) digits.
 
     SPEED (EQUAL for low N)
-        24700ns for N = 10
+        33800ns for N = 10
     SPEED (WORSE for high N)
-        4443.73ms for N = 5000
+        37.33ms for N = 5000
     """
 
     term = 7
@@ -36,7 +40,7 @@ def n_digit_fib_terms_brute(max_digits: int) -> list[int]:
         term += 1
         f_n_minus2, f_n_minus1 = f_n_minus1, f_n
         f_n = f_n_minus1 + f_n_minus2
-        if len(str(f_n)) == digits:
+        if int(log10(f_n)) == digits - 1:
             terms[digits - 2] = term
             digits += 1
     return terms
@@ -68,23 +72,27 @@ def nth_fib_golden(n: int) -> int:
 def n_digit_fib_term_golden_brute(n: int) -> int:
     """ Iterative solution uses the Golden Ratio to check all Fibonacci numbers.
 
+    Original solution compared digit lengths by converting f_n to a string. This
+    has been replaced by calling log10(f_n) and comparing it to the required
+    digits minus 1, with significant performance improvement.
+
     :returns: First Fibonacci term to have N digits.
 
-    SPEED (WORST for low N)
-        47800ns for N = 10
-    SPEED (IMPOSSIBLE for N > 10)
+    SPEED (EQUAL for low N)
+        31400ns for N = 10
+    SPEED (IMPOSSIBLE for N > 300)
         Significantly slower execution due to the exponential need to calculate
-        Phi^N
+        larger Phi^N and resulting OverflowError
     """
 
     term = 7
     f_n = 13
     # pattern shows the amount of digits increases every 4th-5th term
     step = 4
-    while len(str(f_n)) < n:
+    while log10(f_n) < n - 1:
         term += step
         f_n = nth_fib_golden(term)
-        while len(str(f_n)) < n:
+        while log10(f_n) < n - 1:
             term += 1
             f_n = nth_fib_golden(term)
     return term
@@ -103,10 +111,10 @@ def n_digit_fib_term_golden_formula(n: int) -> int:
 
     :returns: First Fibonacci term to have N digits.
 
-    SPEED (EQUAL for low N)
-        25900ns for N = 10
+    SPEED (BEST for low N)
+        3200ns for N = 10
     SPEED (BEST for high N)
-        41800ns for N = 5000
+        25300ns for N = 5000
     """
 
     return ceil((n - 1 + log10(5) / 2) / log10(phi))

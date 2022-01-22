@@ -10,7 +10,9 @@ class CombinatoricSelections(unittest.TestCase):
         expected = [0, 0, 1, 3, 8, 14]
         for n in range(2, 8):
             self.assertEqual(expected[n - 2], count_large_combinatorics(n, k))
-            self.assertEqual(expected[n - 2], count_large_combinatorics_improved(n, k))
+            self.assertEqual(
+                expected[n - 2], count_large_combinatorics_improved(n, k)
+            )
 
     def test_mid_values(self):
         nums = [2, 23, 100, 1000]

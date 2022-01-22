@@ -18,16 +18,7 @@ C(23, 10) = 1_144_066.
 e.g.: N = 23, K = 1e6
       answer = 4
 """
-from math import factorial
-
-# acceptable in python due to overflow not being an issue, since
-# 13! overflows 32 bits and 21! overflows 64 bits and
-# 59! > 1e80 (postulated to be the number of particles in the universe).
-factorials = [factorial(i) for i in range(1001)]
-
-
-def binomial_coefficient(n: int, r: int) -> int:
-    return factorials[n] // (factorials[r] * factorials[n - r])
+from math import comb
 
 
 def count_large_combinatorics(n: int, k: int) -> int:
@@ -48,15 +39,20 @@ def count_large_combinatorics(n: int, k: int) -> int:
         is greater than k, then no row (of lesser n) will have valid values & the
         outer loop can be broken.
 
+    -   Original solution used helper func, binomial_coefficient(),
+        which calculated :math:`n!/(r!(n - r)!)`. This required a pre-generated list
+        of factorials up to 1000. This has been replaced with math.comb(),
+        introduced in PY 3.8.
+
     SPEED (WORSE)
-        17.10ms for N = 1e3, K = 1e3
+        1.03ms for N = 1e3, K = 1e3
     """
 
     count = 0
     not_found = False
     while n > 0:
         for r in range(1, n // 2 + 1):
-            if binomial_coefficient(n, r) > k:
+            if comb(n, r) > k:
                 count += n - 2 * r + 1
                 break
             if r == n // 2:
@@ -87,7 +83,7 @@ def count_large_combinatorics_improved(n: int, k: int) -> int:
         the outer loop can be broken.
 
     SPEED (BETTER)
-        1.10ms for N = 1e3, K = 1e3
+        5.2e5ns for N = 1e3, K = 1e3
     """
 
     count = 0

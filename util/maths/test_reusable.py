@@ -48,16 +48,6 @@ class MathsReusable(unittest.TestCase):
         for t_n in t_n_s:
             self.assertIsNone(is_triangular_number(t_n))
 
-    def test_lcm_valid(self):
-        arguments = [(-2, -6), (-15, 30), (12, 18)]
-        expected = [6, 30, 36]
-        for i, (x, y) in enumerate(arguments):
-            self.assertEqual(expected[i], lcm(x, y))
-
-    def test_lcm_invalid(self):
-        with self.assertRaises(ValueError):
-            lcm(0, 2)
-
     def test_power_digit_sum(self):
         arguments = [
             (0, 0), (0, 1), (1, 0), (1, 10), (2, 0), (2, 2), (2, 9), (2, 31),

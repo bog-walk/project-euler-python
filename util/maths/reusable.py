@@ -1,4 +1,4 @@
-from math import gcd, floor, sqrt
+from math import floor, gcd, isqrt, sqrt
 
 
 def gaussian_sum(n: int) -> int:
@@ -63,7 +63,8 @@ def is_prime(n: int) -> bool:
         return False
     else:
         # N can only have 1 prime factor > sqrt(N): N itself!
-        max_p = floor(sqrt(n))
+        # max_p = floor(sqrt(n))
+        max_p = isqrt(n)
         step = 5  # multiples of prime 5 not yet assessed
         # 11, 13, 17, 19, and 23 will all bypass N loop
         while step <= max_p:
@@ -157,18 +158,6 @@ def is_triangular_number(t_n: int) -> int | None:
     return int(n) if n == floor(n) else None
 
 
-def lcm(x: int, y: int) -> int:
-    """
-    Euclid's algorithm used to find the least common multiple of positive integers.
-
-    :raises ValueError: Integers must be positive.
-    """
-
-    if x == 0 or y == 0:
-        raise ValueError("The LCM of 0 is undefined")
-    return abs(x * y) // gcd(x, y)
-
-
 def power_digit_sum(base: int, exponent: int) -> int:
     """ Calculates the sum of the digits of the number :math:`base^exponent`. """
 
@@ -188,7 +177,7 @@ def prime_factors(n: int) -> dict[int, int]:
     if n < 2:
         return primes
     factors = [2]
-    factors.extend(range(3, int(sqrt(n)) + 1, 2))
+    factors.extend(range(3, isqrt(n) + 1, 2))
     for factor in factors:
         while n % factor == 0:
             if factor in primes:
@@ -211,7 +200,7 @@ def prime_numbers_og(n: int) -> list[int]:
     """
 
     boolean_mask = [not (i != 0 and i % 2 == 0) for i in range(n - 1)]
-    for p in range(3, floor(sqrt(n)) + 1, 2):
+    for p in range(3, isqrt(n) + 1, 2):
         if boolean_mask[p - 2]:
             if p * p > n:
                 break
@@ -236,7 +225,7 @@ def prime_numbers(n: int) -> list[int]:
     """
 
     odd_sieve = (n - 1) // 2
-    upper_limit = floor(sqrt(n)) // 2
+    upper_limit = isqrt(n) // 2
     boolean_mask = [True] * (odd_sieve + 1)
     # boolean_mask[0] corresponds to prime 2 & is skipped
     for i in range(1, upper_limit + 1):
@@ -297,7 +286,7 @@ def sum_proper_divisors_og(n: int) -> int:
     if n < 2:
         return 0
     total = 1
-    max_divisor = int(sqrt(n))
+    max_divisor = isqrt(n)
     if max_divisor * max_divisor == n:
         total += max_divisor
         max_divisor -= 1

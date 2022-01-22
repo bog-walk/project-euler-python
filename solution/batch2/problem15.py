@@ -10,7 +10,7 @@ Constraints: 1 <= N <= 500, 1 <= M <= 500
 e.g.: N = 2, M = 2
       routes = 6 -> {RRDD, RDRD, RDDR, DRRD, DRDR, DDRR}
 """
-from math import factorial
+from math import comb
 
 
 def lattice_path_routes(n: int, m: int) -> int:
@@ -34,8 +34,12 @@ def lattice_path_routes(n: int, m: int) -> int:
     since grid dimensions determine the number of steps
     taken & there is a deterministic proportion of R vs D steps.
 
+    Original solution manually implemented the above formula. This has been
+    replaced with math.comb(), introduced in PY 3.8.
+
     :returns: Number of valid routes scaled down to modulo (1e9 + 7).
     """
 
-    routes = factorial(n + m) // (factorial(n) * factorial(m))
+    new_n = n + m
+    routes = comb(new_n, m)
     return routes % 1_000_000_007

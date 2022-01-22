@@ -11,7 +11,8 @@ e.g.: N = 10, K1 = 3, K2 = 5
       multiples of K1 || K2 < N = {3, 5, 6, 9}
       sum = 23
 """
-from util.maths.reusable import gaussian_sum, lcm
+from math import lcm
+from util.maths.reusable import gaussian_sum
 
 
 def sum_of_multiples_brute(n: int, k_1: int, k_2: int) -> int:
@@ -47,6 +48,9 @@ def sum_of_multiples(n: int, k_1: int, k_2: int) -> int:
     """
     Calculates the sum of multiples of both factors minus the sum of duplicates
     found via the least common multiple of the given factors.
+
+    Original solution used manual implementation of lcm(), but this was replaced
+    with math.lcm(), introduced in PY 3.9.
     """
 
     n -= 1  # n not inclusive

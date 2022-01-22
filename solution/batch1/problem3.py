@@ -13,7 +13,7 @@ e.g.: N = 10
       prime factors = {2, 5}
       largest = 5
 """
-from math import sqrt
+from math import isqrt
 from util.maths.reusable import prime_factors
 
 
@@ -23,7 +23,7 @@ def largest_prime_factor(n: int) -> int:
     the largest prime factor.
 
     SPEED (EQUAL for n with small factors)
-        5.90s for N = 1e12 over 100 iterations
+        5.44s for N = 1e12 over 100 iterations
     SPEED (WORSE for n with large factors)
         4.50s for N = 600_851_475_143 over 100 iterations
     """
@@ -34,14 +34,17 @@ def largest_prime_factor(n: int) -> int:
 
 def largest_prime_factor_recursive(n: int, f: int = 2) -> int:
     """
+    Original solution used a floored square root to get an integer value. This
+    was replaced with math.isqrt(), introduced in Py 3.8.
+
     SPEED (EQUAL for n with small factors)
-        5.07s for N = 1e12 over 100 iterations
+        5.65s for N = 1e12 over 100 iterations
     SPEED (BETTER for n with large factors)
         1.32s for N = 600_851_475_143 over 100 iterations
     """
 
     factors = [2]
-    factors.extend(range(3, int(sqrt(n)) + 1, 2))
+    factors.extend(range(3, isqrt(n) + 1, 2))
     for factor in factors:
         if n % factor == 0:
             return largest_prime_factor_recursive(n // factor, factor)

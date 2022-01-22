@@ -12,7 +12,7 @@ e.g. P = 120 has 3 solutions: (20, 48, 52), (24, 45, 51) & (30, 40, 50).
 e.g.: N = 12
       P = 12 as 12 is the only sum of a Pythagorean triplet (3, 4, 5)
 """
-from math import ceil, sqrt, gcd
+from math import gcd, isqrt
 from util.maths.reusable import pythagorean_triplet
 
 
@@ -30,7 +30,7 @@ def most_triplet_solutions_brute(n: int) -> int:
 
         :math:`a^2 + b^2 = P^2 - 2aP - 2bP + 2ab + a^2 + b^2`
 
-        :math:`b = P(P - 2a) / 2(P - a))`,
+        :math:`b = P(P - 2a) / 2(P - a)`,
 
         which means values of P and a that result in an integer value b represent a
         valid Triplet.
@@ -56,15 +56,19 @@ def most_triplet_solutions(n: int) -> int:
     Solution is influenced by the previously determined solution for finding
     primitive Pythagorean Triplets (Batch 1 - Problem 9).
 
+    Original solution calculated the ceiling of the square root of the limit.
+    This was replaced with the implementation of math.isqrt() for positive n,
+    introduced in Py 3.8.
+
     SPEED (BETTER)
-        1.698s for N = 1e5
+        1.177s for N = 1e5
     """
 
     best_p, most_sols = 12, 1
     for p in range(14, n + 1, 2):
         sols = 0
         limit = p // 2
-        m_max = ceil(sqrt(limit)) + 1
+        m_max = 1 + isqrt(limit - 1)
         for m in range(2, m_max):
             if limit % m == 0:
                 k_max = p // (2 * m)
@@ -95,7 +99,7 @@ def most_triplet_solutions_improved(limit: int) -> int:
     which means when d = 1 & n = 1, at most :math:`2m^2` must be below the given limit.
 
     SPEED (BEST)
-        0.320s for N = 1e5
+        0.158s for N = 1e5
     """
 
     p_sols = [0]*(limit + 1)

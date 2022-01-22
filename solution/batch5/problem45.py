@@ -24,7 +24,7 @@ e.g.: N = 10000, a = 3, b = 5
       N = 100000, a = 5, b = 6
       result = {1, 40755}
 """
-from math import sqrt, floor
+from math import floor, sqrt
 from util.maths.reusable import is_triangular_number, is_pentagonal_number
 
 

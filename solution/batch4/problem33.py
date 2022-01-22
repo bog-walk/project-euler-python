@@ -18,7 +18,7 @@ that allow cancellation, e.g. 30/50 = 3/5.
        reduced-equivalents = {1 / 4, 1 / 5, 2 / 5, 4 / 8}
 """
 from itertools import combinations, product
-from math import prod, gcd
+from math import gcd, prod
 
 
 def is_reduced_equivalent(

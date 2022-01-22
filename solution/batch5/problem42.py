@@ -16,8 +16,8 @@ e.g.: N = 2
       N = 3
       return 2, as 3 is the 2nd triangle number to exist.
 """
-from math import sqrt
-from util.maths.reusable import lcm, is_triangular_number
+from math import lcm, isqrt
+from util.maths.reusable import is_triangular_number
 
 
 def triangle_term(t_n: int) -> int:
@@ -37,10 +37,15 @@ def triangle_term(t_n: int) -> int:
     :math:`2t_n \\equiv lcm(n, n+ 1)` and
 
     n must at minimum be :math:`\\sqrt{2t_n}`
+
+    Original solution used a floored square root to get an integer value, as well
+    as a manual implementation of lcm(). These were replaced with math.isqrt()
+    and math.lcm(), introduced in PY 3.8 and PY 3.9 respectively.
     """
 
     t_n_2 = 2 * t_n
-    n = int(sqrt(t_n_2))
+    # n = int(sqrt(t_n_2))
+    n = isqrt(t_n_2)
     return n if t_n_2 == lcm(n, n + 1) else -1
 
 

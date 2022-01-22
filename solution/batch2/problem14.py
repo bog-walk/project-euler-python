@@ -2,7 +2,8 @@
 
 https://projecteuler.net/problem=14
 
-Goal: Find the largest starting number <= N that produces the longest Collatz sequence.
+Goal: Find the largest starting number <= N that produces the longest Collatz
+sequence.
 
 Constraints: 1 <= N <= 5e6
 

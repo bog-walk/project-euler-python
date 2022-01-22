@@ -14,12 +14,8 @@ e.g.: N = 12
       triplets = {{3,4,5}}; as 3 + 4 + 5 == 12
       product = 3 * 4 * 5 = 60
 """
-from math import sqrt, ceil, gcd
+from math import gcd, hypot, isqrt
 from util.maths.reusable import pythagorean_triplet
-
-
-def is_pythagoras(a: int, b: int, c: int) -> bool:
-    return sqrt(a ** 2 + b ** 2) == c
 
 
 def max_triplet_product_loop_c_b(num: int) -> (int, ...):
@@ -34,10 +30,14 @@ def max_triplet_product_loop_c_b(num: int) -> (int, ...):
         the sum of a triplet (num) must be even as the sum of evens is an even
         number and the sum of 2 odds is an even number as well.
 
+    -   Original solution used helper function, is_pythagoras(), but this was
+        replaced with math.hypot() that computes the hypotenuse of a right triangle
+        when given 2 values.
+
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
 
     Speed (WORSE)
-        228.86ms for N = 3000
+        128.94ms for N = 3000
     """
 
     max_triplet = -1,
@@ -51,7 +51,7 @@ def max_triplet_product_loop_c_b(num: int) -> (int, ...):
             a = diff - b
             if b <= a:
                 break
-            if is_pythagoras(a, b, c):
+            if hypot(a, b) == c:
                 product = a * b * c
                 if product > max_triplet[0]:
                     max_triplet = product, a, b, c
@@ -78,10 +78,14 @@ def max_triplet_product_loop_a(num: int) -> (int, ...):
         Therefore, the sum of a triplet (num) must be even as the sum of evens is an
         even number and the sum of 2 odds is an even number as well.
 
+    -   Original solution used helper function, is_pythagoras(), but this was
+        replaced with math.hypot() that computes the hypotenuse of a right triangle
+        when given 2 values.
+
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
 
     Speed (BETTER)
-        2.3e5ns for N = 3000
+        2.0e5ns for N = 3000
     """
 
     max_triplet = -1,
@@ -91,7 +95,7 @@ def max_triplet_product_loop_a(num: int) -> (int, ...):
     while a >= 3:
         b = num * (num - 2 * a) // (2 * (num - a))
         c = num - a - b
-        if a < b and is_pythagoras(a, b, c):
+        if a < b and hypot(a, b) == c:
             product = a * b * c
             if product > max_triplet[0]:
                 max_triplet = product, a, b, c
@@ -113,17 +117,21 @@ def max_triplet_product_optimised(num: int) -> (int, ...):
     -   Exhaustive search shows that the first maximum triplet found will be the
         only solution, so the loop van be broken early.
 
+    -   Original solution calculated the ceiling of the square root of the limit.
+        This was replaced with the implementation of math.isqrt() for positive n,
+        introduced in Py 3.8.
+
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
 
     Speed (BEST)
-        31900ns for N = 3000
+        20500ns for N = 3000
     """
 
     max_triplet = -1,
     if num % 2 != 0:
         return max_triplet
     limit = num // 2
-    m_max = ceil(sqrt(limit))
+    m_max = 1 + isqrt(limit - 1)
     found = False
     for m in range(2, m_max):
         if limit % m == 0:

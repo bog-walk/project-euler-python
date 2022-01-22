@@ -21,7 +21,7 @@ e.g.: N = 9
       N = 15
       result = 2
 """
-from math import sqrt, floor
+from math import floor, sqrt
 from util.maths.reusable import is_prime, prime_numbers
 
 
