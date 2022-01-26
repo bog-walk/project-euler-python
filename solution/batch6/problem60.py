@@ -14,7 +14,15 @@ e.g.: N = 100, K = 3
       sums = [107, 123]
       107 -> {3, 37, 67} & 123 -> {7, 19, 97}
 """
+from multiprocessing import Pool
 from util.maths.reusable import is_prime_mr, prime_numbers
+
+limit = 20000
+# all non-single digit primes end in {1, 3, 7, 9} so 2 and 5 are ruled out
+# elevated to global scope to all prime check for smaller numbers
+all_primes = prime_numbers(limit - 1)
+all_primes.remove(2)
+all_primes.remove(5)
 
 
 def is_concatenable_prime(prime_1: int, prime_2: int) -> bool:
@@ -27,41 +35,71 @@ def is_concatenable_prime(prime_1: int, prime_2: int) -> bool:
     power_1, power_2 = 10, 10
     while power_1 <= prime_2:
         power_1 *= 10
+    concat_1 = prime_1 * power_1 + prime_2
+    is_concat_1_p = (concat_1 in all_primes
+                     if concat_1 < limit
+                     else is_prime_mr(concat_1))
+    if not is_concat_1_p:
+        return False
     while power_2 <= prime_1:
         power_2 *= 10
-    return (
-            is_prime_mr(prime_1 * power_1 + prime_2) and
-            is_prime_mr(prime_2 * power_2 + prime_1)
-    )
+    concat_2 = prime_2 * power_2 + prime_1
+    is_concat_2_p = (concat_2 in all_primes
+                     if concat_2 < limit
+                     else is_prime_mr(concat_2))
+    return is_concat_2_p
 
 
-def prime_pair_sets(n: int, k: int) -> list[int]:
-    # avoid concatenating & checking primality multiple times
-    # key = prime, values = primes > k that makes a concatenable pair
+def prime_pair_set_sums(n: int, k: int, m: int) -> list[int]:
+    """
+    Solution optimised by the following:
+
+    -   Caching the results of concatenation & primality checks to avoid doing so
+        for every nested iteration. The cache has every visited prime as a key
+        and, as its value, a set of all greater primes with which it produces a
+        prime after concatenation.
+
+    -   Set intersection is used in lieu of checking for each nested prime in all
+        preceding prime pair sets. An empty set after intersection means that the
+        latest prime checked is not eligible and can be skipped, with the set
+        intersection being reverted to its previous value.
+
+    -   Refactored to be used in a multiprocessing function below by reducing list
+        of primes to either include those that are congruent to 1 mod 3 or 2 mode 3.
+        These lists can be processed separately as p_1, where p_1 % 3 == 1, and p_2,
+        where p_2 % 3 == 2, will always concatenate to a number that is evenly
+        divisible by 3, and thereby not a prime. This is based on the concatenation
+        being congruent to the sum of p_1 and p_2 mod 3.
+
+    :param m: Modulo used to split all primes < n, to avoid unnecessary
+        is_concatenable_prime() checks.
+    :returns: Unsorted list of the totals of all k-prime sets whose
+        members are eligible, as detailed above.
+
+    SPEED (BETTER - for processing all primes < n)
+        26.58s for N = 2e4, K = 5
+    """
+
     concatenated_pairs: dict[int, set[int]] = dict()
-    # all non-single digit primes end in {1, 3, 7, 9} so 2 and 5 are ruled out
-    primes = prime_numbers(n - 1)
-    primes.remove(2)
-    primes.remove(5)
+    primes = [3] + [p for p in all_primes if p < n and p % 3 == m]
     num_of_primes = len(primes)
 
-    def get_pairs(prime_i: int):
+    def get_pairs(prime_i: int) -> {int, ...}:
         prime = primes[prime_i]
-        pairs = []
+        pairs = set()
         for p in range(prime_i + 1, num_of_primes):
             other = primes[p]
             if is_concatenable_prime(prime, other):
-                pairs.append(other)
-        concatenated_pairs[prime] = set(pairs)
+                pairs.add(other)
+        concatenated_pairs[prime] = pairs
 
     totals = []
-    starters = []
-    for a in range(num_of_primes):
+    for a in range(num_of_primes - k + 1):
         k_a = primes[a]
         if k_a not in concatenated_pairs.keys():
             get_pairs(a)
         common = concatenated_pairs[k_a]
-        for b in range(a + 1, num_of_primes):
+        for b in range(a + 1, num_of_primes - k + 2):
             k_b = primes[b]
             if k_b not in common:
                 continue
@@ -74,10 +112,9 @@ def prime_pair_sets(n: int, k: int) -> list[int]:
                 continue
             if k - 2 == 1:
                 for k_c in common:
-                    totals.append(sum((k_a, k_b, k_c)))
-                    starters.append(k_a)
+                    totals.append(k_a + k_b + k_c)
             else:
-                for c in range(b + 1, num_of_primes):
+                for c in range(b + 1, num_of_primes - k + 3):
                     k_c = primes[c]
                     if k_c not in common:
                         continue
@@ -90,10 +127,9 @@ def prime_pair_sets(n: int, k: int) -> list[int]:
                         continue
                     if k - 3 == 1:
                         for k_d in common:
-                            totals.append(sum((k_a, k_b, k_c, k_d)))
-                            starters.append(k_a)
+                            totals.append(k_a + k_b + k_c + k_d)
                     else:
-                        for d in range(c + 1, num_of_primes):
+                        for d in range(c + 1, num_of_primes - k + 4):
                             k_d = primes[d]
                             if k_d not in common:
                                 continue
@@ -105,21 +141,118 @@ def prime_pair_sets(n: int, k: int) -> list[int]:
                                 common = common_c
                                 continue
                             for k_e in common:
-                                totals.append(sum((k_a, k_b, k_c, k_d, k_e)))
-                                starters.append(k_a)
+                                totals.append(k_a + k_b + k_c + k_d + k_e)
                             common = common_c
                     common = common_b
             common = common_a
-    print(max(starters))
     return totals
 
 
-def sum_of_prime_pair_sets(n: int, k: int) -> list[int]:
-    totals = prime_pair_sets(n, k)
+def multiprocessing_prime_pair_set_sum(n: int, k: int):
+    """ Multiprocessing module solution processes 2 prime lists in parallel.
+
+    A process Pool object controls the jobs given to the worker processes and
+    allows results to be returned through a parallel map implementation.
+
+    :returns: Sorted list (ascending order) of the totals of all k-prime sets whose
+        members are eligible, as detailed above.
+
+    SPEED (BEST)
+        11.84s for N = 2e4, K = 5
+    """
+
+    pool = Pool(2)
+    totals = pool.starmap(prime_pair_set_sums, [(n, k, 1), (n, k, 2)])
+    pool.close()  # prevents more tasks from being submitted to pool
+    # all complete tasks mean all processes will exit
+    pool.join()  # main process waits for all worker processes to exit
+    # flatmap Pool results
+    totals = [total for result in totals for total in result]
     return sorted(totals)
 
 
-if __name__ == '__main__':
-    all_p = prime_numbers(20000 - 1)
-    print(all_p.index(14197))
-    print(all_p.index(13))
+def prime_pair_set_sum_concise(n: int, k: int) -> list[int]:
+    """
+    This solution is identical to the solution above, but uses a while loop
+    instead of 4 nested for loops for improved legibility. Its process mimics that
+    used in combinations() from the itertools module, except altered to skip multiple
+    combinations, as enacted by the 'continue' statements in the nested loops above.
+
+    In spite of its reduced length, this solution is 5x slower & was created
+    purely as an algorithmic test.
+
+    :returns: Sorted list (ascending order) of the totals of all k-prime sets whose
+        members are eligible, as detailed above.
+
+    SPEED (WORSE)
+        110.31s for N = 2e4, K = 5
+    """
+
+    concatenated_pairs: dict[int, set[int]] = dict()
+    primes = [3, 7]
+    num_of_primes = 2
+    for pr in all_primes:
+        if pr < 11:
+            continue
+        if pr >= n:
+            break
+        primes.append(pr)
+        num_of_primes += 1
+
+    def get_pairs(prime_i: int):
+        prime = primes[prime_i]
+        pairs = []
+        for p in range(prime_i + 1, num_of_primes):
+            other = primes[p]
+            if is_concatenable_prime(prime, other):
+                pairs.append(other)
+        concatenated_pairs[prime] = set(pairs)
+
+    totals = []
+    k_indices = list(range(k))
+    get_pairs(0)
+    common = concatenated_pairs[3]
+    while True:
+        skip_k_i, total = -1, 0
+        for k_i, p_i in enumerate(k_indices):
+            k_p = primes[p_i]
+            if k_i == 0:
+                if k_p not in concatenated_pairs.keys():
+                    get_pairs(p_i)
+                common = concatenated_pairs[k_p]
+                total = k_p
+                continue
+            if k_p not in common:
+                skip_k_i = k_i
+                break
+            if k_i == k - 1:
+                for common_k in common:
+                    totals.append(total + common_k)
+                skip_k_i = k_i - 2
+                break
+            if k_p not in concatenated_pairs.keys():
+                get_pairs(k_indices[k_i])
+            common = common.intersection(concatenated_pairs[k_p])
+            if len(common) == 0:
+                skip_k_i = k_i
+                break
+            total += k_p
+        # this loop cycles through all combinations from a set starting point
+        for i in reversed(range(k)):
+            if k_indices[i] == i + num_of_primes - k:
+                if i - skip_k_i <= 1:
+                    skip_k_i = -1
+                continue
+            if k_indices[i] != i + num_of_primes - k:
+                if skip_k_i > -1:
+                    i = skip_k_i
+                break
+        else:
+            # leave while loop when all combinations exhausted
+            break
+        # this 'i' refers to non-local for loop target that leaks out of for block
+        k_indices[i] += 1
+        # this loop returns to the smallest combination from a new starting point
+        for j in range(i + 1, k):
+            k_indices[j] = k_indices[j-1] + 1
+    return sorted(totals)

@@ -85,9 +85,9 @@ def is_prime_mr(num: int, k_rounds: list[int] = None) -> bool:
         2^rs + 1`, with s being odd.
     -   A random integer, a, is chosen k times (higher k means higher accuracy),
         with 0 < a < num.
-    -   Calculate :math:`a^s \\% n`. If this equals 1 or n - 1 while s has the
-        powers of 2 previously factored out returned, then n passes as a strong
-        probable prime.
+    -   Calculate :math:`a^s \\% n`. If this equals 1 or this plus 1 equals n
+        while s has the powers of 2 previously factored out returned, then n
+        passes as a strong probable prime.
     -   n should pass for all generated a.
 
     This algorithm uses a list of the first 5 primes instead of randomly generated a,
@@ -114,7 +114,7 @@ def is_prime_mr(num: int, k_rounds: list[int] = None) -> bool:
         if x == 1 or x == n - 1:
             return True
         while s != n - 1:
-            x = x * x % n
+            x = pow(x, 2, n)
             s *= 2
             if x == 1:
                 return False
