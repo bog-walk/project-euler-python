@@ -34,13 +34,11 @@ def sum_of_pandigital_substrings(n: int) -> int:
     digits = "0123456789"[:n + 1]
     for tup in permutations(digits):
         perm = "".join(tup)
-        valid = True
         for i in range(1, n - 1):
             sub = int(perm[i:i+3])
             if sub % primes[i] != 0:
-                valid = False
                 break
-        if valid:
+        else:
             total += int(perm)
     return total
 
@@ -86,12 +84,10 @@ def sum_of_9_pandigital_substrings() -> int:
         if is_permutation_invalid(tup):
             continue
         perm = "".join(tup)
-        valid = True
         for i in range(1, 8):
             sub = int(perm[i:i+3])
             if sub % primes[i] != 0:
-                valid = False
                 break
-        if valid:
+        else:
             total += int(perm)
     return total

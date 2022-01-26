@@ -46,13 +46,11 @@ def prime_perm_sequence(n: int, k: int) -> list[list[int]]:
             second = perms[i]
             diff = second - first
             extra = second
-            constant = True
             for _ in range(k - 2):
                 extra += diff
                 if extra not in perms[i + 1:]:
-                    constant = False
                     break
-            if constant:
+            else:
                 concat = [first + (m * diff) for m in range(k)]
                 sequences.append(concat)
     return sequences
@@ -105,12 +103,10 @@ def prime_perm_sequence_improved(n: int, k: int) -> list[list[int]]:
                     break
                 for j in range(i + 1, len(perms) - k + 2):
                     diff = perms[j] - first
-                    constant = True
                     for x in range(2, k):
                         if first + (x * diff) not in perms[j + 1:]:
-                            constant = False
                             break
-                    if constant:
+                    else:
                         concat = [first + (m * diff) for m in range(k)]
                         sequences.append(concat)
     return sequences

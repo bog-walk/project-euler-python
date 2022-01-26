@@ -45,19 +45,16 @@ def count_large_combinatorics(n: int, k: int) -> int:
         introduced in PY 3.8.
 
     SPEED (WORSE)
-        1.03ms for N = 1e3, K = 1e3
+        9.1e5ns for N = 1e3, K = 1e3
     """
 
     count = 0
-    not_found = False
     while n > 0:
         for r in range(1, n // 2 + 1):
             if comb(n, r) > k:
                 count += n - 2 * r + 1
                 break
-            if r == n // 2:
-                not_found = True
-        if not_found:
+        else:
             break
         n -= 1
     return count

@@ -54,16 +54,14 @@ def smallest_failing_num() -> int:
     composite = 33  # starting point as provided in example
     while True:
         composite += 2
-        valid = False
         if is_prime(composite):
             continue
         for prime in primes:
             if prime > composite:
                 return composite
             if is_goldbach_2(composite, prime):
-                valid = True
                 break
-        if not valid:
+        else:
             # if reached, means not enough primes for current composite
             limit += 5000
             primes = prime_numbers(limit)[1:]

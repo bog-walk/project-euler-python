@@ -44,7 +44,6 @@ def triangle_term(t_n: int) -> int:
     """
 
     t_n_2 = 2 * t_n
-    # n = int(sqrt(t_n_2))
     n = isqrt(t_n_2)
     return n if t_n_2 == lcm(n, n + 1) else -1
 

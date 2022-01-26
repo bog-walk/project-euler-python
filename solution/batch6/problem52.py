@@ -31,15 +31,13 @@ def permuted_multiples(n: int, k: int) -> list[list[int]]:
         for x in range(start, end):
             x_str = str(x)
             perms = [x]
-            valid = True
             for m in range(2, k + 1):
                 multiple = x * m
                 if is_permutation(x_str, str(multiple)):
                     perms.append(multiple)
                 else:
-                    valid = False
                     break
-            if valid:
+            else:
                 results.append(perms)
         digits += 1
         start = pow(10, digits - 1)

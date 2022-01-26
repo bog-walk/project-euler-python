@@ -174,7 +174,6 @@ def sum_of_non_trivials_brute(n: int, k: int) -> (int, int):
                 if len(d_post) == 0:
                     # denominator did not contain all digits to cancel
                     continue
-                found_non_trivial = False
                 for n_2 in n_post:
                     if n_2 == 0:
                         continue
@@ -185,13 +184,14 @@ def sum_of_non_trivials_brute(n: int, k: int) -> (int, int):
                         if og_fraction == n_2 / d_2:
                             n_sum += numerator
                             d_sum += denominator
-                            found_non_trivial = True
                             break
+                    else:
+                        continue
                     # avoid duplicating numerator with this denominator
-                    if found_non_trivial:
-                        break
-                if found_non_trivial:
                     break
+                else:
+                    continue
+                break
     return n_sum, d_sum
 
 

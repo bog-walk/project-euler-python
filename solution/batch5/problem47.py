@@ -72,12 +72,10 @@ def first_4_distinct_primes() -> int:
         composite += 1
         if is_prime(composite) or len(prime_factors(composite)) != 4:
             continue
-        valid = True
         for i in range(1, 4):
             adjacent = composite + i
             if is_prime(adjacent) or len(prime_factors(adjacent)) != 4:
-                valid = False
                 break
-        if valid:
+        else:
             break
     return composite
