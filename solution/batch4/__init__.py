@@ -1,22 +1,22 @@
 """ Batch 4 contains solution sets for the following Project Euler problems:
 
-#31  Coin sums
+#41  Pandigital prime
 
-#32  Pandigital products
+#42  Coded triangle numbers
 
-#33  Digit cancelling fractions
+#43  Sub-string divisibility
 
-#34  Digit factorials
+#44  Pentagon numbers
 
-#35  Circular primes
+#45  Triangular, pentagonal, and hexagonal
 
-#36  Double-base palindromes
+#46  Goldbach's other conjecture
 
-#37  Truncatable primes
+#47  Distinct primes factors
 
-#38  Pandigital multiples
+#48  Self powers
 
-#39  Integer right triangles
+#49  Prime permutations
 
-#40  Champernowne's constant
+#50  Consecutive prime sum
 """

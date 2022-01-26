@@ -1,22 +1,22 @@
 """ Batch 6 contains solution sets for the following Project Euler problems:
 
-#51  Prime digit replacements
+#61  Cyclical figurate numbers
 
-#52  Permuted multiples
+#62  Cubic permutations
 
-#53  Combinatoric selections
+#63  Powerful digit counts
 
-#54  Poker hands
+#64  Odd period square roots
 
-#55  Lychrel numbers
+#65  Convergents of e
 
-#56  Powerful digit sum
+#66  Diophantine equation
 
-#57  Square root convergents
+#67  Maximum path sum II
 
-#58  Spiral primes
+#68  Magic 5-gon ring
 
-#59  XOR decryption
+#69  Totient maximum
 
-#60  Prime pair sets
+#70  Totient permutation
 """

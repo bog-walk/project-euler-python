@@ -74,7 +74,7 @@ def is_prime(n: int) -> bool:
         return True
 
 
-def is_prime_mr(num: int, k_rounds: list[int] = None) -> bool:
+def is_prime_mr(num: int, k_rounds: list[int] | None = None) -> bool:
     """ Miller-Rabin probabilistic algorithm determines if a large number is
     likely to be prime.
 

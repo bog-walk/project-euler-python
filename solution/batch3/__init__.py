@@ -1,22 +1,22 @@
 """ Batch 3 contains solution sets for the following Project Euler problems:
 
-#21  Amicable numbers
+#31  Coin sums
 
-#22  Names scores
+#32  Pandigital products
 
-#23  Non-abundant sums
+#33  Digit cancelling fractions
 
-#24  Lexicographic permutations
+#34  Digit factorials
 
-#25  1000-digit Fibonacci number
+#35  Circular primes
 
-#26  Reciprocal cycles
+#36  Double-base palindromes
 
-#27  Quadratic primes
+#37  Truncatable primes
 
-#28  Number spiral diagonals
+#38  Pandigital multiples
 
-#29  Distinct powers
+#39  Integer right triangles
 
-#30  Digit fifth powers
+#40  Champernowne's constant
 """

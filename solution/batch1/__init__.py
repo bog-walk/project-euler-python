@@ -1,22 +1,22 @@
 """ Batch 1 contains solution sets for the following Project Euler problems:
 
-#1   Multiples of 3 or 5
+#11  Largest product in a grid
 
-#2   Even Fibonacci numbers
+#12  Highly divisible triangular number
 
-#3   Largest prime factor
+#13  Large sum
 
-#4   Largest palindrome product
+#14  Longest Collatz sequence
 
-#5   Smallest multiple
+#15  Lattice paths
 
-#6   Sum square difference
+#16  Power digit sum
 
-#7   10001st prime
+#17  Number letter counts
 
-#8   Largest product in a series
+#18  Maximum path sum I
 
-#9   Special Pythagorean triplet
+#19  Counting Sundays
 
-#10  Summation of primes
+#20  Factorial digit sum
 """

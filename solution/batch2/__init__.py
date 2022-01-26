@@ -1,22 +1,22 @@
 """ Batch 2 contains solution sets for the following Project Euler problems:
 
-#11  Largest product in a grid
+#21  Amicable numbers
 
-#12  Highly divisible triangular number
+#22  Names scores
 
-#13  Large sum
+#23  Non-abundant sums
 
-#14  Longest Collatz sequence
+#24  Lexicographic permutations
 
-#15  Lattice paths
+#25  1000-digit Fibonacci number
 
-#16  Power digit sum
+#26  Reciprocal cycles
 
-#17  Number letter counts
+#27  Quadratic primes
 
-#18  Maximum path sum I
+#28  Number spiral diagonals
 
-#19  Counting Sundays
+#29  Distinct powers
 
-#20  Factorial digit sum
+#30  Digit fifth powers
 """

@@ -9,10 +9,13 @@
 **is_prime**
     (int) -> bool
 
+**is_prime_mr**
+    (int, list[int] | None) -> bool
+
 **is_triangular_number**
     (int) -> int | None
 
-**lcm**
+**power_digit_sum**
     (int, int) -> int
 
 **prime_factors**

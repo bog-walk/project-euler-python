@@ -1,22 +1,22 @@
 """ Batch 5 contains solution sets for the following Project Euler problems:
 
-#41  Pandigital prime
+#51  Prime digit replacements
 
-#42  Coded triangle numbers
+#52  Permuted multiples
 
-#43  Sub-string divisibility
+#53  Combinatoric selections
 
-#44  Pentagon numbers
+#54  Poker hands
 
-#45  Triangular, pentagonal, and hexagonal
+#55  Lychrel numbers
 
-#46  Goldbach's other conjecture
+#56  Powerful digit sum
 
-#47  Distinct primes factors
+#57  Square root convergents
 
-#48  Self powers
+#58  Spiral primes
 
-#49  Prime permutations
+#59  XOR decryption
 
-#50  Consecutive prime sum
+#60  Prime pair sets
 """
