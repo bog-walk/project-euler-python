@@ -26,9 +26,9 @@ from util.maths.reusable import gaussian_sum, prime_factors, prime_numbers_og
 def count_divisors(n: int) -> int:
     """ Counts unique divisors of n using n's prime decomposition.
 
-    e.g. :math:`28 = 2^2 \\times 7^1`, therefore
+    e.g. 28 = 2^2 * 7^1, therefore
 
-    num_of_divisors = :math:`(2 + 1) \\times (1 + 1) = 6` -> {1,2,4,7,14,28}
+        num_of_divisors = (2 + 1) * (1 + 1) = 6 -> {1,2,4,7,14,28}
     """
 
     return prod([v + 1 for _, v in prime_factors(n).items()])
@@ -43,12 +43,12 @@ def first_triangle_over_N(n: int) -> int:
     have neither a common prime factor nor a common divisor), the amount of
     divisors can be assessed based on the cycling formulae:
 
-    - t represents Gaussian :math:`sum = n(n + 1) / 2`
+    - t represents Gaussian sum = n(n + 1) / 2
 
-    - [even n] :math:`D(t) = D(n/2) \\times D(n+1)`
+    - [even n] D(t) = D(n/2) * D(n+1)
     D(n+1) becomes D(n) for the next number, which will be odd.
 
-    - [odd n] :math:`D(t) = D(n) \\times D((n+1)/2)`
+    - [odd n] D(t) = D(n) * D((n+1)/2)
 
     SPEED (WORSE)
         583.69ms for N = 1000
@@ -111,8 +111,8 @@ def first_triangle_over_N_optimised(limit: int) -> int:
     """
     Similar to first function that exploits co-prime property of Gaussian sum
     but stores cumulative divisor counts in a list for quick access instead of
-    calculating the count for every new n. Dual cyclic formulae use n - 1 instead
-    n + 1 to match the index used in the cached list.
+    calculating the count for every new n. Dual cyclic formulae use (n - 1) instead
+    of (n + 1) to match the index used in the cached list.
 
     Note that n_max was found by exhausting all solutions for n = [1, 1000] &
     finding the maximum of the ratios of t:n. At n = 1000, the valid triangle number

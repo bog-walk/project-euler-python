@@ -71,13 +71,13 @@ def prime_pair_set_sums(n: int, k: int, m: int) -> list[int]:
         divisible by 3, and thereby not a prime. This is based on the concatenation
         being congruent to the sum of p_1 and p_2 mod 3.
 
+    SPEED (BETTER - for processing all primes < n)
+        26.58s for N = 2e4, K = 5
+
     :param m: Modulo used to split all primes < n, to avoid unnecessary
         is_concatenable_prime() checks.
     :returns: Unsorted list of the totals of all k-prime sets whose
         members are eligible, as detailed above.
-
-    SPEED (BETTER - for processing all primes < n)
-        26.58s for N = 2e4, K = 5
     """
 
     concatenated_pairs: dict[int, set[int]] = dict()
@@ -154,11 +154,11 @@ def multiprocessing_prime_pair_set_sum(n: int, k: int):
     A process Pool object controls the jobs given to the worker processes and
     allows results to be returned through a parallel map implementation.
 
-    :returns: Sorted list (ascending order) of the totals of all k-prime sets whose
-        members are eligible, as detailed above.
-
     SPEED (BEST)
         11.84s for N = 2e4, K = 5
+
+    :returns: Sorted list (ascending order) of the totals of all k-prime sets whose
+        members are eligible, as detailed above.
     """
 
     pool = Pool(2)
@@ -181,11 +181,11 @@ def prime_pair_set_sum_concise(n: int, k: int) -> list[int]:
     In spite of its reduced length, this solution is 5x slower & was created
     purely as an algorithmic test.
 
-    :returns: Sorted list (ascending order) of the totals of all k-prime sets whose
-        members are eligible, as detailed above.
-
     SPEED (WORSE)
         110.31s for N = 2e4, K = 5
+
+    :returns: Sorted list (ascending order) of the totals of all k-prime sets whose
+        members are eligible, as detailed above.
     """
 
     concatenated_pairs: dict[int, set[int]] = dict()

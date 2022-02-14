@@ -9,12 +9,12 @@ Constraints: 9 <= N < 5e5
 
 Goldbach's False Conjecture: Every odd composite number can be written as the sum
 of a prime and twice a square. Proven to be FALSE.
-e.g.: :math:`9 = 7 + 2 \\times 1^2`
-      :math:`15 = 7 + 2 \\times 2^2 || 13 + 2 \\times 1^2`
-      :math:`21 = 3 + 2 \\times 3^2 || 13 + 2 \\times 2^2 || 19 + 2 \\times 1^2`
-      :math:`25 = 7 + 2 \\times 3^2 || 17 + 2 \\times 2^2 || 23 + 2 \\times 1^2`
-      :math:`27 = 19 + 2 \\times 2^2`
-      :math:`33 = 31 + 2 \\times 1^2`
+e.g.: 9 = 7 + 2 * 1^2
+      15 = 7 + 2 * 2^2 || 13 + 2 * 1^2
+      21 = 3 + 2 * 3^2 || 13 + 2 * 2^2 || 19 + 2 * 1^2
+      25 = 7 + 2 * 3^2 || 17 + 2 * 2^2 || 23 + 2 * 1^2
+      27 = 19 + 2 * 2^2
+      33 = 31 + 2 * 1^2
 
 e.g.: N = 9
       result = 1

@@ -10,6 +10,7 @@ Constraints: None
 Poker Hand Rankings: From lowest to highest ->
 [High Cards, One Pair, Two Pairs, Three of a kind, Straight, Flush, Full House,
 Four of a kind, Straight Flush, Royal Flush]
+
 If both hands have the same ranked hand, the rank made up of the highest value
 wins. If both ranks tie, then the highest value of the next highest rank is
 assessed until the only rank left to assess is the high card rank.

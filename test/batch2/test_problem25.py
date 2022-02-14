@@ -46,7 +46,7 @@ class NDigitFibonacciNumber(unittest.TestCase):
             "Brute": [n_digit_fib_terms_brute, n],
             "Golden formula": [n_digit_fib_term_golden_formula, n]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         for name, actual in results.items():
             if name == "Brute":
                 self.assertEqual(expected, actual[n - 2])

@@ -27,7 +27,7 @@ primes = [0, 2, 3, 5, 7, 11, 13, 17]
 def sum_of_pandigital_substrings(n: int) -> int:
     """
     SPEED (WORSE)
-        6.212s for N = 9
+        6.21s for N = 9
     """
 
     total = 0
@@ -75,7 +75,7 @@ def sum_of_9_pandigital_substrings() -> int:
     improved compared to the previous solution above.
 
     SPEED (BETTER)
-        1.201s for N = 9
+        1.20s for N = 9
     """
 
     digits = "0123456789"

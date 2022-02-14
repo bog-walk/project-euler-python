@@ -53,10 +53,10 @@ def all_pandigital_primes_builtin() -> list[int]:
         of 3, then that number will be a multiple of 3 & thereby not a prime. Only
         4- & 7-digit pandigitals have sums that are not divisible by 3.
 
-    :returns: List of all pandigital primes sorted in descending order.
-
     SPEED (BETTER)
-        0.3169s
+        316.90ms to generate all pandigital primes
+
+    :returns: List of all pandigital primes sorted in descending order.
     """
 
     pandigital_primes = []
@@ -79,10 +79,10 @@ def all_pandigital_primes() -> list[int]:
     generates and filters prime numbers (using helper Sieve) under the optimised
     limits if they are also pandigital.
 
-    :returns: List of all pandigital primes sorted in descending order.
-
     SPEED (WORSE)
-        3.2751s
+        3.27s to generate all pandigital primes
+
+    :returns: List of all pandigital primes sorted in descending order.
     """
 
     return [

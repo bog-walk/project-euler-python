@@ -35,7 +35,7 @@ class ReciprocalCycles(unittest.TestCase):
             self.assertEqual(expected[i], longest_repetend_denominator(n))
 
     def test_longest_repetend_denominator_speed(self):
-        n = 10000
+        n = 10_000
         expected = 9967
         solutions = {
             "Prime": [longest_repetend_denominator_primes, n],

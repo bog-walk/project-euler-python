@@ -31,7 +31,7 @@ class SmallestMultiple(unittest.TestCase):
             "Iterative": [lcm_of_range, n],
             "Built-in": [lcm_of_range_builtin, n]
         }
-        results = compare_speed(solutions, repeat=1000)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

@@ -36,16 +36,16 @@ def spiral_prime_ratio(percent: int, speed_toggle: bool = False) -> int:
     e.g. side length 26241, at which point the ratio only just falls below 10%,
     has a bottom-right diagonal value of 688_590_081.
 
+    SPEED (ORIGINAL - WORSE)
+        2.71s for N = 10
+    SPEED (MILLER-RABIN - BETTER)
+        313.00ms for N = 10
+
     :param percent: Integer value representing the percentage under which the
         ratio should first fall before returning the final result.
     :param speed_toggle: Default False for original is_prime() and True for the
         newer is_prime_mr(). This purely exists to allow speed tests on otherwise
         duplicate code.
-
-    SPEED (ORIGINAL - WORSE)
-        2.713s for N = 10
-    SPEED (MILLER-RABIN - BETTER)
-        0.313s for N = 10
     """
 
     prime_check = is_prime_mr if speed_toggle else is_prime

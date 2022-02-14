@@ -26,13 +26,35 @@ class CountingSundays(unittest.TestCase):
         for i, (d, m, y) in enumerate(dates):
             self.assertEqual(expected[i], get_weekday(d, m, y))
 
+    def test_count_sunday_firsts_start_exceeds_end(self):
+        d1, m1, y1 = 16, 6, 1925
+        d2, m2, y2 = 6, 6, 1924
+        expected = 0
+        self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
+
+    def test_count_sunday_firsts_start_equal_end(self):
+        d1, m1, y1 = 2, 10, 2022
+        d2, m2, y2 = 2, 10, 2022
+        expected = 0
+        self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
+
     def test_count_sunday_firsts_days_none(self):
         d1, m1, y1 = 31, 12, 1999
         d2, m2, y2 = 1, 1, 2000
         expected = 0
         self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
-        self.assertEqual(expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
 
     def test_count_sunday_firsts_days_one(self):
         d1, m1, y1 = 31, 12, 2022
@@ -40,15 +62,29 @@ class CountingSundays(unittest.TestCase):
         expected = 1
         self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
-        self.assertEqual(expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
 
-    def test_count_sunday_firsts_months(self):
+    def test_count_sunday_firsts_months_same_year(self):
         d1, m1, y1 = 10, 5, 2020
         d2, m2, y2 = 29, 11, 2020
         expected = 1
         self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
-        self.assertEqual(expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
+
+    def test_count_sunday_firsts_months_different_years(self):
+        d1, m1, y1 = 25, 3, 1988
+        d2, m2, y2 = 13, 7, 1989
+        expected = 2
+        self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
 
     def test_count_sunday_firsts_years(self):
         d1, m1, y1 = 6, 12, 1995
@@ -56,7 +92,9 @@ class CountingSundays(unittest.TestCase):
         expected = 5
         self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
-        self.assertEqual(expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
 
     def test_count_sunday_firsts_decade(self):
         d1, m1, y1 = 1, 1, 1900
@@ -64,7 +102,9 @@ class CountingSundays(unittest.TestCase):
         expected = 18
         self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
-        self.assertEqual(expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
 
     def test_count_sunday_firsts_century(self):
         d1, m1, y1 = 1, 1, 1901
@@ -72,7 +112,9 @@ class CountingSundays(unittest.TestCase):
         expected = 171
         self.assertEqual(expected, count_sundays_firsts(y1, m1, d1, y2, m2, d2))
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
-        self.assertEqual(expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
 
     def test_count_sunday_firsts_adjusted_exceeds_end(self):
         d1, m1, y1 = 4, 1, 1900
@@ -88,26 +130,30 @@ class CountingSundays(unittest.TestCase):
         expected = 18
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
-        self.assertEqual(expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
 
-    def test_count_sunday_firsts_upper_constraint(self):
+    def test_count_sunday_firsts_upper_constraints(self):
         d1, m1, y1 = 2, 2, 1_000_000_000_000
         d2, m2, y2 = 2, 3, 1_000_000_001_000
         expected = 1720
         self.assertEqual(expected, count_sundays_zellers(y1, m1, d1, y2, m2))
-        self.assertEqual(expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2))
+        self.assertEqual(
+            expected, count_sundays_firsts_library(y1, m1, d1, y2, m2, d2)
+        )
 
     def test_count_sunday_firsts_speed(self):
         d1, m1, y1 = 1, 1, 1_000_000
         d2, m2, y2 = 1, 1, 1_001_000
+        expected = 1720
         solutions = {
             "Original": [count_sundays_firsts, y1, m1, d1, y2, m2, d2],
             "Zeller's": [count_sundays_zellers, y1, m1, d1, y2, m2],
             "Library": [count_sundays_firsts_library, y1, m1, d1, y2, m2, d2]
         }
-        results = list(compare_speed(solutions).values())
-        self.assertEqual(results[0], results[1])
-        self.assertEqual(results[1], results[2])
+        results = compare_speed(solutions)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

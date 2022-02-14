@@ -34,12 +34,6 @@ class EvenFibonacciNumbers(unittest.TestCase):
         self.assertEqual(expected, sum_even_fibs_brute(n))
         self.assertEqual(expected, sum_even_fibs_formula(n))
 
-    def test_upper_constraints(self):
-        n = 4 * pow(10, 16)
-        expected = 49_597_426_547_377_748
-        self.assertEqual(expected, sum_even_fibs_brute(n))
-        self.assertEqual(expected, sum_even_fibs_formula(n))
-
     def test_sum_even_fibs_speed(self):
         n = 4 * pow(10, 16)
         expected = 49_597_426_547_377_748
@@ -47,7 +41,7 @@ class EvenFibonacciNumbers(unittest.TestCase):
             "Brute": [sum_even_fibs_brute, n],
             "Formula": [sum_even_fibs_formula, n]
         }
-        results = compare_speed(solutions, repeat=1000)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

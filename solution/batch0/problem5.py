@@ -22,8 +22,8 @@ def lcm_of_range(n: int) -> int:
     Original solution used manual implementation of lcm(), but this was replaced
     with math.lcm(), introduced in PY 3.9.
 
-    SPEED (EQUAL)
-        8.13ms for N = 40 over 1000 iterations
+    SPEED (WORSE)
+        1.3e4ns for N = 40
     """
 
     common_multiple = n
@@ -42,8 +42,8 @@ def lcm_of_range_builtin(n: int) -> int:
     iterate over the multiple arguments::
         reduce(lcm, range(n, n // 2, -1))
 
-    SPEED (EQUAL)
-        7.69ms for N = 40 over 1000 iterations
+    SPEED (BETTER)
+        6600ns for N = 40
     """
 
     return lcm(*range(n, n // 2, -1))

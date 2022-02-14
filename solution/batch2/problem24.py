@@ -19,15 +19,15 @@ from math import factorial
 
 def nth_lexicographic_perm_builtin(n: int, string: str) -> str:
     """
-    :param n: The nth permutation requested should be zero-indexed.
-    :param string: The object to generate permutations of should be already
-        sorted in ascending order.
-
     SPEED (WORST)
         863.21ms for 10-digit string
         Most likely due to permutations() generating all possible full-length
         permutations sorted lexicographically rather than stopping once the
         required permutation is found.
+
+    :param n: The nth permutation requested should be zero-indexed.
+    :param string: The object to generate permutations of should be already
+        sorted in ascending order.
     """
 
     all_perms = list(map("".join, permutations(string)))
@@ -45,12 +45,12 @@ def nth_lexicographic_perm(n: int, string: str, permutation: str = "") -> str:
     removed and n = 1 is used with the new string "abd". This continues until
     n = 0 and "cabd" is returned by the base case.
 
+    SPEED (BETTER)
+        4.1e4ns for 10-digit string
+
     :param n: The nth permutation requested should be zero-indexed.
     :param string: The object to generate permutations of should be already
         sorted in ascending order.
-
-    SPEED (BETTER)
-        42500ns for 10-digit string
     """
 
     if not n:
@@ -69,14 +69,14 @@ def nth_lexicographic_perm_improved(n: int, string: str) -> str:
     """
     Recursive solution improved by removing the unnecessary creation of a storage
     string to pass into every recursive call, as well as reducing the factorial
-    call, since :math:`(x! / x) = (x - 1)!`.
+    call, since (x! / x) = (x - 1)!.
+
+    SPEED (BEST)
+        1.9e4ns for 10-digit string
 
     :param n: The nth permutation requested should be zero-indexed.
     :param string: The object to generate permutations of should be already
         sorted in ascending order.
-
-    SPEED (BEST)
-        15000ns for 10-digit string
     """
 
     if len(string) == 1:

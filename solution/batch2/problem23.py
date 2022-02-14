@@ -79,14 +79,9 @@ def sum_of_all_non_abundants() -> int:
     provided as the upper limit.
     """
 
-    # return sum(map(lambda n: n if not is_sum_of_abundants(n) else 0, range(20162)))
-    limit = 20162
-    sum_of_divisors = [sum_proper_divisors(n) for n in range(limit)]
-    abundants = []
-    total = 0
-    for num in range(1, limit):
-        if sum_of_divisors[num] > num:
-            abundants.append(num)
-        if not any(num - abundant in abundants for abundant in abundants):
-            total += num
-    return total
+    return sum(
+        map(
+            lambda n: n if not is_sum_of_abundants(n) else 0,
+            range(20162)
+        )
+    )

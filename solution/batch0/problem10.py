@@ -21,10 +21,10 @@ def sum_of_primes_quick_draw(n: int) -> list[int]:
     only odd numbers & their multiples, but uses boolean mask to alter a list of
     cumulative sums instead of returning a list of prime numbers.
 
-    :returns: List of the cumulative sums of prime numbers <= index.
-
     SPEED (WORSE)
         567.88ms for N = 1e6
+
+    :returns: List of the cumulative sums of prime numbers <= index.
     """
 
     if n % 2:
@@ -55,10 +55,10 @@ def sum_of_primes_quick_draw_optimised(n: int) -> list[int]:
     prime marked with a -1, before the former, and its even successor, are replaced
     by the total so far.
 
-    :returns: List of the cumulative sums of prime numbers <= index.
-
     SPEED (BETTER)
         205.88ms for N = 1e6
+
+    :returns: List of the cumulative sums of prime numbers <= index.
     """
 
     sums = [0]*(n + 1)

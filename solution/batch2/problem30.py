@@ -19,7 +19,7 @@ from itertools import combinations_with_replacement
 def digit_nth_powers_brute(n: int) -> list[int]:
     """
     SPEED (WORSE)
-        1.4722s for N = 6
+        1.10s for N = 6
     """
 
     nums = []
@@ -55,7 +55,7 @@ def digit_nth_powers_builtin(n: int) -> list[int]:
     then it is a valid number to include in the sum.
 
     SPEED (BETTER)
-        0.0360s for N = 6
+        16.66ms for N = 6
     """
 
     nums = []

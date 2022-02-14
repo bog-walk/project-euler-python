@@ -7,7 +7,7 @@ maximum product among all such triplets, otherwise return -1.
 
 Constraints: 1 <= N <= 3000
 
-Pythagorean Triplet: a set of 3 natural numbers, such that
+Pythagorean Triplet: A set of 3 natural numbers, such that
 a < b < c && :math:`a^2 + b^2 = c^2`
 
 e.g.: N = 12
@@ -34,10 +34,10 @@ def max_triplet_product_loop_c_b(num: int) -> (int, ...):
         replaced with math.hypot() that computes the hypotenuse of a right triangle
         when given 2 values.
 
-    :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
-
     Speed (WORSE)
-        128.94ms for N = 3000
+        92.10ms for N = 3000
+
+    :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
     """
 
     max_triplet = -1,
@@ -67,12 +67,12 @@ def max_triplet_product_loop_a(num: int) -> (int, ...):
         be at most num / 3 - 1.
 
     -   Inserting c = num - a - b into the formula
-        :math:`a^2 + b^2 = c^2` reduces to:
-        :math:`2ab + 2b * num = num^2 - 2a * num`
-        :math:`b = num(n - 2a) / 2(n - a)`
+        a^2 + b^2 = c^2 reduces to:
+        2ab + 2b * num = num^2 - 2a * num
+        b = num(n - 2a) / 2(n - a)
 
     -   Exhaustive search shows that the first maximum triplet found will be the
-        only solution, so the loop van be broken early.
+        only solution, so the loop can be broken early.
 
     -   Triplet elements must either be all evens OR 2 odds with 1 even.
         Therefore, the sum of a triplet (num) must be even as the sum of evens is an
@@ -82,10 +82,10 @@ def max_triplet_product_loop_a(num: int) -> (int, ...):
         replaced with math.hypot() that computes the hypotenuse of a right triangle
         when given 2 values.
 
-    :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
-
     Speed (BETTER)
-        2.0e5ns for N = 3000
+        1.4e5ns for N = 3000
+
+    :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
     """
 
     max_triplet = -1,
@@ -109,22 +109,22 @@ def max_triplet_product_optimised(num: int) -> (int, ...):
 
     -   All Pythagorean triplets can be reduced to a primitive one by dividing out
         gcd(a,b,c) = d, such that:
-        :math:`a + b + c = 2m(m + n)d`, with n > m > 0.
+        a + b + c = 2m(m + n)d, with n > m > 0.
 
     -   A triplet is primitive if m XOR n is even and gcd(m,n) = 1. The latter occurs
         because gdc(a,b) = gcd(b,c) = gcd(c,a) = 1.
 
     -   Exhaustive search shows that the first maximum triplet found will be the
-        only solution, so the loop van be broken early.
+        only solution, so the loop can be broken early.
 
     -   Original solution calculated the ceiling of the square root of the limit.
         This was replaced with the implementation of math.isqrt() for positive n,
         introduced in Py 3.8.
 
-    :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
-
     Speed (BEST)
-        20500ns for N = 3000
+        3.0e4ns for N = 3000
+
+    :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
     """
 
     max_triplet = -1,

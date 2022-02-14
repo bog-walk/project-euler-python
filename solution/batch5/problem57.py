@@ -10,7 +10,7 @@ Constraints: 8 <= N <= 1e4
 
 Square Root of 2: This can be expressed as an infinite continued fraction ->
 
-Iteration 1 -> :math:`\\sqrt{2} = 1 + 1/2 = 3/2 = 1.5`
+Iteration 1 -> sqrt(2) = 1 + 1/2 = 3/2 = 1.5
 Iteration 2 -> 1 + 1/(2 + 1/2) = 7/5 = 1.4
 Iteration 3 -> 1 + 1/(2 + (1/(2+1/2))) = 17/12 = 1.41666...
 Iteration 4 -> 1 + 1/(2 + (1/(2 + 1/(2 + 1/2)))) = 41/29 = 1.41379...
@@ -50,15 +50,15 @@ def square_root_fractions_manual(n: int) -> list[int]:
          expansion = 1 + 5/12 = 17/12
 
     Number of digits is compared by calling log10() instead of casting to
-    string. Remember that :math:`log_10(10) = 1.0` because :math:`10^1 = 10` and
+    string. Remember that log_10(10) = 1.0 because 10^1 = 10 and
     every 2-digit number will be a fraction between 1 and 2. Casting the result
     to int truncates the float, leaving only the integral part.
 
+    SPEED (WORSE)
+        316.50ms for N = 2e3
+
     :returns: List of integers representing the iteration where number of
         digits in the numerator exceeds number of digits in the denominator.
-
-    SPEED (WORSE)
-        0.1349s for N = 2e3
     """
 
     iterations = []
@@ -77,22 +77,22 @@ def square_root_fractions_optimised(n: int) -> list[int]:
     Solution optimised based on the following:
 
     -   Further reducing the above formula:
-        if :math:`a_0 = 1 + 1/2, a_1 = 1 + 1/(2 + 1/2)`
-        then :math:`a_{i+1} = 1 + 1/(1 + a_i)`
+        if a_0 = 1 + 1/2, a_1 = 1 + 1/(2 + 1/2)
+        then a_(i+1) = 1 + 1/(1 + a_i)
 
-        if :math:`a_i = n_i / d_i` is inserted, the formula becomes:
+        if a_i = n_i / d_i is inserted, the formula becomes:
 
-        :math:`a_{i+1} = (2d_i + n_i) / (d_i + n_i)`
+        a_(i+1) = (2d_i + n_i) / (d_i + n_i)
 
     -   Storing the ceiling for current number of digits, i.e. 10 for 1-digit
         numbers, 100 for 2-digit numbers, etc. This is compared instead of
         repeatedly calling log10().
 
+    SPEED (BETTER)
+        2.72ms for N = 2e3
+
     :returns: List of integers representing the iteration where number of
         digits in the numerator exceeds number of digits in the denominator.
-
-    SPEED (BETTER)
-        0.0017s for N = 2e3
     """
 
     iterations = []

@@ -27,14 +27,6 @@ def get_replacements(
         prime: str, n: int, max_d: str, k: int
 ) -> list[list[int]]:
     """
-    :param prime: String representation of the prime to have its digits replaced.
-    :param n: Number of digits in [prime].
-    :param max_d: Max value a digit can be to allow L-primes to be generated.
-    :param k: Number of equal digits to be replaced.
-    :returns: List of all integer lists generated as a result of replacing k-digits
-        of equal value. The original prime is not included, to avoid it being
-        unnecessarily checked for primality in calling function.
-
     e.g.:
         "769" with k = 1, max_d = "6" -> "7*9" -> [[779, 789, 799]]
 
@@ -43,6 +35,14 @@ def get_replacements(
         "7677" with k = 2, max_d = "7" -> "*6*7", "*67*", "76**" ->
 
         [[8687, 9697], [8678, 9679], [7688, 7699]]
+
+    :param prime: String representation of the prime to have its digits replaced.
+    :param n: Number of digits in [prime].
+    :param max_d: Max value a digit can be to allow L-primes to be generated.
+    :param k: Number of equal digits to be replaced.
+    :returns: List of all integer lists generated as a result of replacing k-digits
+        of equal value. The original prime is not included, to avoid it being
+        unnecessarily checked for primality in calling function.
     """
 
     replaced = []

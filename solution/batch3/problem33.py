@@ -42,10 +42,10 @@ def find_non_trivials_brute(n: int, k: int) -> list[(int, int)]:
     Brute iteration through all numerators and denominators with the expected amount
     of digits, & following constraints specified in problem above.
 
-    :returns: List of tuples of (numerator, denominator) sorted by numerator.
-
     SPEED (WORSE for PE problem)
         27.44s for N = 4, K = 1
+
+    :returns: List of tuples of (numerator, denominator) sorted by numerator.
     """
 
     non_trivials = []
@@ -69,16 +69,16 @@ def find_non_trivials(n: int, k: int) -> list[(int, int)]:
     Loop nesting is based on numerator < denominator & cancelled < max_cancelled.
     This order of solutions is based on the combination equation:
 
-    :math:`(n10^k + c) / (c10^k + d) = n / d`
+    (n10^k + c) / (c10^k + d) = n / d
 
     which reduces to:
 
-    :math:`n(10^k - 1)(c - d) = c(d - n)`
-
-    :returns: List of tuples of (numerator, denominator) sorted by numerator.
+    n(10^k - 1)(c - d) = c(d - n)
 
     SPEED (BETTER for PE problem)
         1.08s for N = 4, K = 1
+
+    :returns: List of tuples of (numerator, denominator) sorted by numerator.
     """
 
     non_trivials = []
@@ -154,10 +154,10 @@ def sum_of_non_trivials_brute(n: int, k: int) -> (int, int):
         digits can be removed in different ways with the same output.
             e.g. 1616/6464 == 161/644 == 116/464.
 
-    :returns: Tuple of (sum of numerators, sum of denominators).
-
     SPEED (WORSE for HR problem)
         1606.35s for N = 4, K = 1
+
+    :returns: Tuple of (sum of numerators, sum of denominators).
     """
 
     n_sum, d_sum = 0, 0
@@ -204,11 +204,11 @@ def sum_of_non_trivials_gcd(n: int, k: int) -> (int, int):
     & the cancellation combos they allow. Rather than loop through denominators,
     gcd() is used to assess reductive equivalence based on the following:
 
-    :math:`n_og / d_og = n_r / d_r`, and
+    n_og / d_og = n_r / d_r, and
 
-    :math:`n_r = n_og / gcd(n_og, d_og)`
+    n_r = n_og / gcd(n_og, d_og)
 
-    :math:`d_r = d_og / gcd(n_og, d_og)`
+    d_r = d_og / gcd(n_og, d_og)
 
     SPEED (BETTER for HR problem)
         1.86s for N = 4, K = 1

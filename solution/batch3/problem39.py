@@ -26,17 +26,17 @@ def most_triplet_solutions_brute(n: int) -> int:
 
     -   Since a < b < c and a + b + c = P, a will not be higher than P / 3.
 
-    -   If c = P - a - b is inserted into the equation :math:`a^2 + b^2 = c^2`, then:
+    -   If c = P - a - b is inserted into the equation a^2 + b^2 = c^2, then:
 
-        :math:`a^2 + b^2 = P^2 - 2aP - 2bP + 2ab + a^2 + b^2`
+        a^2 + b^2 = P^2 - 2aP - 2bP + 2ab + a^2 + b^2
 
-        :math:`b = P(P - 2a) / 2(P - a)`,
+        b = P(P - 2a) / 2(P - a)
 
         which means values of P and a that result in an integer value b represent a
         valid Triplet.
 
     SPEED (WORSE)
-        329.844s for N = 1e5
+        329.84s for N = 1e5
     """
 
     best_p, most_sols = 12, 1
@@ -61,7 +61,7 @@ def most_triplet_solutions(n: int) -> int:
     introduced in Py 3.8.
 
     SPEED (BETTER)
-        1.177s for N = 1e5
+        1.17s for N = 1e5
     """
 
     best_p, most_sols = 12, 1
@@ -94,12 +94,12 @@ def most_triplet_solutions_improved(limit: int) -> int:
     N.B. The upper bound for m is found by substituting Euclid's formulae into the
     perimeter formula & reducing it to:
 
-    :math:`p = 2dm(m + n)`,
+    p = 2dm(m + n)
 
-    which means when d = 1 & n = 1, at most :math:`2m^2` must be below the given limit.
+    which means when d = 1 & n = 1, at most 2m^2 must be below the given limit.
 
     SPEED (BEST)
-        0.158s for N = 1e5
+        158ms for N = 1e5
     """
 
     p_sols = [0]*(limit + 1)

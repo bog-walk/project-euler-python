@@ -19,7 +19,7 @@ class PokerHands(unittest.TestCase):
 
     def test_one_tie(self):
         hand_1_s = [
-            ["4D", "6S", "9h", "QH", "QC"], ["2H", "2D", "4C", "4D", "4S"]
+            ["4D", "6S", "9H", "QH", "QC"], ["2H", "2D", "4C", "4D", "4S"]
         ]
         hand_2_s = [
             ["3D", "6D", "7H", "QD", "QS"], ["3C", "3D", "3S", "9S", "9D"]
@@ -30,10 +30,10 @@ class PokerHands(unittest.TestCase):
 
     def test_multiple_ties(self):
         hand_1_s = [
-            ["2H", "2D", "4C", "4D", "4S"], ["2H", "3D", "5C", "7D", "9S"]
+            ["2H", "2D", "4C", "4D", "4S"], ["3H", "4D", "5C", "7D", "9S"]
         ]
         hand_2_s = [
-            ["4C", "4D", "4S", "9S", "9D"], ["1C", "3D", "5S", "7S", "9D"]
+            ["4C", "4D", "4S", "9S", "9D"], ["2C", "4C", "5S", "7S", "9D"]
         ]
         expected = [2, 1]
         for i, e in enumerate(expected):

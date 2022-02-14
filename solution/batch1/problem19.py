@@ -5,7 +5,7 @@ https://projecteuler.net/problem=19
 Goal: Find the number of Sundays that fell on the 1st day of the month between
 2 dates YYYY MM DD inclusive.
 
-Constraints: 1900 <= Y1 <= 10^16, Y1 <= Y2 <= Y1 + 1000,
+Constraints: 1900 <= Y1 <= 1e16, Y1 <= Y2 <= Y1 + 1000,
              1 <= M1, M2 <= 12,
              1 <= D1, D2 <= 31
 
@@ -22,7 +22,7 @@ def is_leap_year(year: int) -> bool:
 def get_january_first(year: int) -> int:
     """
     Brute search finds weekday on January 1st of provided year, based on the fact
-    that Jan 1st, 1900 was a Monday. Sunday = 0.
+    that Jan 1st, 1900 was a Monday.
 
     :returns: Integer from 0 to 6 with 0 = Sunday.
     """
@@ -42,8 +42,8 @@ def count_sundays_firsts(
     """
     This solution will not tolerate years > 1e6 well.
 
-    SPEED (WORSE)
-        0.6555s for 1000 year delta in the upper constraints
+    SPEED (WORST)
+        401.13ms for 1000 year delta in the upper constraints
     """
 
     days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -86,7 +86,7 @@ def get_weekday(day: int, month: int, year: int) -> int:
 
     Zeller's Congruence algorithm is based on the formula:
 
-    :math:`h = (day + 13(month + 1 / 5) + K + K / 4 + J / 4 + 5J) \\% 7`,
+    h = (day + 13(month + 1 / 5) + K + K / 4 + J / 4 + 5J) % 7
 
     with month & year being adjusted to have January and February as the 13th &
     14th months of the preceding year, and (K, J) = (year % 100, year / 100).
@@ -108,7 +108,7 @@ def count_sundays_zellers(
     """ Solution using Zeller's Congruence algorithm helper function.
 
     SPEED (BEST)
-        0.0158s for 1000 year delta in the upper constraints
+        10.52ms for 1000 year delta in the upper constraints
     """
 
     # adjust starting month forward
@@ -149,7 +149,7 @@ def count_sundays_firsts_library(
     century is a leap year).
 
     SPEED (BETTER)
-        0.0197s for 1000 year delta in the upper constraints
+        12.33ms for 1000 year delta in the upper constraints
     """
 
     year_norm = (start_y % 400) + 400

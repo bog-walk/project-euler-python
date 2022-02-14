@@ -19,7 +19,7 @@ class LargestProductInSeries(unittest.TestCase):
             "Digits Product": [digits_product, string_int]
         }
         results = list(
-            compare_speed(solutions, precision=5, repeat=1000).values()
+            compare_speed(solutions, repeat=100).values()
         )
         self.assertEqual(results[0], results[1])
 

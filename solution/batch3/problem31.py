@@ -23,15 +23,15 @@ def count_coin_combos_recursive(n: int, coin: int = 7) -> int:
     Recursive solution uses nested function to allow memoization, thereby
     optimising this top-down approach.
 
+    SPEED (WORSE)
+        234.71s for N = 1e5
+
     :param n: Total amount that needs to be achieved by all combinations.
     :param coin: Index of coin value from global [coins]. Default is the
         largest coin available (2 pounds). This parameter allows flexibility in the
         method purpose.
         e.g. Count combos for making 10p using 2p (& lower coins) = 6,
         instead of making 10p using all possible coins = 11 combos.
-
-    SPEED (WORSE)
-        234.71s for N = 1e5
     """
 
     # cannot use [[0]*8]*(n+1) to make a 2D array because this would create a
@@ -71,7 +71,7 @@ def count_coin_combos(n: int) -> int:
     -   The previous combo calculated for a coin of lesser value.
 
     SPEED (BETTER)
-        0.11s for N = 1e5
+        110.00ms for N = 1e5
         Better performance due to less expensive loops (vs more expensive recursive
         function calls) & use of less memory with better cache-access.
     """

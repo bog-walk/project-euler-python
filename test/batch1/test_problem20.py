@@ -18,7 +18,7 @@ class FactorialDigitSum(unittest.TestCase):
             "Built-in": [factorial_digit_sum_builtin, n],
             "Iterative": [factorial_digit_sum_iterative, n]
         }
-        results = compare_speed(solutions, repeat=100)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

@@ -40,15 +40,15 @@ def max_palindrome_convergence_cached(n: int) -> (int, int):
     N.B. HackerRank specific implementation pushes upper constraints to 1e5,
     so the amount of iterations to surpass to be a Lychrel number becomes 60.
 
-    :returns: Tuple of (palindrome to which maximum positive integers converge,
-        the latter maximum count).
-
     SPEED (WORSE)
         127.12s for N = 1e5
         The cache grows to contain 99_990 elements, so searching through and
         performing set union under performs simply doing the same arithmetic and
         palindrome check for every n, regardless of repetitions. A binary search
         through the cache did nothing to improve performance.
+
+    :returns: Tuple of (palindrome to which maximum positive integers converge,
+        the latter maximum count).
     """
 
     palindromes: dict[int, int] = dict()
@@ -91,11 +91,11 @@ def max_palindrome_convergence(n: int) -> (int, int):
     N.B. HackerRank specific implementation pushes upper constraints to 1e5,
     so the amount of iterations to surpass to be a Lychrel number becomes 60.
 
-    :returns: Tuple of (palindrome to which maximum positive integers converge,
-        the latter maximum count).
-
     SPEED (BETTER)
         1.09s for N = 1e5
+
+    :returns: Tuple of (palindrome to which maximum positive integers converge,
+        the latter maximum count).
     """
 
     palindromes: dict[int, int] = dict()

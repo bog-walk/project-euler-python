@@ -16,7 +16,10 @@ from util.maths.reusable import gaussian_sum
 
 
 def sum_of_multiples_brute(n: int, k_1: int, k_2: int) -> int:
-    """ Throws MemoryError for upper test constraints > 1e7. """
+    """ Brute iteration solution.
+
+    :raises MemoryError: When upper test constraints > 1e7.
+    """
 
     min_m = min(k_1, k_2)
     return sum([m for m in range(min_m, n) if (m % k_1 == 0 or m % k_2 == 0)])
@@ -27,13 +30,13 @@ def sum_arith_progress(max_term: int, delta: int) -> int:
 
     Solution based on the formula:
 
-    :math:`\\sum_{k=0}^{n-1} a + kd = n(2a + (n - 1)d) / 2`,
+    n-1_Sigma_k=0 a + kd = n(2a + (n - 1)d) / 2,
 
     where a is the 1st term, d is the delta, and n is the amount of terms to add.
 
     a and d are the same in this case, so the formula becomes:
 
-    :math:`\\sum_{k=0}^{n-1} a + kd = (n(n + 1)d) / 2`
+    n-1_Sigma_k=0 a + kd = (n(n + 1)d) / 2
 
     Note that this is an adapted Gaussian sum formula, where n is replaced with
     the amount of terms that are evenly divisible by d, then the original formula

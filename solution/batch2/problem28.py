@@ -43,7 +43,7 @@ def spiral_diag_sum_formula_brute(num: int) -> int:
     """
     Solution based on the formula:
 
-    :math:`f(n) = 4(2n + 1)^2 - 12n + f(n - 1)`,
+    f(n) = 4(2n + 1)^2 - 12n + f(n - 1)
 
     with n as the centre ring number, and
 
@@ -51,8 +51,8 @@ def spiral_diag_sum_formula_brute(num: int) -> int:
 
     f(1) = 25, as the first ring creates a 3x3 grid.
 
-    So the side of a ring is odd at :math:`2N + 1` wide with the upper right
-    corner being :math:`(2n + 1)^2` or the area. So provided n would need to be
+    So the side of a ring is odd at 2N + 1 wide with the upper right
+    corner being (2n + 1)^2 or the area. So provided n would need to be
     divided by 2.
 
     SPEED (BETTER)
@@ -69,16 +69,16 @@ def spiral_diag_sum_formula_derived(n: int) -> int:
     """
     Solution optimised based on the same formula as above, but reduced to:
 
-    `f(n) = 16n^2 + 4n + 4 + f(n - 1)`
+    f(n) = 16n^2 + 4n + 4 + f(n - 1)
 
     Third order polynomial function required as the 3rd delta between consecutive
     f(n) gives a constant, such that ->
 
-    `ax^3 + bx^2 + cx + d`
+    ax^3 + bx^2 + cx + d
 
     Solving for f(0) to f(3) derives the closed-form formula:
 
-    `f(n) = (16n^3 + 30n^2 + 26n + 3) / 3`
+    f(n) = (16n^3 + 30n^2 + 26n + 3) / 3
 
     SPEED (BEST)
         9300ns at N = 1e6 + 1

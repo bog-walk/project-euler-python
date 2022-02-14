@@ -18,10 +18,11 @@ def switch_base(n: int, base: int) -> str:
     """
     Converting from another base to base 10 is easily done using int(n, base).
     Converting from base 10 to base 2/8/16 is done using bin(n)/oct(n)/hex(n).
-    Note that numpy library also has an in-built function: base_repr(n, base).
 
     Conversions above base 10 would risk inclusion of alphabet characters & would
     warrant storage of a character string to pull from.
+
+    Note that numpy library also has an in-built function: base_repr(n, base).
 
     :returns: String representation of decimal converted to the specified base.
     """
@@ -73,7 +74,7 @@ def sum_of_palindromes(n: int, k: int) -> int:
     (the base-10 result) needs to be checked as a palindrome.
 
     SPEED (BETTER)
-        0.22s for N = 1e9, K = 2
+        220.00ms for N = 1e9, K = 2
     """
 
     total = 0

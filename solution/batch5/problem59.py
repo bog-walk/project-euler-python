@@ -9,12 +9,12 @@ used to encrypt the message.
 Constraints: 80 <= N <= 1500
 
 XOR Decryption: A modern encryption method is to take a text file, convert the
-bytes to ASCII, then XOR each byte with a given value, taken from a secret key.
-This same encryption key will decrypt cipher text. An unbreakable encryption has a
-key of the same length as the plain text and the former is made up of random
-bytes. The encryption and its key would also be in separate locations. However, a
-password of shorter-than-message length is more likely used an encryption key,
-repeated cyclically throughout the message.
+    bytes to ASCII, then XOR each byte with a given value, taken from a secret key.
+    This same encryption key will decrypt cipher text. An unbreakable encryption has
+    a key of the same length as the plain text and the former is made up of random
+    bytes. The encryption and its key would also be in separate locations. However,
+    a password of shorter-than-message length is more likely used an encryption key,
+    repeated cyclically throughout the message.
 
 e.g.: N = 82
       encryption = [32, 66, 50, 20, 11, 0, 42, 66, 33, 19, 13, 20, 47, 66, 37, 14,

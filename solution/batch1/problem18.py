@@ -25,7 +25,7 @@ def max_path_sum(rows: int, elements: list[int]) -> int:
     route using post-order traversal.
 
     SPEED (WORSE)
-        22.62ms for N = 15
+        28.62ms for N = 15
     """
 
     pyramid = PyramidTree(rows, elements)
@@ -40,7 +40,7 @@ def max_path_sum_dynamic(rows: int, elements: list[list[int]]) -> int:
     new root value is returned as the maximum path value.
 
     SPEED (BETTER)
-        82300ns for N = 15
+        9.4e4ns for N = 15
     """
 
     for row in range(rows - 1, 0, -1):
