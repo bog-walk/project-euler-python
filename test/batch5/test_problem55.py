@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch5.problem55 import *
 
 
@@ -32,7 +32,7 @@ class LychrelNumbers(unittest.TestCase):
             "Cache": [max_palindrome_convergence_cached, n],
             "No cache": [max_palindrome_convergence, n]
         }
-        results = compare_speed_seconds(solutions, precision=2)
+        results = compare_speed(solutions, precision=2)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
     def test_PE_problem(self):

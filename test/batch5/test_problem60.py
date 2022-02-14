@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch5.problem60 import multiprocessing_prime_pair_set_sum, \
     prime_pair_set_sum_concise
 
@@ -24,7 +24,7 @@ class PrimePairSets(unittest.TestCase):
             "Multiprocessing": [multiprocessing_prime_pair_set_sum, n, k],
             "Concise": [prime_pair_set_sum_concise, n, k]
         }
-        results = compare_speed_seconds(solutions, precision=2)
+        results = compare_speed(solutions, precision=2)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

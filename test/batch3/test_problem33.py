@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch3.problem33 import *
 
 
@@ -56,7 +56,7 @@ class DigitCancellingFractions(unittest.TestCase):
             "Brute": [find_non_trivials_brute, n, k],
             "Improved": [find_non_trivials, n, k]
         }
-        results = compare_speed_seconds(solutions, precision=2)
+        results = compare_speed(solutions, precision=2)
         for actual in results.values():
             actual_n, actual_d = map(list, zip(*actual))
             self.assertEqual(expected[0], sum(actual_n))
@@ -98,7 +98,7 @@ class DigitCancellingFractions(unittest.TestCase):
             "Brute": [sum_of_non_trivials_brute, n, k],
             "GCD": [sum_of_non_trivials_gcd, n, k]
         }
-        results = compare_speed_seconds(solutions, precision=2)
+        results = compare_speed(solutions, precision=2)
         for actual in results.values():
             self.assertTupleEqual(expected, actual)
 

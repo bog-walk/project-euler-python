@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch5.problem53 import count_large_combinatorics, \
     count_large_combinatorics_improved
 
@@ -35,7 +35,7 @@ class CombinatoricSelections(unittest.TestCase):
             "OG": [count_large_combinatorics, n, k],
             "Improved": [count_large_combinatorics_improved, n, k]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all([expected == actual for actual in results.values()]))
 
 

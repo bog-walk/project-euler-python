@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch2.problem28 import *
 
 
@@ -28,7 +28,7 @@ class NumberSpiralDiagonals(unittest.TestCase):
             "Iterative": [spiral_diag_sum_formula_brute, n],
             "Derivative": [spiral_diag_sum_formula_derived, n]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch3.problem31 import *
 
 
@@ -29,7 +29,7 @@ class CoinSums(unittest.TestCase):
             "Recursive": [count_coin_combos_recursive, n],
             "Improved": [count_coin_combos, n]
         }
-        results = list(compare_speed_seconds(solutions, precision=2).values())
+        results = list(compare_speed(solutions, precision=2).values())
         self.assertEqual(results[0], results[1])
 
 

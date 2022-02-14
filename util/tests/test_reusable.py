@@ -1,63 +1,62 @@
 import unittest
 from fake_func import *
-from reusable import *
+from reusable import compare_speed, get_test_resource
 
 
 class TestsReusable(unittest.TestCase):
+    def test_compare_speed_zero_arg(self):
+        solutions = {
+            "Sleep A": [sleep_A], "Sleep B": [sleep_B],
+            "Sleep C": [sleep_C], "Sleep D": [sleep_D]
+        }
+        results = compare_speed(solutions)
+        self.assertListEqual(
+            ["Sleep A", "Sleep B", "Sleep C", "Sleep D"], list(results.keys())
+        )
+        self.assertTrue(all(actual is None for actual in results.values()))
+
     def test_compare_speed_single_arg(self):
         n = 3
+        expected = 900
         solutions = {
-            "Pow A": [pow_a, n], "Pow B": [pow_b, n],
+            "Fast": [fast_fake, n],
+            "Medium": [medium_fake, n],
+            "Slow": [slow_fake, n]
         }
-        expected = 27
-        results_s = compare_speed_seconds(
-            solutions, precision=2, repeat=10
-        )
-        results_ns = compare_speed_nano(
-            solutions, repeat=10
-        )
+        results = compare_speed(solutions)
         self.assertListEqual(
-            ["Pow A", "Pow B"], list(results_s.keys())
+            ["Fast", "Medium", "Slow"], list(results.keys())
         )
-        self.assertListEqual(
-            ["Pow A", "Pow B"], list(results_ns.keys())
-        )
-        self.assertTrue(all(actual == expected for actual in results_s.values()))
-        self.assertTrue(all(actual == expected for actual in results_ns.values()))
-
-    def test_compare_speed_arg_cast(self):
-        n = 3
-        solutions = {
-            "Pow A": [pow_a, n], "Pow B": [pow_b, n],
-            "Pow C": [pow_c, str(n)]
-        }
-        expected = 27
-        results_s = compare_speed_seconds(solutions)
-        results_ns = compare_speed_nano(solutions)
-        self.assertTrue(all(actual == expected for actual in results_s.values()))
-        self.assertTrue(all(actual == expected for actual in results_ns.values()))
+        self.assertTrue(all(actual == expected for actual in results.values()))
 
     def test_compare_speed_varargs(self):
         n = 3
+        m = "100"
+        expected = 2700
         solutions = {
-            "Pow A": [pow_a, n], "Pow B": [pow_b, n],
-            "Pow C": [pow_c, str(n)], "Pow D": [pow_d, n, n]
+            "Fake A": [fake_A, n],
+            "Fake B": [fake_B, n, m],
+            "Fake C": [fake_C, n, n]
         }
-        expected = 27
-        results_s = compare_speed_seconds(
-            solutions, precision=2, repeat=10
-        )
-        results_ns = compare_speed_nano(
-            solutions, repeat=10
-        )
+        results = compare_speed(solutions)
         self.assertListEqual(
-            ["Pow A", "Pow B", "Pow C", "Pow D"], list(results_s.keys())
+            ["Fake A", "Fake B", "Fake C"], list(results.keys())
         )
+        self.assertTrue(all(actual == expected for actual in results.values()))
+
+    def test_compare_speed_with_repetitions(self):
+        n = 3
+        expected = 900
+        solutions = {
+            "Fast": [fast_fake, n],
+            "Medium": [medium_fake, n],
+            "Slow": [slow_fake, n]
+        }
+        results = compare_speed(solutions, precision=4, repeat=10)
         self.assertListEqual(
-            ["Pow A", "Pow B", "Pow C", "Pow D"], list(results_ns.keys())
+            ["Fast", "Medium", "Slow"], list(results.keys())
         )
-        self.assertTrue(all(actual == expected for actual in results_s.values()))
-        self.assertTrue(all(actual == expected for actual in results_ns.values()))
+        self.assertTrue(all(actual == expected for actual in results.values()))
 
     def test_get_test_resource_default(self):
         path = "fake_resource"

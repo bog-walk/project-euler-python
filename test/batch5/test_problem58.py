@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch5.problem58 import spiral_prime_ratio
 
 
@@ -29,7 +29,7 @@ class SpiralPrimes(unittest.TestCase):
             "Original prime": [spiral_prime_ratio, percent],
             "Miller-Rabin": [spiral_prime_ratio, percent, True]
         }
-        results = compare_speed_seconds(solutions, precision=3)
+        results = compare_speed(solutions, precision=3)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

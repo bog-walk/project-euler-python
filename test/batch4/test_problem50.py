@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch4.problem50 import *
 
 
@@ -40,7 +40,7 @@ class ConsecutivePrimeSum(unittest.TestCase):
             "Brute": [consecutive_prime_sum, n],
             "Improved": [consecutive_prime_sum_improved, n]
         }
-        results = compare_speed_seconds(solutions, precision=2)
+        results = compare_speed(solutions, precision=2)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

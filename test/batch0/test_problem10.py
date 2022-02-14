@@ -1,6 +1,6 @@
 import unittest
 from util.maths.reusable import prime_numbers_og
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch0.problem10 import *
 
 
@@ -19,7 +19,7 @@ class SummationOfPrimes(unittest.TestCase):
             "Original": [sum_of_primes_quick_draw, n],
             "Optimised": [sum_of_primes_quick_draw_optimised, n]
         }
-        results = list(compare_speed_nano(solutions).values())
+        results = list(compare_speed(solutions).values())
         self.assertListEqual(results[0], results[1])
 
 

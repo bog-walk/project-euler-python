@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch2.problem30 import *
 
 
@@ -21,7 +21,7 @@ class DigitFifthPowers(unittest.TestCase):
             "Brute": [digit_nth_powers_brute, n],
             "Built-in": [digit_nth_powers_builtin, n]
         }
-        results = compare_speed_seconds(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

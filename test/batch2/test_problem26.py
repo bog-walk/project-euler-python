@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch2.problem26 import *
 
 
@@ -42,7 +42,7 @@ class ReciprocalCycles(unittest.TestCase):
             "Prime optimised": [longest_repetend_denominator_primes_improved, n],
             "Improved": [longest_repetend_denominator, n]
         }
-        results = compare_speed_seconds(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

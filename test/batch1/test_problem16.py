@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch1.problem16 import *
 
 
@@ -18,7 +18,7 @@ class PowerDigitSum(unittest.TestCase):
             "Built-in": [exp_digit_sum_builtin, n],
             "Iterative": [exp_digit_sum_iterative, n]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

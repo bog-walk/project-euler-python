@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds, get_test_resource
+from util.tests.reusable import compare_speed, get_test_resource
 from solution.batch0.problem8 import *
 
 
@@ -19,7 +19,7 @@ class LargestProductInSeries(unittest.TestCase):
             "Digits Product": [digits_product, string_int]
         }
         results = list(
-            compare_speed_seconds(solutions, precision=5, repeat=1000).values()
+            compare_speed(solutions, precision=5, repeat=1000).values()
         )
         self.assertEqual(results[0], results[1])
 
@@ -73,7 +73,7 @@ class LargestProductInSeries(unittest.TestCase):
             "Recursive": [largest_series_product_recursive, string, n, k],
             "Iterative": [largest_series_product, string, n, k]
         }
-        results = compare_speed_seconds(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
     def test_largest_series_product_1000_digits(self):

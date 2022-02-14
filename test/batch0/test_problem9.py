@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch0.problem9 import max_triplet_product_loop_c_b, \
     max_triplet_product_optimised, max_triplet_product_loop_a
 
@@ -33,7 +33,7 @@ class SpecialPythagoreanTriplet(unittest.TestCase):
             "Formula": [max_triplet_product_loop_a, n]
         }
         expected = (937_500_000, 750, 1000, 1250)
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

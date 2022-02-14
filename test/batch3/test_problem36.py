@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch3.problem36 import sum_of_palindromes_brute, sum_of_palindromes
 
 
@@ -37,7 +37,7 @@ class DoubleBasePalindromes(unittest.TestCase):
             "Brute": [sum_of_palindromes_brute, n, k],
             "Improved": [sum_of_palindromes, n, k]
         }
-        results = list(compare_speed_seconds(solutions, precision=2).values())
+        results = list(compare_speed(solutions, precision=2).values())
         self.assertEqual(results[0], results[1])
 
 

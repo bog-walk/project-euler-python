@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch4.problem41 import *
 
 
@@ -32,7 +32,7 @@ class PandigitalPrime(unittest.TestCase):
             "Built-in": [all_pandigital_primes_builtin],
             "Helper function": [all_pandigital_primes]
         }
-        results = list(compare_speed_seconds(solutions).values())
+        results = list(compare_speed(solutions).values())
         self.assertListEqual(results[0], results[1])
         self.assertTrue(all(expected_len == len(actual) for actual in results))
 

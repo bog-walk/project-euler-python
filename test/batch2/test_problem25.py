@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch2.problem25 import *
 
 
@@ -32,7 +32,7 @@ class NDigitFibonacciNumber(unittest.TestCase):
             "Golden brute": [n_digit_fib_term_golden_brute, n],
             "Golden formula": [n_digit_fib_term_golden_formula, n]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         for name, actual in results.items():
             if name == "Brute":
                 self.assertEqual(expected, actual[n - 2])

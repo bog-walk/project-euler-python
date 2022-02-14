@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano, get_test_resource
+from util.tests.reusable import compare_speed, get_test_resource
 from solution.batch1.problem11 import largest_row_product, largest_col_product, \
     largest_diagonal_product, largest_product_in_grid_functional,\
     largest_product_in_grid
@@ -51,7 +51,7 @@ class LargestProductInGrid(unittest.TestCase):
             "Functional": [largest_product_in_grid_functional, grid],
             "All-in-one": [largest_product_in_grid, grid]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

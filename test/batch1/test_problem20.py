@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch1.problem20 import *
 
 
@@ -18,7 +18,7 @@ class FactorialDigitSum(unittest.TestCase):
             "Built-in": [factorial_digit_sum_builtin, n],
             "Iterative": [factorial_digit_sum_iterative, n]
         }
-        results = compare_speed_nano(solutions, repeat=100)
+        results = compare_speed(solutions, repeat=100)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

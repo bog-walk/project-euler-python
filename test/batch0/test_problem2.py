@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch0.problem2 import *
 
 
@@ -47,7 +47,7 @@ class EvenFibonacciNumbers(unittest.TestCase):
             "Brute": [sum_even_fibs_brute, n],
             "Formula": [sum_even_fibs_formula, n]
         }
-        results = compare_speed_seconds(solutions, repeat=1000)
+        results = compare_speed(solutions, repeat=1000)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

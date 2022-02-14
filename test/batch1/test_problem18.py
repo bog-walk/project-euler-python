@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch1.problem18 import *
 
 
@@ -45,7 +45,7 @@ class MaximumPathSum1(unittest.TestCase):
             "Custom class": [max_path_sum, n, elements],
             "Dynamic": [max_path_sum_dynamic, n, nested]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

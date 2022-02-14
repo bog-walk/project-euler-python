@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch3.problem39 import *
 
 
@@ -20,7 +20,7 @@ class IntegerRightTriangles(unittest.TestCase):
             "Original": [most_triplet_solutions, n],
             "Improved": [most_triplet_solutions_improved, n]
         }
-        results = compare_speed_seconds(solutions, precision=3)
+        results = compare_speed(solutions, precision=3)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

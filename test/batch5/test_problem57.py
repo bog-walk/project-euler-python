@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch5.problem57 import square_root_fractions_manual, \
     square_root_fractions_optimised
 
@@ -35,7 +35,7 @@ class SquareRootConvergents(unittest.TestCase):
             "Manual": [square_root_fractions_manual, n],
             "Optimised": [square_root_fractions_optimised, n]
         }
-        results = list(compare_speed_seconds(solutions).values())
+        results = list(compare_speed(solutions).values())
         self.assertListEqual(results[0], results[1])
 
 

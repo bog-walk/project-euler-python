@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch4.problem48 import *
 
 
@@ -25,7 +25,7 @@ class SelfPowers(unittest.TestCase):
             "Built-in": [self_powers_sum, n],
             "Modular": [self_powers_sum_modulo, n]
         }
-        results = compare_speed_seconds(solutions, precision=3)
+        results = compare_speed(solutions, precision=3)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

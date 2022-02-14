@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch4.problem43 import sum_of_pandigital_substrings, \
     sum_of_9_pandigital_substrings
 
@@ -20,7 +20,7 @@ class SubstringDivisibility(unittest.TestCase):
             "Brute": [sum_of_pandigital_substrings, n],
             "Filtered": [sum_of_9_pandigital_substrings]
         }
-        results = compare_speed_seconds(solutions, precision=3)
+        results = compare_speed(solutions, precision=3)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

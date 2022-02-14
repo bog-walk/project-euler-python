@@ -50,13 +50,12 @@ class PyramidTree:
 
     def __init__(self, rows: int, elements: list[int]):
         self.rows = rows
-        self.nodes = self.__generate_tree(elements)
-        self.root = self.nodes[0]
+        self.root = self.__generate_tree(elements)
 
     def __str__(self) -> str:
         return "".join(self.root.draw_node([], True, []))
 
-    def __generate_tree(self, elements: list[int]) -> list[PyramidNode]:
+    def __generate_tree(self, elements: list[int]) -> PyramidNode:
         nodes = [PyramidNode(e) for e in elements]
         index = 0
         for row in range(1, self.rows):
@@ -64,7 +63,7 @@ class PyramidTree:
                 nodes[index].left_adjacent = nodes[index + row]
                 nodes[index].right_adjacent = nodes[index + row + 1]
                 index += 1
-        return nodes
+        return nodes[0]
 
     def max_sum_post_order_traversal(self, node: PyramidNode) -> int:
         """

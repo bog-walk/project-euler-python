@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch1.problem19 import *
 
 
@@ -105,7 +105,7 @@ class CountingSundays(unittest.TestCase):
             "Zeller's": [count_sundays_zellers, y1, m1, d1, y2, m2],
             "Library": [count_sundays_firsts_library, y1, m1, d1, y2, m2, d2]
         }
-        results = list(compare_speed_seconds(solutions).values())
+        results = list(compare_speed(solutions).values())
         self.assertEqual(results[0], results[1])
         self.assertEqual(results[1], results[2])
 

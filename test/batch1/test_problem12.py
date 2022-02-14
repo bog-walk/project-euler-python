@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch1.problem12 import *
 
 
@@ -26,7 +26,7 @@ class HighlyDivisibleTriangularNumber(unittest.TestCase):
             "Improved": [first_triangle_over_N_improved, n],
             "Optimised": [first_triangle_over_N_optimised, n]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

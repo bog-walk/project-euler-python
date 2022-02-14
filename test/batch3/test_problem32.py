@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch3.problem32 import sum_pandigital_products_brute, \
     sum_pandigital_products
 
@@ -18,7 +18,7 @@ class PandigitalProducts(unittest.TestCase):
             "Brute": [sum_pandigital_products_brute, n],
             "Built-in": [sum_pandigital_products, n]
         }
-        results = compare_speed_seconds(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch0.problem3 import *
 
 
@@ -44,7 +44,7 @@ class LargestPrimeFactor(unittest.TestCase):
             "Decomposition": [largest_prime_factor, n],
             "Recursive": [largest_prime_factor_recursive, n]
         }
-        results = compare_speed_seconds(solutions, precision=2, repeat=100)
+        results = compare_speed(solutions, precision=2, repeat=100)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
     def test_largest_prime_factor_speed_small_factors(self):
@@ -54,7 +54,7 @@ class LargestPrimeFactor(unittest.TestCase):
             "Decomposition": [largest_prime_factor, n],
             "Recursive": [largest_prime_factor_recursive, n]
         }
-        results = compare_speed_seconds(solutions, precision=2, repeat=100)
+        results = compare_speed(solutions, precision=2, repeat=100)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch2.problem24 import *
 
 
@@ -33,7 +33,7 @@ class LexicographicPermutations(unittest.TestCase):
             "Original": [nth_lexicographic_perm, perm, string],
             "Improved": [nth_lexicographic_perm_improved, perm, string]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

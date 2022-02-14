@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_seconds
+from util.tests.reusable import compare_speed
 from solution.batch4.problem49 import concat_prime_perms
 
 
@@ -49,7 +49,7 @@ class PrimePermutations(unittest.TestCase):
             "Built-in": [concat_prime_perms, n, k, False],
             "Improved": [concat_prime_perms, n, k, True]
         }
-        results = list(compare_speed_seconds(solutions, precision=2).values())
+        results = list(compare_speed(solutions, precision=2).values())
         self.assertListEqual(results[0], results[1])
 
 

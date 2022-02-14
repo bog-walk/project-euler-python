@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch4.problem45 import common_numbers, common_numbers_formula,\
     next_triple_type
 
@@ -28,7 +28,7 @@ class TriPentHex(unittest.TestCase):
             "Original formula": [common_numbers, n, a, b],
             "Diophantine formula": [common_numbers_formula, n, a, b]
         }
-        results = compare_speed_nano(solutions)
+        results = compare_speed(solutions)
         for actual in results.values():
             self.assertListEqual(expected, actual)
 

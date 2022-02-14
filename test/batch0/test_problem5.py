@@ -1,5 +1,5 @@
 import unittest
-from util.tests.reusable import compare_speed_nano
+from util.tests.reusable import compare_speed
 from solution.batch0.problem5 import *
 
 
@@ -31,7 +31,7 @@ class SmallestMultiple(unittest.TestCase):
             "Iterative": [lcm_of_range, n],
             "Built-in": [lcm_of_range_builtin, n]
         }
-        results = compare_speed_nano(solutions, repeat=1000)
+        results = compare_speed(solutions, repeat=1000)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 
