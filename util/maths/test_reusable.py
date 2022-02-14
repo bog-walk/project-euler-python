@@ -22,8 +22,9 @@ class MathsReusable(unittest.TestCase):
 
     def test_is_prime_all_true(self):
         primes = [
-            2, 5, 11, 17, 29, 7919, 514_229, 2_147_483_647, 9_369_319,
-            999_973_156_643, 99_987_684_473
+            2, 5, 11, 17, 29, 7919, 514_229, 9_369_319, 2_147_483_647,
+            99_987_684_473, 999_973_156_643, 888_888_877_777_777,
+            999_998_727_899_999
         ]
         for p in primes:
             self.assertTrue(is_prime(p))
@@ -31,7 +32,8 @@ class MathsReusable(unittest.TestCase):
 
     def test_is_prime_all_false(self):
         not_primes = [
-            1, 4, 9, 14, 221, 9523, 22041, 997_653, 999_715_709, 99_987_684_471
+            1, 4, 9, 14, 221, 9523, 22041, 997_653, 999_715_709, 99_987_684_471,
+            3_889_108_085_625, 809_709_509_409_105
         ]
         for p in not_primes:
             self.assertFalse(is_prime(p))
@@ -57,13 +59,17 @@ class MathsReusable(unittest.TestCase):
         for i, (base, exp) in enumerate(arguments):
             self.assertEqual(expected[i], power_digit_sum(base, exp))
 
-    def test_prime_factors(self):
+    def test_prime_factors_valid(self):
         nums = [2, 12, 100, 999]
         expected = [[2], [2, 2, 3], [2, 2, 5, 5], [3, 3, 3, 37]]
         for i, n in enumerate(nums):
             factors = [[k] * v for k, v in prime_factors(n).items()]
             flattened = sum(factors, [])
             self.assertListEqual(expected[i], flattened)
+
+    def test_prime_factors_invalid(self):
+        self.assertRaises(ValueError, prime_factors, 1)
+        self.assertRaises(ValueError, prime_factors, 0)
 
     def test_prime_numbers_small(self):
         n = 30
@@ -82,13 +88,13 @@ class MathsReusable(unittest.TestCase):
         self.assertEqual(expected_tail, actual_og[-10:])
         self.assertEqual(expected_tail, actual[-10:])
 
-    def test_pythagorean_triple_valid(self):
+    def test_pythagorean_triplet_valid(self):
         arguments = [(2, 1, 1), (3, 2, 1), (4, 1, 1), (4, 3, 1)]
         expected = [(3, 4, 5), (5, 12, 13), (8, 15, 17), (7, 24, 25)]
         for i, (m, n, d) in enumerate(arguments):
             self.assertTupleEqual(expected[i], pythagorean_triplet(m, n, d))
 
-    def test_pythagorean_triple_invalid(self):
+    def test_pythagorean_triplet_invalid(self):
         self.assertRaises(ValueError, pythagorean_triplet, 1, 0, 1)
         self.assertRaises(ValueError, pythagorean_triplet, 1, 10, 1)
         self.assertRaises(ValueError, pythagorean_triplet, 5, 3, 1)

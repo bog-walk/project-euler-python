@@ -1,4 +1,4 @@
-from math import floor, gcd, isqrt, sqrt
+from math import floor, gcd, isqrt, log2, sqrt
 
 
 def gaussian_sum(n: int) -> int:
@@ -6,7 +6,7 @@ def gaussian_sum(n: int) -> int:
 
     Conversion of very large floats to integers in this formula can lead to large
     rounding losses, so division by 2 & int cast is replaced with a single bitwise
-    right shift, as :math:`n >> 1 = n / 2^1`.
+    right shift, as n >> 1 = n / 2^1.
     """
 
     return n * (n + 1) >> 1
@@ -16,17 +16,17 @@ def is_pentagonal_number(p_n: int) -> int | None:
     """
     Derivation solution is based on the formula:
 
-    :math:`n(3n - 1) / 2 = p_n`, in quadratic form becomes:
+    n(3n - 1) / 2 = p_n, in quadratic form becomes:
 
-    :math:`0 = 3n^2 - n - 2p_n`, with :math:`a, b, c = 3, -1, (-2p_n)`
+    0 = 3n^2 - n - 2p_n, with a, b, c = 3, -1, (-2p_n)
 
     putting these values in the quadratic formula becomes:
 
-    :math:`n = (1 \\pm \\sqrt{1 + 24p_n}) / 6`
+    n = (1 +/- sqrt(1 + 24p_n)) / 6
 
     so the inverse function, positive solution becomes:
 
-    :math:`n = (1 + \\sqrt{1 + 24p_n}) / 6`
+    n = (1 + sqrt(1 + 24p_n)) / 6
 
     :returns: p_n's corresponding term if pentagonal, or None.
     """
@@ -39,14 +39,18 @@ def is_prime(n: int) -> bool:
     """ Checks if n is prime.
 
     This version will be used preferentially, unless the argument is expected to
-    frequently exceed 1e6.
+    frequently exceed 1e5.
 
-    SPEED (WORSE for N > 1e7)
-        1.96s for a 15-digit prime
-    SPEED (EQUAL for N == 1e6 || N == 1e7)
-        20000ns for 7-digit prime
-    SPEED (BETTER for N < 1e6)
-        11200ns for 3-digit prime
+    SPEED (WORSE for N > 1e15)
+        1.86s for a 15-digit prime
+    SPEED (WORSE for N > 1e10)
+        5.01ms for a 10-digit prime
+    SPEED (WORSE for N > 1e5)
+        6.6e4ns for a 6-digit prime
+    SPEED (BETTER for N < 1e5)
+        1.7e4ns for a 5-digit prime
+    SPEED (BETTER for N < 1e3)
+        7700ns for a 3-digit prime
     """
 
     if n < 2:
@@ -62,11 +66,10 @@ def is_prime(n: int) -> bool:
         # i.e. they are never multiples of 3
         return False
     else:
-        # N can only have 1 prime factor > sqrt(N): N itself!
-        # max_p = floor(sqrt(n))
+        # n can only have 1 prime factor > sqrt(n): n itself!
         max_p = isqrt(n)
-        step = 5  # multiples of prime 5 not yet assessed
-        # 11, 13, 17, 19, and 23 will all bypass N loop
+        step = 5  # as multiples of prime 5 not yet assessed
+        # 11, 13, 17, 19, and 23 will all bypass n loop
         while step <= max_p:
             if not n % step or not n % (step + 2):
                 return False
@@ -79,27 +82,32 @@ def is_prime_mr(num: int, k_rounds: list[int] | None = None) -> bool:
     likely to be prime.
 
     This version will only be used if the argument is expected to frequently
-    exceed 1e6.
+    exceed 1e5.
 
-    -   The number received, once determined to be odd, is expressed as :math:`n =
-        2^rs + 1`, with s being odd.
+    -   The number received, once determined to be odd, is expressed as
+        n = (2^r)s + 1, with s being odd.
     -   A random integer, a, is chosen k times (higher k means higher accuracy),
         with 0 < a < num.
-    -   Calculate :math:`a^s \\% n`. If this equals 1 or this plus 1 equals n
-        while s has the powers of 2 previously factored out returned, then n
-        passes as a strong probable prime.
+    -   Calculate a^s % n. If this equals 1 or this plus 1 equals n while s has
+        the powers of 2 previously factored out returned, then n passes as a
+        strong probable prime.
     -   n should pass for all generated a.
 
-    This algorithm uses a list of the first 5 primes instead of randomly generated a,
-    as this has been proven valid for numbers up to 2.1e12. Providing a list of
-    the first 7 primes gives test validity for numbers up to 3.4e14.
+    The algorithm's complexity is O(k*log^3*n). This algorithm uses a list of
+    the first 5 primes instead of randomly generated a, as this has been proven
+    valid for numbers up to 2.1e12. Providing a list of the first 7 primes gives
+    test validity for numbers up to 3.4e14.
 
-    SPEED (BETTER for N > 1e7)
-        1.4e5ns for a 15-digit prime
-    SPEED (EQUAL for N == 1e6 || N == 1e7)
-        23700ns for 7-digit prime
-    SPEED (WORSE for N < 1e6)
-        28100ns for 3-digit prime
+    SPEED (BETTER for N > 1e15)
+        1.5e5ns for a 15-digit prime
+    SPEED (BETTER for N > 1e10)
+        7.6e4ns for a 10-digit prime
+    SPEED (BETTER for N > 1e5)
+        5.6e4ns for a 6-digit prime
+    SPEED (WORSE for N < 1e5)
+        4.2e4ns for a 5-digit prime
+    SPEED (WORSE for N < 1e3)
+        3.9e4ns for a 3-digit prime
     """
 
     if k_rounds is None:
@@ -109,28 +117,28 @@ def is_prime_mr(num: int, k_rounds: list[int] | None = None) -> bool:
     if num < 2 or num % 2 == 0:
         return False
 
-    def miller_rabin(a: int, s: int, n: int) -> bool:
+    def miller_rabin(a: int, s: int, r: int, n: int) -> bool:
+        # calculate a^s % n
         x = pow(a, s, n)
         if x == 1 or x == n - 1:
             return True
-        while s != n - 1:
+        for _ in range(r):
             x = pow(x, 2, n)
-            s *= 2
             if x == 1:
                 return False
             if x == n - 1:
                 return True
         return False
 
-    # write num as 2^r * s + 1 by factoring out powers of 2
-    # from num - 1 (even) until s is odd
-    n_s = num - 1
-    while n_s % 2 == 0:
-        n_s //= 2
+    # write num as 2^r * s + 1 by first getting r, the largest power of 2
+    # that divides (num - 1), by getting the index of the right-most one bit
+    n_r = int(log2((num - 1) & -(num - 1)))
+    # x * 2^y == x << y
+    n_s = (num - 1) // (2 << (n_r - 1))
     for k in k_rounds:
         if k > num - 2:
             break
-        if not miller_rabin(k, n_s, num):
+        if not miller_rabin(k, n_s, n_r, num):
             return False
     return True
 
@@ -139,17 +147,17 @@ def is_triangular_number(t_n: int) -> int | None:
     """
     Derivation solution is based on the formula:
 
-    :math:`n(n + 1) / 2 = t_n`, in quadratic form becomes:
+    n(n + 1) / 2 = t_n, in quadratic form becomes:
 
-    :math:`0 = n^2 + n - 2t_n`, with `a, b, c = 1, 1, -2t_n`
+    0 = n^2 + n - 2t_n, with a, b, c = 1, 1, -2t_n
 
     putting these values in the quadratic formula becomes:
 
-    :math:`n = (-1 \\pm \\sqrt{1 + 8t_n}) / 2`
+    n = (-1 +/- sqrt(1 + 8t_n)) / 2
 
     so the inverse function, positive solution becomes:
 
-    :math:`n = (\\sqrt{1 + 8t_n} - 1) / 2`
+    n = (sqrt(1 + 8t_n) - 1) / 2
 
     :returns: t_n's corresponding term if triangular, or None.
     """
@@ -159,7 +167,7 @@ def is_triangular_number(t_n: int) -> int | None:
 
 
 def power_digit_sum(base: int, exponent: int) -> int:
-    """ Calculates the sum of the digits of the number :math:`base^exponent`. """
+    """ Calculates the sum of the digits of the number, base^exponent. """
 
     return sum(map(int, str(pow(base, exponent))))
 
@@ -170,12 +178,15 @@ def prime_factors(n: int) -> dict[int, int]:
     Every prime number after 2 will be odd and there can be at most 1 prime factor
     greater than sqrt(n), which would be n itself if n is a prime.
 
+    e.g. N = 12 returns {2=2, 3=1} -> 2^2 * 3^1 = 12
+
     :returns: Dict of prime factors (keys) and their exponents (values).
+    :raises ValueError: If argument is not greater than 1.
     """
 
+    if n <= 1:
+        raise ValueError("Must provide a natural number greater than 1")
     primes = dict()
-    if n < 2:
-        return primes
     factors = [2]
     factors.extend(range(3, isqrt(n) + 1, 2))
     for factor in factors:
@@ -186,7 +197,7 @@ def prime_factors(n: int) -> dict[int, int]:
                 primes[factor] = 1
             n //= factor
     if n > 2:
-        primes[n] = 1
+        primes[n] = primes[n] + 1 if n in primes else 1
     return primes
 
 
@@ -269,7 +280,7 @@ def pythagorean_triplet(m: int, n: int, d: int) -> (int, int, int):
 
 
 def sum_proper_divisors_og(n: int) -> int:
-    """ Calculates the sum of all divisors of n.
+    """ Calculates the sum of all divisors of n, not inclusive of n.
 
     Solution optimised based on the following:
 
@@ -280,7 +291,7 @@ def sum_proper_divisors_og(n: int) -> int:
     -   Loop range differs for odd numbers as they cannot have even divisors.
 
     SPEED (WORSE)
-        4.2e4ns for N = 1e6 - 1
+        8.8e4ns for N = 1e6 - 1
     """
 
     if n < 2:
@@ -299,13 +310,15 @@ def sum_proper_divisors_og(n: int) -> int:
 
 
 def sum_proper_divisors(num: int) -> int:
-    """ Calculates the sum of all divisors of n.
+    """ Calculates the sum of all divisors of num, not inclusive of num.
 
     Solution above is further optimised by using prime factorisation to
-    out-perform the original method. This version will be used in future solutions.
+    out-perform the original method.
+
+    This version will be used in future solutions.
 
     SPEED (BETTER)
-        7.8e3ns for N = 1e6 - 1
+        1.5e4ns for N = 1e6 - 1
     """
 
     if num < 2:

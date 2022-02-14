@@ -1,7 +1,7 @@
 def is_palindrome_recursive(n: str) -> bool:
     """
     SPEED (WORST)
-        6.1e-3s for 18-digit N over 1000 iterations
+        6.3e4ns for 18-digit N
     """
 
     digits = len(n)
@@ -16,7 +16,7 @@ def is_palindrome_recursive(n: str) -> bool:
 def is_palindrome_number(n: str) -> bool:
     """
     SPEED (BETTER)
-        4.6e-3s for 18-digit N over 1000 iterations
+        3.3e4ns for 18-digit N
     """
 
     num = int(n)
@@ -31,7 +31,7 @@ def is_palindrome(n: str) -> bool:
     """ This version will be used in future solutions.
 
     SPEED (BEST)
-        7.0e-4s for 18-digit N over 1000 iterations
+        5000ns for 18-digit N
     """
 
     return n == n[::-1]
