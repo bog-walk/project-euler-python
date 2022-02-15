@@ -9,6 +9,17 @@ class MathsReusable(unittest.TestCase):
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], gaussian_sum(n))
 
+    def test_is_hexagonal_all_true(self):
+        h_n_s = [1, 6, 15, 28, 45, 325, 703, 1326]
+        expected = [1, 2, 3, 4, 5, 13, 19, 26]
+        for i, h_n in enumerate(h_n_s):
+            self.assertEqual(expected[i], is_hexagonal_number(h_n))
+
+    def test_is_hexagonal_all_false(self):
+        h_n_s = [2, 23, 100, 313, 691, 1111]
+        for h_n in h_n_s:
+            self.assertIsNone(is_hexagonal_number(h_n))
+
     def test_is_pentagonal_all_true(self):
         p_n_s = [1, 5, 12, 22, 35, 247, 532, 1001]
         expected = [1, 2, 3, 4, 5, 13, 19, 26]

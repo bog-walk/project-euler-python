@@ -24,31 +24,8 @@ e.g.: N = 10_000, a = 3, b = 5
       N = 100_000, a = 5, b = 6
       result = {1, 40755}
 """
-from math import floor, sqrt
-from util.maths.reusable import is_triangular_number, is_pentagonal_number
-
-
-def is_hexagonal_number(h_n: int) -> int | None:
-    """
-    Derivation solution is based on the formula:
-
-    n(2n - 1) = h_n, in quadratic form becomes:
-
-    0 = 2n^2 - n - h_n, with a, b, c = 2, -1, -h_n
-
-    putting these values in the quadratic formula becomes:
-
-    n = 1 +/- sqrt(1 + 8h_n) / 4
-
-    so the inverse function, positive solution becomes:
-
-    n = (1 + sqrt(1 + 8h_n)) / 4
-
-    :returns: h_n's corresponding term if hexagonal, or None.
-    """
-
-    n = 0.25 * (1 + sqrt(1 + 8 * h_n))
-    return int(n) if n == floor(n) else None
+from util.maths.reusable import is_hexagonal_number, is_triangular_number, \
+    is_pentagonal_number
 
 
 def common_numbers(n: int, a: int, b: int) -> list[int]:

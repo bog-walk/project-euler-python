@@ -12,6 +12,29 @@ def gaussian_sum(n: int) -> int:
     return n * (n + 1) >> 1
 
 
+def is_hexagonal_number(h_n: int) -> int | None:
+    """
+    Derivation solution is based on the formula:
+
+    n(2n - 1) = h_n, in quadratic form becomes:
+
+    0 = 2n^2 - n - h_n, with a, b, c = 2, -1, -h_n
+
+    putting these values in the quadratic formula becomes:
+
+    n = 1 +/- sqrt(1 + 8h_n) / 4
+
+    so the inverse function, positive solution becomes:
+
+    n = (1 + sqrt(1 + 8h_n)) / 4
+
+    :returns: h_n's corresponding term if hexagonal, or None.
+    """
+
+    n = 0.25 * (1 + sqrt(1 + 8 * h_n))
+    return int(n) if n == floor(n) else None
+
+
 def is_pentagonal_number(p_n: int) -> int | None:
     """
     Derivation solution is based on the formula:
