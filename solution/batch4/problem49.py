@@ -13,6 +13,7 @@ e.g.: N = 2000, K = 3
       output = "148748178147"
 """
 from itertools import permutations
+from util.combinatorics.reusable import permutation_id
 from util.maths.reusable import is_prime, prime_numbers
 
 
@@ -56,23 +57,6 @@ def prime_perm_sequence(n: int, k: int) -> list[list[int]]:
     return sequences
 
 
-def perm_id(n: int) -> int:
-    """
-    Generate a hash key for a prime number based on the amount of repeated digits,
-    represented as a numerical version of an indexed RTL array.
-
-    e.g. 1487 -> 110010010 <- 4817
-         2214 -> 10210 <- 4212
-    """
-
-    p_id = 0
-    while n:
-        digit = n % 10
-        p_id += pow(10, digit)
-        n //= 10
-    return p_id
-
-
 def prime_perm_sequence_improved(n: int, k: int) -> list[list[int]]:
     """
     Solution optimised by using perm_id() helper function that maps all primes
@@ -88,12 +72,12 @@ def prime_perm_sequence_improved(n: int, k: int) -> list[list[int]]:
     """
 
     primes = prime_numbers(pow(10, len(str(n))) - 1)
-    prime_perms: dict[int, list[int]] = dict()
+    prime_perms: dict[tuple, list[int]] = {}
     sequences = []
     for prime in primes:
         if prime < 1117:
             continue
-        p_id = perm_id(prime)
+        p_id = permutation_id(prime)
         prime_perms[p_id] = prime_perms.setdefault(p_id, []) + [prime]
     for perms in prime_perms.values():
         if len(perms) >= k:

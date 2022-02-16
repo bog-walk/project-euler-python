@@ -14,11 +14,11 @@ def output_speed(speeds: dict, precision: int):
     """
     outputs = sorted(speeds.items(), key=lambda kv: kv[1])
     for name, time in outputs:
-        if time >= 1e9:
+        if time >= 1_000_000_000:
             time_f = f"{time / 1e9:.{precision}f}s"
-        elif time >= 1e6:
+        elif time >= 1_000_000:
             time_f = "{:.2f}ms".format(time / 1e6)
-        elif time >= 1e4:
+        elif time >= 10_000:
             time_f = "{:.1e}ns".format(time)
         else:
             time_f = f"{time}ns"

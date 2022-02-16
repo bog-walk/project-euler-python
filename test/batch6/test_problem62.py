@@ -1,5 +1,4 @@
 import unittest
-from util.tests.reusable import compare_speed
 from solution.batch6.problem62 import *
 
 
