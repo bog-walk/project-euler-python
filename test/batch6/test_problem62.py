@@ -3,12 +3,12 @@ from solution.batch6.problem62 import *
 
 
 class CubicPermutations(unittest.TestCase):
-    def test_cubic_perms_lower_constraints(self):
+    def test_HR_problem_lower_constraints(self):
         n, k = 1000, 3
         expected = [[41_063_625, 56_623_104, 66_430_125]]
         self.assertListEqual(expected, cubic_permutations(n, k))
 
-    def test_cubic_perms_mid_constraints(self):
+    def test_HR_problem_mid_constraints(self):
         n, k = 100_000, 10
         expected_size = 3
         expected_smallests = [
@@ -18,7 +18,7 @@ class CubicPermutations(unittest.TestCase):
         self.assertEqual(expected_size, len(actual))
         self.assertListEqual(expected_smallests, [a[0] for a in actual])
 
-    def test_cubic_perms_upper_constraints(self):
+    def test_HR_problem_upper_constraints(self):
         n, k = 1_000_000, 49
         expected_size = 1
         expected_smallest = 101_740_954_697_838_253
