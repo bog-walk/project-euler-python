@@ -4,8 +4,11 @@ from solution.batch3.problem40 import *
 
 class ChampernownesConstant(unittest.TestCase):
     def test_get_constant(self):
-        position = [1, 10, 33, 65, 90, 145, 200, 298]
-        expected = [1, 1, 1, 7, 5, 7, 0, 1]
+        position = [
+            1, 10, 33, 65, 90, 145, 200, 298, 1_000_000_000_000,
+            999_999_999_934_999_995, 1_000_000_000_000_000_000
+        ]
+        expected = [1, 1, 1, 7, 5, 7, 0, 1, 1, 7, 3]
         for i, pos in enumerate(position):
             self.assertEqual(expected[i], get_constant(pos))
 
@@ -32,9 +35,12 @@ class ChampernownesConstant(unittest.TestCase):
     def test_champernownes_product_upper_constraints(self):
         inputs = [
             [pow(10, e) for e in range(7)],
-            [pow(10, e) for e in range(12, 19)]
+            [pow(10, e) for e in range(12, 19)],
+            [9_999_999_999_999_995, 999_999_999_934_999_995, 999_992_599_999_999_996,
+             999_991_999_999_998, 999_999_999_999_999_999, 999_123_999_999_999_999,
+             1_000_000_000_000_000_000]
         ]
-        expected = [210, 5040]
+        expected = [210, 5040, 370_440]
         for i, digits in enumerate(inputs):
             self.assertEqual(expected[i], champernownes_product(digits))
 

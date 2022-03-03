@@ -25,9 +25,9 @@ def max_digit_sum(n: int) -> int:
     observed of the a, b combinations that achieved the maximum digit sums:
 
     -   a is never less than n / 2, even for outliers with large deltas, e.g. n =
-        42 achieved a max sum at 24^41.
+        42 achieved max sum at 24^41.
 
-    -   b is never more than 5 digits less than n, e.g. n = 100 achieved a max sum
+    -   b is never more than 5 digits less than n, e.g. n = 100 achieved max sum
         at 99^95.
     """
 

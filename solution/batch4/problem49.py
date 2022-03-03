@@ -59,7 +59,7 @@ def prime_perm_sequence(n: int, k: int) -> list[list[int]]:
 
 def prime_perm_sequence_improved(n: int, k: int) -> list[list[int]]:
     """
-    Solution optimised by using perm_id() helper function that maps all primes
+    Solution optimised by using permutation_id() helper function that maps all primes
     with same type and amount of digits to a permutation id. Then every list of
     primes that share a permutation id and has >= K elements is iterated over to
     check for an arithmetic progression sequence.

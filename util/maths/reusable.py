@@ -22,7 +22,7 @@ def is_hexagonal_number(h_n: int) -> int | None:
 
     putting these values in the quadratic formula becomes:
 
-    n = 1 +/- sqrt(1 + 8h_n) / 4
+    n = (1 +/- sqrt(1 + 8h_n)) / 4
 
     so the inverse function, positive solution becomes:
 
@@ -41,7 +41,7 @@ def is_pentagonal_number(p_n: int) -> int | None:
 
     n(3n - 1) / 2 = p_n, in quadratic form becomes:
 
-    0 = 3n^2 - n - 2p_n, with a, b, c = 3, -1, (-2p_n)
+    0 = 3n^2 - n - 2p_n, with a, b, c = 3, -1, -2p_n
 
     putting these values in the quadratic formula becomes:
 

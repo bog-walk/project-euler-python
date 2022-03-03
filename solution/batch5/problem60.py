@@ -65,7 +65,7 @@ def prime_pair_set_sums(n: int, k: int, m: int) -> list[int]:
         intersection being reverted to its previous value.
 
     -   Refactored to be used in a multiprocessing function below by reducing list
-        of primes to either include those that are congruent to 1 mod 3 or 2 mode 3.
+        of primes to either include those that are congruent to 1 mod 3 or 2 mod 3.
         These lists can be processed separately as p_1, where p_1 % 3 == 1, and p_2,
         where p_2 % 3 == 2, will always concatenate to a number that is evenly
         divisible by 3, and thereby not a prime. This is based on the concatenation
@@ -84,7 +84,7 @@ def prime_pair_set_sums(n: int, k: int, m: int) -> list[int]:
     primes = [3] + [p for p in all_primes if p < n and p % 3 == m]
     num_of_primes = len(primes)
 
-    def get_pairs(prime_i: int) -> {int, ...}:
+    def get_pairs(prime_i: int):
         prime = primes[prime_i]
         pairs = set()
         for p in range(prime_i + 1, num_of_primes):

@@ -29,7 +29,7 @@ class DistinctPrimesFactors(unittest.TestCase):
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], consecutive_distinct_primes(n, k))
 
-    def test_first_4_distinct_primes(self):
+    def test_PE_problem(self):
         expected = 134_043
         self.assertEqual(expected, first_4_distinct_primes())
 

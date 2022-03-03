@@ -21,9 +21,9 @@ from util.maths.reusable import is_pentagonal_number
 
 
 def pentagon_numbers_HR(n: int, k: int) -> {int, ...}:
-    p_n_s = [(n + 1) * (3 * (n + 1) - 1) // 2 for n in range(n - 1)]
+    p_n_s = [n * (3 * n - 1) // 2 for n in range(n)]
     valid_p_n = set()
-    for i in range(k, n - 1):
+    for i in range(k + 1, n - 1):
         p_n = p_n_s[i]
         p_n_minus_k = p_n_s[i - k]
         if (is_pentagonal_number(p_n - p_n_minus_k) is not None
@@ -45,11 +45,11 @@ def pentagon_numbers_PE() -> int:
     P_y = 1_560_090, where y = 1020.
     """
 
-    p_n_s = [(n + 1) * (3 * (n + 1) - 1) // 2 for n in range(10_000)]
+    p_n_s = [n * (3 * n - 1) // 2 for n in range(10_001)]
     delta = None
-    for x in range(2, 10_000):
+    for x in range(3, 10_001):
         p_x = p_n_s[x]
-        for y in range(x - 1, 0, -1):
+        for y in range(x - 1, 1, -1):
             p_y = p_n_s[y]
             minus = p_x - p_y
             if (is_pentagonal_number(minus) is None

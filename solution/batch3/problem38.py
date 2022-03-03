@@ -55,7 +55,7 @@ def largest_9_pandigital() -> str:
     -   Since the multiplier must at minimum be multiplied by both 1 & 2, it cannot
         be larger than 4 digits to ensure product is only 9 digits.
 
-    -   The default largest would be M = 9 * (1, 2, 3, 4, 5) = 918273645, so M must
+    -   The default largest would be M = 9 * (1, 2, 3, 4, 5) = 918_273_645, so M must
         begin with the digit 9.
 
     -   The 2-digit minimum (M = 91) would result in either an 8-/11-digit product
@@ -69,7 +69,8 @@ def largest_9_pandigital() -> str:
         new digit 1, so M cannot itself contain the digit 1, setting the new minimum
         to 9234.
 
-    -   Lastly, multiplying (98xx downTo 95xx) by 2 will at minimum result in 19xxx,
+    -   Lastly, multiplying [98xx, 95xx, -1] by 2 will at minimum result in
+    19xxx,
         always generating another digit 9, so M's 2nd digit must be < 5, setting the
         new maximum to 9487.
     """

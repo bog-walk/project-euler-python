@@ -32,7 +32,7 @@ class TriPentHex(unittest.TestCase):
         for actual in results.values():
             self.assertListEqual(expected, actual)
 
-    def test_next_triple_type(self):
+    def test_PE_problem(self):
         expected = 1_533_776_805
         self.assertEqual(expected, next_triple_type())
 

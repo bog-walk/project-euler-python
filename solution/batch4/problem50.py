@@ -26,6 +26,9 @@ def consecutive_prime_sum(n: int) -> (int, int):
 
     SPEED (WORSE)
         23.50s for N = 1e10
+
+    :returns: Tuple of the smallest valid prime to the length of the generating
+        prime sequence.
     """
 
     limit = min(n, 10_000_000)
@@ -59,6 +62,9 @@ def consecutive_prime_sum_improved(n: int) -> (int, int):
 
     SPEED (BETTER)
         1.98s for N = 1e10
+
+    :returns: Tuple of the smallest valid prime to the length of the generating
+        prime sequence.
     """
 
     limit = min(n, 10_000_000)

@@ -21,7 +21,7 @@ class GoldbachsOtherConjecture(unittest.TestCase):
         for i, composite in enumerate(composites):
             self.assertEqual(expected[i], goldbach_repr(composite))
 
-    def test_smallest_failing_num(self):
+    def test_PE_problem(self):
         expected = 5777
         self.assertEqual(expected, smallest_failing_num())
 

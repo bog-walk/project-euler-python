@@ -119,7 +119,7 @@ def max_palindrome_convergence(n: int) -> (int, int):
 
 def count_lychrel_numbers() -> int:
     """
-    Project Euler specific implementation that counts Lychrel numbers < 1e5.
+    Project Euler specific implementation that counts Lychrel numbers < 1e4.
 
     Storing visited numbers in a set that is checked before cycling through
     iterations prevents unnecessary steps. e.g. If 19 converges to a palindrome,

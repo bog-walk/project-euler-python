@@ -11,7 +11,7 @@ class LychrelNumbers(unittest.TestCase):
             self.assertTupleEqual(expected[i], max_palindrome_convergence(n))
             self.assertTupleEqual(expected[i], max_palindrome_convergence_cached(n))
 
-    def test_mid_values(self):
+    def test_mid_constraints(self):
         nums = [1000, 5000]
         expected = [(1111, 25), (12221, 88)]
         for i, n in enumerate(nums):
@@ -27,7 +27,7 @@ class LychrelNumbers(unittest.TestCase):
 
     def test_speed(self):
         n = 100_000
-        expected = (4964444694, 583)
+        expected = (4_964_444_694, 583)
         solutions = {
             "Cache": [max_palindrome_convergence_cached, n],
             "No cache": [max_palindrome_convergence, n]

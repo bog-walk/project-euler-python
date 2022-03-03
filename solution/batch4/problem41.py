@@ -47,29 +47,28 @@ def all_pandigital_primes_builtin() -> list[int]:
     -   Found using the brute force backwards search in the function above, the
         largest pandigital prime is 7-digits -> 7_652_413.
 
-    -   The above 2 proven bounds confirms that only 4- & 7-digit pandigitals can
+    -   The above 2 proven bounds confirm that only 4- & 7-digit pandigitals can
         be prime numbers as all primes greater than 3 are of the form 6*p(+/- 1) & so
         cannot be multiples of 3. If the sum of a pandigital's digits is a multiple
         of 3, then that number will be a multiple of 3 & thereby not a prime. Only
         4- & 7-digit pandigitals have sums that are not divisible by 3.
 
     SPEED (BETTER)
-        316.90ms to generate all pandigital primes
+        68.37ms to generate all pandigital primes
 
     :returns: List of all pandigital primes sorted in descending order.
     """
 
     pandigital_primes = []
-    digits = [str(d) for d in range(1, 8)]
+    # create reversed list to find larger permutations first
+    digits = [str(d) for d in range(7, 0, -1)]
     for _ in range(2):
         # permutations() returns a sorted list of tuples
-        perms = list(map("".join, permutations(digits)))
-        # move backwards to find larger permutations first
-        for i in range(len(perms) - 1, -1, -1):
-            n_perm = int(perms[i])
+        for perm in map("".join, permutations(digits)):
+            n_perm = int(perm)
             if is_prime_mr(n_perm):
                 pandigital_primes.append(n_perm)
-        digits = digits[:-3]
+        digits = digits[3:]
     return pandigital_primes
 
 
@@ -80,7 +79,7 @@ def all_pandigital_primes() -> list[int]:
     limits if they are also pandigital.
 
     SPEED (WORSE)
-        3.27s to generate all pandigital primes
+        2.81s to generate all pandigital primes
 
     :returns: List of all pandigital primes sorted in descending order.
     """

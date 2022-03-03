@@ -87,11 +87,11 @@ def is_octagonal_number(o_n: int) -> int | None:
 
     putting these values in the quadratic formula becomes:
 
-    n = 2 +/- sqrt(4 + 12o_n) / 6
+    n = (2 +/- sqrt(4 + 12o_n)) / 6
 
     so the inverse function, positive solution becomes:
 
-    n = (1 + sqrt(1 + 3h_n)) / 3
+    n = (1 + sqrt(1 + 3o_n)) / 3
 
     :returns: o_n's corresponding term if octagonal, or None.
     """

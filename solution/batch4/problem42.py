@@ -33,7 +33,7 @@ def triangle_term(t_n: int) -> int:
 
     2t_n / n = n + 1 and 2t_n / (n + 1) = n, therefore:
 
-    2t_n == lcm(n, n+ 1) and
+    2t_n == lcm(n, n + 1) and
 
     n must at minimum be sqrt(2t_n)
 
@@ -59,7 +59,7 @@ def count_triangle_words(words: list[str]) -> int:
     Project Euler specific implementation that returns the count, from an
     input of <2000 words, of words whose summed alphabetical character value
     corresponds to a triangle number.
-        e.g. "SKY" = 19 + 11 + 25 = 55 = t_10.
+        e.g. "SKY" = 19 + 11 + 25 = 55 = t_10
     """
 
     # get alphabetical position based on 'A' code = 65

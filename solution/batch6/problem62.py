@@ -53,7 +53,7 @@ def smallest_5_cube_perm() -> list[int]:
     """
 
     cube_perms: dict[str, list[int]] = {}
-    longest_id = 0
+    longest_id = ""
     num = 345
     max_digits = 100
     current_digits = 0
@@ -61,7 +61,7 @@ def smallest_5_cube_perm() -> list[int]:
         cube = pow(num, 3)
         cube_id = "".join(sorted(str(cube)))
         cube_perms[cube_id] = cube_perms.setdefault(cube_id, []) + [cube]
-        if longest_id == 0 and len(cube_perms[cube_id]) == 5:
+        if not longest_id and len(cube_perms[cube_id]) == 5:
             longest_id = cube_id
             max_digits = len(cube_id)
         num += 1

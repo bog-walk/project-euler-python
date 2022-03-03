@@ -9,13 +9,13 @@ Constraints: 2 <= N <= 2e14
              a < b
              a,b in {3, 5, 6} -> {triangle, pentagonal, hexagonal}
 
-Triangular Number: T_n = n (n + 1) / 2
+Triangle Number: T_n = n (n + 1) / 2
 
 Pentagonal Number: P_n = n(3n - 1) / 2
 
 Hexagonal Number: H_n = n(2n - 1)
 
-Some numbers can be all 3 type ->
+Some numbers can be all 3 types ->
 e.g. T_1 = P_1 = H_1 = 1
      T_285 = P_165 = H_143 = 40755
 

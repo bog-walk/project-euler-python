@@ -13,7 +13,7 @@ The only non-single-digit factorions are: 145 and 40585.
 e.g.: N = 20
       qualifying numbers = {19}
       as 1! + 9! = 362_881, which % 19 = 0
-      e.g. 18 does not work as 1! + 8! = 40321, which % 19 > 0
+      e.g. 18 does not work as 1! + 8! = 40321, which % 18 > 0
       sum = 19
 """
 from math import factorial

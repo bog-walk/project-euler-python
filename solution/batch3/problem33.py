@@ -101,7 +101,7 @@ def product_of_non_trivials() -> int:
     Project Euler specific implementation that requires all non-trivial fractions
     that have 2 digits (pre-cancellation of 1 digit) to be found.
 
-    :returns: The denominator of the product of the fractions given in its
+    :returns: The denominator of the product of the fractions given in their
         lowest common terms.
     """
 
@@ -212,6 +212,8 @@ def sum_of_non_trivials_gcd(n: int, k: int) -> (int, int):
 
     SPEED (BETTER for HR problem)
         1.86s for N = 4, K = 1
+
+    :returns: Tuple of (sum of numerators, sum of denominators).
     """
 
     n_sum, d_sum = 0, 0

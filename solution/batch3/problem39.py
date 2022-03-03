@@ -35,7 +35,7 @@ def most_triplet_solutions_brute(n: int) -> int:
         which means values of P and a that result in an integer value b represent a
         valid Triplet.
 
-    SPEED (WORSE)
+    SPEED (WORST)
         329.84s for N = 1e5
     """
 
@@ -54,7 +54,7 @@ def most_triplet_solutions_brute(n: int) -> int:
 def most_triplet_solutions(n: int) -> int:
     """
     Solution is influenced by the previously determined solution for finding
-    primitive Pythagorean Triplets (Batch 1 - Problem 9).
+    primitive Pythagorean Triplets (Batch 0 - Problem 9).
 
     Original solution calculated the ceiling of the square root of the limit.
     This was replaced with the implementation of math.isqrt() for positive n,
