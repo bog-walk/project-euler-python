@@ -9,13 +9,13 @@ class LargestProductInGrid(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.small_grid = get_test_resource(
-            "../resources/largest_product_in_grid_4by4", transformation=int
+            "../resources/largest_product_in_grid_4by4.txt", transformation=int
         )
         cls.mid_grid = get_test_resource(
-            "../resources/largest_product_in_grid_6by6", transformation=int
+            "../resources/largest_product_in_grid_6by6.txt", transformation=int
         )
         cls.large_grid = get_test_resource(
-            "../resources/largest_product_in_grid_20by20", transformation=int
+            "../resources/largest_product_in_grid_20by20.txt", transformation=int
         )
 
     def test_setup(self):

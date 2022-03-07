@@ -8,8 +8,8 @@ class LargeSum(unittest.TestCase):
     def setUpClass(cls):
         cls.three_digits = ["123", "456", "789", "812", "234"]
         cls.ten_digits = ["6041184107", "5351558590", "1833324270"]
-        cls.five_N = get_test_resource("../resources/large_sum_5N")
-        cls.hundred_N = get_test_resource("../resources/large_sum_100N")
+        cls.five_N = get_test_resource("../resources/large_sum_5N.txt")
+        cls.hundred_N = get_test_resource("../resources/large_sum_100N.txt")
 
     def test_setup(self):
         self.assertEqual(5, len(self.five_N))

@@ -2,7 +2,7 @@ from time import perf_counter_ns
 from typing import Any, Callable
 
 
-def output_speed(speeds: dict, precision: int):
+def __output_speed(speeds: dict, precision: int):
     """
     Sorts measured speeds from fastest to slowest, and prints each speed in
     nanoseconds (scientific notation if large), milliseconds, or seconds (to the
@@ -53,7 +53,7 @@ def compare_speed(
         stop = perf_counter_ns()
         results[name] = result
         times[name] = stop - start
-    output_speed(times, precision)
+    __output_speed(times, precision)
     return results
 
 

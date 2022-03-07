@@ -14,5 +14,7 @@
 
 **Batch 6**: Problems 61 - 70
 
+**Batch 7**: Problems 71 - 80
+
 **Resources**
 """

@@ -48,7 +48,7 @@ class PokerHands(unittest.TestCase):
     def test_PE_problem(self):
         expected = 376
         plays: list[list[str]] = get_test_resource(
-            "../resources/poker_hands", transformation=str
+            "../resources/poker_hands.txt", transformation=str
         )
         player_1_wins = sum(
             poker_hand_winner(play[:5], play[5:]) == 1

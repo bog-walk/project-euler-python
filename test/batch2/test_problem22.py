@@ -10,10 +10,10 @@ class NamesScores(unittest.TestCase):
         cls.medium_list = [
             "OLIVIA", "ALEX", "MIA", "LUIS", "LEO", "JAMES", "BRIAN", "NOAH",
             "PAMELA", "AIDEN", "BENJAMIN", "HARPER", "MUHAMMAD", "PENELOPE",
-            "RILEY", "JACOB","SEBASTIAN", "LILY", "ELI", "IVY", "STELLA", "HANNAH",
+            "RILEY", "JACOB", "SEBASTIAN", "LILY", "ELI", "IVY", "STELLA", "HANNAH",
             "VIOLET"
         ]
-        cls.long_list_location = "../resources/names_scores"
+        cls.long_list_location = "../resources/names_scores.txt"
 
     def test_name_score(self):
         names = [(4, "PAMELA"), (937, "COLIN"), (0, "A"), (5199, "ZZZZZZZZZZ")]

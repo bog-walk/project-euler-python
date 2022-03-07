@@ -1,5 +1,8 @@
 """ Util package contains the following modules:
 
+**Combinatorics**
+    Complementary helpers for built-in itertools functions.
+
 **Custom**
     Custom OOP classes for problem sets.
 

@@ -3,6 +3,9 @@
 **gaussian_sum**
     (int) -> int
 
+**is_hexagonal_number**
+    (int) -> int | None
+
 **is_pentagonal_number**
     (int) -> int | None
 

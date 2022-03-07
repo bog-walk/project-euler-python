@@ -8,7 +8,7 @@ class MaximumPathSum2(unittest.TestCase):
         n = 20
         expected = 1407
         pyramid: list[list[int]] = get_test_resource(
-            "../resources/maximum_path_sum_2_with_20_rows",
+            "../resources/maximum_path_sum_2_with_20_rows.txt",
             transformation=int
         )
         elements = [n for row in pyramid for n in row]
@@ -23,7 +23,7 @@ class MaximumPathSum2(unittest.TestCase):
         n = 25
         expected = 1810
         pyramid: list[list[int]] = get_test_resource(
-            "../resources/maximum_path_sum_2_with_25_rows",
+            "../resources/maximum_path_sum_2_with_25_rows.txt",
             transformation=int
         )
         elements = [n for row in pyramid for n in row]
@@ -38,7 +38,7 @@ class MaximumPathSum2(unittest.TestCase):
         n = 100
         expected = 7273
         pyramid: list[list[int]] = get_test_resource(
-            "../resources/maximum_path_sum_2_with_100_rows",
+            "../resources/maximum_path_sum_2_with_100_rows.txt",
             transformation=int
         )
         result = compare_speed({"Dynamic": [max_path_sum_dynamic, n, pyramid]})

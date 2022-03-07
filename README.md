@@ -7,7 +7,7 @@ Problem content on the Project Euler site is licensed under [CC BY-NC-SA 4.0](ht
 Some problems have been altered to either generalise their goal or implement further constraints, as influenced by the 
 problem outlines found on [HackerRank](https://www.hackerrank.com/contests/projecteuler/challenges).
 
-60/100 solved: :snake: :snake: :snake: :snake: :snake: :snake: :black_circle: :black_circle: :black_circle: :black_circle:
+70/100 solved: :snake: :snake: :snake: :snake: :snake: :snake: :snake: :black_circle: :black_circle: :black_circle:
 
 ### Structure Guideline
 
@@ -17,11 +17,10 @@ Each problem has a corresponding test class located in the matching batch within
 
 If a function is used in multiple solutions, it is elevated out of its original module and placed in the 
 **util package**. This package contains custom classes and helper functions (as well as their unit tests) for 
-mathematics, search algorithms, string processing, and test automation.
+combinatorics, mathematics, search algorithms, string processing, and test automation.
 
-### Sibling Repositories
+### Sibling Repository
 
 ---
-The original solution set was written in Kotlin and a C++ project has recently been created:
+The original solution set was written in Kotlin:
 - [Project Euler __ Kotlin](https://github.com/bog-walk/project-euler-kotlin)
-- [Project Euler __ C++]()

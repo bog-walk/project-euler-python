@@ -31,7 +31,7 @@ class XORDecryption(unittest.TestCase):
     def test_HR_problem_letters_digits_punctuations_1(self):
         expected = "qzd"
         resource: list[list[int]] = get_test_resource(
-            "../resources/xor_decryption_ldp_1", ", \n", int, ", "
+            "../resources/xor_decryption_ldp_1.txt", ", \n", int, ", "
         )
         # flatmap nested lists
         encryption: list[int] = [code for line in resource for code in line]
@@ -40,7 +40,7 @@ class XORDecryption(unittest.TestCase):
     def test_HR_problem_letters_digits_punctuations_2(self):
         expected = "lse"
         resource: list[list[int]] = get_test_resource(
-            "../resources/xor_decryption_ldp_2", ", \n", int, ", "
+            "../resources/xor_decryption_ldp_2.txt", ", \n", int, ", "
         )
         # flatmap nested lists
         encryption: list[int] = [code for line in resource for code in line]
@@ -49,7 +49,7 @@ class XORDecryption(unittest.TestCase):
     def test_PE_problem(self):
         expected = 129_448
         resource: list[list[int]] = get_test_resource(
-            "../resources/xor_decryption_pe", ", \n", int, ","
+            "../resources/xor_decryption_pe.txt", ", \n", int, ","
         )
         # flatmap nested lists
         encryption: list[int] = [code for line in resource for code in line]

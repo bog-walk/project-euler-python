@@ -78,7 +78,7 @@ class LargestProductInSeries(unittest.TestCase):
 
     def test_largest_series_product_1000_digits(self):
         string = "".join(
-            get_test_resource("../resources/largest_product_in_series_1000")
+            get_test_resource("../resources/largest_product_in_series_1000.txt")
         )
         n = 1000
         k = [4, 13]

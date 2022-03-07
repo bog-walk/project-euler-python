@@ -18,7 +18,7 @@ class CodedTriangleNumbers(unittest.TestCase):
             self.assertEqual(expected[i], triangle_term_improved(n))
 
     def test_count_triangle_words(self):
-        input_file = "../resources/coded_triangle_numbers"
+        input_file = "../resources/coded_triangle_numbers.txt"
         words = get_test_resource(input_file)
         expected = 162
         self.assertEqual(expected, count_triangle_words(words))
