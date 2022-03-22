@@ -1,4 +1,4 @@
-def permutation_id(n: int) -> tuple[int]:
+def permutation_id(n: int) -> tuple[int, ...]:
     """
     Generates a hash key N based on the amount of repeated digits, represented as
     an ordered LTR tuple.
