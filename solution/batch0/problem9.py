@@ -14,8 +14,8 @@ e.g.: N = 12
       triplets = {{3,4,5}}; as 3 + 4 + 5 == 12
       product = 3 * 4 * 5 = 60
 """
-from math import gcd, hypot, isqrt
-from util.maths.reusable import pythagorean_triplet
+from math import hypot, isqrt
+from util.maths.reusable import is_coprime, pythagorean_triplet
 
 
 def max_triplet_product_loop_c_b(num: int) -> (int, ...):
@@ -35,7 +35,7 @@ def max_triplet_product_loop_c_b(num: int) -> (int, ...):
         when given 2 values.
 
     Speed (WORSE)
-        92.10ms for N = 3000
+        143.39ms for N = 3000
 
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
     """
@@ -83,7 +83,7 @@ def max_triplet_product_loop_a(num: int) -> (int, ...):
         when given 2 values.
 
     Speed (BETTER)
-        1.4e5ns for N = 3000
+        1.5e5ns for N = 3000
 
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
     """
@@ -122,7 +122,7 @@ def max_triplet_product_optimised(num: int) -> (int, ...):
         introduced in Py 3.8.
 
     Speed (BEST)
-        3.0e4ns for N = 3000
+        2.1e4ns for N = 3000
 
     :returns: Tuple(max_product, a, b, c) if one exists, or Tuple(-1,).
     """
@@ -142,7 +142,7 @@ def max_triplet_product_optimised(num: int) -> (int, ...):
                 k_max //= 2
             k = m + 2 if m % 2 == 1 else m + 1
             while k < 2 * m and k <= k_max:
-                if k_max % k == 0 and gcd(k, m) == 1:
+                if k_max % k == 0 and is_coprime(k, m):
                     a, b, c = pythagorean_triplet(m, k - m, limit // (k * m))
                     product = a * b * c
                     if product > max_triplet[0]:

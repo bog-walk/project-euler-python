@@ -12,8 +12,8 @@ e.g. P = 120 has 3 solutions: (20, 48, 52), (24, 45, 51) & (30, 40, 50).
 e.g.: N = 12
       P = 12 as 12 is the only sum of a Pythagorean triplet (3, 4, 5)
 """
-from math import gcd, isqrt
-from util.maths.reusable import pythagorean_triplet
+from math import isqrt
+from util.maths.reusable import is_coprime, pythagorean_triplet
 
 
 def most_triplet_solutions_brute(n: int) -> int:
@@ -74,7 +74,7 @@ def most_triplet_solutions(n: int) -> int:
                 k_max = p // (2 * m)
                 k = m + 2 if m % 2 == 1 else m + 1
                 while k < 2 * m and k <= k_max:
-                    if k_max % k == 0 and gcd(k, m) == 1:
+                    if k_max % k == 0 and is_coprime(k, m):
                         sols += 1
                     k += 2
         if sols > most_sols:
@@ -106,17 +106,18 @@ def most_triplet_solutions_improved(limit: int) -> int:
     m = 2
     while 2 * m * m < limit:
         for n in range(1, m):
-            # ensure that both m and n are not odd
-            # and that m and n are co-prime (gcd == 1)
-            if m % 2 == 1 and n % 2 == 1 or gcd(m, n) > 1:
-                continue
             d = 1
-            while True:
-                p = sum(pythagorean_triplet(m, n, d))
-                if p > limit:
-                    break
-                p_sols[p] += 1
-                d += 1
+            try:
+                while True:
+                    p = sum(pythagorean_triplet(m, n, d))
+                    if p > limit:
+                        break
+                    p_sols[p] += 1
+                    d += 1
+            except ValueError:
+                # ensure that both m and n are not odd
+                # and that m and n are co-prime (gcd == 1)
+                continue
         m += 1
     best = [0]*(limit + 1)
     best_p, best_count = 12, 1

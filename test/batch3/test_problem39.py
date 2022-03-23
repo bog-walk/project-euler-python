@@ -20,7 +20,7 @@ class IntegerRightTriangles(unittest.TestCase):
             "Original": [most_triplet_solutions, n],
             "Improved": [most_triplet_solutions_improved, n]
         }
-        results = compare_speed(solutions, precision=3)
+        results = compare_speed(solutions)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

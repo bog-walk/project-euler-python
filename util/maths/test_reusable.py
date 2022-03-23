@@ -9,6 +9,19 @@ class MathsReusable(unittest.TestCase):
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], gaussian_sum(n))
 
+    def test_is_coprime_all_true(self):
+        inputs = [
+            (1, 2), (2, 3), (3, 5), (4, 7), (4, 9), (5, 7), (5, 9), (11, 13),
+            (14, 15), (17, 19), (29, 31), (3, 67), (99, 100), (34, 79), (54, 67)
+        ]
+        for x, y in inputs:
+            self.assertTrue(is_coprime(x, y))
+
+    def test_is_coprime_all_false(self):
+        inputs = [(3, 12), (4, 18), (5, 5), (6, 10), (24, 57), (13, 117), (99, 102)]
+        for x, y in inputs:
+            self.assertFalse(is_coprime(x, y))
+
     def test_is_hexagonal_all_true(self):
         h_n_s = [1, 6, 15, 28, 45, 325, 703, 1326]
         expected = [1, 2, 3, 4, 5, 13, 19, 26]

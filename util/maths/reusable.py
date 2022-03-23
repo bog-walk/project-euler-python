@@ -12,6 +12,15 @@ def gaussian_sum(n: int) -> int:
     return n * (n + 1) >> 1
 
 
+def is_coprime(x: int, y: int) -> bool:
+    """
+    Two integers are co-prime (relatively/mutually prime) if the only positive
+    integer that is a divisor of both of them is 1.
+    """
+
+    return gcd(x, y) == 1
+
+
 def is_hexagonal_number(h_n: int) -> int | None:
     """
     Derivation solution is based on the formula:
@@ -279,7 +288,7 @@ def prime_numbers(n: int) -> list[int]:
     return primes
 
 
-def pythagorean_triplet(m: int, n: int, d: int) -> (int, int, int):
+def pythagorean_triplet(m: int, n: int, d: int) -> tuple[int, int, int]:
     """
     Euclid's formula generates all Pythagorean triplets from 2 numbers, m and n.
 
@@ -292,9 +301,9 @@ def pythagorean_triplet(m: int, n: int, d: int) -> (int, int, int):
 
     if n < 1 or m < n:
         raise ValueError("Positive integers assumed to be m > n > 0")
-    if n % 2 != 0 and m % 2 != 0:
+    if m % 2 == 1 and n % 2 == 1:
         raise ValueError("Both integers cannot be odd")
-    if gcd(m, n) != 1:
+    if not is_coprime(m, n):
         raise ValueError("Positive integers must be co-prime")
     a = (m * m - n * n) * d
     b = 2 * m * n * d
