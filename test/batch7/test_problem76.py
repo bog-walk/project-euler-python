@@ -1,5 +1,5 @@
 import unittest
-from solution.batch7.problem76 import *
+from solution.batch7.problem76 import count_sum_combos
 
 
 class CountingSummations(unittest.TestCase):
