@@ -28,9 +28,9 @@ def count_sum_combos(n: int) -> int:
     quick-pick testing, the array must be of size 1002 & the loop limits must be
     1001, then all results can be found by subtracting 1 from the stored value.
 
-    SPEED (without modulus)
+    SPEED (BETTER - without modulus)
         117.37ms for N = 1e3
-    SPEED (using modulus)
+    SPEED (WORSE - using modulus)
         221.87ms for N = 1e3
 
     N.B. Unlike in Kotlin, there is no need to perform a modulo operation after
