@@ -86,6 +86,6 @@ def min_path_sum_dijkstra(rows: int, grid: list[list[int]]) -> int:
             return weight
         visited[row][col] = True
         if col + 1 < rows:
-            heappush(sums, (weight + grid[row][col+1], row, (col + 1)))
+            heappush(sums, (weight + grid[row][col+1], row, col + 1))
         if row + 1 < rows:
-            heappush(sums, (weight + grid[row+1][col], (row + 1), col))
+            heappush(sums, (weight + grid[row+1][col], row + 1, col))
