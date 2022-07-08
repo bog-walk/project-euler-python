@@ -1,9 +1,9 @@
 """ Tests Utility module contains the following functions:
 
-**compare_speed**
+compare_speed
     (dict, int, int) -> dict & print()
 
-**get_test_resource**
+get_test_resource
     (str, str, Callable[[str], Any], str) -> list[str] | list[list]
 
 

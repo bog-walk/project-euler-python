@@ -22,14 +22,32 @@ def largest_prime_factor(n: int) -> int:
     Uses prime decomposition via the Sieve of Eratosthenes algorithm to return
     the largest prime factor.
 
-    SPEED (BETTER for N with small factors)
-        66.47ms for N = 1e12
-    SPEED (WORSE for N with large factors)
-        60.20ms for N = 600_851_475_143
+    SPEED (WORSE for N with small factors)
+        53.54ms for N = 1e12
+    SPEED (WORST for N with large factors)
+        39.56ms for N = 600_851_475_143
     """
 
     factors = prime_factors(n)
     return max(factors.keys())
+
+
+def largest_prime_factor_simple(n: int) -> int:
+    """
+    Uses prime decomposition via trial division without any optimisation.
+
+    SPEED (BEST for N with small factors)
+        3743ns for N = 1e12
+    SPEED (BEST for N with large factors)
+        2.7e+05ns for N = 600_851_475_143
+    """
+
+    factor = 2
+    while factor * factor <= n:
+        while n % factor == 0 and n != factor:
+            n //= factor
+        factor += 1
+    return n
 
 
 def largest_prime_factor_recursive(n: int, f: int = 2) -> int:
@@ -37,10 +55,10 @@ def largest_prime_factor_recursive(n: int, f: int = 2) -> int:
     Original solution used a floored square root to get an integer value. This
     was replaced with math.isqrt(), introduced in Py 3.8.
 
-    SPEED (BETTER for N with small factors)
-        53.45ms for N = 1e12
+    SPEED (WORSE for N with small factors)
+        52.41ms for N = 1e12
     SPEED (BETTER for N with large factors)
-        22.31ms for N = 600_851_475_143
+        12.85ms for N = 600_851_475_143
     """
 
     factors = [2]

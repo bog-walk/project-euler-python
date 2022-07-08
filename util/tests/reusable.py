@@ -46,13 +46,13 @@ def compare_speed(
     for name, solution in solutions.items():
         function = solution[0]
         arguments = solution[1:]
-        result = None
         start = perf_counter_ns()
-        for _ in range(repeat):
-            result = function(*arguments)
+        result = function(*arguments)
+        for _ in range(repeat-1):
+            function(*arguments)
         stop = perf_counter_ns()
         results[name] = result
-        times[name] = stop - start
+        times[name] = (stop - start) // repeat
     __output_speed(times, precision)
     return results
 

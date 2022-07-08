@@ -8,19 +8,22 @@ class LargestPrimeFactor(unittest.TestCase):
         n = 10
         expected = 5
         self.assertEqual(expected, largest_prime_factor(n))
+        self.assertEqual(expected, largest_prime_factor_simple(n))
         self.assertEqual(expected, largest_prime_factor_recursive(n))
 
     def test_n_is_small_prime(self):
         n = 17
         expected = 17
         self.assertEqual(expected, largest_prime_factor(n))
+        self.assertEqual(expected, largest_prime_factor_simple(n))
         self.assertEqual(expected, largest_prime_factor_recursive(n))
 
     def test_normal_n(self):
-        nums = [48, 330]
-        expected = [3, 11]
+        nums = [48, 147, 330]
+        expected = [3, 7, 11]
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], largest_prime_factor(n))
+            self.assertEqual(expected[i], largest_prime_factor_simple(n))
             self.assertEqual(expected[i], largest_prime_factor_recursive(n))
 
     def test_large_n(self):
@@ -28,6 +31,7 @@ class LargestPrimeFactor(unittest.TestCase):
         expected = [29, 5]
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], largest_prime_factor(n))
+            self.assertEqual(expected[i], largest_prime_factor_simple(n))
             self.assertEqual(expected[i], largest_prime_factor_recursive(n))
 
     def test_n_is_large_prime(self):
@@ -35,6 +39,7 @@ class LargestPrimeFactor(unittest.TestCase):
         expected = [7919, 2_147_483_647]
         for i, n in enumerate(nums):
             self.assertEqual(expected[i], largest_prime_factor(n))
+            self.assertEqual(expected[i], largest_prime_factor_simple(n))
             self.assertEqual(expected[i], largest_prime_factor_recursive(n))
 
     def test_largest_prime_factor_speed_large_factors(self):
@@ -42,9 +47,10 @@ class LargestPrimeFactor(unittest.TestCase):
         expected = 6857
         solutions = {
             "Decomposition": [largest_prime_factor, n],
+            "Simplified": [largest_prime_factor_simple, n],
             "Recursive": [largest_prime_factor_recursive, n]
         }
-        results = compare_speed(solutions)
+        results = compare_speed(solutions, repeat=1000)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
     def test_largest_prime_factor_speed_small_factors(self):
@@ -52,9 +58,10 @@ class LargestPrimeFactor(unittest.TestCase):
         expected = 5
         solutions = {
             "Decomposition": [largest_prime_factor, n],
+            "Simplified": [largest_prime_factor_simple, n],
             "Recursive": [largest_prime_factor_recursive, n]
         }
-        results = compare_speed(solutions)
+        results = compare_speed(solutions, repeat=1000)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

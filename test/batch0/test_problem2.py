@@ -41,7 +41,7 @@ class EvenFibonacciNumbers(unittest.TestCase):
             "Brute": [sum_even_fibs_brute, n],
             "Formula": [sum_even_fibs_formula, n]
         }
-        results = compare_speed(solutions)
+        results = compare_speed(solutions, repeat=100)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
 

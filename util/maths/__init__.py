@@ -1,35 +1,35 @@
 """ Maths Utility module contains the following functions:
 
-**gaussian_sum**
+gauss_sum
     (int) -> int
 
-**is_hexagonal_number**
+is_hexagonal_number
     (int) -> int | None
 
-**is_pentagonal_number**
+is_pentagonal_number
     (int) -> int | None
 
-**is_prime**
+is_prime
     (int) -> bool
 
-**is_prime_mr**
+is_prime_mr
     (int, list[int] | None) -> bool
 
-**is_triangular_number**
+is_triangular_number
     (int) -> int | None
 
-**power_digit_sum**
+power_digit_sum
     (int, int) -> int
 
-**prime_factors**
+prime_factors
     (int) -> dict[int, int]
 
-**prime_numbers**
+prime_numbers
     (int) -> list[int]
 
-**pythagorean_triplet**
+pythagorean_triplet
     (int, int, int) -> (int, int, int)
 
-**sum_proper_divisors**
+sum_proper_divisors
     (int) -> int
 """

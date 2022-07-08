@@ -20,7 +20,7 @@ e.g.: N = 5
       result = 28
 """
 from math import prod
-from util.maths.reusable import gaussian_sum, prime_factors, prime_numbers_og
+from util.maths.reusable import gauss_sum, prime_factors, prime_numbers_og
 
 
 def count_divisors(n: int) -> int:
@@ -64,7 +64,7 @@ def first_triangle_over_N(n: int) -> int:
         d_n_2 = count_divisors(t + 1) if t % 2 == 0 else count_divisors((t + 1) // 2)
         count = d_n_1 * d_n_2
         d_n_1 = d_n_2
-    return gaussian_sum(t)
+    return gauss_sum(t)
 
 
 def first_triangle_over_N_improved(n: int) -> int:

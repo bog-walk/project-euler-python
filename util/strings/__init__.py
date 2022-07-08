@@ -1,8 +1,8 @@
 """ Strings Utility module contains the following functions:
 
-**is_palindrome**
+is_palindrome
     (str) -> bool
 
-**is_pandigital**
+is_pandigital
     (str, int) -> bool
 """

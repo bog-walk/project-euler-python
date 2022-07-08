@@ -3,11 +3,11 @@ from reusable import *
 
 
 class MathsReusable(unittest.TestCase):
-    def test_gaussian_sum(self):
+    def test_gauss_sum(self):
         nums = [1, 2, 3, 50, 100, 2234]
         expected = [1, 3, 6, 1275, 5050, 2_496_495]
         for i, n in enumerate(nums):
-            self.assertEqual(expected[i], gaussian_sum(n))
+            self.assertEqual(expected[i], gauss_sum(n))
 
     def test_is_coprime_all_true(self):
         inputs = [
@@ -84,16 +84,22 @@ class MathsReusable(unittest.TestCase):
             self.assertEqual(expected[i], power_digit_sum(base, exp))
 
     def test_prime_factors_valid(self):
-        nums = [2, 12, 100, 999]
-        expected = [[2], [2, 2, 3], [2, 2, 5, 5], [3, 3, 3, 37]]
-        for i, n in enumerate(nums):
-            factors = [[k] * v for k, v in prime_factors(n).items()]
-            flattened = sum(factors, [])
-            self.assertListEqual(expected[i], flattened)
+        nums = [2, 3, 4, 12, 100, 999]
+        expected = [[2], [3], [2, 2], [2, 2, 3], [2, 2, 5, 5], [3, 3, 3, 37]]
+        solutions = [
+            prime_factors, prime_factors_og
+        ]
+        for solution in solutions:
+            for i, n in enumerate(nums):
+                factors = [[k] * v for k, v in solution(n).items()]
+                flattened = sum(factors, [])
+                self.assertListEqual(expected[i], flattened)
 
     def test_prime_factors_invalid(self):
         self.assertRaises(ValueError, prime_factors, 1)
         self.assertRaises(ValueError, prime_factors, 0)
+        self.assertRaises(ValueError, prime_factors_og, 1)
+        self.assertRaises(ValueError, prime_factors_og, 0)
 
     def test_prime_numbers_small(self):
         n = 30

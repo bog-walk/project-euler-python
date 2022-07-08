@@ -1,20 +1,20 @@
 """ Util package contains the following modules:
 
-**Combinatorics**
+Combinatorics
     Complementary helpers for built-in itertools functions.
 
-**Custom**
+Custom
     Custom OOP classes for problem sets.
 
-**Maths**
+Maths
     Common mathematical formulas, algorithms, and tools.
 
-**Search**
+Search
     Different search algorithms for problem sets.
 
-**Strings**
+Strings
     String processing tools.
 
-**Tests**
+Tests
     Test automation for handling resources & evaluating performance.
 """

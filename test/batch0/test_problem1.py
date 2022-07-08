@@ -1,5 +1,6 @@
 import unittest
 from solution.batch0.problem1 import sum_of_multiples_brute, sum_of_multiples
+from util.tests.reusable import compare_speed
 
 
 class MultiplesOf3Or5(unittest.TestCase):
@@ -32,16 +33,19 @@ class MultiplesOf3Or5(unittest.TestCase):
         self.assertEqual(expected, sum_of_multiples(n, k_1, k_2))
 
     def test_upper_constraints(self):
-        n = [pow(10, 7), pow(10, 9)]
-        k_1 = [20, 3]
-        k_2 = [32, 5]
-        expected = [3_749_995_000_000, 233_333_333_166_666_668]
-        for i, e in enumerate(expected):
-            if i == 0:
-                self.assertEqual(e, sum_of_multiples_brute(n[i], k_1[i], k_2[i]))
-                self.assertEqual(e, sum_of_multiples(n[i], k_1[i], k_2[i]))
-            else:
-                self.assertEqual(e, sum_of_multiples(n[i], k_1[i], k_2[i]))
+        n, k_1, k_2 = pow(10, 9), 3, 5
+        expected = 233_333_333_166_666_668
+        self.assertEqual(expected, sum_of_multiples(n, k_1, k_2))
+
+    def test_sum_of_multiples_speed(self):
+        n, k_1, k_2 = pow(10, 7), 20, 32
+        expected = 3_749_995_000_000
+        solutions = {
+            "Brute": [sum_of_multiples_brute, n, k_1, k_2],
+            "Arithmetic": [sum_of_multiples, n, k_1, k_2]
+        }
+        results = compare_speed(solutions, repeat=10)
+        self.assertTrue(all(expected == actual for actual in results.values()))
 
 
 if __name__ == '__main__':

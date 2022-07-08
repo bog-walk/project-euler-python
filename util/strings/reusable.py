@@ -1,22 +1,36 @@
+def is_palindrome_manual(n: str) -> bool:
+    """
+    SPEED (BETTER)
+        3511ns for 19-digit N
+    """
+    digits = len(n)
+    if digits == 1:
+        return True
+    for i in range(digits // 2):
+        if n[i] != n[digits - 1 - i]:
+            return False
+    return True
+
+
 def is_palindrome_recursive(n: str) -> bool:
     """
-    SPEED (WORST)
-        6.3e4ns for 18-digit N
+    SPEED (BETTER)
+        3930ns for 19-digit N
     """
 
     digits = len(n)
     if digits < 2:
         return True
     elif n[0] == n[digits - 1]:
-        return is_palindrome_recursive(n[1:digits - 1])
+        return is_palindrome_recursive(n[1:digits-1])
     else:
         return False
 
 
 def is_palindrome_number(n: str) -> bool:
     """
-    SPEED (BETTER)
-        3.3e4ns for 18-digit N
+    SPEED (WORST)
+        5583ns for 19-digit N
     """
 
     num = int(n)
@@ -31,7 +45,7 @@ def is_palindrome(n: str) -> bool:
     """ This version will be used in future solutions.
 
     SPEED (BEST)
-        5000ns for 18-digit N
+        566ns for 19-digit N
     """
 
     return n == n[::-1]

@@ -8,6 +8,7 @@ class StringsReusable(unittest.TestCase):
         for n in nums:
             self.assertTrue(is_palindrome_recursive(n))
             self.assertTrue(is_palindrome_number(n))
+            self.assertTrue(is_palindrome_manual(n))
             self.assertTrue(is_palindrome(n))
 
     def test_is_palindrome_all_false(self):
@@ -15,6 +16,7 @@ class StringsReusable(unittest.TestCase):
         for n in nums:
             self.assertFalse(is_palindrome_recursive(n))
             self.assertFalse(is_palindrome_number(n))
+            self.assertFalse(is_palindrome_manual(n))
             self.assertFalse(is_palindrome(n))
 
     def test_is_pandigital_all_true(self):

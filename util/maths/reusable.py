@@ -1,8 +1,12 @@
 from math import floor, gcd, isqrt, log2, sqrt
 
+from util.tests.reusable import compare_speed
 
-def gaussian_sum(n: int) -> int:
-    """ Calculates the sum of the first n natural numbers.
+
+def gauss_sum(n: int) -> int:
+    """ Calculates the sum of the first n natural numbers, based on the formula:
+
+    {n}Sigma{k=1} k = n * (n + 1) / 2
 
     Conversion of very large floats to integers in this formula can lead to large
     rounding losses, so division by 2 & int cast is replaced with a single bitwise
@@ -204,13 +208,22 @@ def power_digit_sum(base: int, exponent: int) -> int:
     return sum(map(int, str(pow(base, exponent))))
 
 
-def prime_factors(n: int) -> dict[int, int]:
-    """ Prime decomposition using Sieve of Eratosthenes algorithm.
+def prime_factors_og(n: int) -> dict[int, int]:
+    """ Prime decomposition repeatedly divides out all prime factors using an
+    optimised Direct Search Factorisation algorithm.
 
     Every prime number after 2 will be odd and there can be at most 1 prime factor
-    greater than sqrt(n), which would be n itself if n is a prime.
+    greater than sqrt(n), which would be n itself if n is a prime. This is based
+    on all cofactors having been already tested following the formula:
+
+    n / floor(sqrt(n) + 1) < sqrt(n)
 
     e.g. N = 12 returns {2=2, 3=1} -> 2^2 * 3^1 = 12
+
+    SPEED (WORSE for N with large factors)
+        55.88s for N = 600_851_475_143
+    SPEED (WORSE for N with small factors)
+        74.70ms for N = 1e12
 
     :returns: Dict of prime factors (keys) and their exponents (values).
     :raises ValueError: If argument is not greater than 1.
@@ -233,20 +246,58 @@ def prime_factors(n: int) -> dict[int, int]:
     return primes
 
 
+def prime_factors(n: int) -> dict[int, int]:
+    """ Prime decomposition repeatedly divides out all prime factors using a
+    Direct Search Factorisation algorithm without any optimisation.
+
+    e.g. N = 12 returns {2=2, 3=1} -> 2^2 * 3^1 = 12
+
+    This version will be used in future solutions.
+
+    SPEED (BETTER for N with large factors)
+        2.9e+05ns for N = 600_851_475_143
+    SPEED (BETTER for N with small factors)
+        8590ns for N = 1e12
+
+    :returns: Dict of prime factors (keys) and their exponents (values).
+    :raises ValueError: If argument is not greater than 1.
+    """
+
+    if n <= 1:
+        raise ValueError("Must provide a natural number greater than 1")
+    primes = dict()
+    factor = 2
+    while factor * factor <= n:
+        while n % factor == 0 and n != factor:
+            if factor in primes:
+                primes[factor] += 1
+            else:
+                primes[factor] = 1
+            n //= factor
+        factor += 1
+    if n > 1:
+        primes[n] = primes[n] + 1 if n in primes else 1
+    return primes
+
+
 def prime_numbers_og(n: int) -> list[int]:
     """
     Sieve of Eratosthenes algorithm outputs all prime numbers less than or equal
     to the upper bound provided.
 
     SPEED (WORSE)
-        39.80ms for N = 1e5
+        23.04ms for N = 1e5
     """
 
+    # create mask representing [2, max], with all even numbers except 2 (index 0)
+    # marked false
     boolean_mask = [not (i != 0 and i % 2 == 0) for i in range(n - 1)]
     for p in range(3, isqrt(n) + 1, 2):
         if boolean_mask[p - 2]:
             if p * p > n:
                 break
+            # mark all multiples (composites of the divisors) that are >= p squared
+            # as false
             for m in range(p * p, n + 1, 2 * p):
                 boolean_mask[m - 2] = False
     primes = []
@@ -261,14 +312,19 @@ def prime_numbers(n: int) -> list[int]:
     Still uses Sieve of Eratosthenes method to output all prime numbers less than
     or equal to the upper bound provided, but cuts processing time in half by only
     allocating mask memory to odd numbers and by only looping through multiples of
-    odd numbers. This version will be used in future solutions.
+    odd numbers.
+
+    This version will be used in future solutions.
 
     SPEED (BETTER)
-        16.71ms for N = 1e5
+        14.99ms for N = 1e5
     """
 
+    if n < 2:
+        return []
     odd_sieve = (n - 1) // 2
     upper_limit = isqrt(n) // 2
+    # create mask representing [2, 3..n step 2]
     boolean_mask = [True] * (odd_sieve + 1)
     # boolean_mask[0] corresponds to prime 2 & is skipped
     for i in range(1, upper_limit + 1):
