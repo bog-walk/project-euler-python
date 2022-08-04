@@ -21,5 +21,8 @@ combinatorics, mathematics, search algorithms, string processing, and test autom
 
 ## :handshake: Sibling Repository
 
-The original solution set was written in Kotlin :desert_island: :
+The original solution set was written in Kotlin :desert_island:
 - [Project Euler __ Kotlin](https://github.com/bog-walk/project-euler-kotlin)
+
+Another project repository has been created to practise C++ :zap:
+- [Project Euler __ C++](https://github.com/bog-walk/project-euler-cpp)
