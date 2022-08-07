@@ -9,14 +9,13 @@ class LargestProductInSeries(unittest.TestCase):
         expected = [8, 24, 0, 1, 1020600]
         for i, s in enumerate(strings):
             self.assertEqual(expected[i], string_product(s))
-            self.assertEqual(expected[i], digits_product(int(s)))
+            self.assertEqual(expected[i], string_product_alt(s))
 
     def test_product_speed(self):
         string = "12345678987654331234567746756833426477362957402167"
-        string_int = int(string)
         solutions = {
-            "String Product": [string_product, string],
-            "Digits Product": [digits_product, string_int]
+            "Built-in": [string_product, string],
+            "Custom": [string_product_alt, string]
         }
         results = list(
             compare_speed(solutions, repeat=100).values()
@@ -73,7 +72,7 @@ class LargestProductInSeries(unittest.TestCase):
             "Recursive": [largest_series_product_recursive, string, n, k],
             "Iterative": [largest_series_product, string, n, k]
         }
-        results = compare_speed(solutions)
+        results = compare_speed(solutions, repeat=100)
         self.assertTrue(all(expected == actual for actual in results.values()))
 
     def test_largest_series_product_1000_digits(self):

@@ -22,9 +22,10 @@ def nth_prime(n: int) -> int:
 
     if n == 1:
         return 2
-    count, number = n - 1, 1
-    while count > 0:
+    n -= 1
+    number = 1
+    while n > 0:
         number += 2
         if is_prime(number):
-            count -= 1
+            n -= 1
     return number

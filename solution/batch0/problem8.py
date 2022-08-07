@@ -15,30 +15,31 @@ from math import prod
 
 def string_product(string: str) -> int:
     """
-    SPEED (EQUAL)
-        8.0e5ns for N = 50 over 100 iterations
+    SPEED (BETTER)
+        9619ns for N = 50
     """
 
     return prod(map(int, string))
 
 
-def digits_product(num: int) -> int:
+def string_product_alt(string: str) -> int:
     """
-    SPEED (EQUAL)
-        7.6e5ns for N = 50 over 100 iterations
+    SPEED (WORSE)
+        1.1e+04ns for N = 50
     """
 
     product = 1
-    while num > 0:
-        product *= (num % 10)
-        num //= 10
+    for ch in string:
+        product *= int(ch)
+        if not product:
+            break
     return product
 
 
 def largest_series_product_recursive(string: str, digits: int, k: int) -> int:
     """
     SPEED (WORSE)
-        2.9e5ns for N = 100, K = 6
+        2.4e5ns for N = 100, K = 6
 
     :raises RecursionError: For string lengths > 100 digits.
     """
@@ -51,7 +52,7 @@ def largest_series_product_recursive(string: str, digits: int, k: int) -> int:
         return string_product(string)
     else:
         return max(
-            largest_series_product_recursive(string[:k], k, k),
+            string_product(string[:k]),
             largest_series_product_recursive(string[1:], digits - 1, k)
         )
 
@@ -59,16 +60,17 @@ def largest_series_product_recursive(string: str, digits: int, k: int) -> int:
 def largest_series_product(string: str, digits: int, k: int) -> int:
     """
     SPEED (BETTER)
-        1.5e5ns for N = 100, K = 6
+        1.6e5ns for N = 100, K = 6
     """
 
     largest = 0
     if digits == 1:
         largest = int(string)
+    elif k == 1:
+        largest = max(int(char) for char in string)
     elif digits == k:
         largest = string_product(string)
     else:
         for i in range(digits - k + 1):
-            product = string_product(string[i:i+k])
-            largest = max(largest, product)
+            largest = max(largest, string_product(string[i:i+k]))
     return largest

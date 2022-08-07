@@ -98,14 +98,14 @@ def is_prime(n: int) -> bool:
     elif n < 9:  # 4, 6, and 8 already excluded
         return True
     elif not n % 3:
-        # primes > (k=3) are of the form 6k(+/-1)
+        # primes > 3 are of the form 6k(+/-1)
         # i.e. they are never multiples of 3
         return False
     else:
         # n can only have 1 prime factor > sqrt(n): n itself!
         max_p = isqrt(n)
         step = 5  # as multiples of prime 5 not yet assessed
-        # 11, 13, 17, 19, and 23 will all bypass n loop
+        # 11, 13, 17, 19, and 23 will all bypass this loop
         while step <= max_p:
             if not n % step or not n % (step + 2):
                 return False
