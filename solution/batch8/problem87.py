@@ -14,6 +14,7 @@ e.g.: N = 50
       47 = 2^2 + 3^3 + 2^4
       count = 4
 """
+from itertools import accumulate
 from math import isqrt
 from util.maths.reusable import prime_numbers
 
@@ -38,10 +39,6 @@ def all_prime_power_triple_counts(n: int) -> [int]:
                     break
                 triple[total_c] = True
 
-    count = 0
-    all_counts = [0]*(n+1)
-    for i, valid in enumerate(triple):
-        count += 1 if valid else 0
-        all_counts[i] = count
-
-    return all_counts
+    # accumulate() replaces for-loop with incrementing count as Booleans
+    # added as 0 or 1 values
+    return list(accumulate(triple))
