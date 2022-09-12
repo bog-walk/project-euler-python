@@ -51,12 +51,12 @@ def get_squares(max_n: int, cubes: int) -> [str]:
 
 
 def is_valid_triple(sq: str, cube_1: tuple, cube_2: tuple, cube_3: tuple) -> bool:
-    return sq[0] in cube_1 and sq[1] in cube_2 and sq[2] in cube_3 or \
-           sq[0] in cube_1 and sq[1] in cube_3 and sq[2] in cube_2 or \
-           sq[0] in cube_2 and sq[1] in cube_1 and sq[2] in cube_3 or \
-           sq[0] in cube_2 and sq[1] in cube_3 and sq[2] in cube_1 or \
-           sq[0] in cube_3 and sq[1] in cube_2 and sq[2] in cube_1 or \
-           sq[0] in cube_3 and sq[1] in cube_1 and sq[2] in cube_2
+    return (sq[0] in cube_1 and sq[1] in cube_2 and sq[2] in cube_3 or
+            sq[0] in cube_1 and sq[1] in cube_3 and sq[2] in cube_2 or
+            sq[0] in cube_2 and sq[1] in cube_1 and sq[2] in cube_3 or
+            sq[0] in cube_2 and sq[1] in cube_3 and sq[2] in cube_1 or
+            sq[0] in cube_3 and sq[1] in cube_2 and sq[2] in cube_1 or
+            sq[0] in cube_3 and sq[1] in cube_1 and sq[2] in cube_2)
 
 
 def count_valid_cubes(max_square: int, cubes: int) -> int:
