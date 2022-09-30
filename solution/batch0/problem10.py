@@ -22,7 +22,7 @@ def sum_of_primes_quick_draw(n: int) -> list[int]:
     cumulative sums instead of returning a list of prime numbers.
 
     SPEED (WORSE)
-        567.88ms for N = 1e6
+        400.56ms for N = 1e6
 
     :returns: List of the cumulative sums of prime numbers <= index.
     """
@@ -56,11 +56,13 @@ def sum_of_primes_quick_draw_optimised(n: int) -> list[int]:
     by the total so far.
 
     SPEED (BETTER)
-        205.88ms for N = 1e6
+        282.85ms for N = 1e6
 
     :returns: List of the cumulative sums of prime numbers <= index.
     """
 
+    if n % 2:
+        n += 1
     sums = [0]*(n + 1)
     total = 2
     sums[2] = total
@@ -69,7 +71,7 @@ def sum_of_primes_quick_draw_optimised(n: int) -> list[int]:
             total += i
             # mark all multiples of prime using slice assignment with step
             # which, unlike other assignments, requires an exact size match
-            sums[i::i] = [-1]*(n//i)
+            sums[i*i::2*i] = [-1]*((n-i*i)//(2*i)+1)
         # change next even number as well as current odd using slice assignment
-        sums[i:i+2] = [total, total]
+        sums[i:i+2] = [total]*2
     return sums
