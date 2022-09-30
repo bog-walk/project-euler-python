@@ -1,7 +1,5 @@
 from math import floor, gcd, isqrt, log2, sqrt
 
-from util.tests.reusable import compare_speed
-
 
 def gauss_sum(n: int) -> int:
     """ Calculates the sum of the first n natural numbers, based on the formula:
@@ -351,14 +349,14 @@ def pythagorean_triplet(m: int, n: int, d: int) -> tuple[int, int, int]:
     All triplets originate from a primitive one by multiplying them by
     d = gcd(a, b, c).
 
-    :raises ValueError: If arguments do not follow m > n > 0, or if both are odd,
-        or if they are not co-prime, i.e. gcd(m, n) != 1.
+    :raises ValueError: If arguments do not follow m > n > 0, or if not exactly
+        one is even, or if they are not co-prime, i.e. gcd(m, n) != 1.
     """
 
     if n < 1 or m < n:
         raise ValueError("Positive integers assumed to be m > n > 0")
-    if m % 2 == 1 and n % 2 == 1:
-        raise ValueError("Both integers cannot be odd")
+    if not ((m % 2 == 0) ^ (n % 2 == 0)):
+        raise ValueError("Integers must be opposite parity")
     if not is_coprime(m, n):
         raise ValueError("Positive integers must be co-prime")
     a = (m * m - n * n) * d

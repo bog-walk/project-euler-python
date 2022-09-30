@@ -127,6 +127,7 @@ class MathsReusable(unittest.TestCase):
     def test_pythagorean_triplet_invalid(self):
         self.assertRaises(ValueError, pythagorean_triplet, 1, 0, 1)
         self.assertRaises(ValueError, pythagorean_triplet, 1, 10, 1)
+        self.assertRaises(ValueError, pythagorean_triplet, 2, 2, 1)
         self.assertRaises(ValueError, pythagorean_triplet, 5, 3, 1)
         self.assertRaises(ValueError, pythagorean_triplet, 9, 3, 1)
 
