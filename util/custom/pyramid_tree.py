@@ -42,8 +42,8 @@ class PyramidTree:
 
     A PyramidTree, more appropriately a graph, has every node that is not along
     the left or right edges having 2 parents, unlike in a standard BinaryTree.
-    i.e. Internal children are shared by 2 nodes, with nodeX.rightAdjacent ==
-    nodeY.leftAdjacent. Therefore, each level in the tree will have an amount of
+    i.e. Internal children are shared by 2 nodes, with node_X.right_adjacent ==
+    node_Y.left_adjacent. Therefore, each level in the tree will have an amount of
     nodes equivalent to the level number. Also unlike a BinaryTree, nodes in a
     PyramidTree are not ordered.
     """

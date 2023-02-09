@@ -2,7 +2,7 @@
 
 A Python solution set for the first 100 problems corresponding to the [Project Euler](https://projecteuler.net/archives) challenges.
 
-90/100 solved: :snake: :snake: :snake: :snake: :snake: :snake: :snake: :snake: :snake: :black_circle:
+100/100 solved: :snake: :snake: :snake: :snake: :snake: :snake: :snake: :snake: :snake: :snake:
 
 Problem content on the Project Euler site is licensed under [CC BY-NC-SA 4.0](https://projecteuler.net/copyright).
 
